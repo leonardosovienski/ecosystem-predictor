@@ -1,0 +1,11 @@
+# Este repositório versiona SOMENTE a documentação/config soltas na raiz do
+# workspace (governança cross-projeto). Cada projeto (predictor_core, tools,
+# f1-predictor, cs-predictor, lol-predictor, brasileirao-predictor,
+# previsao-cripto, nba-predictor, predictor-stocks, wc-predictor-v2, e
+# quaisquer outros) já é seu próprio repositório Git independente — nenhum
+# deles deve ser versionado (nem acidentalmente aninhado) aqui.
+*/
+!.gitignore
+
+# Logs e backups gerados localmente não são versionados.
+*.log
