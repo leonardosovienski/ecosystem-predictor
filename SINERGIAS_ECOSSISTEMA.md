@@ -6,10 +6,55 @@
 >
 > **Atualizado em 2026-07-17** com o resultado da Reintegração do Ecossistema
 > (Fase 1 — descoberta read-only; Fase 2 — execução controlada em ondas,
-> Ondas 1 a 5). A seção abaixo é o estado atual; as seções de 2026-07-11 mais
-> adiante ficam como registro histórico e não foram reescritas.
+> Ondas 1 a 6, mais checkpoint de publicação e auditoria hostil final). A
+> seção abaixo é o estado atual; as seções de 2026-07-11 mais adiante ficam
+> como registro histórico e não foram reescritas.
 
 ---
+
+## Pós-Onda 6 — checkpoint de publicação e auditoria hostil final (2026-07-17)
+
+- **`tools/` em `1.3.0`** (bump MINOR sobre `1.2.3`, seguindo o precedente do
+  próprio `CHANGELOG.md` de que capacidade nova = MINOR): `release_manifest.py`
+  é a capacidade nova; a remoção do literal CoinGecko foi o outro item do
+  release. `TOOLS_MANIFEST.json` regenerado, `collect_tools_provenance(strict=True)`
+  = MATCH.
+- **`predictor_core` sem bump**: `sync_core.py` (onde `--target` foi
+  adicionado) está fora do payload distribuído aos 8 vendors — nenhum
+  consumidor é afetado pela mudança, então a `VERSION` `1.3.1-ga-20260716`
+  continua descrevendo corretamente o que é consumido.
+- **F1-predictor: detached HEAD resolvido**. Os commits da reintegração
+  (sync do vendor + correção do teste hardcoded) foram feitos sobre um HEAD
+  detached antigo; descobriu-se que `main` já tinha avançado
+  independentemente com o mesmo sync do vendor (mesmo agregado) e uma
+  correção equivalente do mesmo bug, mais trabalho de domínio real
+  (`winner_hit` da maturação). `main` foi adotada como linha correta; os
+  commits redundantes ficam preservados, não mesclados, na branch
+  `reintegracao-f1-ondas-2-3`.
+- **Documentação central da raiz agora tem Git**: `C:\Claude-projetos\Claude`
+  passou a ser um repositório próprio (antes não tinha), versionando só os
+  arquivos soltos de governança (`SINERGIAS_ECOSSISTEMA.md`,
+  `PREDICTOR_CORE_BLUEPRINT.md`, `CODEX_FINAL_HANDOFF.md`,
+  `FECHAMENTO_3_APPS.md`, `HEALTH_TASKS.json`, `ecosystem_health.ps1`), com
+  `.gitignore` excluindo todos os subdiretórios de projeto para nunca aninhar
+  os repositórios existentes.
+- **Auditoria hostil final** (mesma data): revisão adversarial completa de
+  predictor_core, tools/, f1-predictor, previsao-cripto, cs-predictor,
+  lol-predictor, brasileirao-predictor e preservação de
+  wc-predictor-v2/predictor-stocks/nba-predictor. Nenhum bug CRÍTICO
+  encontrado. Correções aplicadas: `read_events()` do core agora falha com
+  contexto (arquivo:linha) em JSONL truncado; `_tracked_files()` de `tools/`
+  corrigido para nomes de arquivo Unicode (`git ls-files -z`);
+  `operational_runner.atomic_write_json` ganhou cleanup de tempfile em
+  falha; `cs-predictor` ganhou um teste de integração real (não-mockado)
+  com `collect_tools_provenance`; `f1-predictor` passou a aceitar múltiplos
+  pilotos na posição de grid `0` (pit lane), compatível com o que
+  `model.py` já documentava. Itens DEFER (decisão humana, não corrigidos):
+  segredo em prosa livre não estruturada em `secret_redaction`; falso
+  positivo de `author=` no mesmo módulo; lock de `operational_runner` sem
+  checagem de PID vivo; concorrência entre `api_guard` e múltiplos entry
+  points do previsao-cripto; ausência de `vintage` em `raw_market_data` do
+  previsao-cripto (mudança de schema, fora de escopo de correção automática).
 
 ## Reintegração do Ecossistema — 2026-07-17 (Ondas 1–5)
 
