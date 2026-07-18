@@ -1,0 +1,162 @@
+# ECOSYSTEM_HANDOFF.md
+
+Documento mestre de continuidade. Verificado em: 2026-07-18. Leia este
+documento **primeiro** em qualquer sessão nova.
+
+## COMO RETOMAR EM UMA NOVA SESSÃO
+
+Ordem obrigatória de leitura:
+
+1. `ECOSYSTEM_HANDOFF.md` (este documento)
+2. `PENDENCIAS_ABERTAS.md`
+3. `SECURITY_INCIDENT_SECRET_ROTATION.md`
+4. `ECOSYSTEM_FINAL_CLOSURE.md`
+5. O `HANDOFF.md` do projeto específico que você vai tocar
+6. O `README.md` desse projeto
+7. Git (`git log`, `git status`, `git diff`) do projeto
+8. Código atual
+
+Uma sessão nova **não deve depender desta conversa**. Tudo que uma sessão
+nova precisa saber está nos documentos acima e no código/Git — não em
+memória de chat.
+
+## Mapa dos repositórios
+
+| Repo | Papel | Branch | Remoto |
+|---|---|---|---|
+| `tools/` | Operacional canônico | `main` | nenhum configurado |
+| `predictor_core/` | Científico canônico | `main` | nenhum configurado |
+| `brasileirao-predictor` | Vivo | `main` | configurado, não verificado nesta rodada |
+| `cs-predictor` | Vivo | detached (`7627c03`) | configurado, não verificado |
+| `f1-predictor` | Vivo | `main` | configurado, não verificado |
+| `lol-predictor` | Vivo | detached (`593dbc0`) | configurado, não verificado |
+| `previsao-cripto` | Vivo | `main` | configurado, não verificado |
+| `wc-predictor-v2` | PARKED | `main` | não tocar |
+| `predictor-stocks` | PARKED | `claude/portuguese-session-2fc14d` (+ `main` separado) | não tocar |
+| `nba-predictor` | PARKED | `main` | não tocar |
+| raiz (governança) | Documentação solta | `master` | nenhum configurado |
+
+## Arquitetura
+
+Ver `README.md` para o diagrama. Regra de ouro: escrita é sempre
+unidirecional — `predictor_core/`/`tools/` → vendor do consumidor, nunca o
+contrário. Nenhum domínio importa outro domínio diretamente.
+
+## Camadas canônicas — versões e commits-base
+
+| Camada | Versão | Commit-base (2026-07-18) | Testes |
+|---|---|---|---|
+| tools/ | 1.3.0 | `2732713` | 137 passed, 1 skipped |
+| predictor_core | 1.3.1-ga-20260716 | `9868c01` | 263 passed |
+
+Recomendação de versão pendente de autorização: ambos são candidatos a
+bump PATCH (correções de robustez, sem quebra de API pública) — não
+executado.
+
+## Consumidores vivos — vendors e testes
+
+| Consumidor | Vendor de predictor_core | Byte-idêntico | Testes |
+|---|---|---|---|
+| brasileirao-predictor | sync `5276f65` | Sim (`vendor_byte_audit.py`) | 302 passed |
+| cs-predictor | sync `7627c03` | Sim | 100% verde |
+| f1-predictor | sync `c99a545` | Sim | 100% verde |
+| lol-predictor | sync `593dbc0` | Sim | 100% verde |
+| previsao-cripto | sync `f4d4d81` | Sim | 302 passed, 2 skipped |
+
+## Projetos PARKED
+
+`wc-predictor-v2`, `predictor-stocks`, `nba-predictor` — vendor congelado
+em agregado antigo (`3445e37f43c458cc` os dois primeiros,
+`026f1f7b761440d9` o NBA), drift esperado e correto contra o canônico
+atual. `sync_core.py:51` declara `PARKED = {"wc-predictor-v2",
+"predictor-stocks", "nba-predictor"}` — checado antes de qualquer escrita,
+mesmo com `--target` explícito. Histórico: essa lista ficou vazia por
+engano entre 2026-07-03 e 2026-07-17, causando um sync indevido nos 3
+(commits `vendor: predictor_core v1.3.1...` locais, nunca publicados);
+corrigido em `15b6ada`, os 3 revertidos via `git revert` (nunca reset).
+Condição para reabrir cada um: ver `HANDOFF.md` de cada projeto.
+
+## Manifests e vendors
+
+`tools/TOOLS_MANIFEST.json`: `--check` via `tools/release_manifest.py`.
+`predictor_core/CORE_MANIFEST.json` por vendor: `--check` via
+`predictor_core/sync_core.py`. Auditoria byte-a-byte independente:
+`tools/vendor_byte_audit.py`. Todos confirmados corretos em 2026-07-18.
+
+## Testes — resumo
+
+Ver tabela em `README.md`. Comandos completos: `RUNBOOK_TESTS.md`.
+
+## Automações
+
+Único projeto com Windows Task Scheduler ativo hoje: `previsao-cripto`
+(`GarimpoFase1`, `GarimpoV3Daily`, `cripto-watchdog-coleta` — `Ready`,
+`S4U`, últimas execuções com sucesso verificadas 2026-07-18; tarefa legada
+`GarimpoInvestimentos-ColetaDiaria` confirmada `Disabled`). Detalhe
+completo: `RUNBOOK_CRYPTO_AUTOMATION.md`. `brasileirao-predictor` também
+tem `brasileirao-sombra-manha`/`-noite` agendadas via `operational_runner`
+— ver seu `HANDOFF.md`.
+
+## Artefatos
+
+Ver `ARTIFACT_INVENTORY.md` para o inventário completo por projeto.
+Resumo: `.db`/`ratings.json`/`events.jsonl` são gitignored (não provados
+por Git); `trials.json`/`trials.harness_attestation.json`/`teams_*.json`
+são os artefatos científicos realmente versionados.
+
+## Segurança
+
+Ver `SECURITY.md` (política) e `SECURITY_INCIDENT_SECRET_ROTATION.md`
+(incidente ativo, documento sanitizado, sem nenhum valor de segredo).
+Estado: `BLOCKED_PENDING_SECRET_ROTATION`, explicitamente baixa prioridade
+por decisão humana (2026-07-18).
+
+## Pendências
+
+Lista canônica completa: `PENDENCIAS_ABERTAS.md`. Resumo: 1 incidente de
+segurança (bloqueado por ação externa, baixa prioridade), 0 bugs de código
+abertos, o resto são gaps científicos/operacionais conscientemente
+deferidos ou capacidades incubadas, todos com condição de reabertura
+registrada.
+
+## Decisões científicas (não reabrir sem evidência nova)
+
+- `RatingBook` não normaliza identidade — mudaria ciência.
+- Lifecycle `PRE_EVENT`/`MATURED` não é contrato comum do core — 3
+  implementações com garantias diferentes (CS tem hash-linkage).
+- `PredictionPoint` não prova proveniência de inputs — gap de design, não
+  bug.
+- `is_mature()` não bloqueia acesso — decisão de design.
+
+## Decisões operacionais (não reabrir sem evidência nova)
+
+- `tools/` sem instalação via pacote — consumo é por `sys.path`.
+- Split-brain de import flat/package em `tools/` — travado por tripwire,
+  não eliminado (removeria a forma que os testes internos usam).
+- Sync do core é sempre por vendoring, nunca pacote publicado.
+
+## Regras de sync
+
+Ver `RUNBOOK_VENDOR_SYNC.md`. Nunca `--write` sem confirmar `PARKED`
+primeiro. `--target` é preferível a sync global quando só 1 consumidor
+precisa da mudança.
+
+## Regras de publicação
+
+Nada publicado em nenhum repo. Push/tag/release são decisão humana
+explícita — nunca automáticos.
+
+## Condições de reabertura — índice
+
+Ver a coluna "condição para reabrir" em `PENDENCIAS_ABERTAS.md` para cada
+item individual — não duplicada aqui.
+
+## Documentos canônicos
+
+Ver tabela em `README.md`.
+
+## Ações humanas obrigatórias
+
+1. Rotação da credencial da SerpAPI no provedor — quando for prioridade
+   (checklist completo em `SECURITY_INCIDENT_SECRET_ROTATION.md`).
+2. Nenhuma outra ação humana obrigatória pendente.
