@@ -1,5 +1,13 @@
 # Fechamento das 3 aplicações base — checklist para 100%
 
+> **STATUS: HISTORICAL.** `SUPERSEDED_BY: ECOSYSTEM_HANDOFF.md`.
+> `LAST_RECONCILED: 2026-07-18`. Documento de jun/2026, sobre as 3
+> aplicações que hoje correspondem aos 3 projetos PARKED
+> (`wc-predictor-v2`, `predictor-stocks`, `nba-predictor`) — muito anterior
+> à reintegração e às rodadas técnicas mais recentes. Preservado como
+> registro histórico. Estado atual desses 3 projetos: `README.md` seção
+> "Política PARKED" e o `HANDOFF.md` de cada um.
+
 > Estado consolidado pós-auditoria Red Team (jun/2026). Princípio acordado:
 > **deixar as 3 apps prontas ANTES de tocar o core.** Cada item é classificado:
 > 🟦 **código** (Claude faz) · 🟧 **operacional** (Leo faz — ato no mundo) ·

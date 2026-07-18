@@ -9,6 +9,18 @@
 > Ondas 1 a 6, mais checkpoint de publicação e auditoria hostil final). A
 > seção abaixo é o estado atual; as seções de 2026-07-11 mais adiante ficam
 > como registro histórico e não foram reescritas.
+>
+> **STATUS: CURRENT_SUPPORTING (parcial), CONTAINS_KNOWN_INACCURACIES em
+> pontos específicos.** `LAST_RECONCILED: 2026-07-18`. Este documento para
+> em "Pós-Onda 6" (2026-07-17) — não cobre a auditoria hostil geral
+> (bugs financeiros do brasileirão, `TrialRegistry`), as rodadas de
+> evolução de `tools/`/`predictor_core` desta linha do tempo, nem o
+> incidente de segurança descoberto em `audit/`. A matriz de sinergias e
+> capacidades abaixo continua factualmente válida para o que descreve.
+> Para o estado atual completo: `ECOSYSTEM_HANDOFF.md`,
+> `PENDENCIAS_ABERTAS.md`. `SUPERSEDED_BY: ECOSYSTEM_HANDOFF.md` para
+> continuidade operacional (esta página permanece válida como registro de
+> arquitetura/sinergias).
 
 ---
 

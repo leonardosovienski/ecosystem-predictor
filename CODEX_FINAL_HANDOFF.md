@@ -1,5 +1,13 @@
 # Handoff canônico da sessão Codex
 
+> **STATUS: HISTORICAL.** `SUPERSEDED_BY: ECOSYSTEM_HANDOFF.md`.
+> `LAST_RECONCILED: 2026-07-18`. Documento de 2026-07-15, anterior à
+> reintegração (Ondas 1-6), ao hardening geral, e às rodadas de evolução
+> de `tools/`/`predictor_core` desta linha do tempo. Preservado como
+> registro histórico válido do que foi feito até aquela data — não é mais
+> a fonte de continuidade operacional. Use `ECOSYSTEM_HANDOFF.md` e
+> `PENDENCIAS_ABERTAS.md` para o estado atual.
+
 **Data de consolidação:** 2026-07-15  
 **Escopo:** auditoria do ecossistema quantitativo, hardening operacional, provenance de `tools/`, reconciliação Git e segundo consumidor temporal CS.  
 **Regra de leitura:** este documento separa fatos atuais, fatos históricos e limitações. Um commit, relatório ou teste verde não é tratado como prova científica ou de execução forward real quando essa prova não existe.
