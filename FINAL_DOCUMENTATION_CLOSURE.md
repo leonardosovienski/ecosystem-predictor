@@ -164,6 +164,23 @@ Todo comando em qualquer runbook novo foi copiado de uma execução real
 desta linha do tempo (não escrito de memória) — ver `RUNBOOK_TESTS.md`
 seção "Falhas comuns" para os dois erros de cwd já encontrados e evitados.
 
+## Regressão transitória causada e corrigida nesta mesma rodada
+
+Ao adicionar `tools/HANDOFF.md` e alterar o docstring de
+`predictor_core/data/aggregation.py`, os manifests (`TOOLS_MANIFEST.json`,
+`CORE_MANIFEST.json` dos 5 vendors) ficaram desatualizados por um
+instante — a checagem de provenance estrita (`strict=True`, o
+comportamento padrão e correto) detectou isso e 16 testes de `tools/` +
+5 testes de `cs-predictor`/`f1-predictor` falharam com erros claros
+("manifest included_files differs from tracked content" /
+"tools working tree is dirty in strict provenance mode"). Isto não foi um
+bug — foi o mecanismo de fail-closed funcionando exatamente como
+desenhado. Corrigido regenerando os manifests
+(`release_manifest.py --write` em `tools/`, `sync_core.py --write` para
+os 5 vivos) e commitando — reconfirmado com suíte completa 100% verde em
+todos os 7 projetos, `release_check.py` e `vendor_byte_audit.py` também
+verdes. Registrado aqui para não esconder que aconteceu.
+
 ## Validações
 
 - Suíte de `tools/` reexecutada após as mudanças: `137 passed, 1 skipped`.
