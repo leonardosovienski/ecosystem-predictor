@@ -316,9 +316,9 @@ duplicada aqui para não divergir por transcrição.)
 - [x] condições de reabertura documentadas (coluna própria na seção 21)
 - [x] documento final criado (este arquivo)
 
-## 23. Veredito final
+## 23. Veredito final (ORIGINAL — ver seção 24 para a correção)
 
-**PASS FINAL COM PENDÊNCIAS NÃO BLOQUEANTES.**
+~~**PASS FINAL COM PENDÊNCIAS NÃO BLOQUEANTES.**~~ **SUPERSEDED — ver seção 24.**
 
 Todo o histórico reconstruído por Git (não pela conversa) confirma: a
 reintegração produziu um canônico único e coerente; o hardening geral
@@ -330,5 +330,56 @@ caracterização de evidência corrigida nesta revisão); nenhuma regressão foi
 encontrada em nenhum ponto da linha do tempo. As únicas pendências são
 decisões deliberadamente deferidas, todas com condição de reabertura clara
 (seção 21) — nenhuma delas bloqueia o encerramento deste ciclo.
+
+Esta seção permanece integralmente como foi escrita originalmente — cada
+afirmação técnica nela continua verdadeira e verificada. O que mudou não é
+nenhum fato aqui, é a descoberta de um item que este documento não sabia
+que existia (seção 24). Não apagado, só superado como veredito final.
+
+## 24. ADENDO — incidente de segurança descoberto após este documento (2026-07-18)
+
+Uma rodada de remediação posterior a este documento leu `audit/` (71
+arquivos, auditoria independente de 2026-07-15, não incorporada aqui na
+primeira versão) e encontrou `audit/38_CRYPTO_SECRET_INCIDENT_CLOSURE.md`:
+estado `BLOCKED_PENDING_SECRET_ROTATION` — uma chave de API (SerpAPI, usada
+pelo previsao-cripto) registrada em texto plano em logs históricos locais.
+
+Esta rodada:
+- Ampliou o escopo real do incidente (5 logs afetados, não 3, incluindo dois
+  não catalogados na auditoria original de 2026-07-15).
+- Verificou empiricamente que o mecanismo de correção já existente
+  (`_RedactSecrets`, commits `737d97d`/`8055667`, ambos anteriores a esta
+  sessão) funciona corretamente — com uma credencial sintética/fictícia
+  nunca real, e com confirmação por execução real de produção (o log mais
+  recente, 2026-07-18, está limpo).
+- Não encontrou nenhum bug de código a corrigir — o único item restante é
+  ação humana fora do workspace (rotação da credencial no provedor).
+
+Documentação completa, sanitizada (nenhum valor de segredo em nenhum
+momento): `SECURITY_INCIDENT_SECRET_ROTATION.md`. Reconciliação completa de
+`audit/`: `AUDIT_DIRECTORY_RECONCILIATION.md`. Lista canônica de pendências
+atualizada: `PENDENCIAS_ABERTAS.md`.
+
+### Correção da caracterização de preservação científica (reforço)
+
+A seção 15 deste documento já havia corrigido a caracterização de "hashes
+git-tracked" para os artefatos `.db`/`ratings.json`/`events.jsonl`. Esta
+rodada reconfirma essa correção continua válida e não encontrou nenhuma
+divergência nova nos artefatos governança-tracked (`trials.json` etc.) nos
+5 consumidores, além da já conhecida em `previsao-cripto` (mudança de
+produção legítima, já commitada em `40f3ddc` numa sessão anterior a esta).
+
+### Veredito final corrigido
+
+**PASS TÉCNICO LOCAL, BLOQUEADO POR ROTAÇÃO DE CREDENCIAL.**
+
+Todo o trabalho de engenharia local está concluído, testado e verificado —
+incluindo o próprio mecanismo que previne a repetição deste incidente.
+Nenhuma regressão, nenhum bug de código aberto, nenhuma alteração
+científica, os 3 protegidos seguem PARKED, os 5 vivos seguem verdes e
+byte-idênticos. O único item que impede um "PASS FINAL" sem qualificação é
+inteiramente externo ao código: a rotação da credencial exposta, que só
+você (ou quem tiver acesso ao painel da SerpAPI) pode executar. Ver
+checklist objetivo em `SECURITY_INCIDENT_SECRET_ROTATION.md`, seção 8.
 
 **Sim, este ciclo pode ser encerrado com segurança.**
