@@ -5,6 +5,17 @@ usado para produzi-lo.** Toda verificação foi feita por metadados (tamanho,
 timestamp, status Git, contagem de ocorrências por padrão estrutural, e
 nome do campo/host da URL — nunca o valor). Ver seção 6 para o método exato.
 
+> **Nota de priorização (2026-07-18):** confirmado explicitamente com o
+> responsável que a rotação da credencial **não é prioridade no momento**
+> — decisão consciente, não esquecimento. Os 5 logs históricos também
+> foram deixados como estão, por decisão explícita (opção "manter",
+> já era a recomendação deste documento). Nada muda no risco técnico: os
+> logs nunca entraram no Git, o mecanismo de redação já impede vazamento
+> novo, e a chave só permanece sensível até ser rotacionada — sem prazo
+> definido para isso. `SECURITY_INCIDENT_STATUS` permanece
+> `BLOCKED_PENDING_SECRET_ROTATION`, agora explicitamente de baixa
+> prioridade por decisão humana, não por bloqueio técnico.
+
 ## 1. Resumo
 
 **Estado: `BLOCKED_PENDING_SECRET_ROTATION`.** Uma chave de API (usada pelo

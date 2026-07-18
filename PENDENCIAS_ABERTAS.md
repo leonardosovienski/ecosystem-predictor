@@ -21,7 +21,7 @@ um veredito limpo é de segurança e requer ação humana fora do código
 
 | ID | Item | Classificação | Evidência | Ação restante |
 |---|---|---|---|---|
-| SEC-1 | Chave da SerpAPI em texto plano em 5 logs históricos do previsao-cripto (`garimpo_fase1_20260713.log` a `_17.log`); mecanismo de prevenção já corrigido e verificado funcionando (log de 18/07 limpo, confirmado por execução real de produção) | `BLOCKED_EXTERNAL_ACTION` | `SECURITY_INCIDENT_SECRET_ROTATION.md` (documento completo, sanitizado) | Rotação da credencial no provedor + decisão sobre os 5 logs — **só ação humana**, ver checklist no documento |
+| SEC-1 | Chave da SerpAPI em texto plano em 5 logs históricos do previsao-cripto (`garimpo_fase1_20260713.log` a `_17.log`); mecanismo de prevenção já corrigido e verificado funcionando (log de 18/07 limpo, confirmado por execução real de produção) | `BLOCKED_EXTERNAL_ACTION`, explicitamente **baixa prioridade** por decisão humana (2026-07-18) | `SECURITY_INCIDENT_SECRET_ROTATION.md` (documento completo, sanitizado) | Rotação da credencial no provedor + decisão sobre os 5 logs — **só ação humana, sem prazo definido**; logs deixados como estão (decisão explícita: manter, não sanitizar) |
 
 ## 2. Bugs de código abertos
 
