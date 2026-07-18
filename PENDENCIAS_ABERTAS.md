@@ -8,7 +8,45 @@ conscientes de não agir, com a condição que faria reabrir cada uma.
 
 **Bugs reais conhecidos e não corrigidos: zero.** Tudo que foi reproduzido
 como bug real neste ciclo foi corrigido e testado. O que resta abaixo é
-risco teórico, decisão de design deferida, ou limpeza cosmética opcional.
+risco teórico, decisão de design deferida, ou limpeza cosmética opcional —
+**exceto o item 0, que é uma pendência de segurança real e ativa.**
+
+> **Correção (2026-07-17, revisão adicional):** este documento não tinha
+> incorporado `audit/` (71 arquivos, auditoria independente de 2026-07-15,
+> anterior a todas as rodadas cobertas por este ciclo). O item 0 abaixo
+> vem de lá. Além disso, uma versão anterior deste documento continha 3
+> itens não confirmáveis no workspace (um "diretório incubating/" em
+> `predictor_core` que não existe; uma alegação de "S4U pendente" no Cripto
+> que já estava resolvida em 2026-07-15 segundo `audit/39`; e uma alegação
+> sobre "Four Factors" no nba-predictor sem qualquer evidência localizada)
+> — removidos por não sustentarem verificação direta.
+
+## 0. CRÍTICO — credencial possivelmente exposta em logs históricos, rotação pendente
+
+**Estado: `BLOCKED_PENDING_SECRET_ROTATION`** (`audit/38_CRYPTO_SECRET_INCIDENT_CLOSURE.md`,
+2026-07-15). Um scan seguro (sem exibir o valor) encontrou 29 ocorrências
+potenciais de segredo em cada um de 3 logs históricos do previsao-cripto:
+`logs/garimpo_fase1_20260713.log`, `_14.log`, `_15.log` — confirmado agora
+que os 3 arquivos ainda existem no disco, sem nenhuma marca de sanitização.
+O log de 2026-07-12 foi confirmado limpo (zero ocorrências).
+
+**Isto não pode ser corrigido por código.** Requer ação humana fora deste
+workspace:
+1. Revogar/rotacionar a credencial exposta diretamente no provedor (a
+   auditoria original não identifica qual provedor especificamente — só
+   que é usado pelo pipeline H5/multi-juiz).
+2. Confirmar que a credencial nova está configurada por um mecanismo
+   seguro (variável de ambiente/secret manager), não hardcoded.
+3. Decidir o destino dos 3 logs: sanitizar in-place ou substituir por
+   versão redigida (a ferramenta de scan/dry-run já existe e passou nos
+   testes, mas isso não compensa uma credencial já exposta historicamente).
+
+O redator de segredos (`tools/secret_redaction.py`) já impede vazamento
+NOVO desde o hardening operacional — isso protege o futuro, não apaga a
+exposição já ocorrida nesses 3 arquivos.
+
+**Condição para fechar**: confirmação humana de que a rotação foi feita no
+provedor e decisão tomada sobre os 3 logs antigos.
 
 ## 1. Decisões científicas deferidas (requerem 2ª evidência ou 2º consumidor para reabrir)
 
@@ -54,8 +92,20 @@ risco teórico, decisão de design deferida, ou limpeza cosmética opcional.
 
 ## Resumo por severidade
 
-- **CRÍTICO aberto**: 0
+- **CRÍTICO aberto**: 1 (item 0 — rotação de credencial pendente, requer ação humana fora do código)
 - **HIGH aberto sem decisão explícita**: 0 (itens 1 e 2 são HIGH mas têm decisão sua registrada — `CORRECTLY_DEFERRED`/`INCUBATING`)
 - **MEDIUM/LOW deferido conscientemente**: itens 3-11
 - **Informativo/infraestrutura**: itens 12-16
 - **Histórico, sem ação necessária**: seção 5
+
+## Nota sobre fontes não incorporadas anteriormente
+
+Existe um diretório `audit/` na raiz do workspace (71 arquivos, não
+versionado pelo Git — coberto pela regra `*/` do `.gitignore`) com uma
+auditoria independente e muito mais extensa, datada de 2026-07-15, anterior
+a todas as rodadas de reintegração/hardening/tools/predictor_core cobertas
+pelos documentos desta sessão. Ela tem 78 questões abertas próprias
+(`audit/OPEN_QUESTIONS.md`) além do item crítico já incorporado acima. Não
+foi lida integralmente nesta revisão — só os itens relevantes para
+confirmar/corrigir a lista que motivou esta atualização. Uma leitura
+completa de `audit/` pode revelar mais itens não capturados aqui.
