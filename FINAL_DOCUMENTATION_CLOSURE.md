@@ -2,6 +2,149 @@
 
 Encerramento documental desta rodada. Verificado 2026-07-18.
 
+## Addendum — fechamento das duas lacunas documentais (2026-07-18)
+
+A rodada original deste documento (commits `e434cc9`…`2acea21`) deixou duas
+lacunas explícitas: (1) `audit/` reconciliado majoritariamente "via
+síntese", não por leitura individual dos 64 arquivos; (2) os 8 READMEs de
+projeto nunca revisados individualmente. Este addendum fecha as duas.
+
+### 1. Leitura individual de `audit/`
+
+Os 64 arquivos `.md` de `audit/` foram lidos individualmente e por
+completo nesta rodada (não apenas os documentos-síntese como na rodada
+anterior). Os 6 arquivos `.json` sidecar (`26`, `27`,
+`28_F1_RECONCILIATION`, `44`, `55`, `60A`) foram inspecionados quanto à
+estrutura e confirmados como saída de dados dos `.md` já lidos, sem
+achado adicional. Os logs históricos potencialmente contaminados
+(`previsao-cripto/logs/garimpo_fase1_2026-07-13.log` a `_17.log`) **não
+foram abertos** — não fazem parte de `audit/` e continuam sob as regras
+de segurança já definidas.
+
+`AUDIT_INDIVIDUAL_REVIEW_COMPLETE = true`
+`NEW_FINDINGS = 0`
+
+Resultado: `AUDIT_DIRECTORY_RECONCILIATION.md` foi reescrito como matriz
+de uma linha por arquivo (caminho, título, data, escopo, achados, estado
+original, estado atual, pendências, contradições, sucessor) para os 64
+arquivos. Nenhum achado novo emergiu — a leitura verbatim confirmou e
+enriqueceu (mais rastreabilidade de hashes/decisões intermediárias) o
+quadro já reconciliado em `PENDENCIAS_ABERTAS.md`/`ECOSYSTEM_HANDOFF.md`/
+`SECURITY_INCIDENT_SECRET_ROTATION.md`; por isso nenhum desses três
+documentos foi alterado nesta rodada — o gatilho condicional da tarefa
+("se houver achados novos, atualizar X") não foi acionado.
+
+### 2. Revisão individual dos 8 READMEs
+
+| Projeto | Classificação | Correção aplicada |
+|---|---|---|
+| `brasileirao-predictor` | `UPDATED` | Vendor v1.1.0→v1.3.1 (2 lugares); suíte 234/241→302 (3 lugares) |
+| `cs-predictor` | `UPDATED` | Vendor v1.1.0→v1.3.1; suíte 24→85 testes; roadmap Fase 2 (governança/Platt) ⏳→✅ (já comprovada, `data/calibration_platt.json` existe) |
+| `f1-predictor` | `UPDATED` | Vendor v1.3.0→v1.3.1; suíte 106→126 testes; `src/snapshots.py` (cadeia forward PRE_EVENT/MATURED) estava ausente da Estrutura — adicionado |
+| `lol-predictor` | `REVIEWED_NO_CHANGE_REQUIRED` | Vendor (v1.3.1) e conteúdo já corretos; README não declara contagem de testes numérica a verificar |
+| `previsao-cripto` | `UPDATED` | README não mencionava o incidente de segredo aberto (`BLOCKED_PENDING_SECRET_ROTATION`) — banner adicionado, apontando para `SECURITY_INCIDENT_SECRET_ROTATION.md`. Corrupção de encoding pré-existente (mojibake em todo o corpo) **observada, não corrigida** — fora do escopo de "fatos desatualizados" desta rodada; é um defeito cosmético pré-existente, não um fato errado |
+| `wc-predictor-v2` | `HISTORICAL` (sem edição) | Já defere corretamente o estado atual a `HANDOFF.md` e já rotula seus próprios banners como "registro da época". PARKED — nenhum fato sobre PARKED/tools/core estava errado. Texto residual de bastidores de IA colado ao final do arquivo (não é conteúdo de projeto) foi **observado, não removido** — projeto protegido, fora do escopo desta rodada |
+| `predictor-stocks` | `REVIEWED_NO_CHANGE_REQUIRED` | Nenhum fato desatualizado encontrado; consistente com `CLAUDE.md`/`docs/DESIGN.md` |
+| `nba-predictor` | `UPDATED` | README não indicava o estado `PARKED` (declarado em `HANDOFF.md` desde 2026-07-18) — banner adicionado, apontando para `HANDOFF.md` |
+
+Nenhum README correto foi reescrito para gerar diff — as 4 classificações
+`UPDATED` correspondem a fatos genuinamente errados ou omissos
+(verificados por leitura direta de `vendor/predictor_core/VERSION`,
+contagem real de testes via `pytest --collect-only`, e existência de
+arquivos/artefatos citados), não a preferência estilística.
+
+### 3. Estado Git desta rodada (commits novos)
+
+| Repositório | Commit | Tipo | Descrição |
+|---|---|---|---|
+| raiz | (a seguir) | docs | reescrita de `AUDIT_DIRECTORY_RECONCILIATION.md` como matriz de 64 linhas |
+| raiz | (a seguir) | docs | este addendum |
+| `brasileirao-predictor` | `77f9aa1` | docs | vendor/suíte no README |
+| `cs-predictor` | `5345ca7` | docs | vendor/suíte/roadmap no README |
+| `f1-predictor` | `a9216fa` | docs | vendor/suíte/`snapshots.py` no README |
+| `previsao-cripto` | `d4706d4` | docs | banner de incidente de segurança no README |
+| `nba-predictor` | `4ddc8b5` | docs | banner PARKED no README |
+
+Nenhum commit desta rodada tocou código, modelo, dado, vendor, manifest
+ou Scheduler — todos são `docs` puros sobre arquivos `README.md`
+(exceto os dois da raiz, que são `AUDIT_DIRECTORY_RECONCILIATION.md` e
+este arquivo).
+
+**Achado de higiene Git corrigido en passant:** `cs-predictor` estava em
+`HEAD` destacado (3 commits órfãos de rodadas anteriores desta sessão —
+`8fdfc67`, `7f19780`, e agora `5345ca7` — nunca alcançáveis a partir de
+`main`). Como `main` era ancestral direto do `HEAD` destacado (mesmo
+padrão já resolvido para `f1-predictor` em `audit/58_GIT_RECONCILIATION.md`),
+`main` foi avançado por fast-forward (`git merge --ff-only`) para incluir
+os 3 commits, sem criar merge nem alterar conteúdo. `lol-predictor`
+também está em `HEAD` destacado (pré-existente; nenhum commit novo foi
+necessário lá nesta rodada, então **não foi tocado** — permanece como
+observação para uma rodada futura que precise commitar algo em `lol`).
+
+### 4. Classificação de commits por tipo (linha do tempo completa desta iniciativa documental)
+
+A raiz (`C:\Claude-projetos\Claude`, repositório de governança) tem, após
+esta rodada, **21 commits**, todos `docs` exceto um rotulado `security:`
+(também documental, sem valor de segredo): `982b258` (init) · 17 `docs:`
+das rodadas de fechamento/remediação anteriores · `cbb2526` (`security:`,
+documenta o incidente sem expor valores) · os 2 `docs:` desta rodada.
+Zero commits de código/modelo/dado nessa linha — é, por desenho, um
+repositório só de documentação de governança.
+
+Os consumidores vivos somam, além dos commits documentados em rodadas
+anteriores desta sessão (hardening operacional A-03→A-06, correções de
+manifest/vendor pós-regressão, addenda de `HANDOFF.md`), os **5 commits
+`docs` desta rodada** listados acima. Uma auditoria exaustiva de todos os
+commits de todos os 8 repositórios de consumidor, desde o início da
+sessão, está fora do escopo desta rodada (que é fechar as duas lacunas
+documentais, não reconstruir o histórico Git completo); cada repositório
+de projeto é a fonte de verdade para seu próprio `git log`, consistente
+com o princípio já estabelecido nesta sessão de nunca tratar resumos
+narrativos como prova de si mesmos.
+
+### 5. Bloqueio externo de segurança (restatado, inalterado)
+
+`BLOCKED_PENDING_SECRET_ROTATION` continua o único bloqueio ativo,
+despriorizado por decisão humana explícita (2026-07-18). Nenhuma mudança
+nesta rodada — apenas maior visibilidade (agora também no README do
+próprio `previsao-cripto`, não só nos documentos de topo).
+
+### 6. Validações reexecutadas nesta rodada (docs-only)
+
+Como nenhum arquivo de payload (`.py`, manifest, vendor) mudou — apenas
+`README.md` e dois documentos de reconciliação — as validações
+executadas foram exatamente as aplicáveis:
+
+- Scan sanitizado de padrões de segredo (`api_key=`, `token=`, `Bearer `,
+  `-----BEGIN`, `password=`, `secret=`) contra todos os arquivos alterados
+  nesta rodada: zero ocorrências reais.
+- Verificação de existência dos caminhos citados nas novas linhas de
+  README (`SECURITY_INCIDENT_SECRET_ROTATION.md`, `nba-predictor/HANDOFF.md`,
+  `cs-predictor/data/calibration_platt.json`, `f1-predictor/src/snapshots.py`):
+  todos confirmados existentes.
+- Contagem real de testes reconciliada por `pytest --collect-only -q`
+  (brasileirao 302, cs 85, f1 126) contra os números publicados nos
+  READMEs — não por alegação copiada de rodada anterior.
+- `git status` de cada um dos 8 repositórios de projeto revisado antes de
+  qualquer `git add`; heartbeats/locks de produção do `brasileirao-predictor`
+  (`CONCURRENT_PRODUCTION_ACTIVITY`) e `predictor-stocks/AGENTS.md`
+  (pré-existente, PARKED) explicitamente excluídos de todo commit.
+- Manifests, vendor sync e suíte completa **não foram reexecutados** —
+  nenhuma mudança de payload ocorreu nesta rodada, então essas validações
+  não se aplicam (condição explícita da tarefa).
+
+### 7. Veredito (reafirmado, agora com as duas lacunas formalmente concluídas)
+
+**DOCUMENTAÇÃO FINALIZADA COM BLOQUEIO EXTERNO DE SEGURANÇA.**
+
+As duas lacunas identificadas na rodada anterior — leitura individual dos
+64 arquivos de `audit/` e revisão individual dos 8 READMEs de projeto —
+estão formalmente concluídas, com `NEW_FINDINGS = 0` e 4 READMEs
+genuinamente desatualizados corrigidos (nenhum reescrito sem necessidade).
+O veredito original permanece válido e agora está apoiado pela cobertura
+completa que faltava; o único bloqueio continua sendo a ação humana de
+rotação de credencial, já despriorizada por decisão explícita.
+
 ## Resumo executivo
 
 Rodada exclusivamente documental: nenhuma lógica científica, modelo,
@@ -102,11 +245,14 @@ por uma rodada anterior (2026-07-17) — confirmado, não alterado.
 
 Raiz (novo), `tools/README.md` (atualizado), `predictor_core/README.md`
 (corrigido). Os 5 READMEs dos consumidores vivos e dos 3 PARKED **não**
-foram reescritos nesta rodada — já existiam e continuam factualmente
-válidos para o que descrevem; a informação de estado-atual-do-ecossistema
-foi colocada nos respectivos `HANDOFF.md` (que é o documento de
-continuidade, não o README) para não duplicar/arriscar divergência entre
-dois arquivos.
+foram reescritos nesta rodada (a original, pré-addendum) — já existiam e
+não tinham sido revisados individualmente ainda; a informação de
+estado-atual-do-ecossistema foi colocada nos respectivos `HANDOFF.md`
+(que é o documento de continuidade, não o README) para não duplicar/
+arriscar divergência entre dois arquivos. **Atualização (ver "Addendum —
+fechamento das duas lacunas documentais" no topo deste arquivo): os 8
+READMEs foram revisados individualmente em rodada posterior; 4 tinham
+fatos genuinamente desatualizados e foram corrigidos.**
 
 ## Handoffs
 
@@ -211,11 +357,14 @@ tocado (projeto PARKED).
 
 ## Limitações
 
-Não é uma leitura verbatim de todos os 64 arquivos de `audit/` (ver
-`AUDIT_DIRECTORY_RECONCILIATION.md`, seção "Limitação desta
-reconciliação"). Os READMEs dos 5 consumidores vivos e dos 3 PARKED não
-foram reescritos — permanecem como estavam, ainda válidos para o que
-descrevem. Nenhum ADR novo foi criado nesta rodada (nenhuma decisão
+**Ambas as limitações abaixo foram fechadas no addendum no topo deste
+arquivo — mantidas aqui como registro histórico do que faltava nesta
+rodada original.** Não é uma leitura verbatim de todos os 64 arquivos de
+`audit/` (ver `AUDIT_DIRECTORY_RECONCILIATION.md`, seção "Limitação desta
+reconciliação" — hoje atualizada para refletir a leitura individual
+completa). Os READMEs dos 5 consumidores vivos e dos 3 PARKED não
+foram reescritos — permaneciam como estavam, ainda válidos para o que
+descrevem à época. Nenhum ADR novo foi criado nesta rodada (nenhuma decisão
 durável nova foi tomada — as decisões existentes já estavam documentadas
 em `predictor_core/HANDOFF.md`/`tools/HANDOFF.md`/`PENDENCIAS_ABERTAS.md`,
 criar ADRs separados duplicaria sem benefício transversal claro). Nenhum
