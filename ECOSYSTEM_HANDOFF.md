@@ -57,7 +57,7 @@ executado.
 
 | Consumidor | Vendor de predictor_core | Byte-idêntico | Testes |
 |---|---|---|---|
-| brasileirao-predictor | sync `5276f65` | Sim (`vendor_byte_audit.py`) | 302 passed |
+| brasileirao-predictor | sync `5276f65` | Sim (`vendor_byte_audit.py`) | 320 passed (2026-07-19, rodada hostil 2) |
 | cs-predictor | sync `7627c03` | Sim | 100% verde |
 | f1-predictor | sync `c99a545` | Sim | 100% verde |
 | lol-predictor | sync `593dbc0` | Sim | 100% verde |

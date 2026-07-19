@@ -95,6 +95,7 @@ verificação independente de cada um.
 | RES-2 | 3 tarefas agendadas do previsao-cripto (`GarimpoFase1`, `GarimpoV3Daily`, `cripto-watchdog-coleta`) rodando com sucesso, S4U correto | `RESOLVED_AND_VERIFIED` | `LastTaskResult=0` nas 3, execuções em 2026-07-17 22:00/21:30/19:00 |
 | RES-3 | Mecanismo de redação de logs (SEC-1) funciona corretamente para o cenário do incidente | `RESOLVED_AND_VERIFIED` | Reproduzido com credencial sintética + confirmado por execução real de produção (log de 18/07 limpo) |
 | RES-4 | `release_check.py` sem teste dedicado (achado original de `audit/13`, item B-atual) | `RESOLVED_AND_VERIFIED` | 10 testes adicionados na rodada tools/ desta sessão (`60b02a8`), reexecutados agora, passam |
+| RES-5 | Rodada hostil 2 do brasileirao-predictor (2026-07-18/19): 5 correções de robustez — Shin rejeita odds 0/negativa/NaN/Inf com erro claro; `_market_probs` ignora linhas-placeholder 1X2=1.0 do Sofascore (4 reais na base viravam p=⅓ fabricado); `sombra.settle` com dedupe intra-execução (pick duplicado não liquida 2×), CLV só com fechamento válido e recusa de linha O/U inteira; `record_result` rejeita placar negativo. B3b/B4 reconfirmados com seus testes. Nenhuma mudança científica | `RESOLVED_AND_VERIFIED` | Commit `ba0bd7d` (branch `claude/brasileirao-predictor-audit-11f575`), suíte 302→320 verdes, CI 5/5, vendor 44/44 byte-idêntico |
 
 ## 10. Estado historicamente preservado, sem ação necessária
 

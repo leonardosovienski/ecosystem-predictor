@@ -25,6 +25,8 @@ por engano).
 | atestado do harness | `data/trials.harness_attestation.json` | `ATTESTATION` | Sim | — | Só em nova trial | `git status` |
 | identidade de times | `data/teams_brasileirao.json` | `SCIENTIFIC_VERSIONED` | Sim | — | Raro | `git status` |
 | banco de partidas | `data/matches.db`, `data/data/matches.db` | `DATABASE` | Não | Sim (`*.db`) | Sim, diário | Hash SHA-256 comparado antes/depois de cada rodada de engenharia (não prova histórico, só ausência de alteração pela sessão) |
+| ledgers de sombra (H3/H5) | `data/sombra_picks.jsonl`, `data/sombra_results.jsonl`, `data/sombra_h5_picks.jsonl`, `data/sombra_h5_results.jsonl` | `SCIENTIFIC_UNVERSIONED` (append-only, populações das hipóteses H3/H5) | Não | Sim | Sim, diário pelo agendador (`sombra_diaria`) | Filesystem (tamanho/timestamp); dedupe por `(event_id, selection)` no código; leitura oficial via `scripts/report_shadow_mode.py` |
+| log de predições | `data/predictions.jsonl` | `SCIENTIFIC_UNVERSIONED` (append-only) | Não | Sim | Sim, a cada serving | Filesystem |
 | heartbeats operacionais | `logs/operations/*.heartbeat.json` | `OPERATIONAL` | Sim (rastreado, mas muda a cada execução real) | — | Sim, a cada ciclo agendado | `git status` mostra o diff; committed quando a sessão de engenharia termina |
 | lock operacional | `logs/operations/*.lock` | `EPHEMERAL` | Não | Sim | Sim, só durante execução | Autolimpo pelo `operational_runner` |
 
