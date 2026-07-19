@@ -46,8 +46,21 @@ destino dos logs históricos.
 | `garimpo_fase1_20260714.log` | 29 | idem |
 | `garimpo_fase1_20260715.log` | 29 | idem |
 | `garimpo_fase1_20260716.log` | 29 | idem — **não catalogado no incidente original** |
-| `garimpo_fase1_20260717.log` | 114 | idem — **não catalogado no incidente original** |
-| `garimpo_fase1_20260718.log` | 0 (a única ocorrência é `polygon-ecosystem-token`, um ID de ativo cripto que casa o padrão "token" por substring — falso positivo, não é segredo) | — |
+| `garimpo_fase1_20260717.log` | **115** (corrigido em 2026-07-18; a rodada anterior registrou 114 — recontagem por classificação de cada match: 115 valores reais, 0 falsos positivos) | idem — **não catalogado no incidente original** |
+| `garimpo_fase1_20260718.log` | 0 reais (a única ocorrência estrutural é o próprio marcador `[REDACTED]` — ou seja, o filtro de redação **interceptou** um vazamento em produção; a explicação anterior, "falso positivo polygon-ecosystem-token", foi corrigida em 2026-07-18 por classificação do valor do match) | — |
+
+> **Varredura ampliada (2026-07-18, rodada de evolução final do previsao-cripto):**
+> todos os logs NUNCA catalogados foram escaneados pela primeira vez com o mesmo
+> método sanitizado (contagem/classificação, nunca o valor): `garimpo.log`
+> (era pré-DPL, parado em 30/06), `cron_*.log` (ColetaDiaria 18:00, até 11/07),
+> `v3_daily_*.log`, `watchdog.log`, `logs/operations/*.log` e os 3 JSONL de
+> eventos (`events.jsonl`, `data/v3/events_v3.jsonl`, `logs/operations/events.jsonl`)
+> — **0 segredos reais em todos**. O log do runner
+> (`logs/operations/GarimpoFase1.log`, 15→18/07) tem 144 matches estruturais,
+> **todos com valor `[REDACTED]`** — evidência adicional de que a redação do
+> `operational_runner` funciona em produção. O escopo do incidente permanece
+> exatamente os 5 logs da tabela acima (total corrigido: **231** ocorrências
+> reais, não 230).
 
 **Total real: 5 logs afetados** (13, 14, 15, 16, 17/07), não 3 como
 catalogado originalmente. O log de 18/07 é o primeiro genuinamente limpo.
