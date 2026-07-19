@@ -46,7 +46,7 @@ apontam para os nomes novos.
 | `f1-predictor` | Vivo | `main` | `f1-predictor` ✓ |
 | `lol-predictor` | Vivo | `main` | `lol-predictor` ✓ |
 | `previsao-cripto` | Vivo | `main` | `cripto-predictor` ✓ |
-| `wc-predictor-v2` | PARKED — encerramento em andamento (falta só a final) | `main` | `wc-predictor` ✓ (linha junho em `arquivo/shadow-junho-2026`) |
+| `wc-predictor-v2` | **ENCERRADO 2026-07-19** (veredito emitido; PARKED como registro histórico) | `main` | `wc-predictor` ✓ (linha junho em `arquivo/shadow-junho-2026`) |
 | `predictor-stocks` | REABERTO (ciência ativa; vendor congelado) | `main` | `stocks-predictor` ✓ |
 | `nba-predictor` | PARKED (push = preservação, não reabertura) | `main` | `nba-predictor` ✓ |
 | raiz (governança) | Documentação canônica | `master` | `ecosystem-predictor` ✓ |
@@ -92,18 +92,19 @@ drift esperado e correto contra o canônico atual, nenhuma evolução
 funcional permitida. Condição para reabrir cada um: ver `HANDOFF.md` de
 cada projeto.
 
-**Encerramento do WC em andamento (2026-07-19, decisão do operador):** o
-POSTMORTEM pré-registrado (`wc-predictor-v2/docs/POSTMORTEM_COPA_2026.md`)
-está quase todo executado — causa raiz do truncamento do
-`predictions.jsonl` provada por forense (sobrescrita por cópia de
-worktree em 12/07, sessão de assistente; código/git/operador inocentados),
-decisões do §5 tomadas (promoção SEM OBJETO: a produção original
-`Downloads\wc-predictor` foi deletada para a Lixeira em 26/06 — resolve a
-contradição histórica do SHADOW.md; v3 arquivada), 3º lugar aferido,
-livro fechado com 0 apostas abertas (banca R$ 708, −5,84u). Falta apenas:
-resultado da final → ingest/settle → backup congelado → métricas §1 →
-veredito. Decisão humana aberta: restaurar ou não a produção deletada da
-Lixeira (o `matches.db` do cron de odds está lá).
+**WC ENCERRADO (2026-07-19):** POSTMORTEM completo com veredito final —
+ver `wc-predictor-v2/docs/POSTMORTEM_COPA_2026.md` (documento definitivo).
+Copa aferida em 15 jogos; banco congelado
+(`matches_copa2026_frozen_20260719.db`; placar da final inserido
+manualmente por ordem do operador — desvio documentado, fonte martj42
+ainda não publicara). Veredito: mercado vence no agregado (CLV −8,4%
+sig.); exceção comprovada OU2,5 (CLV +16,9% sig., n=78) — herdada como
+base da H1 do brasileirão; P&L real −5,84u, prejuízo 100% fora do funil
+validado. Causa raiz do truncamento do `predictions.jsonl` provada por
+forense e ledger perdido recuperado de backup em E:\ (ver §4 do
+POSTMORTEM); produção original de junho restaurada da Lixeira e arquivada
+versionada em `archive/`. Legado inventariado (§7). Nenhuma pendência
+aberta.
 
 `predictor-stocks` — **REABERTO para pesquisa em 2026-07-18** por decisão
 explícita do operador, satisfazendo a condição formal de reabertura do
