@@ -44,6 +44,12 @@ preservadas em branches `arquivo/*` antes de a `main` canônica substituí-las
 | `nba-predictor` | PARKED (push = preservação, não reabertura) | `main` | `nba-predictor` ✓ |
 | raiz (governança) | Documentação canônica | `master` | `predictor-ecosystem` ✓ |
 
+Nota: existe também `github.com/leonardosovienski/Claude` — snapshot
+histórico do workspace inteiro de 2026-06-21 (cópias da época de stocks/
+core/cripto/wc como subpastas + docs de governança extintos). É um fóssil
+de backup pré-ecossistema, superado pelos 11 repos acima. NÃO é canônico;
+não confundir com `predictor-ecosystem`. Mantido como arquivo histórico.
+
 ## Arquitetura
 
 Ver `README.md` para o diagrama. Regra de ouro: escrita é sempre
