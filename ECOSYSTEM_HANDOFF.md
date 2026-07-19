@@ -22,19 +22,27 @@ memória de chat.
 
 ## Mapa dos repositórios
 
-| Repo | Papel | Branch | Remoto |
+**Desde 2026-07-19, por ordem explícita do operador, TODOS os repositórios
+estão publicados no GitHub (privados, conta `leonardosovienski`) e
+sincronizados** — verificação local×remoto commit a commit feita na
+publicação. Linhas antigas pré-existentes no GitHub (junho/2026) foram
+preservadas em branches `arquivo/*` antes de a `main` canônica substituí-las
+(`wc-predictor-v2`: `arquivo/shadow-junho-2026`; `predictor_core`:
+`arquivo/core-junho-2026`).
+
+| Repo | Papel | Branch | Remoto (github.com/leonardosovienski/) |
 |---|---|---|---|
-| `tools/` | Operacional canônico | `main` | nenhum configurado |
-| `predictor_core/` | Científico canônico | `main` | nenhum configurado |
-| `brasileirao-predictor` | Vivo | `main` | configurado, não verificado nesta rodada |
-| `cs-predictor` | Vivo | `main` (detached HEAD resolvido por fast-forward em 2026-07-18) | nenhum configurado |
-| `f1-predictor` | Vivo | `main` | nenhum configurado |
-| `lol-predictor` | Vivo | `main` (detached HEAD resolvido por fast-forward em 2026-07-19) | nenhum configurado |
-| `previsao-cripto` | Vivo | `main` | configurado e verificado; push feito em 2026-07-19 (`af39a89..d4706d4`) |
-| `wc-predictor-v2` | PARKED — encerramento formal em andamento (falta só a final da Copa, 19/07) | `main` | nenhum configurado |
-| `predictor-stocks` | REABERTO (ciência ativa; vendor congelado) | `main` (= `origin/main`) | configurado e verificado; push feito em 2026-07-19 |
-| `nba-predictor` | PARKED | `main` | não tocar |
-| raiz (governança) | Documentação solta | `master` | nenhum configurado |
+| `tools/` | Operacional canônico | `main` | `predictor-tools` ✓ |
+| `predictor_core/` | Científico canônico | `main` | `predictor_core` ✓ (linha junho arquivada) |
+| `brasileirao-predictor` | Vivo | `main` | `brasileirao-predictor` ✓ |
+| `cs-predictor` | Vivo | `main` | `cs-predictor` ✓ |
+| `f1-predictor` | Vivo | `main` | `f1-predictor` ✓ |
+| `lol-predictor` | Vivo | `main` | `lol-predictor` ✓ |
+| `previsao-cripto` | Vivo | `main` | `previsao-cripto` ✓ |
+| `wc-predictor-v2` | PARKED — encerramento em andamento (falta só a final) | `main` | `wc-predictor-v2` ✓ (linha junho arquivada) |
+| `predictor-stocks` | REABERTO (ciência ativa; vendor congelado) | `main` | `predictor-stocks` ✓ |
+| `nba-predictor` | PARKED (push = preservação, não reabertura) | `main` | `nba-predictor` ✓ |
+| raiz (governança) | Documentação canônica | `master` | `predictor-ecosystem` ✓ |
 
 ## Arquitetura
 
@@ -175,8 +183,11 @@ precisa da mudança.
 
 ## Regras de publicação
 
-Nada publicado em nenhum repo. Push/tag/release são decisão humana
-explícita — nunca automáticos.
+Todos os repos publicados no GitHub (privados) em 2026-07-19 por ordem
+explícita do operador — ver mapa acima. Pushes subsequentes, tags e
+releases continuam sendo decisão humana explícita — nunca automáticos.
+Autenticação: `gh` CLI instalado e autenticado via device flow
+(`leonardosovienski`, escopo `repo`).
 
 ## Condições de reabertura — índice
 
