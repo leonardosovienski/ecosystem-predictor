@@ -30,17 +30,24 @@ preservadas em branches `arquivo/*` antes de a `main` canônica substituí-las
 (`wc-predictor-v2`: `arquivo/shadow-junho-2026`; `predictor_core`:
 `arquivo/core-junho-2026`).
 
-| Repo | Papel | Branch | Remoto (github.com/leonardosovienski/) |
+Nomes no GitHub **padronizados em 2026-07-19** (`<domínio>-predictor` para
+domínios; família `predictor-*` para infraestrutura). Pastas LOCAIS mantêm
+os nomes originais — são estruturais (set `PARKED`, descoberta de
+consumidores do `sync_core`, tarefas do Scheduler) e NÃO devem ser
+renomeadas. O GitHub redireciona as URLs antigas; os remotos locais já
+apontam para os nomes novos.
+
+| Pasta local | Papel | Branch | Remoto (github.com/leonardosovienski/) |
 |---|---|---|---|
 | `tools/` | Operacional canônico | `main` | `predictor-tools` ✓ |
-| `predictor_core/` | Científico canônico | `main` | `predictor_core` ✓ (linha junho arquivada) |
+| `predictor_core/` | Científico canônico | `main` | `predictor-core` ✓ (linha junho em `arquivo/core-junho-2026`) |
 | `brasileirao-predictor` | Vivo | `main` | `brasileirao-predictor` ✓ |
 | `cs-predictor` | Vivo | `main` | `cs-predictor` ✓ |
 | `f1-predictor` | Vivo | `main` | `f1-predictor` ✓ |
 | `lol-predictor` | Vivo | `main` | `lol-predictor` ✓ |
-| `previsao-cripto` | Vivo | `main` | `previsao-cripto` ✓ |
-| `wc-predictor-v2` | PARKED — encerramento em andamento (falta só a final) | `main` | `wc-predictor-v2` ✓ (linha junho arquivada) |
-| `predictor-stocks` | REABERTO (ciência ativa; vendor congelado) | `main` | `predictor-stocks` ✓ |
+| `previsao-cripto` | Vivo | `main` | `cripto-predictor` ✓ |
+| `wc-predictor-v2` | PARKED — encerramento em andamento (falta só a final) | `main` | `wc-predictor` ✓ (linha junho em `arquivo/shadow-junho-2026`) |
+| `predictor-stocks` | REABERTO (ciência ativa; vendor congelado) | `main` | `stocks-predictor` ✓ |
 | `nba-predictor` | PARKED (push = preservação, não reabertura) | `main` | `nba-predictor` ✓ |
 | raiz (governança) | Documentação canônica | `master` | `predictor-ecosystem` ✓ |
 
