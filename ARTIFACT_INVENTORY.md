@@ -39,7 +39,7 @@ por engano).
 | identidade de times | `data/teams_cs.json` | `SCIENTIFIC_VERSIONED` | Sim | — | `git status` |
 | banco | `data/cs.db*` | `DATABASE` | Não | Sim | Hash antes/depois |
 | ratings vividos | `data/ratings.json` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | Hash antes/depois |
-| snapshots PRE_EVENT/MATURED | `snapshots/` | `SCIENTIFIC_UNVERSIONED` (com vínculo hash interno próprio) | Depende do projeto | — | Verificação própria via `cs_snapshots.py` (hash entre PRE_EVENT e MATURED) |
+| snapshots PRE_EVENT/MATURED | `snapshots/` | `SCIENTIFIC_UNVERSIONED` (com vínculo hash interno próprio) | Depende do projeto | — | Verificação própria via `cs_snapshots.py` (hash entre PRE_EVENT e MATURED); reverificado 2026-07-19 (`snapshot-status`: 1 `VALID_FORWARD`, 3 `VERIFIED`) |
 
 ## f1-predictor
 
