@@ -31,7 +31,7 @@ memória de chat.
 | `f1-predictor` | Vivo | `main` | nenhum configurado |
 | `lol-predictor` | Vivo | `main` (detached HEAD resolvido por fast-forward em 2026-07-19) | nenhum configurado |
 | `previsao-cripto` | Vivo | `main` | configurado e verificado; push feito em 2026-07-19 (`af39a89..d4706d4`) |
-| `wc-predictor-v2` | PARKED | `main` | não tocar |
+| `wc-predictor-v2` | PARKED — encerramento formal em andamento (falta só a final da Copa, 19/07) | `main` | nenhum configurado |
 | `predictor-stocks` | REABERTO (ciência ativa; vendor congelado) | `main` (= `origin/main`) | configurado e verificado; push feito em 2026-07-19 |
 | `nba-predictor` | PARKED | `main` | não tocar |
 | raiz (governança) | Documentação solta | `master` | nenhum configurado |
@@ -70,6 +70,19 @@ agregado antigo (`3445e37f43c458cc` o WC, `026f1f7b761440d9` o NBA),
 drift esperado e correto contra o canônico atual, nenhuma evolução
 funcional permitida. Condição para reabrir cada um: ver `HANDOFF.md` de
 cada projeto.
+
+**Encerramento do WC em andamento (2026-07-19, decisão do operador):** o
+POSTMORTEM pré-registrado (`wc-predictor-v2/docs/POSTMORTEM_COPA_2026.md`)
+está quase todo executado — causa raiz do truncamento do
+`predictions.jsonl` provada por forense (sobrescrita por cópia de
+worktree em 12/07, sessão de assistente; código/git/operador inocentados),
+decisões do §5 tomadas (promoção SEM OBJETO: a produção original
+`Downloads\wc-predictor` foi deletada para a Lixeira em 26/06 — resolve a
+contradição histórica do SHADOW.md; v3 arquivada), 3º lugar aferido,
+livro fechado com 0 apostas abertas (banca R$ 708, −5,84u). Falta apenas:
+resultado da final → ingest/settle → backup congelado → métricas §1 →
+veredito. Decisão humana aberta: restaurar ou não a produção deletada da
+Lixeira (o `matches.db` do cron de odds está lá).
 
 `predictor-stocks` — **REABERTO para pesquisa em 2026-07-18** por decisão
 explícita do operador, satisfazendo a condição formal de reabertura do
