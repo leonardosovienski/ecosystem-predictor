@@ -21,7 +21,7 @@ um veredito limpo é de segurança e requer ação humana fora do código
 
 | ID | Item | Classificação | Evidência | Ação restante |
 |---|---|---|---|---|
-| SEC-1 | Chave da SerpAPI em texto plano em 5 logs históricos do previsao-cripto (`garimpo_fase1_20260713.log` a `_17.log`); mecanismo de prevenção já corrigido e verificado funcionando (log de 18/07 limpo, confirmado por execução real de produção) | `BLOCKED_EXTERNAL_ACTION`, explicitamente **baixa prioridade** por decisão humana (2026-07-18) | `SECURITY_INCIDENT_SECRET_ROTATION.md` (documento completo, sanitizado) | Rotação da credencial no provedor + decisão sobre os 5 logs — **só ação humana, sem prazo definido**; logs deixados como estão (decisão explícita: manter, não sanitizar) |
+| SEC-1 | Chave da SerpAPI em texto plano em 5 logs históricos do previsao-cripto (`garimpo_fase1_20260713.log` a `_17.log`); mecanismo de prevenção já corrigido e verificado funcionando (log de 18/07 limpo; a única ocorrência estrutural nele é o próprio marcador `[REDACTED]` — o filtro interceptou um vazamento em produção). Reverificado em 2026-07-18 (rodada de evolução final do cripto) com varredura ampliada: todos os logs nunca catalogados (`garimpo.log`, `cron_*`, `v3_daily_*`, `watchdog.log`, `operations/*`) e os 3 JSONL de eventos = 0 segredos reais; contagem do log de 17/07 corrigida 114→**115** (total 231) | `BLOCKED_EXTERNAL_ACTION`, explicitamente **baixa prioridade** por decisão humana (2026-07-18) | `SECURITY_INCIDENT_SECRET_ROTATION.md` (documento completo, sanitizado) | Rotação da credencial no provedor + decisão sobre os 5 logs — **só ação humana, sem prazo definido**; logs deixados como estão (decisão explícita: manter, não sanitizar) |
 
 ## 2. Bugs de código abertos
 
@@ -100,8 +100,8 @@ verificação independente de cada um.
 
 - Branch `reintegracao-f1-ondas-2-3` em `f1-predictor`: commits redundantes preservados, não mesclados.
 - 4 worktrees paralelos (`brasileirao-predictor`, `previsao-cripto`, `nba-predictor`, `wc-predictor-v2`) intocados.
-- `predictor-stocks/AGENTS.md` untracked — projeto protegido, fora de escopo.
-- Recomendações de versão pendentes de autorização: `tools/` 1.3.0→1.3.1, `predictor_core` 1.3.1→1.3.2 (ambos PATCH); nada publicado (sem push/tag) em nenhum repositório.
+- `predictor-stocks/AGENTS.md` untracked — pré-existente, também ausente da `main` remota; não commitado por não ser artefato desta linha de trabalho. **Atualização 2026-07-19**: o projeto foi REABERTO para pesquisa pelo operador (2026-07-18, H4/H5 pré-registradas e julgadas NÃO COMPROVADAS; vendor segue congelado em 1.3.0 e o nome permanece no set `PARKED` do sync como proteção de vendor) — ver `ECOSYSTEM_HANDOFF.md` seção "Projetos PARKED e o caso predictor-stocks".
+- Recomendações de versão pendentes de autorização: `tools/` 1.3.0→1.3.1, `predictor_core` 1.3.1→1.3.2 (ambos PATCH); sem tag em nenhum repositório. **Atualização 2026-07-19**: push realizado a pedido do operador nos 2 repositórios com remoto funcional (`previsao-cripto` `af39a89..d4706d4`; `predictor-stocks` até `5132a1c`) — os demais seguem sem remoto configurado.
 
 ## Resumo por severidade
 

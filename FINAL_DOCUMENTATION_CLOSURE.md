@@ -2,6 +2,24 @@
 
 Encerramento documental desta rodada. Verificado 2026-07-18.
 
+## Addendum 2 — reabertura do predictor-stocks (2026-07-19)
+
+Fato novo posterior aos fechamentos abaixo: `predictor-stocks` foi
+**reaberto para pesquisa pelo operador em 2026-07-18** (linha de trabalho
+remota, mergeada em `main` `2dc23be` e verificada localmente em
+2026-07-19 — suíte 144 verdes, vendor íntegro 4/4, provenance `MATCH`).
+H4 e H5 foram pré-registradas antes de código e julgadas **NÃO
+COMPROVADAS**. O vendor permanece congelado em 1.3.0 e o nome permanece
+no set `PARKED` do sync (semântica para este projeto: "vendor congelado",
+não "projeto inativo"). Consequências documentais aplicadas em
+2026-07-19: `README.md` (raiz), `ECOSYSTEM_HANDOFF.md`,
+`PENDENCIAS_ABERTAS.md`, `RUNBOOK_TESTS.md` e `RUNBOOK_VENDOR_SYNC.md`
+atualizados. A classificação `REVIEWED_NO_CHANGE_REQUIRED` do README de
+stocks na tabela do Addendum 1 abaixo era correta na data da revisão
+(branch antiga); após o merge da linha remota, o README dele ganhou uma
+correção de contagem de testes (109→144, commit `5132a1c`, pushed) — em
+termos da taxonomia daquela tabela, hoje seria `UPDATED`.
+
 ## Addendum — fechamento das duas lacunas documentais (2026-07-18)
 
 A rodada original deste documento (commits `e434cc9`…`2acea21`) deixou duas

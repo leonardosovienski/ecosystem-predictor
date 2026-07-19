@@ -20,8 +20,12 @@ Sincronização do `predictor_core` para os vendors. Verificado 2026-07-18.
 cd predictor_core
 python sync_core.py --check
 ```
-Relata `OK (em sincronia)` / `DRIFT` por consumidor. Os 3 PARKED sempre
-aparecem `DRIFT ... [PARKED]` — é o estado correto, não um erro.
+Relata `OK (em sincronia)` / `DRIFT` por consumidor. Os 3 nomes do set
+PARKED sempre aparecem `DRIFT ... [PARKED]` — é o estado correto, não um
+erro. Nota (2026-07-19): `predictor-stocks` foi reaberto para pesquisa,
+mas **permanece no set PARKED intencionalmente** — o HANDOFF dele proíbe
+sync de vendor (congelado em 1.3.0 por decisão do projeto). Não remover
+do set por causa da reabertura.
 
 ## `--target` (escopo por consumidor — preferível a sync global)
 
@@ -44,7 +48,7 @@ esperado antes de prosseguir.
 
 ## Proteção contra sync global indevido
 
-O único mecanismo de exclusão é `PARKED` em `sync_core.py:51`. Não existe
+O único mecanismo de exclusão é `PARKED` em `sync_core.py:56`. Não existe
 outro caminho de bypass (`_select_consumers` não filtra por nome de forma
 que ignore `PARKED`; `cmd_write` chama `_is_parked(d.name)` para cada
 consumidor selecionado, incondicionalmente). Se `PARKED` for

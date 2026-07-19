@@ -27,12 +27,12 @@ memória de chat.
 | `tools/` | Operacional canônico | `main` | nenhum configurado |
 | `predictor_core/` | Científico canônico | `main` | nenhum configurado |
 | `brasileirao-predictor` | Vivo | `main` | configurado, não verificado nesta rodada |
-| `cs-predictor` | Vivo | detached (`7627c03`) | configurado, não verificado |
-| `f1-predictor` | Vivo | `main` | configurado, não verificado |
-| `lol-predictor` | Vivo | detached (`593dbc0`) | configurado, não verificado |
-| `previsao-cripto` | Vivo | `main` | configurado, não verificado |
+| `cs-predictor` | Vivo | `main` (detached HEAD resolvido por fast-forward em 2026-07-18) | nenhum configurado |
+| `f1-predictor` | Vivo | `main` | nenhum configurado |
+| `lol-predictor` | Vivo | `main` (detached HEAD resolvido por fast-forward em 2026-07-19) | nenhum configurado |
+| `previsao-cripto` | Vivo | `main` | configurado e verificado; push feito em 2026-07-19 (`af39a89..d4706d4`) |
 | `wc-predictor-v2` | PARKED | `main` | não tocar |
-| `predictor-stocks` | PARKED | `claude/portuguese-session-2fc14d` (+ `main` separado) | não tocar |
+| `predictor-stocks` | REABERTO (ciência ativa; vendor congelado) | `main` (= `origin/main`) | configurado e verificado; push feito em 2026-07-19 |
 | `nba-predictor` | PARKED | `main` | não tocar |
 | raiz (governança) | Documentação solta | `master` | nenhum configurado |
 
@@ -63,18 +63,37 @@ executado.
 | lol-predictor | sync `593dbc0` | Sim | 100% verde |
 | previsao-cripto | sync `f4d4d81` | Sim | 302 passed, 2 skipped |
 
-## Projetos PARKED
+## Projetos PARKED e o caso predictor-stocks
 
-`wc-predictor-v2`, `predictor-stocks`, `nba-predictor` — vendor congelado
-em agregado antigo (`3445e37f43c458cc` os dois primeiros,
-`026f1f7b761440d9` o NBA), drift esperado e correto contra o canônico
-atual. `sync_core.py:51` declara `PARKED = {"wc-predictor-v2",
-"predictor-stocks", "nba-predictor"}` — checado antes de qualquer escrita,
-mesmo com `--target` explícito. Histórico: essa lista ficou vazia por
-engano entre 2026-07-03 e 2026-07-17, causando um sync indevido nos 3
-(commits `vendor: predictor_core v1.3.1...` locais, nunca publicados);
-corrigido em `15b6ada`, os 3 revertidos via `git revert` (nunca reset).
-Condição para reabrir cada um: ver `HANDOFF.md` de cada projeto.
+`wc-predictor-v2` e `nba-predictor` — PARKED plenos: vendor congelado em
+agregado antigo (`3445e37f43c458cc` o WC, `026f1f7b761440d9` o NBA),
+drift esperado e correto contra o canônico atual, nenhuma evolução
+funcional permitida. Condição para reabrir cada um: ver `HANDOFF.md` de
+cada projeto.
+
+`predictor-stocks` — **REABERTO para pesquisa em 2026-07-18** por decisão
+explícita do operador, satisfazendo a condição formal de reabertura do
+seu próprio HANDOFF ("decisão humana explícita + hipótese formalizada
+antes de qualquer código"): H4 (volatility targeting) e H5 (reversão de
+curto prazo 21d) foram pré-registradas antes de código e julgadas em
+rodada única — ambas **NÃO COMPROVADAS** (H5 com IC inteiramente
+negativo, anti-sinal). O trabalho ocorreu numa linha remota
+(GitHub `leonardosovienski/predictor-stocks`), mergeada em `main`
+(`2dc23be`) e verificada localmente em 2026-07-19: suíte 144 verdes,
+integridade do vendor 4/4, provenance de runtime `MATCH`. **O vendor
+permanece deliberadamente congelado em 1.3.0-ga-20260711** (agregado
+`3445e37f43c458cc`) por regra do próprio HANDOFF do projeto — a pesquisa
+usa somente APIs já vendorizadas.
+
+`sync_core.py:56` declara `PARKED = {"wc-predictor-v2",
+"predictor-stocks", "nba-predictor"}` — checado antes de qualquer
+escrita, mesmo com `--target` explícito. `predictor-stocks` permanece na
+lista **intencionalmente**: para ele, a semântica passa a ser "vendor
+congelado por decisão do projeto", não "projeto inativo". Histórico: essa
+lista ficou vazia por engano entre 2026-07-03 e 2026-07-17, causando um
+sync indevido nos 3 (commits `vendor: predictor_core v1.3.1...` locais,
+nunca publicados); corrigido em `15b6ada`, os 3 revertidos via
+`git revert` (nunca reset).
 
 ## Manifests e vendors
 

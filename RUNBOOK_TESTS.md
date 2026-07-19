@@ -70,9 +70,13 @@ find . -maxdepth 3 -iname "__pycache__" -not -path "*/.git/*" -not -path "*/audi
   da raiz.
 - `grep -c` retornando exit 1 quando não há match — comportamento normal
   do grep, não falha de comando.
-- Um teste de `predictor-stocks`/`nba-predictor`/`wc-predictor-v2` não deve
-  ser rodado como parte de validação de rotina — são PARKED, fora do
-  escopo de qualquer CI local deste ecossistema.
+- Um teste de `nba-predictor`/`wc-predictor-v2` não deve ser rodado como
+  parte de validação de rotina — são PARKED, fora do escopo de qualquer
+  CI local deste ecossistema. `predictor-stocks` foi reaberto para
+  pesquisa (2026-07-18) e sua suíte volta a ser válida quando o trabalho
+  tocar nele: `py -3.13 -m pytest tests/ -q` a partir da raiz do projeto
+  (Python 3.13 global, SEM venv — regra do `CLAUDE.md` dele; 144 verdes
+  em 2026-07-19).
 
 ## Evidência a registrar após rodar
 

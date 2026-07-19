@@ -26,8 +26,9 @@ projetos históricos congelados.
        │  lol-predictor · previsao-cripto   (5 vivos)             │
        └────────────────────────────────────────────────────────┘
 
-       wc-predictor-v2 · predictor-stocks · nba-predictor (3 PARKED,
-       congelados — vendor antigo intocado, nunca recebem --write)
+       wc-predictor-v2 · nba-predictor (PARKED, congelados) ·
+       predictor-stocks (REABERTO p/ ciência 2026-07-18; vendor segue
+       congelado — os 3 permanecem no set PARKED do sync, nunca --write)
 ```
 
 - **`tools/`** — infraestrutura operacional pura: runner com lock/heartbeat/
@@ -42,9 +43,16 @@ projetos históricos congelados.
 - **5 consumidores vivos** — cada um com hipóteses científicas, dados e
   automações próprias. Cada um tem `README.md` e `HANDOFF.md` no seu
   diretório.
-- **3 projetos PARKED** (`wc-predictor-v2`, `predictor-stocks`,
-  `nba-predictor`) — congelados, preservados como conhecimento histórico.
-  Nunca sincronizam, nunca recebem evolução funcional. Ver seção abaixo.
+- **2 projetos PARKED** (`wc-predictor-v2`, `nba-predictor`) — congelados,
+  preservados como conhecimento histórico. Nunca sincronizam, nunca
+  recebem evolução funcional.
+- **1 projeto REABERTO com vendor congelado** (`predictor-stocks`) —
+  reaberto para pesquisa por decisão explícita do operador em 2026-07-18
+  (H4/H5 pré-registradas e julgadas), mas o vendor `predictor_core`
+  permanece deliberadamente congelado em 1.3.0 e o projeto continua no
+  set `PARKED` do sync (que hoje, para ele, significa "vendor congelado",
+  não "projeto dormindo"). Ver seção abaixo e
+  [predictor-stocks/HANDOFF.md](predictor-stocks/HANDOFF.md).
 
 ## Status atual (2026-07-18)
 
@@ -107,12 +115,22 @@ contrário. Ver [RUNBOOK_VENDOR_SYNC.md](RUNBOOK_VENDOR_SYNC.md).
 
 ## Política PARKED
 
-`wc-predictor-v2`, `predictor-stocks`, `nba-predictor` estão congelados.
-Regra absoluta: nunca sincronizar, nunca atualizar vendor, nunca evoluir
-funcionalmente. `predictor_core/sync_core.py:51` declara a lista
-`PARKED` — `_is_parked()` é checado antes de qualquer escrita,
-independente de `--target`. Podem ser consultados como fonte histórica.
-Condição para reabrir cada um: ver os respectivos `HANDOFF.md`.
+`wc-predictor-v2` e `nba-predictor` estão congelados. Regra absoluta:
+nunca sincronizar, nunca atualizar vendor, nunca evoluir funcionalmente.
+Podem ser consultados como fonte histórica. Condição para reabrir cada
+um: ver os respectivos `HANDOFF.md`.
+
+`predictor-stocks` foi **reaberto para pesquisa em 2026-07-18** (decisão
+explícita do operador + hipóteses pré-registradas antes de código — a
+condição formal de reabertura do seu próprio HANDOFF, satisfeita). O que
+NÃO mudou: o vendor dele permanece congelado em 1.3.0-ga-20260711
+(agregado `3445e37f43c458cc`, drift esperado e correto) e ele **continua
+na lista `PARKED` de `predictor_core/sync_core.py:56`** — que para este
+projeto passa a significar "vendor congelado por decisão do projeto",
+não "projeto inativo". A pesquisa usa somente APIs já vendorizadas.
+
+`_is_parked()` é checado antes de qualquer escrita, independente de
+`--target`, para os 3 nomes da lista.
 
 ## Artefatos científicos e operacionais
 
