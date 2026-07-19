@@ -49,7 +49,8 @@ por engano).
 | atestado | `data/trials.harness_attestation.json` | `ATTESTATION` | Sim | — | `git status` |
 | banco de corridas | `data/f1.db` | `DATABASE` | Não | Sim | Hash antes/depois |
 | ratings | `data/ratings.json` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | Hash antes/depois |
-| snapshots PRE_EVENT/MATURED | forward snapshots (F1) | `SCIENTIFIC_UNVERSIONED` (SHA-256 explícito entre estados, escrita exclusiva de SO) | Depende | — | Verificação própria em `src/snapshots.py` |
+| snapshots PRE_EVENT/MATURED | forward snapshots (F1) | `SCIENTIFIC_UNVERSIONED` (SHA-256 explícito entre estados, escrita exclusiva de SO) | Depende | — | Verificação própria em `src/snapshots.py`; reverificado 2026-07-19 (`snapshot-status`: 0 `VALID_FOR_H8`, gate H8 fechado — faltam 15) |
+| testes hostis (auditoria 2026-07-19) | `tests/test_model.py` + `tests/test_snapshots.py` (8 novos) | `CODE_VERSIONED` | Sim | — | `git status` (rodada de evolução final f1-predictor) |
 
 ## lol-predictor
 
