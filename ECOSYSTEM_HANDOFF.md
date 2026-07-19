@@ -39,8 +39,8 @@ apontam para os nomes novos.
 
 | Pasta local | Papel | Branch | Remoto (github.com/leonardosovienski/) |
 |---|---|---|---|
-| `tools/` | Operacional canônico | `main` | `predictor-tools` ✓ |
-| `predictor_core/` | Científico canônico | `main` | `predictor-core` ✓ (linha junho em `arquivo/core-junho-2026`) |
+| `tools/` | Operacional canônico | `main` | `tools-predictor` ✓ |
+| `predictor_core/` | Científico canônico | `main` | `core-predictor` ✓ (linha junho em `arquivo/core-junho-2026`) |
 | `brasileirao-predictor` | Vivo | `main` | `brasileirao-predictor` ✓ |
 | `cs-predictor` | Vivo | `main` | `cs-predictor` ✓ |
 | `f1-predictor` | Vivo | `main` | `f1-predictor` ✓ |
@@ -49,13 +49,13 @@ apontam para os nomes novos.
 | `wc-predictor-v2` | PARKED — encerramento em andamento (falta só a final) | `main` | `wc-predictor` ✓ (linha junho em `arquivo/shadow-junho-2026`) |
 | `predictor-stocks` | REABERTO (ciência ativa; vendor congelado) | `main` | `stocks-predictor` ✓ |
 | `nba-predictor` | PARKED (push = preservação, não reabertura) | `main` | `nba-predictor` ✓ |
-| raiz (governança) | Documentação canônica | `master` | `predictor-ecosystem` ✓ |
+| raiz (governança) | Documentação canônica | `master` | `ecosystem-predictor` ✓ |
 
 Nota: existe também `github.com/leonardosovienski/Claude` — snapshot
 histórico do workspace inteiro de 2026-06-21 (cópias da época de stocks/
 core/cripto/wc como subpastas + docs de governança extintos). É um fóssil
 de backup pré-ecossistema, superado pelos 11 repos acima. NÃO é canônico;
-não confundir com `predictor-ecosystem`. Mantido como arquivo histórico.
+não confundir com `ecosystem-predictor`. Mantido como arquivo histórico.
 
 ## Arquitetura
 
