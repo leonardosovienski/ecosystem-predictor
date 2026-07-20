@@ -82,7 +82,7 @@ executado.
 | cs-predictor | sync `7627c03` | Sim | 100% verde |
 | f1-predictor | sync `c99a545` | Sim | 100% verde |
 | lol-predictor | sync `593dbc0` | Sim | 100% verde |
-| previsao-cripto | sync `f4d4d81` | Sim | 302 passed, 2 skipped |
+| previsao-cripto | sync `f4d4d81` | Sim | 309 passed, 2 skipped (2026-07-20) |
 
 ## Projetos PARKED e o caso predictor-stocks
 
