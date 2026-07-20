@@ -52,7 +52,7 @@ verificação independente de cada um.
 | SCI-3 | `is_mature()` é só informativo, sem enforcement técnico de acesso | `CORRECTLY_DEFERRED` | Nenhum dos 5 consumidores acessa `.value` sem checar `is_mature()` primeiro (confirmado por grep) |
 | SCI-4 | Elo do F1 não usa `RatingBook` do core (K-factor combinado diferente) | `DOMAIN_LOCAL` | Migrar mudaria ratings históricos; sem 2º consumidor real da extensão Plackett-Luce |
 | SCI-5 | Modo sombra do brasileirao-predictor (H3) ainda precisa de amostra madura (~40 jogos citados no histórico de commits de validação forward) antes de decidir viés OVER/UNDER, capturabilidade de odds e IC do ROI | `OPEN_SCIENTIFIC_GAP` | Governança científica normal — aguardar, não acelerar |
-| SCI-6 | H8-F1 (choque estrutural de regulamento) segue com amostra insuficiente: `H8_REQUIRED_RACES=15`, só 9 corridas maturadas confirmadas em 2026-07-17; sem snapshot pré-corrida imutável e datado ainda comprovado para nenhuma corrida | `OPEN_SCIENTIFIC_GAP` | Gate de decisão econômica corretamente fechado; reabre quando 2026 tiver ≥15 corridas maturadas |
+| SCI-6 | H8-F1 (choque estrutural de regulamento) segue com amostra insuficiente: `H8_REQUIRED_RACES=15`. **Correção 2026-07-20** (a formulação anterior confundia corridas disputadas com corridas válidas para H8 — exatamente o erro que o gate existe para prevenir): 10 corridas de 2026 já têm resultado no banco, mas são retropredição (R1-R10, o modelo roda depois do fato); **0 (zero)** têm o par PRE_EVENT→MATURED que a `snapshot-status` exige — o diretório `snapshots/` nunca foi criado, a coleta forward declarada em 2026-07-15 ainda não produziu nenhum snapshot real (falta um GP com quali real durante uma sessão de trabalho para criar o primeiro) | `OPEN_SCIENTIFIC_GAP` | Gate de decisão econômica corretamente fechado; reabre quando 2026 tiver ≥15 corridas com par PRE_EVENT→MATURED válido (`VALID_FOR_H8`), não 15 corridas disputadas |
 | SCI-7 | Fase 1b (avaliação econômica via odds) de CS e LoL bloqueada por ausência de fonte gratuita e comprovada de odds históricas/ao vivo | `OPEN_SCIENTIFIC_GAP` | Dependência externa de dados, não bug de modelo |
 | SCI-8 | Hipótese H5 (multi-juiz, previsao-cripto) em coleta, sem GO/NO-GO — janela de decisão original citada em `SINERGIAS_ECOSSISTEMA.md` como 28/07 | `OPEN_SCIENTIFIC_GAP` | Não deve ser refinada nem convertida em nova hipótese antes da janela por decisão de governança já registrada |
 
@@ -60,7 +60,7 @@ verificação independente de cada um.
 
 | ID | Item | Classificação | Detalhe |
 |---|---|---|---|
-| INC-1 | Lifecycle `PRE_EVENT`/`MATURED` compartilhado — cs-predictor, f1-predictor, lol-predictor têm 3 implementações locais com garantias estruturalmente diferentes (CS tem vínculo criptográfico/hash entre snapshots, F1 e LoL não) | `SHARED_BUT_INCUBATING` | Reabre quando um 4º domínio precisar do mesmo padrão E as 3 implementações convergirem em garantias |
+| INC-1 | Lifecycle `PRE_EVENT`/`MATURED` compartilhado — cs-predictor, f1-predictor, lol-predictor têm 3 implementações locais com garantias estruturalmente diferentes. **Correção 2026-07-20 (parte f1-predictor)**: a formulação anterior ("CS tem vínculo criptográfico/hash entre snapshots, F1 e LoL não") está desatualizada para o F1 — `src/snapshots.py` hasheia (SHA-256) e vincula `pre_event_payload_hash` explicitamente (`mature_snapshot`/`h8_eligibility` rejeitam vínculo ou hash inconsistente); não verificado para LoL nesta rodada (fora do escopo exclusivo desta auditoria) | `SHARED_BUT_INCUBATING` | Reabre quando um 4º domínio precisar do mesmo padrão E as 3 implementações convergirem em garantias |
 | INC-2 | `shin_probabilities`, cliente `curl_cffi`+impersonate, `PlattCalibrator`, motor prequential, harness Brier+DM — listados como "candidatos ao core (roadmap de agosto)" em `SINERGIAS_ECOSSISTEMA.md`, cada um hoje duplicado em 2-3 domínios | `SHARED_BUT_INCUBATING` | Nenhuma promoção feita nesta rodada nem nas anteriores — decisão explícita de tratar como ciclo de trabalho próprio, separado de trabalho de domínio |
 
 ## 6. Dívidas técnicas / limpeza cosmética (sem risco, sem prazo)
@@ -106,7 +106,7 @@ verificação independente de cada um.
 
 ## 10. Estado historicamente preservado, sem ação necessária
 
-- Branch `reintegracao-f1-ondas-2-3` em `f1-predictor`: commits redundantes preservados, não mesclados.
+- Branch `reintegracao-f1-ondas-2-3` em `f1-predictor`: commits redundantes preservados, não mesclados. **Verificado 2026-07-20**: `git diff main..reintegracao-f1-ondas-2-3` mostra só remoções (subconjunto estrito de `main` — vendor mais antigo, testes mais antigos); nenhum conteúdo exclusivo, confirma a nota original. **Achada também nesta verificação**: `claude/belgium-quali-gp-test-72bff2` (branch não catalogada antes), mesmo padrão — subconjunto estrito de `main`, ponta em `aae48a1` (antes da Fase 5/SELADO). Nenhuma ação tomada em nenhuma das duas (deletar branch é operação destrutiva fora do escopo desta auditoria); documentado para não serem confundidas com trabalho pendente real.
 - 4 worktrees paralelos (`brasileirao-predictor`, `previsao-cripto`, `nba-predictor`, `wc-predictor-v2`) intocados.
 - `predictor-stocks/AGENTS.md` untracked — pré-existente, também ausente da `main` remota; não commitado por não ser artefato desta linha de trabalho. **Atualização 2026-07-19**: o projeto foi REABERTO para pesquisa pelo operador (2026-07-18, H4/H5 pré-registradas e julgadas NÃO COMPROVADAS; vendor segue congelado em 1.3.0 e o nome permanece no set `PARKED` do sync como proteção de vendor) — ver `ECOSYSTEM_HANDOFF.md` seção "Projetos PARKED e o caso predictor-stocks".
 - Recomendações de versão pendentes de autorização: `tools/` 1.3.0→1.3.1, `predictor_core` 1.3.1→1.3.2 (ambos PATCH); sem tag em nenhum repositório. **Atualização 2026-07-19**: push realizado a pedido do operador nos 2 repositórios com remoto funcional (`previsao-cripto` `af39a89..d4706d4`; `predictor-stocks` até `5132a1c`) — os demais seguem sem remoto configurado.
@@ -115,10 +115,10 @@ verificação independente de cada um.
 
 - **Incidente de segurança aberto**: 1 (SEC-1) — bloqueado por ação humana externa
 - **Bugs de código abertos**: 0
-- **Gaps operacionais**: 1 aberto (OP-4 backup) + 3 corretamente deferidos (OP-2, OP-5, OP-6); OP-1 resolvido em 2026-07-19 (tools/ 1.3.1, sidecar de SKIPPED); OP-3 resolvido em 2026-07-19 (`GLOSSARIO_STATUS.md`)
-- **Gaps científicos**: 4 abertos (SCI-5, SCI-6, SCI-7, SCI-8), governança normal de pesquisa em andamento
+- **Gaps operacionais**: 1 aberto, parcialmente coberto (OP-4 backup — parte f1-predictor verificada 2026-07-20, demais consumidores seguem abertos) + 3 corretamente deferidos (OP-2, OP-5, OP-6); OP-1 resolvido em 2026-07-19 (tools/ 1.3.1, sidecar de SKIPPED); OP-3 resolvido em 2026-07-19 (`GLOSSARIO_STATUS.md`); OP-7/OP-8 resolvidos em 2026-07-20 (previsao-cripto)
+- **Gaps científicos**: 4 abertos (SCI-5, SCI-6, SCI-7, SCI-8), governança normal de pesquisa em andamento — nenhum é bug, todos aguardam amostra/janela por design; SCI-6 corrigida em 2026-07-20 (contagem estava desatualizada e confundia corridas disputadas com maturação forward válida — 10 disputadas, 0 `VALID_FOR_H8`)
 - **Capacidades incubadas**: 2
 - **Dívidas técnicas**: 5, todas deferidas conscientemente
 - **Não objetivos**: 3
 - **Fatos não confirmados**: 3
-- **Resolvidos nesta rodada**: 4 (+ RES-5/RES-6/RES-7 em rodadas de auditoria subsequentes de brasileirão, cs e lol)
+- **Resolvidos nesta rodada**: 4 (+ RES-5/RES-6/RES-7 em rodadas de auditoria subsequentes de brasileirão, cs e lol; RES-8/RES-9 na evolução final do f1-predictor)
