@@ -37,9 +37,10 @@ por engano).
 | trials | `data/trials.json` | `SCIENTIFIC_VERSIONED` | Sim | — | `git status` |
 | atestado | `data/trials.harness_attestation.json` | `ATTESTATION` | Sim | — | `git status` |
 | identidade de times | `data/teams_cs.json` | `SCIENTIFIC_VERSIONED` | Sim | — | `git status` |
+| testes hostis de identidade/lifecycle | `tests/test_identity_hostile.py`, `tests/test_config.py`, `tests/test_cs_snapshots.py` | `CODE_VERSIONED` | Sim | — | suíte 99 verde; colisões reais, Unicode NFC, alias ambíguo, truncamento, traversal e concorrência |
 | banco | `data/cs.db*` | `DATABASE` | Não | Sim | Hash antes/depois |
 | ratings vividos | `data/ratings.json` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | Hash antes/depois |
-| snapshots PRE_EVENT/MATURED | `snapshots/` | `SCIENTIFIC_UNVERSIONED` (com vínculo hash interno próprio) | Depende do projeto | — | Verificação própria via `cs_snapshots.py` (hash entre PRE_EVENT e MATURED); reverificado 2026-07-19 (`snapshot-status`: 1 `VALID_FORWARD`, 3 `VERIFIED`) |
+| snapshots PRE_EVENT/MATURED | `snapshots/` | `SCIENTIFIC_UNVERSIONED` (com vínculo hash interno próprio) | Depende do projeto | — | Verificação própria via `cs_snapshots.py` (hash entre PRE_EVENT e MATURED); reverificado 2026-07-20 (`snapshot-status`: 1 `VALID_FORWARD`, 3 `VERIFIED`) |
 
 ## f1-predictor
 
