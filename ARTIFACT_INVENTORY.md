@@ -40,7 +40,8 @@ por engano).
 | testes hostis de identidade/lifecycle | `tests/test_identity_hostile.py`, `tests/test_config.py`, `tests/test_cs_snapshots.py` | `CODE_VERSIONED` | Sim | — | suíte 99 verde; colisões reais, Unicode NFC, alias ambíguo, truncamento, traversal e concorrência |
 | banco | `data/cs.db*` | `DATABASE` | Não | Sim | Hash antes/depois |
 | ratings vividos | `data/ratings.json` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | Hash antes/depois |
-| snapshots PRE_EVENT/MATURED | `snapshots/` | `SCIENTIFIC_UNVERSIONED` (com vínculo hash interno próprio) | Depende do projeto | — | Verificação própria via `cs_snapshots.py` (hash entre PRE_EVENT e MATURED); reverificado 2026-07-20 (`snapshot-status`: 1 `VALID_FORWARD`, 3 `VERIFIED`) |
+| snapshots PRE_EVENT/MATURED | `snapshots/` | `SCIENTIFIC_UNVERSIONED` (com vínculo hash interno próprio) | Depende do projeto | — | Verificação própria via `cs_snapshots.py`; reverificado 2026-07-20: 4 `VALID_FORWARD`, 0 pendentes |
+| backups operacionais | `backups/` | `OPERATIONAL_BACKUP` | Não | Sim | `src.backup_restore`: manifesto SHA-256 + SQLite `integrity_check`; restore real verificado em 2026-07-20 |
 
 ## f1-predictor
 
@@ -67,6 +68,9 @@ por engano).
 | testes hostis (auditoria 2026-07-19/20) | `tests/test_hostile_audit.py` | `CODE_VERSIONED` | Sim | — | commit `d8e7fd2` + fechamento local de identidade, tempo e concorrência; 71 verdes |
 | cotações shadow Polymarket | `data/shadow/market_quotes.jsonl` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | append-only PRE_EVENT; fonte pública read-only; criado apenas quando houver mercado coberto |
 | testes da fonte de mercado | `tests/test_polymarket_provider.py` + `tests/test_collect_polymarket_shadow.py` | `CODE_VERSIONED` | Sim | — | 5 testes determinísticos; suíte total 76 verdes |
+| pré-registro H4 LoL | entrada `h4-lol-market-shadow-prospectivo` em `data/trials.json` | `SCIENTIFIC_VERSIONED` | Sim | — | registrado 2026-07-20T06:20:41Z; probes anteriores excluídos; gate 50/30 dias/3 competições |
+| alias Polymarket | `data/polymarket_aliases.json` | `SCIENTIFIC_VERSIONED` | Sim | — | mapping fonte-específico explícito; sem fuzzy matching |
+| tarefa shadow LoL | Task Scheduler `lol-market-shadow` | `OPERATIONAL_EXTERNAL` | Não | — | 30 min; primeira execução `LastTaskResult=0`; sem trading |
 
 ## previsao-cripto
 
