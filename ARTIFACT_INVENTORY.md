@@ -37,11 +37,12 @@ por engano).
 | trials | `data/trials.json` | `SCIENTIFIC_VERSIONED` | Sim | — | `git status` |
 | atestado | `data/trials.harness_attestation.json` | `ATTESTATION` | Sim | — | `git status` |
 | identidade de times | `data/teams_cs.json` | `SCIENTIFIC_VERSIONED` | Sim | — | `git status` |
-| testes hostis de identidade/lifecycle | `tests/test_identity_hostile.py`, `tests/test_config.py`, `tests/test_cs_snapshots.py` | `CODE_VERSIONED` | Sim | — | suíte 99 verde; colisões reais, Unicode NFC, alias ambíguo, truncamento, traversal e concorrência |
+| testes hostis de identidade/lifecycle | `tests/test_identity_hostile.py`, `tests/test_config.py`, `tests/test_cs_snapshots.py` | `CODE_VERSIONED` | Sim | — | suíte completa verde; colisões reais, Unicode NFC, alias ambíguo, truncamento, traversal e concorrência |
 | banco | `data/cs.db*` | `DATABASE` | Não | Sim | Hash antes/depois |
 | ratings vividos | `data/ratings.json` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | Hash antes/depois |
 | snapshots PRE_EVENT/MATURED | `snapshots/` | `SCIENTIFIC_UNVERSIONED` (com vínculo hash interno próprio) | Depende do projeto | — | Verificação própria via `cs_snapshots.py`; reverificado 2026-07-20: 4 `VALID_FORWARD`, 0 pendentes |
 | backups operacionais | `backups/` | `OPERATIONAL_BACKUP` | Não | Sim | `src.backup_restore`: manifesto SHA-256 + SQLite `integrity_check`; restore real verificado em 2026-07-20 |
+| cotações shadow Polymarket CS | `data/market_shadow.jsonl` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | append-only e deduplicado; identidade/formato exatos; fonte pública read-only; PRE_EVENT obrigatório |
 
 ## f1-predictor
 
