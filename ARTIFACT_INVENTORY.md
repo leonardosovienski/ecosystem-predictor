@@ -63,7 +63,7 @@ por engano).
 | banco | `data/lol.db*` | `DATABASE` | Não | Sim | Hash antes/depois |
 | ratings | `data/ratings.json` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | Hash antes/depois |
 | snapshot EWC (pré-evento) | `data/snapshots/ewc_2026_pre_event_ratings.json` | `SCIENTIFIC_VERSIONED` | Sim | — | `git status` |
-| testes hostis (auditoria 2026-07-19) | `tests/test_hostile_audit.py` | `CODE_VERSIONED` | Sim | — | `git status` (commit `d8e7fd2`) |
+| testes hostis (auditoria 2026-07-19/20) | `tests/test_hostile_audit.py` | `CODE_VERSIONED` | Sim | — | commit `d8e7fd2` + fechamento local de identidade, tempo e concorrência; 71 verdes |
 
 ## previsao-cripto
 
