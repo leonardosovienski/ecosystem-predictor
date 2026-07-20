@@ -1,6 +1,6 @@
 # ECOSYSTEM_HANDOFF.md
 
-Documento mestre de continuidade. Verificado em: 2026-07-18. Leia este
+Documento mestre de continuidade. Verificado em: 2026-07-20. Leia este
 documento **primeiro** em qualquer sessão nova.
 
 ## COMO RETOMAR EM UMA NOVA SESSÃO
@@ -29,6 +29,12 @@ publicação. Linhas antigas pré-existentes no GitHub (junho/2026) foram
 preservadas em branches `arquivo/*` antes de a `main` canônica substituí-las
 (`wc-predictor-v2`: `arquivo/shadow-junho-2026`; `predictor_core`:
 `arquivo/core-junho-2026`).
+
+Reverificação em 2026-07-20 encontrou três avanços locais ainda não
+publicados, todos de um commit e sem divergência de histórico: raiz de
+governança `907ea00` (remoto `128ed04`), `cs-predictor` `28a7d33` (remoto
+`feeac2a`) e `f1-predictor` `030a5b7` (remoto `2bf2dad`). Os outros oito
+repositórios estão idênticos ao remoto. Nenhum push foi feito nesta rodada.
 
 Nomes no GitHub **padronizados em 2026-07-19** (`<domínio>-predictor` para
 domínios; família `predictor-*` para infraestrutura). Pastas LOCAIS mantêm
@@ -65,24 +71,25 @@ contrário. Nenhum domínio importa outro domínio diretamente.
 
 ## Camadas canônicas — versões e commits-base
 
-| Camada | Versão | Commit-base (2026-07-18) | Testes |
+| Camada | Versão | Commit-base | Testes |
 |---|---|---|---|
-| tools/ | 1.3.1 | `80eca1a` + reconciliação local de metadata | 139 passed, 1 skipped |
-| predictor_core | 1.3.1-ga-20260716 | `9868c01` | 263 passed |
+| tools/ | 1.3.1 | `2ed64e4` | 139 passed, 1 skipped |
+| predictor_core | 1.3.2-ga-20260720 | `969cad5` | 263 passed |
 
-Recomendação de versão pendente de autorização: ambos são candidatos a
-bump PATCH (correções de robustez, sem quebra de API pública) — não
-executado.
+Os dois bumps PATCH antes recomendados foram decididos e concluídos em
+2026-07-20: `tools/` 1.3.0→1.3.1 e `predictor_core`
+1.3.1→1.3.2-ga-20260720. Nenhuma recomendação de versão permanece
+pendente de autorização.
 
 ## Consumidores vivos — vendors e testes
 
 | Consumidor | Vendor de predictor_core | Byte-idêntico | Testes |
 |---|---|---|---|
-| brasileirao-predictor | sync `5276f65` | Sim (`vendor_byte_audit.py`) | 320 passed (2026-07-19, rodada hostil 2) |
-| cs-predictor | sync `7627c03` | Sim | 100% verde |
-| f1-predictor | sync `c99a545` | Sim | 100% verde |
-| lol-predictor | sync `593dbc0` | Sim | 100% verde |
-| previsao-cripto | sync `f4d4d81` | Sim | 309 passed, 2 skipped (2026-07-20) |
+| brasileirao-predictor | sync `c28af0b` | Sim (`vendor_byte_audit.py`) | 320 passed (2026-07-20) |
+| cs-predictor | sync `feeac2a` | Sim | 110 passed (2026-07-20) |
+| f1-predictor | sync `2bf2dad` | Sim | 152 passed (2026-07-20) |
+| lol-predictor | sync `48dd57e` | Sim | 81 passed (2026-07-20) |
+| previsao-cripto | sync `e507d77` | Sim | 315 passed, 2 skipped (2026-07-20) |
 
 ## Projetos PARKED e o caso predictor-stocks
 
@@ -177,7 +184,8 @@ registrada.
 
 - `RatingBook` não normaliza identidade — mudaria ciência.
 - Lifecycle `PRE_EVENT`/`MATURED` não é contrato comum do core — 3
-  implementações com garantias diferentes (CS tem hash-linkage).
+  implementações com garantias diferentes (CS e F1 têm hash-linkage;
+  LoL vincula por `prediction_id`, sem hash do payload PRE_EVENT).
 - `PredictionPoint` não prova proveniência de inputs — gap de design, não
   bug.
 - `is_mature()` não bloqueia acesso — decisão de design.

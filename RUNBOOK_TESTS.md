@@ -1,6 +1,6 @@
 # RUNBOOK_TESTS.md
 
-Comandos reais, testados em 2026-07-18. Ambiente: Windows, Python 3.13+.
+Comandos reais, reconciliados em 2026-07-20. Ambiente: Windows, Python 3.13+.
 
 ## tools/
 
@@ -28,7 +28,7 @@ depreciadas testadas de propósito, não regressão).
 cd brasileirao-predictor
 python -m pytest -q
 ```
-Esperado: `302 passed, 1 warning` (warning de `rho` no bound — conhecido,
+Esperado: `320 passed, 1 warning` (warning de `rho` no bound — conhecido,
 documentado, não regressão).
 
 ## cs-predictor / f1-predictor / lol-predictor
@@ -36,7 +36,8 @@ documentado, não regressão).
 ```bash
 cd cs-predictor && python -m pytest -q   # idem f1-predictor, lol-predictor
 ```
-Esperado: 100% verde, exit 0.
+Esperado: 100% verde, exit 0 (CS: 110; F1: 152; LoL: 81 na verificação de
+2026-07-20).
 
 ## previsao-cripto
 
@@ -44,7 +45,7 @@ Esperado: 100% verde, exit 0.
 cd previsao-cripto
 python -m pytest -q
 ```
-Esperado: `302 passed, 2 skipped`. Suíte específica de redação de
+Esperado: `315 passed, 2 skipped`. Suíte específica de redação de
 segredos: `python -m pytest tests/test_ops_hardening.py -q` → `22 passed`.
 
 ## Smoke tests de integração

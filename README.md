@@ -1,6 +1,6 @@
 # Ecossistema Preditivo Local
 
-Verificado em: 2026-07-18. Este é o ponto de entrada. Para retomar o
+Verificado em: 2026-07-20. Este é o ponto de entrada. Para retomar o
 trabalho numa nova sessão, leia **[ECOSYSTEM_HANDOFF.md](ECOSYSTEM_HANDOFF.md)**
 antes de qualquer outra coisa.
 
@@ -54,17 +54,17 @@ projetos históricos congelados.
   não "projeto dormindo"). Ver seção abaixo e
   [predictor-stocks/HANDOFF.md](predictor-stocks/HANDOFF.md).
 
-## Status atual (2026-07-18)
+## Status atual (2026-07-20)
 
 | Camada | Testes | Estado |
 |---|---|---|
-| tools/ | 137 passed, 1 skipped | Verde |
+| tools/ | 139 passed, 1 skipped | Verde |
 | predictor_core | 263 passed | Verde |
-| brasileirao-predictor | 302 passed | Verde |
-| cs-predictor | 100% verde | Verde |
-| f1-predictor | 100% verde | Verde |
-| lol-predictor | 100% verde | Verde |
-| previsao-cripto | 302 passed, 2 skipped | Verde |
+| brasileirao-predictor | 320 passed | Verde |
+| cs-predictor | 110 passed | Verde |
+| f1-predictor | 152 passed | Verde |
+| lol-predictor | 81 passed | Verde |
+| previsao-cripto | 315 passed, 2 skipped | Verde |
 
 **Bugs de código conhecidos e não corrigidos: zero.** Um incidente de
 segurança segue aberto (rotação de credencial pendente, ação humana
