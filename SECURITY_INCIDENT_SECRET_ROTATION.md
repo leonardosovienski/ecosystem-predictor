@@ -49,6 +49,18 @@ destino dos logs históricos.
 | `garimpo_fase1_20260717.log` | **115** (corrigido em 2026-07-18; a rodada anterior registrou 114 — recontagem por classificação de cada match: 115 valores reais, 0 falsos positivos) | idem — **não catalogado no incidente original** |
 | `garimpo_fase1_20260718.log` | 0 reais (a única ocorrência estrutural é o próprio marcador `[REDACTED]` — ou seja, o filtro de redação **interceptou** um vazamento em produção; a explicação anterior, "falso positivo polygon-ecosystem-token", foi corrigida em 2026-07-18 por classificação do valor do match) | — |
 
+> **Confirmação externa da causa da degradação operacional (2026-07-20)**:
+> o dono compartilhou o e-mail real do provedor — plano **free, 250
+> buscas/mês, 250/250 usadas, renova em 2026-08-07**. Isso confirma (deixa
+> de ser inferência) o achado operacional registrado em
+> `PENDENCIAS_ABERTAS.md` (OP-7): a causa do "sem notícias" no
+> `previsao-cripto` desde 18/07 é cota MENSAL do plano free, não diária — e
+> não volta sozinha antes da janela de decisão da H5 (28/07). Sem custo
+> monetário envolvido (nunca foi plano pago). Nuance para a decisão de
+> rotação: uma chave/conta NOVA restauraria 250 buscas imediatas —
+> rotacionar por segurança também resolveria a degradação operacional antes
+> de 07/08, mas continua sendo decisão sua, sem prazo definido.
+>
 > **Varredura ampliada (2026-07-18, rodada de evolução final do previsao-cripto):**
 > todos os logs NUNCA catalogados foram escaneados pela primeira vez com o mesmo
 > método sanitizado (contagem/classificação, nunca o valor): `garimpo.log`
