@@ -25,6 +25,7 @@ por engano).
 | atestado do harness | `data/trials.harness_attestation.json` | `ATTESTATION` | Sim | — | Só em nova trial | `git status` |
 | identidade de times | `data/teams_brasileirao.json` | `SCIENTIFIC_VERSIONED` | Sim | — | Raro | `git status` |
 | banco de partidas | `data/matches.db`, `data/data/matches.db` | `DATABASE` | Não | Sim (`*.db`) | Sim, diário | Hash SHA-256 comparado antes/depois de cada rodada de engenharia (não prova histórico, só ausência de alteração pela sessão) |
+| backup operacional | destino externo escolhido pelo operador (`C:\Claude-projetos\Claude\backups\brasileirao-*` na prova real) | `OPERATIONAL_BACKUP` | Não | — | Sob demanda | `src.backup_restore`: snapshot online SQLite, hashes SHA-256, `integrity_check`, rejeição de adulteração e restore somente em raiz nova; roundtrip real de 2026-07-20 confirmou 1.165 partidas |
 | ledgers de sombra (H3/H5) | `data/sombra_picks.jsonl`, `data/sombra_results.jsonl`, `data/sombra_h5_picks.jsonl`, `data/sombra_h5_results.jsonl` | `SCIENTIFIC_UNVERSIONED` (append-only, populações das hipóteses H3/H5) | Não | Sim | Sim, diário pelo agendador (`sombra_diaria`) | Filesystem (tamanho/timestamp); dedupe por `(event_id, selection)` no código; leitura oficial via `scripts/report_shadow_mode.py` |
 | log de predições | `data/predictions.jsonl` | `SCIENTIFIC_UNVERSIONED` (append-only) | Não | Sim | Sim, a cada serving | Filesystem |
 | heartbeats operacionais | `logs/operations/*.heartbeat.json` | `OPERATIONAL` | Sim (rastreado, mas muda a cada execução real) | — | Sim, a cada ciclo agendado | `git status` mostra o diff; committed quando a sessão de engenharia termina |
@@ -71,6 +72,7 @@ por engano).
 | cotações shadow Polymarket | `data/shadow/market_quotes.jsonl` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | append-only PRE_EVENT; fonte pública read-only; criado apenas quando houver mercado coberto |
 | testes da fonte de mercado | `tests/test_polymarket_provider.py` + `tests/test_collect_polymarket_shadow.py` | `CODE_VERSIONED` | Sim | — | 5 testes determinísticos; suíte total 76 verdes |
 | pré-registro H4 LoL | entrada `h4-lol-market-shadow-prospectivo` em `data/trials.json` | `SCIENTIFIC_VERSIONED` | Sim | — | registrado 2026-07-20T06:20:41Z; probes anteriores excluídos; gate 50/30 dias/3 competições |
+| H4-R LoL retrospectiva | `data/reports/h4r_polymarket_retrospective_2026-07-20.json` | `SCIENTIFIC_VERSIONED` | Sim | — | 177 partidas/28 competições; resultado inconclusivo; hash do banco incorporado |
 | alias Polymarket | `data/polymarket_aliases.json` | `SCIENTIFIC_VERSIONED` | Sim | — | mapping fonte-específico explícito; sem fuzzy matching |
 | tarefa shadow LoL | Task Scheduler `lol-market-shadow` | `OPERATIONAL_EXTERNAL` | Não | — | 30 min; primeira execução `LastTaskResult=0`; sem trading |
 
@@ -83,6 +85,7 @@ por engano).
 | eventos telemetria | `events.jsonl` | `SCIENTIFIC_UNVERSIONED` (telemetria estruturada, não dado bruto) | Não | Sim | Hash antes/depois (mudou por atividade real de produção concorrente à sessão) |
 | eventos v3 | `data/v3/events_v3.jsonl` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | idem |
 | feature store | `previsao-cripto/output/feature_store.db` (relativo ao workspace; `output/feature_store.db` no repo) | `DATABASE` | Não | Sim | `PRAGMA integrity_check=ok` em modo read-only (2026-07-20); 4.714.496 bytes |
+| backups do feature store | destino escolhido pelo operador, fora do repo | `OPERATIONAL_BACKUP` | Não | — | `scripts/feature_store_backup.py`: snapshot online SQLite, manifesto SHA-256, `integrity_check` e restore somente em raiz nova; roundtrip real verificado em 2026-07-20 |
 | **logs operacionais afetados por incidente** | `logs/garimpo_fase1_20260713.log` a `_17.log` | `LOG` | Não | Sim | **Nunca entraram no Git** — ver `SECURITY_INCIDENT_SECRET_ROTATION.md`. Contagem de ocorrência verificada por scanner seguro (sem exibir valor) |
 
 ## tools/ e predictor_core
@@ -107,11 +110,12 @@ segredo contendo valor, arquivos de heartbeat/lock enquanto uma execução
 real está em andamento (esperar o job terminar antes de considerar
 commitá-los).
 
-## O que exige backup (não implementado nesta rodada)
+## Cobertura de backup e lacunas restantes
 
-Bancos SQLite/FeatureStore de cada consumidor — `OPEN_OPERATIONAL_GAP` em
-`PENDENCIAS_ABERTAS.md` (OP-4), sem evidência de perda de dados real até
-hoje, não implementado por falta de necessidade comprovada.
+Bancos SQLite/FeatureStore ainda não cobertos em todos os consumidores —
+`OPEN_OPERATIONAL_GAP` em `PENDENCIAS_ABERTAS.md` (OP-4). Brasileirão, CS,
+F1 e cripto já possuem recuperação verificada; a lacuna restante é dos outros
+consumidores e de uma política humana comum de retenção/local externo.
 
 ## O que exige hash externo
 
