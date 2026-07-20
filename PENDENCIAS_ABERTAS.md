@@ -36,7 +36,7 @@ verificação independente de cada um.
 |---|---|---|---|
 | OP-1 | Race de heartbeat concorrente no caminho "perdedor" do lock em `tools/operational_runner.py` — só o sintoma (`PermissionError` no Windows) foi absorvido por retry, a escrita concorrente em si não foi eliminada | `CORRECTLY_DEFERRED` | Baixo risco, comportamento pré-existente fora do escopo da correção de retry |
 | OP-2 | Lock do `TrialRegistry` não distingue PID reciclado do PID original | `CORRECTLY_DEFERRED` | Fallback de idade preserva a garantia original; PID-reuso cai no mesmo comportamento de antes da correção, não piora |
-| OP-3 | Glossário formal de status científico/operacional (GO/NO-GO/REFUTADA/COMPROVADA/INCONCLUSIVA) recomendado por `audit/13_FINAL_VERDICT.md` (item B-02) nunca foi criado como documento único | `OPEN_DOCUMENTATION_GAP` | Os termos são usados de forma consistente nos documentos existentes, mas sem definição formal centralizada — não bloqueante |
+| OP-3 | Glossário formal de status científico/operacional (GO/NO-GO/REFUTADA/COMPROVADA/INCONCLUSIVA) recomendado por `audit/13_FINAL_VERDICT.md` (item B-02) nunca foi criado como documento único | `RESOLVED_AND_VERIFIED` | **Atualização 2026-07-19**: criado `GLOSSARIO_STATUS.md` na raiz (vereditos científicos, gates GO/NO-GO, classificações de pendência, processo de errata não destrutivo), consolidando o uso já consistente dos documentos existentes |
 | OP-4 | Backup/retenção/restore testado para os bancos SQLite/FeatureStore de cada consumidor (`audit/` OQ-040) | `OPEN_OPERATIONAL_GAP` | Não investigado em nenhuma rodada; sem evidência de perda de dados real até hoje |
 | OP-5 | Schemas operacionais (heartbeat/health/eventos JSONL) sem `schema_version` explícito | `CORRECTLY_DEFERRED` | Nenhum consumidor pediu migração incompatível ainda |
 | OP-6 | CI multiplataforma (só Windows validado localmente) | `CORRECTLY_DEFERRED` | Ambiente real de produção hoje é Windows; sem publicação, sem CI remoto configurado em nenhum dos 10 repos |
@@ -112,7 +112,7 @@ verificação independente de cada um.
 
 - **Incidente de segurança aberto**: 1 (SEC-1) — bloqueado por ação humana externa
 - **Bugs de código abertos**: 0
-- **Gaps operacionais**: 2 abertos (OP-3 documentação, OP-4 backup) + 4 corretamente deferidos (OP-1, OP-2, OP-5, OP-6)
+- **Gaps operacionais**: 1 aberto (OP-4 backup) + 4 corretamente deferidos (OP-1, OP-2, OP-5, OP-6); OP-3 resolvido em 2026-07-19 (`GLOSSARIO_STATUS.md`)
 - **Gaps científicos**: 4 abertos (SCI-5, SCI-6, SCI-7, SCI-8), governança normal de pesquisa em andamento
 - **Capacidades incubadas**: 2
 - **Dívidas técnicas**: 5, todas deferidas conscientemente
