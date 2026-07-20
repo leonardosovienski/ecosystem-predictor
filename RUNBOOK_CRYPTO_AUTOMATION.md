@@ -1,24 +1,24 @@
 # RUNBOOK_CRYPTO_AUTOMATION.md
 
 Automação do previsao-cripto via Windows Task Scheduler. Verificado
-2026-07-18 (read-only, `Get-ScheduledTask`/`Get-ScheduledTaskInfo`).
+2026-07-20 (read-only, `Get-ScheduledTask`/`Get-ScheduledTaskInfo`).
 
 ## Tarefas ativas
 
 | Tarefa | Estado | LogonType | Script | Runner |
 |---|---|---|---|---|
-| `GarimpoFase1` | Ready | S4U | `scripts/garimpo_fase1.py` | `tools/operational_runner.py` via `run_garimpo_fase1.bat` |
-| `GarimpoV3Daily` | Ready | S4U | `-m GarimpoInvestimentos.analyzers.backtest` (backtest, 2º passo do mesmo `.bat`) | idem |
+| `GarimpoFase1` | Ready | S4U | `run_garimpo_fase1.bat`: coleta Fase 1 + backtest como segundo passo | `tools/operational_runner.py` (`GarimpoFase1` e `GarimpoBacktest`) |
+| `GarimpoV3Daily` | Ready | S4U | `scripts/run_daily_v3.ps1` | `tools/operational_runner.py` (`GarimpoV3Daily`) |
 | `cripto-watchdog-coleta` | Ready | S4U | script de watchdog | — |
 
-Última verificação (2026-07-18): as 3 com `LastTaskResult=0` (sucesso).
-Horários: `GarimpoFase1` 22:00, `GarimpoV3Daily`/backtest logo em seguida,
-`cripto-watchdog-coleta` 19:00.
+Última verificação (2026-07-20): as 3 com `LastTaskResult=0` (sucesso).
+Horários: `GarimpoV3Daily` 21:30; `GarimpoFase1` 22:00, com backtest logo
+depois no mesmo `.bat`; `cripto-watchdog-coleta` 19:00 e 22:30.
 
 ## Tarefa legada (confirmada desabilitada)
 
 `GarimpoInvestimentos-ColetaDiaria` — `State=Disabled`, confirmado
-2026-07-18. Não deve ser reabilitada sem decisão explícita (risco de
+2026-07-20. Não deve ser reabilitada sem decisão explícita (risco de
 coleta duplicada / dupla cota de API consumida).
 
 ## S4U

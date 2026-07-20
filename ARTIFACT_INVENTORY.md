@@ -82,7 +82,7 @@ por engano).
 | atestado | `GarimpoInvestimentos/trials.harness_attestation.json` | `ATTESTATION` | Sim | — | `git status` |
 | eventos telemetria | `events.jsonl` | `SCIENTIFIC_UNVERSIONED` (telemetria estruturada, não dado bruto) | Não | Sim | Hash antes/depois (mudou por atividade real de produção concorrente à sessão) |
 | eventos v3 | `data/v3/events_v3.jsonl` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | idem |
-| feature store | `output/feature_store.db` | `DATABASE` | Não | Sim | idem |
+| feature store | `previsao-cripto/output/feature_store.db` (relativo ao workspace; `output/feature_store.db` no repo) | `DATABASE` | Não | Sim | `PRAGMA integrity_check=ok` em modo read-only (2026-07-20); 4.714.496 bytes |
 | **logs operacionais afetados por incidente** | `logs/garimpo_fase1_20260713.log` a `_17.log` | `LOG` | Não | Sim | **Nunca entraram no Git** — ver `SECURITY_INCIDENT_SECRET_ROTATION.md`. Contagem de ocorrência verificada por scanner seguro (sem exibir valor) |
 
 ## tools/ e predictor_core
