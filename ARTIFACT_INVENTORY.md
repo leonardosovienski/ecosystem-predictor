@@ -52,8 +52,9 @@ por engano).
 | atestado | `data/trials.harness_attestation.json` | `ATTESTATION` | Sim | — | `git status` |
 | banco de corridas | `data/f1.db` | `DATABASE` | Não | Sim | Hash antes/depois |
 | ratings | `data/ratings.json` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | Hash antes/depois |
-| snapshots PRE_EVENT/MATURED | forward snapshots (F1) | `SCIENTIFIC_UNVERSIONED` (SHA-256 explícito entre estados, escrita exclusiva de SO) | Depende | — | Verificação própria em `src/snapshots.py`; reverificado 2026-07-19 (`snapshot-status`: 0 `VALID_FOR_H8`, gate H8 fechado — faltam 15) |
-| testes hostis (auditoria 2026-07-19) | `tests/test_model.py` + `tests/test_snapshots.py` (8 novos) | `CODE_VERSIONED` | Sim | — | `git status` (rodada de evolução final f1-predictor) |
+| snapshots PRE_EVENT/MATURED | `snapshots/` (F1; ainda ausente) | `SCIENTIFIC_UNVERSIONED` (SHA-256 explícito entre estados; publicação atômica sem overwrite e limpeza de erro parcial) | Não | Sim | `snapshot-status` reverificado 2026-07-20: 0 `VALID_FOR_H8`, gate H8 fechado — faltam 15 |
+| banco reconstruível | `data/f1.db` + `data/raw/` | `DATABASE` + `SOURCE_CACHE` | Não | Sim | `integrity_check=ok`; 114 corridas/2.058 resultados/3.750 pitstops; replay corrigido substitui conjunto oficial sem linhas obsoletas |
+| testes hostis (auditorias 2026-07-19/20) | `tests/test_model.py`, `tests/test_snapshots.py`, `tests/test_db.py` | `CODE_VERSIONED` | Sim | — | 146 verdes; cobre identidade, DNF, posições, truncamento, duplicidade, tempo, erro parcial, concorrência, replay/correção, determinismo e NaN/Inf |
 
 ## lol-predictor
 

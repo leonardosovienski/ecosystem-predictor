@@ -30,6 +30,13 @@ brasileirao financeiro, trials, quality.py) foi corrigido e testado —
 ver `FINAL_FORENSIC_REVIEW.md` e `ECOSYSTEM_FINAL_CLOSURE.md` para a
 verificação independente de cada um.
 
+**Atualização F1 2026-07-20:** quatro falhas reproduzidas foram encerradas
+localmente: publicação de snapshot resistente a erro parcial/concorrência,
+bloqueio e revalidação de maturação prematura, substituição integral de
+resultado corrigido no replay e rejeição de NaN/Inf em ratings/parâmetros.
+Cobertura de regressão em `f1-predictor/tests/`; suíte 146 verdes e CI local
+3/3. Nenhum gate ou critério científico foi alterado. Bugs F1 abertos: zero.
+
 ## 3. Gaps operacionais
 
 | ID | Item | Classificação | Detalhe |
