@@ -65,6 +65,8 @@ por engano).
 | ratings | `data/ratings.json` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | Hash antes/depois |
 | snapshot EWC (pré-evento) | `data/snapshots/ewc_2026_pre_event_ratings.json` | `SCIENTIFIC_VERSIONED` | Sim | — | `git status` |
 | testes hostis (auditoria 2026-07-19/20) | `tests/test_hostile_audit.py` | `CODE_VERSIONED` | Sim | — | commit `d8e7fd2` + fechamento local de identidade, tempo e concorrência; 71 verdes |
+| cotações shadow Polymarket | `data/shadow/market_quotes.jsonl` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | append-only PRE_EVENT; fonte pública read-only; criado apenas quando houver mercado coberto |
+| testes da fonte de mercado | `tests/test_polymarket_provider.py` + `tests/test_collect_polymarket_shadow.py` | `CODE_VERSIONED` | Sim | — | 5 testes determinísticos; suíte total 76 verdes |
 
 ## previsao-cripto
 
