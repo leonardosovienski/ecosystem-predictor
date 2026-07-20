@@ -8,7 +8,7 @@ Comandos reais, testados em 2026-07-18. Ambiente: Windows, Python 3.13+.
 cd <workspace-raiz>
 python -m pytest tools/ -q
 ```
-Esperado: `137 passed, 1 skipped`. **CWD importa**: rodar de dentro de
+Esperado: `139 passed, 1 skipped`. **CWD importa**: rodar de dentro de
 `tools/` quebra (`ModuleNotFoundError: No module named 'tools'`) — o
 workspace-raiz precisa estar no `sys.path`, o que só acontece rodando da
 raiz.

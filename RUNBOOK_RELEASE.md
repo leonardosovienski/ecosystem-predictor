@@ -34,17 +34,16 @@ payload — evita gerar um manifest que não reflete o que será commitado.
 
 ## Versão
 
-`tools/VERSION` = `1.3.0` hoje. Recomendação pendente de autorização: bump
-PATCH → `1.3.1` (correções de robustez sem quebra de API). **Não execute
-o bump sem autorização explícita** — não é uma etapa automática deste
-runbook.
+`tools/VERSION` e `tools/pyproject.toml` = `1.3.1` hoje. Todo bump deve
+atualizar ambos; a suíte contém um tripwire que exige igualdade entre as
+duas declarações. **Não execute novo bump sem autorização explícita** —
+não é uma etapa automática deste runbook.
 
 ## Limitações
 
 Nenhum CI remoto configurado — todo o release check é local. Nenhuma
-matriz multiplataforma (só Windows validado). `predictor_core` não tem
-remoto configurado — publicação de qualquer um dos dois exige decisão
-humana e configuração de remoto antes de sequer cogitar `git push`.
+matriz multiplataforma (só Windows validado). `tools/` tem remoto privado
+configurado, mas publicação continua exigindo decisão humana explícita.
 
 ## Ausência de push/tag automático
 

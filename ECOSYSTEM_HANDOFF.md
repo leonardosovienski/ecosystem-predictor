@@ -67,7 +67,7 @@ contrário. Nenhum domínio importa outro domínio diretamente.
 
 | Camada | Versão | Commit-base (2026-07-18) | Testes |
 |---|---|---|---|
-| tools/ | 1.3.0 | `2732713` | 137 passed, 1 skipped |
+| tools/ | 1.3.1 | `80eca1a` + reconciliação local de metadata | 139 passed, 1 skipped |
 | predictor_core | 1.3.1-ga-20260716 | `9868c01` | 263 passed |
 
 Recomendação de versão pendente de autorização: ambos são candidatos a
