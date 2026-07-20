@@ -34,8 +34,11 @@ verificação independente de cada um.
 localmente: publicação de snapshot resistente a erro parcial/concorrência,
 bloqueio e revalidação de maturação prematura, substituição integral de
 resultado corrigido no replay e rejeição de NaN/Inf em ratings/parâmetros.
-Cobertura de regressão em `f1-predictor/tests/`; suíte 146 verdes e CI local
+Cobertura de regressão em `f1-predictor/tests/`; suíte 152 verdes e CI local
 3/3. Nenhum gate ou critério científico foi alterado. Bugs F1 abertos: zero.
+Hardening final: replay só substitui resultado após validação integral do
+lote; corrupção de identidade/posição/grid/DNF/pontos/pitstops e NaN/Inf
+falha sem apagar a versão anterior. Resposta vazia permanece não destrutiva.
 
 ## 3. Gaps operacionais
 
@@ -67,7 +70,7 @@ Cobertura de regressão em `f1-predictor/tests/`; suíte 146 verdes e CI local
 
 | ID | Item | Classificação | Detalhe |
 |---|---|---|---|
-| INC-1 | Lifecycle `PRE_EVENT`/`MATURED` compartilhado — cs-predictor, f1-predictor, lol-predictor têm 3 implementações locais com garantias estruturalmente diferentes. **Correção 2026-07-20 (parte f1-predictor)**: a formulação anterior ("CS tem vínculo criptográfico/hash entre snapshots, F1 e LoL não") está desatualizada para o F1 — `src/snapshots.py` hasheia (SHA-256) e vincula `pre_event_payload_hash` explicitamente (`mature_snapshot`/`h8_eligibility` rejeitam vínculo ou hash inconsistente); não verificado para LoL nesta rodada (fora do escopo exclusivo desta auditoria) | `SHARED_BUT_INCUBATING` | Reabre quando um 4º domínio precisar do mesmo padrão E as 3 implementações convergirem em garantias |
+| INC-1 | Lifecycle `PRE_EVENT`/`MATURED` compartilhado — cs-predictor, f1-predictor, lol-predictor têm 3 implementações locais com garantias estruturalmente diferentes. **Reconciliado em 2026-07-20**: CS e F1 hasheiam o payload e vinculam `pre_event_payload_hash`; LoL vincula PRE_EVENT→MATURED por `prediction_id` e copia o registro, sem hash do payload PRE_EVENT. Portanto ainda não há equivalência semântica suficiente para promoção | `SHARED_BUT_INCUBATING` | Reabre quando um 4º domínio precisar do mesmo padrão E as 3 implementações convergirem em garantias |
 | INC-2 | `shin_probabilities`, cliente `curl_cffi`+impersonate, `PlattCalibrator`, motor prequential, harness Brier+DM — listados como "candidatos ao core (roadmap de agosto)" em `SINERGIAS_ECOSSISTEMA.md`, cada um hoje duplicado em 2-3 domínios | `SHARED_BUT_INCUBATING` | Nenhuma promoção feita nesta rodada nem nas anteriores — decisão explícita de tratar como ciclo de trabalho próprio, separado de trabalho de domínio |
 
 ## 6. Dívidas técnicas / limpeza cosmética (sem risco, sem prazo)
@@ -116,7 +119,12 @@ Cobertura de regressão em `f1-predictor/tests/`; suíte 146 verdes e CI local
 - Branch `reintegracao-f1-ondas-2-3` em `f1-predictor`: commits redundantes preservados, não mesclados. **Verificado 2026-07-20**: `git diff main..reintegracao-f1-ondas-2-3` mostra só remoções (subconjunto estrito de `main` — vendor mais antigo, testes mais antigos); nenhum conteúdo exclusivo, confirma a nota original. **Achada também nesta verificação**: `claude/belgium-quali-gp-test-72bff2` (branch não catalogada antes), mesmo padrão — subconjunto estrito de `main`, ponta em `aae48a1` (antes da Fase 5/SELADO). Nenhuma ação tomada em nenhuma das duas (deletar branch é operação destrutiva fora do escopo desta auditoria); documentado para não serem confundidas com trabalho pendente real.
 - 4 worktrees paralelos (`brasileirao-predictor`, `previsao-cripto`, `nba-predictor`, `wc-predictor-v2`) intocados.
 - `predictor-stocks/AGENTS.md` untracked — pré-existente, também ausente da `main` remota; não commitado por não ser artefato desta linha de trabalho. **Atualização 2026-07-19**: o projeto foi REABERTO para pesquisa pelo operador (2026-07-18, H4/H5 pré-registradas e julgadas NÃO COMPROVADAS; vendor segue congelado em 1.3.0 e o nome permanece no set `PARKED` do sync como proteção de vendor) — ver `ECOSYSTEM_HANDOFF.md` seção "Projetos PARKED e o caso predictor-stocks".
-- Bumps PATCH recomendados concluídos: `tools/` está em 1.3.1 desde `80eca1a`; a divergência residual de `project.version` em `pyproject.toml` foi reconciliada em 2026-07-20 com teste de regressão. `predictor_core` está em **1.3.2-ga-20260720**, aplicado com autorização, sem tag nem push. **Atualização 2026-07-19**: push realizado a pedido do operador em `previsao-cripto` (`af39a89..d4706d4`) e `predictor-stocks` (até `5132a1c`).
+- Bumps PATCH recomendados concluídos: `tools/` está em 1.3.1 (`2ed64e4`)
+  e `predictor_core` em **1.3.2-ga-20260720** (`969cad5`). O core está
+  publicado e sincronizado com `origin/main`; tools permanece com 2 commits
+  locais ainda não publicados. Sem tags. **Atualização 2026-07-19**: push
+  realizado a pedido do operador em `previsao-cripto` (`af39a89..d4706d4`)
+  e `predictor-stocks` (até `5132a1c`).
 
 ## Resumo por severidade
 
