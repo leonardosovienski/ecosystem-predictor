@@ -93,6 +93,15 @@ por engano).
 
 ## tools/ e predictor_core
 
+## Atualização F1 — Stage 0 Market H2H (2026-07-21)
+
+| Artefato | Classe | Versionado | Observação |
+|---|---|---:|---|
+| `f1-predictor/data/market_h2h_feasibility.json` | `SCIENTIFIC_GOVERNANCE` | Sim | Gate com 0 fontes/quotes aceitos; sem odds inventadas. |
+| `f1-predictor/docs/RELATORIO_MARKET_H2H_FEASIBILITY.md` | `SCIENTIFIC_REPORT` | Sim | Fontes, contratos e próxima janela legítima. |
+| `f1-predictor/src/data/market_h2h.py` | `CODE_CONTRACT` | Sim | Market DB isolado e fail-closed; DB não versionado. |
+| `f1-predictor/src/data/fastf1_contract.py` | `CODE_CONTRACT` | Sim | Contrato exploratório sem coleta FastF1. |
+
 Não produzem dado — só código e manifests. `TOOLS_MANIFEST.json` e
 `CORE_MANIFEST.json` (por vendor) são `MANIFEST`, git-tracked, hash por
 arquivo + agregado — a prova de integridade É o próprio Git aqui, sem
