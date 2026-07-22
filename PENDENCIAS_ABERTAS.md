@@ -130,6 +130,13 @@ falha sem apagar a versão anterior. Resposta vazia permanece não destrutiva.
 
 ## Resumo por severidade
 
+**Atualização CS 2026-07-21 — Market DB:** `cs-predictor` separou formalmente
+Sports DB e Market DB, com mapeamento canônico versionado e validação Beyond
+Market fora da amostra. A retrospectiva Polymarket (661 pares conservadores)
+não demonstrou edge: Brier modelo 0,2283 versus mercado 0,2196. Classificação:
+`OPEN_SCIENTIFIC_GAP` normal — falta amostra prospectiva madura e CLV/ROI sob
+premissas explícitas; nenhum gate libera capital, no máximo shadow prospectivo.
+
 - **Incidente de segurança aberto**: 1 (SEC-1) — bloqueado por ação humana externa
 - **Bugs de código abertos**: 0
 - **Gaps operacionais**: 1 aberto, parcialmente coberto (OP-4 backup — F1, CS e previsao-cripto verificados em 2026-07-20; demais consumidores e política comum de retenção seguem abertos) + 3 corretamente deferidos (OP-2, OP-5, OP-6); OP-1 resolvido em 2026-07-19 (tools/ 1.3.1, sidecar de SKIPPED); OP-3 resolvido em 2026-07-19 (`GLOSSARIO_STATUS.md`); OP-7/OP-8 resolvidos em 2026-07-20 (previsao-cripto)

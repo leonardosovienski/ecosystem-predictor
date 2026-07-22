@@ -44,6 +44,8 @@ por engano).
 | snapshots PRE_EVENT/MATURED | `snapshots/` | `SCIENTIFIC_UNVERSIONED` (com vínculo hash interno próprio) | Depende do projeto | — | Verificação própria via `cs_snapshots.py`; reverificado 2026-07-20: 4 `VALID_FORWARD`, 0 pendentes |
 | backups operacionais | `backups/` | `OPERATIONAL_BACKUP` | Não | Sim | `src.backup_restore`: manifesto SHA-256 + SQLite `integrity_check`; restore real verificado em 2026-07-20 |
 | cotações shadow Polymarket CS | `data/market_shadow.jsonl` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | append-only e deduplicado; identidade/formato exatos; fonte pública read-only; PRE_EVENT obrigatório |
+| Market DB | `data/market.db` | `ECONOMIC_UNVERSIONED` | Não | Sim (`*.db`) | Contrato de moneyline de série com timestamp, bookmaker, lote, proveniência e mapping canônico; não confundir com Sports DB |
+| contratos Sports/Market e ledger de tentativas | `docs/SPORTS_MARKET_CONTRACTS.md`, `docs/PAST_ATTEMPT_LEDGER.md` | `CODE_VERSIONED` | Sim | — | Define exclusão de quotes legados sem mapping e proíbe promoção automática a trading |
 
 ## f1-predictor
 
