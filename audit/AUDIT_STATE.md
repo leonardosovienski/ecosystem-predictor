@@ -227,6 +227,7 @@ Nenhum bloqueio técnico foi investigado ou identificado nesta etapa. A aprovaç
 - **Status:** `MARKET_H2H_NOT_FEASIBLE`; 0 fontes e 0 quotes aceitos. Não é falha de modelo nem amostra de performance.
 - **Garantias:** Market DB separado/fail-closed; sem timestamp, odds bilaterais, proveniência e settlement compatível, a ingestão é bloqueada. FastF1 permanece somente contrato exploratório.
 - **Próxima ação permitida:** decisão humana sobre fonte licenciada e export de teste; sem scraping, odds inventadas, Stage 1, ROI/Sharpe ou apostas reais.
+- **Atualização 2026-07-22:** ledger de tentativas negativas criado; Gate de cobertura agora apresenta mínimo/intermediário/conservador sem fixar critério. Contrato econômico requer opening/closing/decision timestamps e `season/race_id`; fonte parcialmente aceita continua bloqueada para ingestão.
 
 - **Status:** RECONCILIAÇÃO PARCIAL — fase científica permanece bloqueada.
 - **Artefatos:** `28A_F1_SNAPSHOT_RECONCILIATION.md`, `28B_F1_2026_RACE_MATRIX.md`, `28C_F1_GIT_STATE_RECONCILIATION.md`, `28D_F1_H8_BLOCKER_REPORT.md`, `28_F1_RECONCILIATION.json`.
