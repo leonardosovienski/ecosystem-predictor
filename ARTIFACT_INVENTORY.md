@@ -46,6 +46,7 @@ por engano).
 | cotações shadow Polymarket CS | `data/market_shadow.jsonl` | `SCIENTIFIC_UNVERSIONED` | Não | Sim | append-only e deduplicado; identidade/formato exatos; fonte pública read-only; PRE_EVENT obrigatório |
 | Market DB | `data/market.db` | `ECONOMIC_UNVERSIONED` | Não | Sim (`*.db`) | Contrato de moneyline de série com timestamp, bookmaker, lote, proveniência e mapping canônico; não confundir com Sports DB |
 | contratos Sports/Market e ledger de tentativas | `docs/SPORTS_MARKET_CONTRACTS.md`, `docs/PAST_ATTEMPT_LEDGER.md` | `CODE_VERSIONED` | Sim | — | Define exclusão de quotes legados sem mapping e proíbe promoção automática a trading |
+| relatório de migração prospectiva | `data/sports_market_migration_report.json` | `OPERATIONAL_UNVERSIONED` | Não | Sim | Evidência da migração idempotente, backup e classificações `PARTIAL`/`REJECTED`; não promover para evidência financeira |
 
 ## f1-predictor
 

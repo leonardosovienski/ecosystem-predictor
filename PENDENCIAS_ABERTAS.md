@@ -139,6 +139,14 @@ não demonstrou edge: Brier modelo 0,2283 versus mercado 0,2196. Classificação
 `OPEN_SCIENTIFIC_GAP` normal — falta amostra prospectiva madura e CLV/ROI sob
 premissas explícitas; nenhum gate libera capital, no máximo shadow prospectivo.
 
+**Atualização CS 2026-07-22 — cadeia prospectiva:** migração Sports/Market
+executada com backup; 17.324 séries foram corretamente classificadas `PARTIAL`
+(roster e disponibilidade temporal histórica ausentes). O status foi corrigido:
+`EVENT_TIME_PASSED` não é mais contado como maturado. Quotes legados sem
+`source_event_id`/competição foram `REJECTED_MAPPING`; a coorte nova passa a
+carregar ambos. Permanece `OPEN_SCIENTIFIC_GAP`: aguardar eventos mapeados,
+resultado validado, closing e settlement prospectivos, sem habilitar capital.
+
 - **Incidente de segurança aberto**: 1 (SEC-1) — bloqueado por ação humana externa
 - **Bugs de código abertos**: 0
 - **Gaps operacionais**: 1 aberto, parcialmente coberto (OP-4 backup — F1, CS e previsao-cripto verificados em 2026-07-20; demais consumidores e política comum de retenção seguem abertos) + 3 corretamente deferidos (OP-2, OP-5, OP-6); OP-1 resolvido em 2026-07-19 (tools/ 1.3.1, sidecar de SKIPPED); OP-3 resolvido em 2026-07-19 (`GLOSSARIO_STATUS.md`); OP-7/OP-8 resolvidos em 2026-07-20 (previsao-cripto)
