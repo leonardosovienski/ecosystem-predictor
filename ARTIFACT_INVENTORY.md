@@ -101,6 +101,7 @@ por engano).
 | `f1-predictor/docs/RELATORIO_MARKET_H2H_FEASIBILITY.md` | `SCIENTIFIC_REPORT` | Sim | Fontes, contratos e próxima janela legítima. |
 | `f1-predictor/src/data/market_h2h.py` | `CODE_CONTRACT` | Sim | Market DB isolado e fail-closed; DB não versionado. |
 | `f1-predictor/src/data/fastf1_contract.py` | `CODE_CONTRACT` | Sim | Contrato exploratório sem coleta FastF1. |
+| `f1-predictor/docs/PAST_ATTEMPT_LEDGER.md` | `SCIENTIFIC_GOVERNANCE` | Sim | Ledger imutável de hipóteses, fontes, dados, gates e resultados negativos do F1. |
 
 Não produzem dado — só código e manifests. `TOOLS_MANIFEST.json` e
 `CORE_MANIFEST.json` (por vendor) são `MANIFEST`, git-tracked, hash por

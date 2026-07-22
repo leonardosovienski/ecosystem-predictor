@@ -140,7 +140,7 @@ premissas explícitas; nenhum gate libera capital, no máximo shadow prospectivo
 - **Incidente de segurança aberto**: 1 (SEC-1) — bloqueado por ação humana externa
 - **Bugs de código abertos**: 0
 - **Gaps operacionais**: 1 aberto, parcialmente coberto (OP-4 backup — F1, CS e previsao-cripto verificados em 2026-07-20; demais consumidores e política comum de retenção seguem abertos) + 3 corretamente deferidos (OP-2, OP-5, OP-6); OP-1 resolvido em 2026-07-19 (tools/ 1.3.1, sidecar de SKIPPED); OP-3 resolvido em 2026-07-19 (`GLOSSARIO_STATUS.md`); OP-7/OP-8 resolvidos em 2026-07-20 (previsao-cripto)
-- **Gaps científicos**: 5 abertos (SCI-5, SCI-6, SCI-7, SCI-8, SCI-9), governança normal de pesquisa em andamento — nenhum é bug; SCI-9 é ausência de fonte histórica Market H2H aceita, não uma amostra de performance.
+- **Gaps científicos**: 5 abertos (SCI-5, SCI-6, SCI-7, SCI-8, SCI-9), governança normal de pesquisa em andamento — nenhum é bug; SCI-9 é ausência de fonte histórica Market H2H aceita, não uma amostra de performance. Em 2026-07-22, Options mínima/intermediária/conservadora foram documentadas sem escolha automática; OddsPapi ficou `SOURCE_PARTIALLY_ACCEPTED` somente para diligência.
 - **Gaps científicos**: 5 abertos (inclui SCI-9: fonte histórica Market H2H de F1; `MARKET_H2H_NOT_FEASIBLE`, 0 fontes/quotes aceitos; não é amostra de performance e não autoriza ROI/Sharpe/apostas)
 - **Capacidades incubadas**: 2
 - **Dívidas técnicas**: 5, todas deferidas conscientemente
