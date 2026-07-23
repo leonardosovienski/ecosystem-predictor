@@ -224,6 +224,12 @@ Nenhum bloqueio técnico foi investigado ou identificado nesta etapa. A aprovaç
 
 ## Gate F1 Market H2H — 2026-07-21
 
+## Fechamento autorizado F1 — 2026-07-23
+
+- **Registro único:** `f1-predictor/data/authorized_closure.json`, com commit, timestamp UTC, hashes preservados e contador H8 0/15.
+- **Estados:** H1-F1 `HYPOTHESIS_REFUTED`; operação original `NO_GO_CONFIRMED`; H2H/H8 `CLOSED_BY_HUMAN_DECISION`. H2H e H8 não foram aprovadas nem refutadas pelo encerramento.
+- **Operação:** `f1-forward-snapshot` desabilitado; `predictor-gate-monitor` preservado por ser transversal. H8/H2H falham fechados; dinheiro real permanece bloqueado.
+
 - **Status:** `MARKET_H2H_NOT_FEASIBLE`; 0 fontes e 0 quotes aceitos. Não é falha de modelo nem amostra de performance.
 - **Garantias:** Market DB separado/fail-closed; sem timestamp, odds bilaterais, proveniência e settlement compatível, a ingestão é bloqueada. FastF1 permanece somente contrato exploratório.
 - **Próxima ação permitida:** decisão humana sobre fonte licenciada e export de teste; sem scraping, odds inventadas, Stage 1, ROI/Sharpe ou apostas reais.
