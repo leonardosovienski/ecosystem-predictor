@@ -62,10 +62,11 @@ error_summary   manifest included_files differs from tracked content
 ```
 
 Janela de indisponibilidade: **15:12 → ~15:46** (commit que quebrou → commit
-que corrigiu). Uma execução caiu dentro dela e falhou. As três tarefas que
-dispararam depois (`cs-market-shadow` 15:54, `lol-market-shadow` 15:57,
-`brasileirao-closing-snapshot` 15:45) voltaram a **exit 0** — confirmação em
-produção, não em teste.
+que corrigiu). Uma execução caiu dentro dela e falhou. As tarefas que
+dispararam depois (`brasileirao-closing-snapshot` 15:45, `cs-market-shadow`
+15:54, `lol-market-shadow` 15:57) voltaram a **exit 0**, e a própria
+`cs-archival-collection` — a que caiu — rodou de novo às **16:22 com exit 0**.
+Confirmação em produção, pela mesma tarefa que falhou, não em teste.
 
 O sintoma visível o tempo todo era "23 testes vermelhos".
 
