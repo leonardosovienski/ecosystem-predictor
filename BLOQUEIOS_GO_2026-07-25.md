@@ -509,7 +509,32 @@ Mesmo reabrindo com pipeline perfeito, o gate não fecha em 2026. Precisa de 202
 
 Nada técnico falta. Falta executar o gate e registrar o veredito.
 
-### B-10 · lol — fonte-base do Oracle's Elixir caiu · **ABERTO (cota), 2ª causa CORRIGIDA em 26/07**
+### B-10 · lol — fonte-base do Oracle's Elixir caiu · **RESOLVIDO em 26/07 19:10**
+
+> **Encerrado. A cota resetou e a tarefa rodou inteira, verde.** Disparada à
+> mão às 19:10 (não se esperou o gatilho de 27/07):
+>
+> ```
+> [download] snapshot publicado: b32041d8f5f2 (fonte 1)
+> [ingest]   games no banco: 3953 (2025-01-12 .. 2026-07-26 15:32:40)
+> [h4_results] NO_SIGNALS, artefato publicado
+> [h4_settle]  {"settled": 0}  OK
+> [ratings]  serving materializado: 82 times, 11 ligas
+> === atualiza_semanal: fim (exit 0) ===   SUCCEEDED
+> ```
+>
+> O banco saiu de **3.877 jogos congelados em 2026-07-10** para **3.953 até
+> hoje** — 16 dias de dado-base recuperados. `lol-ratings-semanal` saiu de
+> `PARTIAL`/`FAILED` para `SUCCEEDED` pela primeira vez desde 20/07.
+>
+> A previsão registrada estava certa: o ID no código sempre esteve correto e a
+> cota pública do Drive resetou sozinha. Nenhuma ação humana foi necessária —
+> só as duas correções de código de hoje (o import, e a cadeia h4 abaixo), sem
+> as quais o reset da cota teria sido inútil.
+>
+> **O espelho S3 continua morto e piorou:** agora dá NXDOMAIN, antes dava 403.
+> O `_urls_para_ano()` está de fato reduzido a uma fonte única, e essa fonte
+> falha por cota com regularidade. Uma segunda via real continua valendo.
 
 > **Segunda causa, encontrada em 26/07 pelo B-11 e ausente de todo o
 > diagnóstico abaixo: o job não chegava à cota.** O payload semanal quebrava

@@ -346,6 +346,57 @@ os `-wal`/`-shm`, criados pela **minha própria sonda de integridade**. Não sã
 resíduo de bug ativo. Continuam em disco: apagar banco não se faz por suspeita,
 e agora nem suspeita há.
 
+## 6-B. O que só apareceu ao DISPARAR as tarefas de verdade
+
+A varredura do §6-A deu 8/8 suítes e 5/5 `ci_check` verdes. Depois disso as
+tarefas semanais foram **disparadas à mão**, em vez de esperar o gatilho — e
+elas acharam três coisas que nenhuma suíte pegava. É a mesma lição do §2, pela
+terceira vez no dia: **o teste exercita uma reprodução do ambiente, a tarefa
+exercita o ambiente.**
+
+**1. A cadeia h4 derrubava a semanal inteira, toda semana.**
+`build_h4_results.py` devolvia `NO_SIGNALS` e **não escrevia o artefato**;
+`settle_h4_signals.py` abria `--results` incondicionalmente →
+`FileNotFoundError`, exit 2, e a semanal classificada `FAILED` em vez de
+`PARTIAL`. Como o B-12 garante coorte vazia, isso era permanente.
+
+O mesmo buraco existia no caminho normal, escondido atrás de `if resultados:`:
+uma rodada com sinais **todos pendentes** (série oficial ainda não disponível)
+também não escrevia nada — e esse é o caso **comum** assim que a coleta
+começar, porque o sinal é capturado hoje e a série só sai amanhã.
+
+Corrigido: o artefato sai sempre, inclusive vazio e com carimbo de hora.
+Artefato vazio e explícito é melhor que ausência — *"0 resultados às 22:10"* é
+fato auditável; arquivo faltando é ambíguo entre "nada a liquidar" e "o
+produtor não rodou". O settle passou a tolerar **sinais** ausentes (coorte
+vazia é estado legítimo) mas segue exigindo o arquivo de **resultados**:
+confundir os dois é como se fabrica um fail-open, e há teste para a distinção.
+
+**2. Dois testes dependiam da idade do banco de produção.** Quebraram no
+instante em que o B-10 destravou: `STALE` virou `FRESH` porque o dado ficou
+bom. Chamavam `build()` sem paths, contra `data/ratings.json` e `data/lol.db`
+reais. Barreira que muda de resposta conforme o calendário não é barreira —
+voltaria a falhar sozinha na próxima vez que a coleta parasse alguns dias.
+Reescritos com dado sintético e idade sob controle (59 dias → `STALE`, 30 →
+`ACCEPTABLE`), testando a lógica de frescor em vez do estado do disco.
+
+**3. O `f1-forward-snapshot` sai com exit 1 — e está certo.** Rodado sob uma
+tarefa temporária para validar a troca para `pythonw`:
+`ResearchClosedError: H8 is CLOSED_BY_HUMAN_DECISION`. É o guarda de
+encerramento recusando rodar pesquisa fechada. A tarefa registrou e disparou
+**sem abrir console** (medido: `conhost` estável em 6), a temporária foi
+removida, e a real segue `Disabled`.
+
+E o resultado grande: **o B-10 caiu.** A cota do Drive resetou, o download
+publicou snapshot `b32041d8f5f2`, e o banco do LoL saiu de **3.877 jogos
+congelados em 10/07** para **3.953 até hoje 15:32** — 16 dias de dado-base
+recuperados, com a semanal `SUCCEEDED` pela primeira vez desde 20/07. Sem as
+duas correções de hoje (o import e a cadeia h4), o reset da cota teria sido
+inútil: o job morreria antes, do mesmo jeito.
+
+Medição do fim, com tudo aplicado: **8/8 suítes** (169 · 268 · 377 · 159 ·
+**135** · 203 · 325 · 144) e **5/5 `ci_check`** verdes.
+
 ## 7. Commits desta rodada
 
 Tudo em branch, nada mesclado, nada publicado — publicação segue sendo decisão
