@@ -338,7 +338,39 @@ Nada técnico falta. Falta executar o gate e registrar o veredito.
 ### B-10 · lol — fonte-base do Oracle's Elixir caiu · **ABERTO, precisa de humano**
 
 Descoberto em 26/07 ao revisar exit codes: `lol-ratings-semanal` está `PARTIAL`
-(exit 10) **desde 2026-07-20**. As duas fontes caíram, verificado ao vivo:
+(exit 10) **desde 2026-07-20**.
+
+> **Diagnóstico refeito em 2026-07-26 com navegador real.** A classificação
+> inicial ("mais um redirect permanente não seguido") estava **errada**. São
+> três problemas independentes, e nenhum é redirect:
+>
+> **1. O file ID no código não existe mais.** `1IDDdzR3JhAOJPnHfSAJHfHtfXTOcaDdw`
+> devolve **404** em `drive.google.com/file/d/.../view` — não é cota, não é
+> permissão: o arquivo foi substituído. O que chegava eram 2009 bytes de página
+> de erro.
+>
+> **2. O espelho S3 foi desativado por completo.** Testados os anos 2024, 2025 e
+> 2026, nos formatos virtual-host e path-style: **403 em todos os seis**. Não é
+> o 2026 que sumiu — o bucket `oracles-elixir` deixou de ser publicamente
+> legível. Listagem também negada (`AccessDenied`).
+>
+> **3. Os arquivos atuais existem, mas o Drive está com cota estourada.** A
+> página de downloads (que bloqueia fetch automatizado com 403; foi preciso
+> navegador) aponta para a pasta pública **`OE Public Match Data`**
+> (`1gLSw0RLjBbtaNy0dgnGQDAZOHIgCe-HH`). Extraí ~13 file IDs do DOM. Baixar
+> qualquer um devolve `<title>Google Drive - Quota exceeded</title>`.
+>
+> Consequência: **não é URL errada, é fonte indisponível.** Mesmo com o ID
+> correto, o Drive recusa o download agora. A cota pública do Google costuma
+> resetar em ~24h.
+>
+> **Por que não escolhi um dos 13 IDs:** o Drive não renderiza os nomes sem
+> login, e o download que revelaria o nome no `Content-Disposition` bate na
+> cota. Ingerir o CSV errado (ano ou liga errada) corromperia os 3.877 jogos
+> íntegros que sustentam o Elo e as três hipóteses já COMPROVADAS do LoL. O
+> custo de errar é muito maior que o de esperar.
+
+Registro do diagnóstico original, preservado:
 
 ```
 fonte 1 (Google Drive)  -> 404, devolve pagina de erro (2009 bytes)
@@ -356,11 +388,27 @@ corrigido 20/07), feed `coindesk` (308, cripto, corrigido 25/07), agora Oracle's
 Elixir (301/404). **Redirect permanente de fonte externa é o modo de falha
 recorrente deste ecossistema** — vale um monitor de exit code, não só de heartbeat.
 
-**Ação humana:** pegar a URL atual em `https://oracleselixir.com/tools/downloads`
-(a página bloqueia fetch automatizado com 403; o espelho `lol.timsevenhuysen.com`
-está parado em 2020) e exportar em `ORACLES_ELIXIR_2026_URL` — o override já existe
-em `scripts/atualiza_semanal_payload.py:38`. Deliberadamente **não** chutei file ID
-do Drive: errar ali contamina o dado-base inteiro.
+**Ação humana — abrir a pasta LOGADO no Drive**, que é o único jeito de ver os
+nomes dos arquivos, copiar o ID de
+`2026_LoL_esports_match_data_from_OraclesElixir.csv` e exportar:
+
+```powershell
+[Environment]::SetEnvironmentVariable('ORACLES_ELIXIR_2026_URL',
+  'https://drive.usercontent.google.com/download?id=<ID>&export=download&confirm=t','User')
+```
+
+O override já existe em `scripts/atualiza_semanal_payload.py:38` e tem
+prioridade sobre as duas fontes quebradas. Pasta:
+`https://drive.google.com/drive/folders/1gLSw0RLjBbtaNy0dgnGQDAZOHIgCe-HH`
+
+Alternativa se a cota tiver resetado: baixar manualmente e apontar o override
+para um caminho local. **Não** vale tentar os 13 IDs por eliminação — sem o nome
+não há como saber qual é o ano certo antes de já ter ingerido.
+
+**Correção estrutural que vale considerar:** as duas fontes do
+`_urls_para_ano()` caíram em silêncio e o job passou 6 dias em `PARTIAL` sem
+ninguém ver. Um monitor de exit code (não só de heartbeat) teria pego no dia 1 —
+vale para todo o ecossistema, não só para o LoL.
 
 Independe do B-0: consertar isto devolve dado-base fresco ao LoL mesmo com a
 trilha de mercado bloqueada.
