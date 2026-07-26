@@ -93,6 +93,46 @@ falharia com exit 1 sem sequer requisitar o arquivo — e o diagnóstico aparent
 seria *"a fonte continua caída"*, que é a conclusão errada, pela segunda vez no
 mesmo bloqueio.
 
+### 2.3 Os dois monitores abriam janela de console na tela do dono
+
+Reportado pelo operador durante a sessão: janelas aparecendo sozinhas,
+aparentemente do `System32`. Não era falso alarme e não era ninguém rodando
+comando.
+
+`predictor-gate-monitor` (a cada **30 minutos**) e `predictor-task-health` (a
+cada 6h) executavam `powershell.exe` sob `LogonType Interactive`. Nesse
+arranjo o console host do Windows cria a janela **antes** de o PowerShell
+começar — logo o `-WindowStyle Hidden` que já estava nos argumentos nunca teve
+efeito. E como a ação não define `WorkingDirectory`, o console abria no
+diretório padrão do Task Scheduler: `C:\Windows\System32`.
+
+A prova de que a causa era o `LogonType` e não o argumento: `GarimpoV3Daily`
+passa o **mesmo** `-WindowStyle Hidden`, roda como `S4U` e nunca apareceu na
+tela.
+
+Trocar o principal para `S4U` é a correção canônica e **exige elevação** —
+`Set-ScheduledTask` e `Register-ScheduledTask -Force` devolvem `Acesso negado`
+sem admin, verificado pelos dois caminhos. A correção aplicada usa o padrão
+que o resto do ecossistema já adota: `pythonw.exe` (subsistema GUI, nunca cria
+console) executando o novo `tools/run_hidden.py`, que lança o comando com
+`CREATE_NO_WINDOW` e **propaga o exit code**.
+
+Propagar é requisito, não detalhe: o gate monitor sai com 1 quando há tarefa
+degradada e o `monitor_task_health.ps1` lê esse `LastTaskResult`. Um lançador
+que engolisse o código — o comportamento natural de `WScript.Shell.Run`, a
+alternativa descartada — transformaria os dois monitores em decoração **sem
+quebrar teste nenhum**. Há teste dedicado a cada exit code que importa
+(1 degradado, 3 configuração, 10 PARTIAL, 124 timeout).
+
+Verificado depois da troca: disparo real às 16:57/16:58, `LastTaskResult = 1`
+nos dois (o valor correto — `lol-ratings-semanal` segue em exit 10), e o
+`ALERTA_TAREFAS.txt` reescrito normalmente.
+
+Achado colateral: a `predictor-task-health` tinha sido registrada **à mão** e
+era a única tarefa agendada do ecossistema **sem instalador versionado**. Por
+isso o principal errado não estava em lugar nenhum para ser revisado. Criado
+`install_task_health_monitor_task.ps1`.
+
 ### O que a suíte não media
 
 Os dois defeitos compartilham a forma: **o teste exercitava uma reprodução do
