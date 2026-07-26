@@ -48,9 +48,26 @@ levantava `manifest included_files differs from tracked content`, e o
 ecossistema — devolvia **exit 3 fail-closed em qualquer invocação**, strict ou
 permissive.
 
-Nenhuma tarefa real chegou a falhar. A última rodou às **14:54**, 18 minutos
-antes do commit que quebrou. O ecossistema inteiro estava parado esperando o
-próximo disparo do Scheduler, e o sintoma visível era "23 testes vermelhos".
+**Não foi quase-acidente: uma tarefa real falhou.** A primeira leitura desta
+sessão disse "nenhuma tarefa chegou a falhar, a última rodou às 14:54, 18
+minutos antes do commit". Errado — bastava olhar o Scheduler em vez de inferir
+pelo horário. `cs-archival-collection` roda **de hora em hora** e disparou às
+**15:22**. O heartbeat dela, escrito pela própria máquina, registra:
+
+```
+started_at_utc  2026-07-26T18:22:28Z
+status          FAILED
+exit_code       3
+error_summary   manifest included_files differs from tracked content
+```
+
+Janela de indisponibilidade: **15:12 → ~15:46** (commit que quebrou → commit
+que corrigiu). Uma execução caiu dentro dela e falhou. As três tarefas que
+dispararam depois (`cs-market-shadow` 15:54, `lol-market-shadow` 15:57,
+`brasileirao-closing-snapshot` 15:45) voltaram a **exit 0** — confirmação em
+produção, não em teste.
+
+O sintoma visível o tempo todo era "23 testes vermelhos".
 
 O `BLOQUEIOS_GO` registrava a causa como `ModuleNotFoundError: 'src'` e
 concluía: *"nenhum desses testes vermelhos indica falha em produção"*. Os dois

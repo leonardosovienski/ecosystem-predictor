@@ -332,9 +332,16 @@ atual ~4/dia. A adição custa ~45/mês (3 chamadas só em dia de jogo).
 > `operational_runner` — que envelopa **todas** as tarefas agendadas do
 > ecossistema — devolvia **exit 3 fail-closed em qualquer invocação**, strict
 > **ou** permissive. Isto **não era problema de teste**: era uma parada total
-> do agendamento esperando o próximo disparo. Nenhuma tarefa real chegou a
-> falhar por sorte de calendário — a última rodou às 14:54, 18 minutos antes
-> do commit que quebrou.
+> do agendamento.
+>
+> **Uma tarefa real caiu.** A primeira leitura desta sessão concluiu "nenhuma
+> chegou a falhar, a última rodou às 14:54" — inferência pelo horário, sem
+> olhar o Scheduler. `cs-archival-collection` roda de hora em hora e disparou
+> às 15:22; o heartbeat da própria máquina registra `FAILED`, `exit_code 3`,
+> `error_summary: manifest included_files differs from tracked content`.
+> Janela de indisponibilidade: **15:12 → ~15:46**. As tarefas que dispararam
+> depois (`cs-market-shadow` 15:54, `lol-market-shadow` 15:57) voltaram a
+> exit 0 — a correção está confirmada em produção, não só na suíte.
 >
 > Por que a suíte não pegou: **todos** os testes de `test_release_manifest.py`
 > usavam repositório sintético em `tmp_path`. Nenhum verificava o manifesto
