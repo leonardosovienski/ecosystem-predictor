@@ -111,7 +111,31 @@ cinco tentativas que não deram edge.
 
 ## 2. Bloqueios abertos
 
-### B-0 · cs + lol — Polymarket bloqueado no DNS desta rede · **BLOQUEADOR RAIZ**
+### B-0 · cs + lol — Polymarket bloqueado no DNS desta rede · **RESOLVIDO, verificado em 26/07**
+
+> **Sondado ao vivo em 2026-07-26 e o bloqueio NAO existe mais.** O texto
+> abaixo termina em "não é corrigível por código; use outra rede, peça
+> liberação do domínio ou troque a fonte". Está desatualizado: a própria
+> correção multi-endpoint registrada em `polymarket_provider.DOH_ENDPOINTS`
+> resolveu.
+>
+> ```
+> cloudflare-dns.com/dns-query   HTTP 200  A=[104.18.34.205, 172.64.153.51]
+> dns.google/resolve             HTTP 200  A=[172.64.153.51, 104.18.34.205]
+> 1.1.1.1/dns-query              ConnectTimeout        <- o unico ainda morto
+> curl --resolve gamma-api...    rc=0, JSON real de /sports
+> ```
+>
+> O diagnóstico original acertou o mecanismo (o IP `1.1.1.1` é bloqueado) e
+> errou o alcance: **o hostname não é.** Com `cloudflare-dns.com` e
+> `dns.google` na lista, o fallback resolve e o `curl --resolve` traz dado
+> real. Evidência independente: a coorte do cs saiu de 0 para **18 maturadas
+> com 18 closings e 18 settlements**, e o coletor do lol enxerga **29 eventos**
+> no horizonte de 72h.
+>
+> **Consequência para a ordem de prioridade:** o documento diz "B-0 primeiro,
+> sem fonte não há coorte". Essa etapa está cumprida. O que trava o lol hoje é
+> o B-12, abaixo — e não é rede.
 
 Os dois coletores reabertos hoje rodaram às 19:54 e 19:57 e **falharam**
 (`LastTaskResult = 1`). Zero cotações novas. Erro: `httpx.ConnectTimeout`.
@@ -398,6 +422,46 @@ com `skipif` explícito e documentado. Deixar vermelho não é opção.
 
 > A frase acima — "nenhum desses testes vermelhos indica falha em produção" —
 > é o erro central deste bloqueio. Os dois indicavam.
+
+### B-12 · lol — a fonte não traz `competition_id`, e o gate exige · **ABERTO, decisão científica**
+
+Descoberto em 2026-07-26 ao sondar por que a coorte segue em 0 sinais depois
+de o B-0 cair. **Não é rede e não é a cota do Drive.**
+
+```
+provider.list_upcoming_matches(72h)  ->  29 eventos reais
+todos os 29                          ->  competition_id = None
+h4_gate.py:79  if not competition_id or not competition_name: rejeita
+```
+
+O `raw_signals: 0` não é "esperando aparecer jogo". É **100% de rejeição na
+criação do sinal**: a busca `/public-search` do Gamma devolve o confronto, o
+horário e o preço, mas não devolve a competição, e o gate — corretamente —
+recusa inventá-la (`"never infer competition"`, `h4_gate.py:78`).
+
+O fail-closed está certo: foi exatamente por proveniência de competição
+incompleta que a v1 (`h4-lol-market-shadow-prospectivo`) virou `SUPERSEDED` em
+22/07. Repetir isso inferindo competição destruiria o motivo de a v2 existir.
+
+**Mas o efeito prático é o mesmo do B-2 e do B-3:** infraestrutura que coleta
+para sempre e nunca matura. A trial exige **3 competições distintas** e 30
+sinais elegíveis; com a fonte atual o contador é estruturalmente zero, não
+lentamente crescente. Nenhuma quantidade de espera resolve.
+
+**Isto é decisão científica, não conserto.** As saídas visíveis, e nenhuma é
+obviamente certa:
+
+1. Enriquecer a competição por outro endpoint do Polymarket (`series`/`tags`
+   aparecem no `/sports`) — precisa provar que o mapeamento é determinístico e
+   auditável, senão é inferência com outro nome.
+2. Casar o evento contra o `lol.db` (Oracle's Elixir), que tem liga por
+   partida — mas isso depende do B-10 e amarra a coorte de mercado ao dado
+   base congelado em 10/07.
+3. Registrar uma v3 com critério que não exija competição — é trocar o
+   critério depois de ver a dificuldade, ou seja, a regra 4.
+
+Enquanto nenhuma for escolhida, o status honesto da `h4-lol-market-shadow-
+prospectivo-v2` não é "coletando": é **bloqueada por contrato de fonte**.
 
 ### B-4 · f1 — sem fonte de mercado e impossibilidade aritmética
 

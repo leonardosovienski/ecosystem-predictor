@@ -277,6 +277,50 @@ engano com a coleta atual, que é não-invertida. Não mexer nisso.
 
 ---
 
+## 6-A. Varredura geral de 2026-07-26 (testes, fontes, ciência)
+
+Tudo por execução, read-only, sem gastar cota e sem imprimir credencial.
+
+**Suítes: 8 de 8 verdes.** tools 163+1skip · core 268 · brasileirão 377 ·
+cs 159 · lol 131 · f1 203 · cripto 325+2skip · stocks 144.
+
+**Bancos: 18 de 18 com `integrity_check=ok`**, de 249 MB (stocks) a 0 MB.
+
+**Registros científicos: 42 trials, batendo com o `VEREDITOS`** — brasileirão 9,
+cs 6, lol 6, f1 10, cripto 7, stocks 4. Atestado de harness presente nos 6.
+
+**Fontes externas:**
+
+| Fonte | Estado |
+|---|---|
+| Polymarket (gamma + clob) | **VIVO via DoH** — ver B-0, que caiu |
+| The Odds API | **380 de 500** restantes no mês; `soccer_brazil_campeonato` ativo |
+| coingecko · binance · jolpi.ca · openf1 | 200 |
+| RSS do cripto (5 feeds) | os 5 respondem 200 nas URLs **configuradas** |
+| Google Drive (Oracle's Elixir) | `Quota exceeded` — B-10, resolve sozinho |
+| espelho S3 do Oracle's | **NXDOMAIN** — antes era 403; morreu de vez |
+| `1.1.1.1` | ConnectTimeout — o único endpoint DoH ainda bloqueado |
+| Sofascore · HLTV · PandaScore · B3 | 403 à sonda crua, esperado: exigem header/credencial dos próprios providers |
+
+Dois achados que mudam o mapa e estão registrados no `BLOQUEIOS_GO`:
+
+1. **B-0 caiu.** O bloqueio de DNS do Polymarket não existe mais — o IP
+   `1.1.1.1` segue morto, mas `cloudflare-dns.com` e `dns.google` resolvem e o
+   `curl --resolve` traz JSON real. O documento ainda mandava "trocar de rede
+   ou pedir liberação do domínio"; não é mais necessário.
+2. **B-12, novo.** O LoL não está parado por rede nem por cota: a busca do
+   Gamma devolve os 29 eventos **sem `competition_id`**, e o gate rejeita
+   100% dos sinais na criação, porque recusa inferir competição. O
+   `raw_signals: 0` é rejeição estrutural, não espera. É decisão científica,
+   não conserto — as três saídas possíveis estão listadas no bloqueio.
+
+Um resíduo de arrumação, sem consequência: existem
+`brasileirao-predictor/data/data/matches.db` e
+`wc-predictor-v2/data/data/matches.db` — bancos de 0,1 MB em diretório
+`data/data/` aninhado, íntegros mas órfãos, com cara de caminho relativo
+resolvido a partir de dentro de `data/`. Não são consumidos por nada que a
+varredura encontre. Deixados como estão: apagar banco não se faz por suspeita.
+
 ## 7. Commits desta rodada
 
 Tudo em branch, nada mesclado, nada publicado — publicação segue sendo decisão
