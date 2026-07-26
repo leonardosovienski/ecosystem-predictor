@@ -128,6 +128,14 @@ Verificado depois da troca: disparo real às 16:57/16:58, `LastTaskResult = 1`
 nos dois (o valor correto — `lol-ratings-semanal` segue em exit 10), e o
 `ALERTA_TAREFAS.txt` reescrito normalmente.
 
+> **Confirmado pelo dono às 19:03: as janelas pararam.** Entre a correção
+> (17:33) e a confirmação passaram ~3 horas de ciclos automáticos —
+> `cs-market-shadow` 18:54, `lol-market-shadow` 18:57, `cs-archival-collection`
+> 18:26, todos exit 0 e nenhum visível. Registrado porque as duas correções
+> anteriores deste mesmo sintoma pareceram certas e não eram: a primeira
+> tratava os monitores, que não eram a causa; só a terceira, a dos processos
+> FILHOS, resolveu.
+
 Achado colateral: a `predictor-task-health` tinha sido registrada **à mão** e
 era a única tarefa agendada do ecossistema **sem instalador versionado**. Por
 isso o principal errado não estava em lugar nenhum para ser revisado. Criado
