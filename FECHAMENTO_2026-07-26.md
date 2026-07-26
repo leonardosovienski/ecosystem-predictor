@@ -397,6 +397,12 @@ inútil: o job morreria antes, do mesmo jeito.
 Medição do fim, com tudo aplicado: **8/8 suítes** (169 · 268 · 377 · 159 ·
 **135** · 203 · 325 · 144) e **5/5 `ci_check`** verdes.
 
+**Estado no fecho da sessão, medido pelos próprios monitores:**
+`predictor-gate-monitor` **exit 0** — pela primeira vez no dia, porque nenhuma
+tarefa está degradada — e o `ALERTA_TAREFAS.txt` **apagou-se sozinho**. Esse
+arquivo só existe quando há falha; a ausência dele é o atestado, não uma
+afirmação minha. **18 tarefas agendadas, zero em falha.**
+
 ## 7. Commits desta rodada
 
 Tudo em branch, nada mesclado, nada publicado — publicação segue sendo decisão
