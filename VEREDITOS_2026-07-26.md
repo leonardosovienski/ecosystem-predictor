@@ -38,7 +38,7 @@ veredito econômico, 12 foram refutadas. As 8 COMPROVADAS são todas de
 | Hipótese | Status | Evidência |
 |---|---|---|
 | `h1-ou25-edge-2-15-walkforward` | **NO-GO** (2026-07-10) | n=455, ROI +7,9%, CLV +19,55%, PSR 0,94, IC95 [−0,0218; +0,1719], DSR 0,94 — IC cruza zero |
-| `h1-...-2023-2026-exploratoria` | **GO EXPLORATÓRIO** (2026-07-25) | n=567, PSR 0,9935, IC95 [+0,0264; +0,2032], DSR 0,9518. **Não confirmatório**: o baseline sem 2023 foi visto antes da decisão de rodar com 2023 |
+| `h1-ou25-walkforward-2023-2026-exploratoria` | **GO EXPLORATÓRIO** (2026-07-25) | n=567, PSR 0,9935, IC95 [+0,0264; +0,2032], DSR 0,9518. **Não confirmatório**: o baseline sem 2023 foi visto antes da decisão de rodar com 2023 |
 | `h2-periodo-1t-conf60` | **VALIDADA** (informativa) | n=1.493, acerto 79,0% vs confiança 79,8%. Sem odds de período → sem ROI/CLV |
 | `H4_DIXON_COLES_CALIBRATED` | **REFUTADA** (2026-07-11) | ΔRPS 0,00235, IC95 [−0,00216; +0,00684], n=737 — cruza zero |
 | `h3-ou25-sombra-2026` | **SUPERSEDED** (2026-07-25) | 8 picks `LEGACY_INCOMPLETE` (odd do agregado Sofascore, sem bookmaker) |
