@@ -7,7 +7,7 @@ nos documentos do ecossistema — este glossário **classifica**, não
 substitui, a análise quantitativa que sustenta cada rótulo.
 
 Versionado neste repositório; alterações seguem o fluxo de errata da
-seção 4 (não destrutivo — histórico nunca é apagado).
+seção 5 (não destrutivo — histórico nunca é apagado).
 
 ---
 
@@ -28,7 +28,7 @@ Regras:
 - Nenhum veredito é emitido antes da janela ou amostra pré-registrada
   (ex.: H8-F1 exige `H8_REQUIRED_RACES=15`; H5-cripto tem janela 28/07).
 - Veredito não é retroativamente editado — correções entram como errata
-  (seção 4).
+  (seção 5).
 
 ## 2. Gates operacionais
 
@@ -58,7 +58,40 @@ mesmo item:
 | `REJECTED` | Não objetivo deliberado; fazer causaria mais dano que benefício. |
 | `RESOLVED_AND_VERIFIED` | Corrigido E verificado de forma independente (teste, execução real ou inspeção direta). |
 
-## 4. Processo de errata (não destrutivo)
+## 4. Status de projeto (adicionado em 2026-07-26)
+
+Os itens 1 a 3 classificam **hipótese**, **gate** e **pendência**. Faltava
+vocabulário para o **projeto inteiro**, e a ausência produziu exatamente o
+problema que este glossário existe para evitar: o `FECHAMENTO_2026-07-26.md`
+usou "FECHADO" como se fosse status formal, sem definição em lugar nenhum e
+lado a lado com rótulos que a máquina emite (`NO_GO_CONFIRMED`, `PARKED`,
+`MATURED`). Definido aqui, com a evidência que cada um exige.
+
+| Termo | Definição | Exige |
+|---|---|---|
+| **`FECHADO`** | Não há trabalho acionável neste projeto. Afirmação sobre o **trabalho disponível**, nunca sobre mérito científico ou autorização econômica. | (1) toda hipótese registrada com veredito escrito, nenhuma pendente de execução; (2) nenhum bug reproduzido, lacuna de código ou teste vermelho; (3) suíte verde em reverificação datada |
+| **`COLETANDO`** | Aberto por **calendário**, não por esforço. Nada a fazer além de deixar rodar; mexer é que produz erro. | coorte pré-registrada em curso, contadores abaixo do critério, tarefa agendada em `Ready` |
+| **`GATE MARCADO`** | Aberto com data e critério congelados antes da janela. | data no registro da trial + critério pré-registrado inalterado |
+
+Regras de uso:
+
+- **`FECHADO` não é `GO`.** Um projeto pode estar `FECHADO` e
+  `NO_GO_CONFIRMED` ao mesmo tempo — é o caso do `f1-predictor`, e não há
+  contradição: o primeiro fala de trabalho, o segundo de gate.
+- **`FECHADO` não é hipótese aprovada.** O `predictor-stocks` está `FECHADO`
+  com 4 de 4 vereditos de ruído.
+- **`FECHADO` não é irreversível.** Cada projeto mantém sua condição de
+  reabertura no próprio `HANDOFF.md`, e ela não muda por causa deste rótulo.
+- **`FECHADO` não é `PARKED`.** `PARKED` é o set do `sync_core.py` e fala de
+  **vendor congelado**. Um projeto pode ser os dois por motivos
+  independentes — `predictor-stocks` é.
+- Bibliotecas (`predictor_core`, `tools`) não têm hipótese; para elas o
+  critério (1) é vazio e `FECHADO` se apoia em versão, vendors e suíte.
+- Ação **agendada** pendente descarta `FECHADO`. O rótulo correto é
+  `CORRECTLY_DEFERRED` (seção 3), que já cobre "adiado conscientemente, com
+  justificativa registrada e condição de reabertura".
+
+## 5. Processo de errata (não destrutivo)
 
 1. Documento histórico **nunca** é reescrito para "sempre ter estado
    certo". A correção entra como nota datada (`**Atualização AAAA-MM-DD**`

@@ -121,34 +121,53 @@ ligadas, ou dar as coortes por perdidas.
 
 ## 4. Status por projeto
 
-Suítes reexecutadas hoje. Todas verdes.
+Suítes reexecutadas hoje. Todas verdes. Rótulos conforme
+`GLOSSARIO_STATUS.md` §4 — **`FECHADO` fala de trabalho disponível, nunca de
+mérito científico ou autorização econômica.**
 
-| Projeto | Testes | Estado formal | O que falta |
-|---|---:|---|---|
-| **predictor_core** | 268 | **FECHADO** — 1.3.3, 4 consumidores vivos byte-idênticos (46/46), 3 PARKED com drift esperado | só B-6: sincronizar `previsao-cripto` **depois** de 28/07 |
-| **tools** | **142** +1 skip | **FECHADO** — B-11 corrigido, zero vermelhos, suíte roda sem `PYTHONPATH` externo | nada |
-| **f1-predictor** | **203** | **FECHADO** — `NO_GO_CONFIRMED` desde 23/07, 10/10 vereditos escritos | nada. **Não reabrir** |
-| **predictor-stocks** | 144 | **FECHADO** — 4 hipóteses, 4 ruído, nenhuma pendente; vendor congelado em 1.3.0 por regra do próprio projeto | nada |
-| **cs-predictor** | 159 | **COLETANDO** — 18/50 maturadas, 5/30 dias, `decision_ready: false` | tempo. Veredito possível ~25/08 |
-| **brasileirao-predictor** | 377 | **COLETANDO** — 4 emitidas, 0 maturadas, `remaining_to_100: 100`; CLV 0/50 | tempo |
-| **lol-predictor** | 131 | **COLETANDO, destravado hoje** — import corrigido; resta a cota do Drive | cota reseta sozinha |
-| **previsao-cripto** | 325 +2 skip | **GATE EM 28/07** | executar o gate e registrar o veredito |
+| Projeto | Testes | Status | Base | O que falta |
+|---|---:|---|---|---|
+| **tools** | **142** +1 skip | `FECHADO` | B-11 corrigido, zero vermelhos, suíte roda sem `PYTHONPATH` externo | nada |
+| **f1-predictor** | **203** | `FECHADO` | 10/10 vereditos escritos; `NO_GO_CONFIRMED` desde 23/07; H8 impossível em 2026 | nada. **Não reabrir** |
+| **predictor-stocks** | 144 | `FECHADO` + `PARKED` | 4 hipóteses, 4 ruído, nenhuma pendente; vendor congelado em 1.3.0 por regra do projeto | nada |
+| **predictor_core** | 268 | `CORRECTLY_DEFERRED` | 1.3.3, 4 consumidores vivos byte-idênticos (46/46), 3 PARKED com drift esperado | B-6: sincronizar `previsao-cripto` **depois** de 28/07 |
+| **cs-predictor** | 159 | `COLETANDO` | 18/50 maturadas, 5/30 dias, `decision_ready: false` | tempo. Veredito possível ~25/08 |
+| **brasileirao-predictor** | 377 | `COLETANDO` | 4 emitidas, 0 maturadas, `remaining_to_100: 100`; CLV 0/50 | tempo |
+| **lol-predictor** | 131 | `COLETANDO` — destravado hoje | import corrigido; resta a cota do Drive | cota reseta sozinha |
+| **previsao-cripto** | 325 +2 skip | `GATE MARCADO` | 28/07, critério congelado em 10/07 | executar o gate e registrar o veredito |
+
+> **Errata da própria rodada, 2026-07-26.** A primeira versão desta tabela
+> classificava o `predictor_core` como **`FECHADO` — "só B-6"**. Errado por
+> definição: ação agendada pendente descarta `FECHADO`, e "só" não é
+> qualificador de status. Reclassificado para **`CORRECTLY_DEFERRED`**, que é
+> vocabulário canônico e diz a coisa certa — adiado conscientemente, com
+> justificativa e condição de reabertura registradas.
+>
+> A mesma versão usava `FECHADO` e `COLETANDO` **sem definição em lugar
+> nenhum**, lado a lado com rótulos que a máquina emite. Os três foram
+> formalizados em `GLOSSARIO_STATUS.md` §4, seção nova criada por causa
+> disto: os itens 1 a 3 daquele documento classificavam hipótese, gate e
+> pendência, e faltava vocabulário para o **projeto inteiro**.
 
 **Hipóteses econômicas aprovadas para capital: zero.** Nenhum item desta tabela
-altera isso, e nenhum gate deste ecossistema é capaz de alterá-lo.
+altera isso, e nenhum gate deste ecossistema é capaz de alterá-lo. Em
+particular, `FECHADO` e `NO-GO` coexistem sem contradição — o `f1-predictor` é
+os dois.
 
-### Os quatro que fecham; os quatro que não
+### Os três que fecham; os cinco que não
 
-Fecham porque **acabou o trabalho**: `predictor_core`, `tools`,
-`f1-predictor`, `predictor-stocks`.
+Fecham porque **acabou o trabalho**: `tools`, `f1-predictor`,
+`predictor-stocks`.
 
-Não fecham porque **falta calendário**, não esforço: `cs-predictor` (18 de 50),
-`brasileirao-predictor` (4 de 100), `lol-predictor` (cota externa),
-`previsao-cripto` (gate marcado para 28/07, daqui a dois dias).
+Não fecham porque **falta calendário ou uma ação já agendada**, não esforço:
+`cs-predictor` (18 de 50), `brasileirao-predictor` (4 de 100),
+`lol-predictor` (cota externa), `previsao-cripto` (gate em 28/07) e
+`predictor_core` (B-6, que só pode acontecer **depois** daquele gate).
 
-Fechar qualquer um dos quatro de baixo hoje exigiria declarar veredito sem
-amostra — que é a regra 5, e vale nas duas direções: um NO-GO em 18/50 seria
-tão inventado quanto um GO.
+Dos cinco de baixo, o `predictor_core` espera uma data e os outros quatro
+esperam amostra ou janela. Fechar qualquer um desses quatro hoje exigiria
+declarar veredito sem amostra — que é a regra 5, e vale nas duas direções: um
+NO-GO em 18/50 seria tão inventado quanto um GO.
 
 ---
 
