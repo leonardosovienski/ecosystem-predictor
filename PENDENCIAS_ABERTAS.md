@@ -1,7 +1,10 @@
 # PENDÊNCIAS ABERTAS — lista canônica
 
 Lista canônica de tudo que ainda não está encerrado no ecossistema. Atualizada em
-2026-07-26 (rodada de correção de 7 defeitos + veredito das 38 hipóteses). Base em
+2026-07-26, **2ª rodada** (9 defeitos corrigidos no total + veredito das **42**
+hipóteses). Fechamento por projeto, protocolo do gate de 28/07 e os dois
+defeitos encontrados na 2ª rodada: [FECHAMENTO_2026-07-26.md](FECHAMENTO_2026-07-26.md).
+Base em
 2026-07-20. Consolida `FINAL_FORENSIC_REVIEW.md`, `ECOSYSTEM_FINAL_CLOSURE.md`,
 `AUDIT_DIRECTORY_RECONCILIATION.md` (leitura de `audit/`, 71 arquivos, auditoria
 independente de 2026-07-15) e verificação direta desta rodada. Cada item usa

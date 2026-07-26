@@ -317,7 +317,49 @@ antes de um apito sai como `NO_KICKOFF_WINDOW` **sem gastar cota**.
 Cota verificada antes de decidir a cadência: **386 restantes de 500/mês**, queima
 atual ~4/dia. A adição custa ~45/mês (3 chamadas só em dia de jogo).
 
-### B-11 · tools — 23 testes falhando na versão 1.3.4 · **ABERTO**
+### B-11 · tools — 23 testes falhando na versão 1.3.4 · **CORRIGIDO EM 26/07**
+
+> **Diagnóstico refeito por execução em 2026-07-26. A causa registrada abaixo
+> estava errada, e o erro escondia um defeito de produção, não de teste.**
+>
+> As 23 falhas tinham **duas causas independentes**, e a que respondia por 18
+> delas nem foi mencionada:
+>
+> **1. `TOOLS_MANIFEST.json` defasado (18 dos 23).** O commit `d104d01`
+> (26/07 15:12) adicionou `monitor_task_health.ps1` sem regenerar o manifesto.
+> A partir dali `collect_tools_provenance` levantava
+> `manifest included_files differs from tracked content`, e o
+> `operational_runner` — que envelopa **todas** as tarefas agendadas do
+> ecossistema — devolvia **exit 3 fail-closed em qualquer invocação**, strict
+> **ou** permissive. Isto **não era problema de teste**: era uma parada total
+> do agendamento esperando o próximo disparo. Nenhuma tarefa real chegou a
+> falhar por sorte de calendário — a última rodou às 14:54, 18 minutos antes
+> do commit que quebrou.
+>
+> Por que a suíte não pegou: **todos** os testes de `test_release_manifest.py`
+> usavam repositório sintético em `tmp_path`. Nenhum verificava o manifesto
+> **real** desta checkout. Corrigido com
+> `test_checked_in_manifest_matches_this_repository`.
+>
+> **2. `ModuleNotFoundError: No module named 'src'` (os 5 restantes).** Esta
+> parte do diagnóstico original estava certa quanto ao sintoma e errada quanto
+> à natureza: **não é artefato do contexto de teste, é bug de produção.**
+> `atualiza_semanal_payload.py` insere o WORKSPACE na `sys.path` para achar
+> `tools`, mas nunca insere o próprio ROOT — então `from src.data.ingestion
+> import ...` (introduzido em `ff56d44`, 21/07) **nunca resolveu**, nem sob
+> teste nem sob Scheduler. Reproduzido rodando o payload exatamente como
+> produção o roda: `ModuleNotFoundError`, exit 1, antes de qualquer rede.
+> Como `lol-ratings-semanal` é semanal e a última execução foi 20/07 13:28 —
+> um dia antes do import entrar —, a quebra nunca chegou a disparar. Ver B-10.
+>
+> **Estado: suíte 142 passed, 1 skipped, sem `PYTHONPATH` externo** (era 23
+> failed / 118 passed com `PYTHONPATH`, e 4 erros de coleta sem ele). O
+> `pythonpath = [".."]` foi declarado no `pyproject.toml`: não muda o contrato
+> de consumo por `sys.path`, apenas o declara onde o pytest lê.
+>
+> Commits: `tools@eb676ef`, `lol-predictor@a7528c0`.
+
+O diagnóstico original, preservado:
 
 Descoberto em 2026-07-26 ao levantar o estado dos 8 projetos. O
 `ECOSYSTEM_HANDOFF` registrava "139 passed, 1 skipped" para `tools/` 1.3.1;
@@ -347,14 +389,24 @@ ninguém notar, que é exatamente como B-2 e B-3 sobreviveram tanto tempo.
 **Ação:** decidir entre consertar o layout de import dos testes ou marcá-los
 com `skipif` explícito e documentado. Deixar vermelho não é opção.
 
+> A frase acima — "nenhum desses testes vermelhos indica falha em produção" —
+> é o erro central deste bloqueio. Os dois indicavam.
+
 ### B-4 · f1 — sem fonte de mercado e impossibilidade aritmética
 
 - `MARKET_H2H_NOT_FEASIBLE`: 0 fontes aceitas, 0 cotações
 - H8 exige 15 pares forward `VALID_FOR_H8`; contador final 0/15
 - `snapshots/` nunca foi criado; `f1-forward-snapshot` está `Disabled`
-- Restam **12 corridas** em 2026 (rodadas 11–22). 12 < 15
+- Restam **12 corridas** em 2026 (rodadas 11–22, contado em 25/07). 12 < 15
 
 Mesmo reabrindo com pipeline perfeito, o gate não fecha em 2026. Precisa de 2027.
+
+> **Conferido no calendário real em 2026-07-26.** A temporada tem 22 rodadas e
+> a 11ª (Hungaroring) é **hoje** — logo restam **11**, não 12. Os dois números
+> estão certos nas suas datas e o `VEREDITOS_2026-07-26.md` usa o de hoje; não
+> é contradição entre documentos. A conclusão não depende de qual: 11 < 12 <
+> 15, e cada dia que passa só afasta mais. Este bloqueio **encolhe sozinho**,
+> nunca melhora.
 
 ### B-5 · cripto — janela de 28/07 com critério já falhado
 
@@ -365,7 +417,23 @@ Mesmo reabrindo com pipeline perfeito, o gate não fecha em 2026. Precisa de 202
 
 Nada técnico falta. Falta executar o gate e registrar o veredito.
 
-### B-10 · lol — fonte-base do Oracle's Elixir caiu · **ABERTO, precisa de humano**
+### B-10 · lol — fonte-base do Oracle's Elixir caiu · **ABERTO (cota), 2ª causa CORRIGIDA em 26/07**
+
+> **Segunda causa, encontrada em 26/07 pelo B-11 e ausente de todo o
+> diagnóstico abaixo: o job não chegava à cota.** O payload semanal quebrava
+> no import, exit 1, antes de tocar o Drive — `from src.data.ingestion import
+> ...` entrou em `ff56d44` (21/07 20:49) e o módulo nunca teve o próprio ROOT
+> na `sys.path`. A última execução foi 20/07 13:28, **um dia antes**, então a
+> tarefa semanal nunca disparou com o código quebrado e o exit 10 registrado
+> é o `PARTIAL` legítimo da cota, de 20/07.
+>
+> Consequência para a ação humana: **"esperar o reset da cota" era necessário
+> e não suficiente.** Com o reset e sem esta correção, a próxima execução
+> falharia com exit 1 sem sequer requisitar o arquivo — e o diagnóstico
+> aparente seria "a fonte continua caída", que é a conclusão errada.
+>
+> Corrigido em `lol-predictor@a7528c0`; suíte 131 verde. **O que resta de
+> B-10 é só a cota do Drive**, que reseta sozinha.
 
 Descoberto em 26/07 ao revisar exit codes: `lol-ratings-semanal` está `PARTIAL`
 (exit 10) **desde 2026-07-20**.
@@ -535,6 +603,35 @@ essas funções — decisão humana de remover salvaguarda, não critério a ati
 > tentativa nova com Sharpe finito pode derrubar este resultado abaixo do corte.
 > Isso torna "registrar mais análise" uma operação que DESTRÓI evidência, não
 > que a melhora.
+
+> **Correção de 2026-07-26, calculada com `expected_max_sharpe` do core.** A
+> ressalva acima ("com Sharpe finito") é branda demais e engana na direção
+> perigosa. `trials.json` hoje tem **9** entradas — a `h7-clv-prospectivo-
+> pinnacle-2026` entrou depois daquele texto —, e `SR0` cresce com o **número**
+> de tentativas, não com o Sharpe delas:
+>
+> ```
+> var([0,0722; 0,1043]) = 0,00051520
+> n= 8  SR0 = 0,033117      (o texto acima)
+> n= 9  SR0 = 0,034519      <- estado de hoje, DSR 0,9518
+> n=10  SR0 = 0,035740      <- acima do SR0 critico 0,0353
+> n=11  SR0 = 0,036821
+> ```
+>
+> Ou seja: **a décima trial derruba o resultado abaixo de 0,95 mesmo com
+> `sharpe: None`.** Registrar qualquer hipótese nova neste projeto — inclusive
+> uma pré-registrada que nunca produza número — custa o GO exploratório. A
+> regra operacional correta não é "calcule o Sharpe antes de registrar", é
+> **não registrar mais nada aqui sem aceitar conscientemente esse preço**.
+>
+> **Limite desta conta, registrado:** o `SR0` acima é exato (função do core,
+> valores do `trials.json` real). O `DSR` resultante **não pôde ser
+> recalculado**: a série de retornos das 567 apostas não foi persistida em
+> lugar nenhum — o run foi feito em cópia isolada e só o Sharpe agregado
+> entrou no registro. O `SR0` crítico 0,0353 vem da rodada anterior e não é
+> reproduzível a partir do acervo. **Um resultado de nível GO cujo DSR não pode
+> ser re-derivado do registro** é uma falha de arquivamento independente do
+> mérito científico: se alguém contestar o 0,9518, não há como refazer a conta.
 
 Rodado em cópia isolada; produção intocada. Season 48982 ingerida: 380 jogos,
 249 com O/U.

@@ -3,27 +3,33 @@
 Documento mestre de continuidade. Verificado em: **2026-07-26**. Leia este
 documento **primeiro** em qualquer sessão nova.
 
-> **Rodada de 2026-07-25/26 — leia antes de agir.** Sete defeitos que
-> impediam qualquer coorte de maturar foram corrigidos, e as 38 hipóteses do
-> ecossistema receberam veredito formal. Dois documentos novos na raiz são
+> **Rodada de 2026-07-25/26 — leia antes de agir.** Nove defeitos que
+> impediam qualquer coorte de maturar foram corrigidos, e as **42** hipóteses
+> do ecossistema receberam veredito formal. Dois documentos novos na raiz são
 > agora leitura obrigatória:
 >
-> - **`VEREDITOS_2026-07-26.md`** — as 38 hipóteses fechadas. 8 comprovadas
+> - **`VEREDITOS_2026-07-26.md`** — as 42 hipóteses fechadas. 8 comprovadas
 >   (todas de qualidade de previsão), **12 refutadas** (todas as que tentaram
->   virar dinheiro), 5 inconclusivas por amostra com data prevista.
->   **Hipóteses econômicas aprovadas para capital: zero.**
-> - **`BLOQUEIOS_GO_2026-07-25.md`** — auditoria dos bloqueios (B-0 a B-10),
+>   virar dinheiro), 4 ruído (stocks), 5 inconclusivas por amostra com data
+>   prevista. **Hipóteses econômicas aprovadas para capital: zero.**
+> - **`BLOQUEIOS_GO_2026-07-25.md`** — auditoria dos bloqueios (B-0 a B-11),
 >   classificação dos 695.694 registros por função e as erratas da rodada.
 >
 > Defeitos corrigidos: proveniência falsa na coorte do brasileirão (B-1),
 > settlement sem driver no cs (B-2) e no lol (B-3), guard do lol que falhava
 > ABERTO na remoção do registro (B-7), instalador de task esvaziado no cs
-> (B-8), "fechamento" 6-9h defasado do apito (B-9) e DoH fixo num IP bloqueado
-> que derrubava a coleta de cs e lol (B-0).
+> (B-8), "fechamento" 6-9h defasado do apito (B-9), DoH fixo num IP bloqueado
+> que derrubava a coleta de cs e lol (B-0), manifesto defasado do `tools` que
+> derrubava **toda** tarefa agendada (B-11) e o import quebrado do payload
+> semanal do lol (2ª causa do B-10).
 >
 > Efeito medido: cs saiu de **0 para 18/50** maturadas; brasileirão de 0 para
 > **4 picks com proveniência auditável**. Nenhum projeto tem mais lacuna
 > interna de código.
+>
+> **Fechamento de 2026-07-26 (2ª rodada):** ver
+> `FECHAMENTO_2026-07-26.md` — status GO/NO-GO por projeto, o que foi fechado
+> e o que permanece aberto **por tempo de calendário**, não por trabalho.
 
 ## COMO RETOMAR EM UMA NOVA SESSÃO
 
@@ -96,8 +102,12 @@ contrário. Nenhum domínio importa outro domínio diretamente.
 
 | Camada | Versão | Commit-base | Testes |
 |---|---|---|---|
-| tools/ | 1.3.1 | `2ed64e4` | 139 passed, 1 skipped |
+| tools/ | **1.3.4** | `eb676ef` | **142 passed, 1 skipped** |
 | predictor_core | **1.3.3-ga-20260723** | `11c4792` | **268 passed** |
+
+A suíte do `tools/` roda com `python -m pytest` puro desde `eb676ef`
+(`pythonpath = [".."]` no `pyproject.toml`). Antes exigia
+`PYTHONPATH=<workspace>` passado à mão, e sem ele 4 módulos nem coletavam.
 
 `predictor_core` 1.3.3 entregou o contrato `COLLECTION_ONLY`
 (`contracts/collection.py`, `data/collection.py`). Nenhuma recomendação de
@@ -107,13 +117,22 @@ versão permanece pendente de autorização.
 
 Reverificado em **2026-07-26**.
 
+Suítes reexecutadas em **2026-07-26** (2ª rodada), todas verdes:
+
 | Consumidor | Vendor de predictor_core | Byte-idêntico | Testes |
 |---|---|---|---|
 | brasileirao-predictor | 1.3.3 | Sim (46/46) | **377 passed** |
-| cs-predictor | 1.3.3 | Sim (46/46) | **155 passed** |
-| f1-predictor | 1.3.3 | Sim (46/46) | 152 passed (2026-07-20) |
+| cs-predictor | 1.3.3 | Sim (46/46) | **159 passed** |
+| f1-predictor | 1.3.3 | Sim (46/46) | **203 passed** |
 | lol-predictor | 1.3.3 | Sim (46/46) | **131 passed** |
-| previsao-cripto | **1.3.2 — DRIFT** | **Não** (44/46) | 320 passed, 2 skipped |
+| previsao-cripto | **1.3.2 — DRIFT** | **Não** (44/46) | **325 passed, 2 skipped** |
+| predictor-stocks | 1.3.0 — congelado (PARKED) | Não, por decisão | **144 passed** |
+
+Nota de proveniência, aprendida em 26/07: a suíte do `f1-predictor` exige
+`tools/` com worktree **limpo** — `snapshots.py` chama
+`collect_tools_provenance(strict=True)` e 8 testes falham com
+`SnapshotError: tools working tree is dirty` enquanto houver alteração não
+commitada em `tools/`. É o fail-closed funcionando, não regressão do f1.
 
 `previsao-cripto` não recebeu a 1.3.3: faltam `contracts/collection.py` e
 `data/collection.py`. É drift limpo (manifest interno coerente,
@@ -207,17 +226,28 @@ por decisão humana (2026-07-18).
 Lista canônica completa: `PENDENCIAS_ABERTAS.md`. Bloqueios operacionais e o
 que falta para cada gate: `BLOQUEIOS_GO_2026-07-25.md`.
 
-**Aberto em 2026-07-26** — nenhum é bug de código:
+**Aberto após a 2ª rodada de 2026-07-26:**
 
 | | O que é | Quem resolve |
 |---|---|---|
-| **B-10** | Fonte-base do LoL caiu: Drive 404 e S3 301. Banco congelado em 10/07 | **humano** — pegar URL em `oracleselixir.com/tools/downloads` e exportar `ORACLES_ELIXIR_2026_URL` |
+| **B-10** | Resta só a **cota pública do Google Drive**. O ID no código está correto e a 2ª causa (import quebrado do payload) foi corrigida em `a7528c0` | ninguém — a cota reseta sozinha (~24h). Depois, conferir se `lol-ratings-semanal` saiu de exit 10 |
 | **B-6** | Vendor do `previsao-cripto` em 1.3.2 | sincronizar **depois** do gate de 28/07 |
 | **SEC-1** | Chave SerpAPI em 5 logs históricos | rotação no provedor, baixa prioridade |
 | gate cripto | H5 com critério já falhando na direção oposta | executar em **28/07** |
 | amostra | 5 hipóteses inconclusivas | tempo de calendário |
 
-Bugs de código abertos: **zero**.
+Bugs de código abertos: **zero** — mas essa mesma linha estava escrita em
+2026-07-26 de manhã, e naquele momento havia dois (B-11 e a 2ª causa do
+B-10), ambos em código que **nunca havia sido executado do jeito que a
+produção o executa**. Ver `FECHAMENTO_2026-07-26.md` §"o que a suíte não
+media".
+
+**Monitores instalados** (`tools/`): `predictor-task-health` (exit code e
+atraso de todas as tarefas, a cada 6h, escreve/apaga `ALERTA_TAREFAS.txt` na
+raiz) e `predictor-gate-monitor`. Este último **sai com exit 1 por desenho**
+quando qualquer tarefa está degradada — hoje sai 1 por causa do exit 10 do
+`lol-ratings-semanal` (B-10). Exit 1 aqui é o monitor funcionando, não o
+monitor quebrado.
 
 ## Decisões científicas (não reabrir sem evidência nova)
 

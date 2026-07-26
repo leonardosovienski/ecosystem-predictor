@@ -147,9 +147,20 @@ Refutar exige evidência, assim como aprovar. Declarar NO-GO numa coorte de
 | `h5-ensemble-xg-sombra-pinnacle-2026` | 2/100 | 100 picks | ~jan/2027 |
 | `h4-lol-market-shadow-v2` | 0 sinais | 50 maturadas + 3 competições | indefinido |
 
-As previsões assumem as tarefas agendadas religadas — **todas foram
-desabilitadas em 2026-07-26 a pedido do operador**. Com elas paradas, nenhuma
-avança.
+> **Errata de 2026-07-26 (segunda rodada), verificada contra o Scheduler.** A
+> versão anterior deste bloco afirmava que "todas [as tarefas] foram
+> desabilitadas em 2026-07-26 a pedido do operador" e concluía "com elas
+> paradas, nenhuma avança". **É falso contra a máquina.** `Get-ScheduledTask`
+> devolve **16 das 18 tarefas em `Ready`**; as duas `Disabled` são
+> `f1-forward-snapshot` (desde 23/07, projeto encerrado) e
+> `GarimpoInvestimentos-ColetaDiaria` (legada, desabilitada desde antes).
+> As coortes **estão coletando**, e as datas previstas abaixo valem.
+>
+> O erro não era cosmético: escrito assim, ele instruía a próxima sessão a
+> tratar como parado um funil que está vivo.
+
+As previsões abaixo assumem as tarefas agendadas rodando — que é o estado
+real verificado em 2026-07-26.
 
 ## As 3 pré-registradas nunca executadas
 

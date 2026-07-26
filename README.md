@@ -54,21 +54,29 @@ projetos históricos congelados.
   não "projeto dormindo"). Ver seção abaixo e
   [predictor-stocks/HANDOFF.md](predictor-stocks/HANDOFF.md).
 
-## Status atual (2026-07-20)
+## Status atual (2026-07-26)
+
+Todas as suítes reexecutadas em 2026-07-26.
 
 | Camada | Testes | Estado |
 |---|---|---|
-| tools/ | 139 passed, 1 skipped | Verde |
-| predictor_core | 263 passed | Verde |
-| brasileirao-predictor | 320 passed | Verde |
-| cs-predictor | 110 passed | Verde |
-| f1-predictor | 152 passed | Verde |
-| lol-predictor | 81 passed | Verde |
-| previsao-cripto | 315 passed, 2 skipped | Verde |
+| tools/ | 142 passed, 1 skipped | Verde |
+| predictor_core | 268 passed | Verde |
+| brasileirao-predictor | 377 passed | Verde |
+| cs-predictor | 159 passed | Verde |
+| f1-predictor | 203 passed | Verde |
+| lol-predictor | 131 passed | Verde |
+| previsao-cripto | 325 passed, 2 skipped | Verde |
+| predictor-stocks | 144 passed | Verde |
 
-**Bugs de código conhecidos e não corrigidos: zero.** Um incidente de
-segurança segue aberto (rotação de credencial pendente, ação humana
-externa) — ver [SECURITY_INCIDENT_SECRET_ROTATION.md](SECURITY_INCIDENT_SECRET_ROTATION.md).
+**Bugs de código conhecidos e não corrigidos: zero.** Dois foram encontrados e
+corrigidos em 2026-07-26 — manifesto defasado do `tools` (parava toda tarefa
+agendada) e import quebrado do payload semanal do lol —, ambos em código que
+nunca havia sido executado como a produção o executa. Ver
+[FECHAMENTO_2026-07-26.md](FECHAMENTO_2026-07-26.md).
+
+Um incidente de segurança segue aberto (rotação de credencial pendente, ação
+humana externa) — ver [SECURITY_INCIDENT_SECRET_ROTATION.md](SECURITY_INCIDENT_SECRET_ROTATION.md).
 Lista completa de pendências reais: [PENDENCIAS_ABERTAS.md](PENDENCIAS_ABERTAS.md).
 
 ## Pré-requisitos
