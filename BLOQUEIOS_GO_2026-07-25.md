@@ -317,6 +317,36 @@ antes de um apito sai como `NO_KICKOFF_WINDOW` **sem gastar cota**.
 Cota verificada antes de decidir a cadência: **386 restantes de 500/mês**, queima
 atual ~4/dia. A adição custa ~45/mês (3 chamadas só em dia de jogo).
 
+### B-11 · tools — 23 testes falhando na versão 1.3.4 · **ABERTO**
+
+Descoberto em 2026-07-26 ao levantar o estado dos 8 projetos. O
+`ECOSYSTEM_HANDOFF` registrava "139 passed, 1 skipped" para `tools/` 1.3.1;
+a versão hoje é **1.3.4** e a suíte está assim:
+
+```
+sem PYTHONPATH            4 erros de coleta (ModuleNotFoundError: 'tools')
+PYTHONPATH=<workspace>    23 failed, 118 passed, 1 skipped
+```
+
+**Não é regressão desta rodada** — verificado: as falhas são
+`ModuleNotFoundError: No module named 'src'` ao importar payloads de domínio
+(`lol-predictor/scripts/atualiza_semanal_payload.py:20`) a partir do contexto de
+teste do `tools`. É o mesmo split-brain de import já registrado como decisão
+operacional ("`tools/` sem instalação via pacote — consumo é por `sys.path`"),
+mas agora com 23 testes vermelhos em vez de contornado.
+
+Afeta `test_lol_operational_entrypoint`, `test_operational_runner`,
+`test_secret_redaction` e `test_ecosystem_health` — ou seja, justamente a
+camada que envelopa TODAS as tarefas agendadas do ecossistema.
+
+Nenhum desses testes vermelhos indica falha em produção: os jobs reais rodam
+com o layout correto e reportam exit 0. Mas uma suíte com 23 vermelhos
+permanentes deixa de servir como barreira — o próximo defeito real entra sem
+ninguém notar, que é exatamente como B-2 e B-3 sobreviveram tanto tempo.
+
+**Ação:** decidir entre consertar o layout de import dos testes ou marcá-los
+com `skipif` explícito e documentado. Deixar vermelho não é opção.
+
 ### B-4 · f1 — sem fonte de mercado e impossibilidade aritmética
 
 - `MARKET_H2H_NOT_FEASIBLE`: 0 fontes aceitas, 0 cotações
@@ -344,10 +374,17 @@ Descoberto em 26/07 ao revisar exit codes: `lol-ratings-semanal` está `PARTIAL`
 > inicial ("mais um redirect permanente não seguido") estava **errada**. São
 > três problemas independentes, e nenhum é redirect:
 >
-> **1. O file ID no código não existe mais.** `1IDDdzR3JhAOJPnHfSAJHfHtfXTOcaDdw`
-> devolve **404** em `drive.google.com/file/d/.../view` — não é cota, não é
-> permissão: o arquivo foi substituído. O que chegava eram 2009 bytes de página
-> de erro.
+> **1. ~~O file ID no código não existe mais.~~ ERRATA de 2026-07-26 — isto
+> estava errado.** Eu testei `1IDDdzR3JhAOJPnHfSAJHfHtfXTOcaDdw`, que de fato dá
+> 404, mas **esse não é o ID do código**: li errado. `DRIVE_IDS` em
+> `scripts/atualiza_semanal_payload.py:14` usa
+> **`1hnpbrUpBMS1TZI7IovfpKeZfWJH1Aptm`**, que **está presente na pasta atual do
+> Drive** e responde `Quota exceeded` — ou seja, existe e está correto.
+>
+> **Consequência: não há ID a trocar.** O `ORACLES_ELIXIR_2026_URL` não é
+> necessário. A cota pública do Google reseta sozinha (~24h) e a coleta volta
+> sem intervenção. A ação humana caiu de "descobrir o ID certo" para **nenhuma**
+> — só verificar, depois do reset, se o `lol-ratings-semanal` saiu de `PARTIAL`.
 >
 > **2. O espelho S3 foi desativado por completo.** Testados os anos 2024, 2025 e
 > 2026, nos formatos virtual-host e path-style: **403 em todos os seis**. Não é
@@ -388,22 +425,19 @@ corrigido 20/07), feed `coindesk` (308, cripto, corrigido 25/07), agora Oracle's
 Elixir (301/404). **Redirect permanente de fonte externa é o modo de falha
 recorrente deste ecossistema** — vale um monitor de exit code, não só de heartbeat.
 
-**Ação humana — abrir a pasta LOGADO no Drive**, que é o único jeito de ver os
-nomes dos arquivos, copiar o ID de
-`2026_LoL_esports_match_data_from_OraclesElixir.csv` e exportar:
+**Ação: esperar o reset da cota.** Nenhuma intervenção é necessária — o ID está
+correto. Depois do reset (~24h), confirmar que o `lol-ratings-semanal` voltou a
+exit 0 e que `data/lol.db` passou de 2026-07-10.
 
-```powershell
-[Environment]::SetEnvironmentVariable('ORACLES_ELIXIR_2026_URL',
-  'https://drive.usercontent.google.com/download?id=<ID>&export=download&confirm=t','User')
-```
+Se a cota persistir (o arquivo é popular e a cota do Drive é por arquivo, não
+por usuário), aí sim vale baixar manualmente e apontar
+`ORACLES_ELIXIR_2026_URL` para um caminho local. O override existe em
+`scripts/atualiza_semanal_payload.py:38` e tem prioridade sobre as duas fontes.
 
-O override já existe em `scripts/atualiza_semanal_payload.py:38` e tem
-prioridade sobre as duas fontes quebradas. Pasta:
-`https://drive.google.com/drive/folders/1gLSw0RLjBbtaNy0dgnGQDAZOHIgCe-HH`
-
-Alternativa se a cota tiver resetado: baixar manualmente e apontar o override
-para um caminho local. **Não** vale tentar os 13 IDs por eliminação — sem o nome
-não há como saber qual é o ano certo antes de já ter ingerido.
+O **espelho S3 continua morto** e isso é permanente: 403 em 2024, 2025 e 2026,
+nos dois formatos de endpoint, listagem `AccessDenied`. O fallback do
+`_urls_para_ano()` está efetivamente reduzido a uma fonte única — vale
+considerar uma segunda via real, já que a atual falha por cota com regularidade.
 
 **Correção estrutural que vale considerar:** as duas fontes do
 `_urls_para_ano()` caíram em silêncio e o job passou 6 dias em `PARTIAL` sem

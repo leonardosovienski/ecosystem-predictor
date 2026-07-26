@@ -1,7 +1,12 @@
 # Vereditos — todas as hipóteses registradas do ecossistema
 
-Fechamento formal em 2026-07-26. Cobre as **38 hipóteses** dos cinco registros
-(`trials.json` de brasileirao, cs, lol, f1 e previsao-cripto).
+Fechamento formal em 2026-07-26. Cobre as **42 hipóteses** dos seis registros
+(`trials.json` de brasileirao, cs, lol, f1, previsao-cripto e predictor-stocks).
+
+> **Errata da própria rodada.** A primeira versão deste documento dizia "38
+> hipóteses" e afirmava cobertura total. Faltavam as **4 do predictor-stocks**:
+> o `trials.json` daquele projeto fica na **raiz**, não em `data/`, e o
+> inventário que montei procurava só em `data/`. O total real é 42.
 
 Cada linha traz o veredito, o número que o sustenta e a data. Onde não há
 amostra para decidir, o status é `INCONCLUSIVA_AMOSTRA_INSUFICIENTE` — que é
@@ -25,7 +30,8 @@ Nada aqui autoriza capital. Nenhum gate deste ecossistema o faz — ver
 | **GO exploratório** (não confirmatório) | 1 |
 | **Inviável por ausência de fonte** | 1 |
 | **Encerrada por decisão humana** | 4 |
-| **TOTAL** | **38** |
+| **RUÍDO** (efeito indistinguível de zero) | 4 |
+| **TOTAL** | **42** |
 
 **Hipóteses econômicas aprovadas para capital: zero.** Das que chegaram a
 veredito econômico, 12 foram refutadas. As 8 COMPROVADAS são todas de
@@ -103,6 +109,29 @@ o gate H8 é **aritmeticamente impossível** neste ano.
 Reexecução de 2026-07-09 sobre a base estendida: PSR 0,465, IC_lower −0,0794 —
 o edge de 2021-24 **não sobreviveu ao forward 2025-26**.
 
+## predictor-stocks — 4 · **hipóteses esgotadas**
+
+`trials.json` na raiz do projeto. Vendor congelado em `1.3.0-ga-20260711`
+(agregado `3445e37f43c458cc`) por regra do próprio HANDOFF; permanece em `PARKED`
+no `sync_core.py` — ali a semântica é "vendor congelado por decisão do projeto",
+não "projeto inativo".
+
+| Hipótese | Status | Sharpe por-período |
+|---|---|---|
+| `h1-momentum-12-1` | **RUÍDO** | +0,010029 |
+| `h2-lowvol-252` | **RUÍDO** | +0,013363 |
+| `h4-invvol-sizing-252` | **RUÍDO** | +0,011372 |
+| `h5-strev-21` | **RUÍDO / anti-sinal** | **−0,011367** |
+
+Quatro fatores clássicos de equities — momentum 12-1, baixa volatilidade,
+sizing por 1/vol e reversão de 21 dias — todos com efeito na terceira casa
+decimal. O H5 é negativo: a reversão de curto prazo funcionou **ao contrário**
+no universo B3 testado.
+
+Nenhum aprovado. O projeto foi reaberto em 2026-07-18 por decisão explícita do
+operador, com H4 e H5 pré-registradas antes de qualquer código, e ambas voltaram
+não comprovadas. **Não há hipótese pendente de execução.**
+
 ---
 
 ## As 5 que não podem ser fechadas hoje, e por quê
@@ -137,6 +166,12 @@ ambos os casos, sem custo de DSR enquanto não produzirem Sharpe finito.
 que suas linhas-base: o Elo do CS bate a semente, o do LoL bate a banda
 regional, o grid do F1 bate o Elo, o Platt calibra melhor que o cru. Isso é
 real e está medido.
+
+**E há um quinto domínio inteiro sem nenhum sinal:** os 4 fatores clássicos de
+equities do `predictor-stocks` deram efeito na terceira casa decimal, com o
+mais promissor da literatura (reversão 21d) saindo **negativo**. Quatro
+tentativas, quatro nadas — num mercado onde esses fatores são estudados há
+décadas.
 
 **12 REFUTADAS, todas que tentaram virar dinheiro.** E nas três comparações
 diretas contra o mercado, o mercado venceu as três:
