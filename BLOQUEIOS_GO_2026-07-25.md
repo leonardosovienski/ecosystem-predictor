@@ -448,6 +448,27 @@ para sempre e nunca matura. A trial exige **3 competições distintas** e 30
 sinais elegíveis; com a fonte atual o contador é estruturalmente zero, não
 lentamente crescente. Nenhuma quantidade de espera resolve.
 
+**O que a fonte realmente traz** — inspecionado no payload cru do
+`/public-search` em 2026-07-26, para não decidir no escuro:
+
+```
+series      = [{"ticker": "league-of-legends", "title": "League of Legends"}]
+seriesSlug  = "league-of-legends"
+tags        = [{"label": "Esports"}, {"label": "league of legends"}, ...]
+title       = "LoL: Gen.G Global Academy vs BNK FearX Youth (BO3)
+               - LCK Challengers League Rounds 3-4 Trial Group"
+```
+
+Isto fecha a questão de um jeito desconfortável: **não existe campo estruturado
+de competição.** O `series` é o jogo inteiro — é `league-of-legends` para
+**todos** os eventos, então usá-lo daria **1** competição, nunca as 3 exigidas.
+A competição real (`LCK Challengers League`) existe apenas como **texto livre**
+no sufixo do `title`, depois de um " - ".
+
+Ou seja, a opção 1 abaixo não é "ler um campo que estávamos ignorando": é
+*parsing de string livre de terceiro*, que quebra quando o Polymarket mudar o
+formato do título e não avisa quando quebra.
+
 **Isto é decisão científica, não conserto.** As saídas visíveis, e nenhuma é
 obviamente certa:
 

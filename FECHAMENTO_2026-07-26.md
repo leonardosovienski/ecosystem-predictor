@@ -314,12 +314,29 @@ Dois achados que mudam o mapa e estão registrados no `BLOQUEIOS_GO`:
    `raw_signals: 0` é rejeição estrutural, não espera. É decisão científica,
    não conserto — as três saídas possíveis estão listadas no bloqueio.
 
-Um resíduo de arrumação, sem consequência: existem
-`brasileirao-predictor/data/data/matches.db` e
-`wc-predictor-v2/data/data/matches.db` — bancos de 0,1 MB em diretório
-`data/data/` aninhado, íntegros mas órfãos, com cara de caminho relativo
-resolvido a partir de dentro de `data/`. Não são consumidos por nada que a
-varredura encontre. Deixados como estão: apagar banco não se faz por suspeita.
+**Gates próprios dos projetos: 5 de 5 verdes.** Os `scripts/ci_check.py` de cs,
+lol, brasileirão, f1 e cripto passam inteiros — incluindo encoding ASCII dos
+`.ps1`, parse real por `[Parser]::ParseFile` e smoke do serving.
+`tools/release_check.py` passa em clone isolado, e manifesto, runtime e
+release_check concordam no mesmo `content_hash` (`536583e…`, 36 arquivos).
+`predictor-stocks` não tem `ci_check.py` — a suíte é a barreira dele.
+
+**Defeito latente corrigido antes de morder:**
+`f1-predictor/scripts/install_forward_snapshot_task.ps1` registrava a tarefa
+com `python.exe` sob `LogonType Interactive`, disparando **de 15 em 15
+minutos** — a mesma janela de console corrigida no resto do ecossistema hoje.
+Passou despercebido porque a tarefa está `Disabled` desde 23/07 e ninguém a viu
+rodar. Como o gate H8 é aritmeticamente impossível em 2026, a próxima execução
+seria só em 2027 — e o defeito teria voltado sozinho, sem ninguém ligar uma
+coisa à outra. Trocado para `pythonw.exe`.
+
+Errata da própria varredura: eu havia registrado os `data/data/matches.db` de
+`brasileirao-predictor` e `wc-predictor-v2` como órfãos suspeitos. Conferido: os
+arquivos são de **05/07**, estão **gitignored** (`/data/*`) e têm as 9 tabelas
+com **0 linhas** — esquema vazio, nada de dado. O que estava datado de hoje eram
+os `-wal`/`-shm`, criados pela **minha própria sonda de integridade**. Não são
+resíduo de bug ativo. Continuam em disco: apagar banco não se faz por suspeita,
+e agora nem suspeita há.
 
 ## 7. Commits desta rodada
 
