@@ -1,6 +1,7 @@
 # PENDÊNCIAS ABERTAS — lista canônica
 
-Lista canônica de tudo que ainda não está encerrado no ecossistema, em
+Lista canônica de tudo que ainda não está encerrado no ecossistema. Atualizada em
+2026-07-26 (rodada de correção de 7 defeitos + veredito das 38 hipóteses). Base em
 2026-07-20. Consolida `FINAL_FORENSIC_REVIEW.md`, `ECOSYSTEM_FINAL_CLOSURE.md`,
 `AUDIT_DIRECTORY_RECONCILIATION.md` (leitura de `audit/`, 71 arquivos, auditoria
 independente de 2026-07-15) e verificação direta desta rodada. Cada item usa
@@ -29,6 +30,26 @@ Nenhum. Todo bug reproduzido em qualquer rodada (tools/, predictor_core,
 brasileirao financeiro, trials, quality.py) foi corrigido e testado —
 ver `FINAL_FORENSIC_REVIEW.md` e `ECOSYSTEM_FINAL_CLOSURE.md` para a
 verificação independente de cada um.
+
+**Rodada 2026-07-25/26 — 7 defeitos corrigidos.** Todos impediam alguma coorte
+de maturar; nenhum tinha sido detectado porque cada um falhava em silêncio ou
+com sucesso aparente. Detalhe completo em `BLOQUEIOS_GO_2026-07-25.md`.
+
+| ID | Defeito | Como falhava |
+|---|---|---|
+| B-1 | `sombra.py` lia odd do agregado Sofascore e carimbava o nome do book de `BRASILEIRAO_BOOKMAKER` | guard satisfeito por `setenv`, proveniência falsa, `closing_definition_version` afirmava o que o código não cumpria |
+| B-2 | `record_result` do cs sem nenhum call site de produção (só tests/) | job coletava, evento passava do horário e parava — 0/50 seria 0/50 aos 30 dias também |
+| B-3 | `settle_h4_signals.py` do lol exigia `--results` que nada produzia | idem |
+| B-7 | `closure_status` do lol devolvia `None` com arquivo ausente | **apagar o registro assinado REABRIA a coorte**, destruindo contadores e hashes |
+| B-8 | instalador de `cs-market-shadow` esvaziado com um `throw` | a task não estava desabilitada — **não existia** |
+| B-9 | captura 13:00/02:00 UTC contra apitos 19:00/21:30/22:30 | "fechamento" 6h a 9h30 velho, contra o gate que mede fechamento |
+| B-0 | fallback DoH fixo no IP `1.1.1.1`, bloqueado nesta rede | cs e lol sem coletar; o **hostname** `cloudflare-dns.com` nunca esteve bloqueado |
+
+**Padrão a vigiar:** redirect permanente de fonte externa é o modo de falha
+recorrente aqui — `blockworks.co` (308), feed `coindesk` (308), Oracle's Elixir
+(301/404). O do LoL passou **6 dias** despercebido porque o job reportava
+`PARTIAL` corretamente e ninguém olha exit code. Vale um monitor de exit code,
+não só de heartbeat.
 
 **Atualização F1 2026-07-20:** quatro falhas reproduzidas foram encerradas
 localmente: publicação de snapshot resistente a erro parcial/concorrência,

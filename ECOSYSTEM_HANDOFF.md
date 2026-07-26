@@ -1,12 +1,35 @@
 # ECOSYSTEM_HANDOFF.md
 
-Documento mestre de continuidade. Verificado em: 2026-07-20. Leia este
+Documento mestre de continuidade. Verificado em: **2026-07-26**. Leia este
 documento **primeiro** em qualquer sessão nova.
+
+> **Rodada de 2026-07-25/26 — leia antes de agir.** Sete defeitos que
+> impediam qualquer coorte de maturar foram corrigidos, e as 38 hipóteses do
+> ecossistema receberam veredito formal. Dois documentos novos na raiz são
+> agora leitura obrigatória:
+>
+> - **`VEREDITOS_2026-07-26.md`** — as 38 hipóteses fechadas. 8 comprovadas
+>   (todas de qualidade de previsão), **12 refutadas** (todas as que tentaram
+>   virar dinheiro), 5 inconclusivas por amostra com data prevista.
+>   **Hipóteses econômicas aprovadas para capital: zero.**
+> - **`BLOQUEIOS_GO_2026-07-25.md`** — auditoria dos bloqueios (B-0 a B-10),
+>   classificação dos 695.694 registros por função e as erratas da rodada.
+>
+> Defeitos corrigidos: proveniência falsa na coorte do brasileirão (B-1),
+> settlement sem driver no cs (B-2) e no lol (B-3), guard do lol que falhava
+> ABERTO na remoção do registro (B-7), instalador de task esvaziado no cs
+> (B-8), "fechamento" 6-9h defasado do apito (B-9) e DoH fixo num IP bloqueado
+> que derrubava a coleta de cs e lol (B-0).
+>
+> Efeito medido: cs saiu de **0 para 18/50** maturadas; brasileirão de 0 para
+> **4 picks com proveniência auditável**. Nenhum projeto tem mais lacuna
+> interna de código.
 
 ## COMO RETOMAR EM UMA NOVA SESSÃO
 
 Ordem obrigatória de leitura:
 
+0. `VEREDITOS_2026-07-26.md` e `BLOQUEIOS_GO_2026-07-25.md` (estado atual real)
 1. `ECOSYSTEM_HANDOFF.md` (este documento)
 2. `PENDENCIAS_ABERTAS.md`
 3. `SECURITY_INCIDENT_SECRET_ROTATION.md`
@@ -74,22 +97,29 @@ contrário. Nenhum domínio importa outro domínio diretamente.
 | Camada | Versão | Commit-base | Testes |
 |---|---|---|---|
 | tools/ | 1.3.1 | `2ed64e4` | 139 passed, 1 skipped |
-| predictor_core | 1.3.2-ga-20260720 | `969cad5` | 263 passed |
+| predictor_core | **1.3.3-ga-20260723** | `11c4792` | **268 passed** |
 
-Os dois bumps PATCH antes recomendados foram decididos e concluídos em
-2026-07-20: `tools/` 1.3.0→1.3.1 e `predictor_core`
-1.3.1→1.3.2-ga-20260720. Nenhuma recomendação de versão permanece
-pendente de autorização.
+`predictor_core` 1.3.3 entregou o contrato `COLLECTION_ONLY`
+(`contracts/collection.py`, `data/collection.py`). Nenhuma recomendação de
+versão permanece pendente de autorização.
 
 ## Consumidores vivos — vendors e testes
 
+Reverificado em **2026-07-26**.
+
 | Consumidor | Vendor de predictor_core | Byte-idêntico | Testes |
 |---|---|---|---|
-| brasileirao-predictor | sync `c28af0b` | Sim (`vendor_byte_audit.py`) | 320 passed (2026-07-20) |
-| cs-predictor | sync `feeac2a` | Sim | 110 passed (2026-07-20) |
-| f1-predictor | sync `2bf2dad` | Sim | 152 passed (2026-07-20) |
-| lol-predictor | sync `48dd57e` | Sim | 81 passed (2026-07-20) |
-| previsao-cripto | sync `e507d77` | Sim | 315 passed, 2 skipped (2026-07-20) |
+| brasileirao-predictor | 1.3.3 | Sim (46/46) | **377 passed** |
+| cs-predictor | 1.3.3 | Sim (46/46) | **155 passed** |
+| f1-predictor | 1.3.3 | Sim (46/46) | 152 passed (2026-07-20) |
+| lol-predictor | 1.3.3 | Sim (46/46) | **131 passed** |
+| previsao-cripto | **1.3.2 — DRIFT** | **Não** (44/46) | 320 passed, 2 skipped |
+
+`previsao-cripto` não recebeu a 1.3.3: faltam `contracts/collection.py` e
+`data/collection.py`. É drift limpo (manifest interno coerente,
+`dc7676a61c86f908`), não adulteração — mas faz `sync_core.py --check` retornar
+exit 1. **Sincronizar só DEPOIS do gate de 28/07**: trocar o core no meio da
+trial H5 em curso contaminaria o veredito. Ver `BLOQUEIOS_GO_2026-07-25.md` B-6.
 
 ## Projetos PARKED e o caso predictor-stocks
 
@@ -174,11 +204,20 @@ por decisão humana (2026-07-18).
 
 ## Pendências
 
-Lista canônica completa: `PENDENCIAS_ABERTAS.md`. Resumo: 1 incidente de
-segurança (bloqueado por ação externa, baixa prioridade), 0 bugs de código
-abertos, o resto são gaps científicos/operacionais conscientemente
-deferidos ou capacidades incubadas, todos com condição de reabertura
-registrada.
+Lista canônica completa: `PENDENCIAS_ABERTAS.md`. Bloqueios operacionais e o
+que falta para cada gate: `BLOQUEIOS_GO_2026-07-25.md`.
+
+**Aberto em 2026-07-26** — nenhum é bug de código:
+
+| | O que é | Quem resolve |
+|---|---|---|
+| **B-10** | Fonte-base do LoL caiu: Drive 404 e S3 301. Banco congelado em 10/07 | **humano** — pegar URL em `oracleselixir.com/tools/downloads` e exportar `ORACLES_ELIXIR_2026_URL` |
+| **B-6** | Vendor do `previsao-cripto` em 1.3.2 | sincronizar **depois** do gate de 28/07 |
+| **SEC-1** | Chave SerpAPI em 5 logs históricos | rotação no provedor, baixa prioridade |
+| gate cripto | H5 com critério já falhando na direção oposta | executar em **28/07** |
+| amostra | 5 hipóteses inconclusivas | tempo de calendário |
+
+Bugs de código abertos: **zero**.
 
 ## Decisões científicas (não reabrir sem evidência nova)
 
