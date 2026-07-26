@@ -9,3 +9,7 @@
 
 # Logs e backups gerados localmente não são versionados.
 *.log
+
+# Alerta de saude das tarefas: estado de runtime, criado/apagado pelo
+# tools/monitor_task_health.ps1. A PRESENCA do arquivo e o sinal.
+ALERTA_TAREFAS.txt
