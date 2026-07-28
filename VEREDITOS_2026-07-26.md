@@ -17,6 +17,18 @@ Nada aqui autoriza capital. Nenhum gate deste ecossistema o faz — ver
 
 ---
 
+> **Atualização de 2026-07-28 — o gate da H5 foi executado.** Veredito:
+> **REFUTADA / NO-GO**. As contagens do resumo abaixo mudam em dois pontos:
+> **REFUTADA/NO-GO passa de 12 para 13** (entra a H5) e **PRÉ-REGISTRADA não
+> executada cai de 3 para 2** (a H6 saiu de "não ativada" para "coletando",
+> n=6 de 30 — ver errata no `HYPOTHESES.md` do cripto). O total segue **42** e
+> a linha que importa segue igual: **hipóteses econômicas aprovadas para
+> capital: zero.**
+>
+> Com a H5, são **quatro** encarnações da mesma família — score de LLM prevê
+> retorno D+7 — terminando em correlação negativa ou nula, medidas em
+> centenas de observações.
+
 ## Resumo
 
 | Status | Nº |
@@ -103,8 +115,8 @@ o gate H8 é **aritmeticamente impossível** neste ano.
 | `v3-hmm-funding-oi-fr90-h48` | **REFUTADA** (2026-07-02) | edge bruto **vira negativo**; líquido −0,75 bps; MaxDD 50,3% |
 | `v1-direct-gemini-h7` | **NO-GO** | Sharpe −0,5733 |
 | `v2-dpl-gemini-h7` | **ENCERRADA IMATURA** | Sharpe −0,3057; coleta fechada com n=5 |
-| `v2-dpl-multi-h7` (H5) | **GATE EM 28/07** | Sharpe −0,3260; Spearman −0,255, IC95 [−0,377; −0,120] — **não cruza zero, direção oposta**; DSR 0,00 vs corte 0,95 |
-| `h6-sinal-invertido-d7` | **PRÉ-REGISTRADA, não ativada** | Sem coleta dedicada |
+| `v2-dpl-multi-h7` (H5) | **REFUTADA / NO-GO** (2026-07-28) | Gate executado na data. D+7 pooled Spearman **−0,166** [−0,266; −0,057], n=440 — IC não cruza zero, **direção oposta**. Sharpe/trade −0,3120; DSR **0,00** vs 0,95; acurácia direcional 45,2%; estratégia −6,80% vs BTC +0,99% |
+| `h6-sinal-invertido-d7` | **COLETANDO** — n=6 de 30 | Sharpe +0,3479 (n=6). **Não é veredito**: o critério exige n≥30. Amadurece sozinha desde `556f5ad` (20/07), só com dado posterior ao registro |
 
 Reexecução de 2026-07-09 sobre a base estendida: PSR 0,465, IC_lower −0,0794 —
 o edge de 2021-24 **não sobreviveu ao forward 2025-26**.

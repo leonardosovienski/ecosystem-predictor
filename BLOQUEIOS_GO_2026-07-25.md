@@ -448,6 +448,31 @@ para sempre e nunca matura. A trial exige **3 competições distintas** e 30
 sinais elegíveis; com a fonte atual o contador é estruturalmente zero, não
 lentamente crescente. Nenhuma quantidade de espera resolve.
 
+> **Atualização de 2026-07-28 — o B-12 era mais largo do que este texto diz, e
+> a parte destrutiva foi corrigida.** Ele não bloqueava só o SINAL: destruía a
+> OBSERVAÇÃO. O `append_once` vinha DEPOIS do `build_signal`, então a cotação
+> era buscada do Polymarket e **jogada fora** quando a competição faltava. A
+> tarefa rodou de 30 em 30 minutos com exit 0, de 22/07 a 28/07, sem gravar
+> nada — seis dias de dado real perdidos, irrecuperáveis, sem alarme.
+>
+> Corrigido em `lol-predictor@5c1e423`: a observação bruta vai para
+> `data/shadow/market_observations.jsonl` **antes** do julgamento de
+> elegibilidade. Observar e julgar são coisas diferentes. O arquivo **não**
+> alimenta gate, contador nem critério — é registro de auditoria (§1). A
+> coorte segue intocada, com teste garantindo que sinal recusado não cria
+> `h4_signals.jsonl`. Verificado em produção: `{"archived": 9}` onde antes era
+> silêncio.
+>
+> **Isso não resolve o B-12** — a decisão sobre competição continua sua. O que
+> muda é que, decidindo em agosto, haverá histórico para reprocessar.
+>
+> Achado colateral do mesmo log: dos **39 eventos descobertos, 29 são
+> descartados por identidade** (`skipped_identity`) antes mesmo de chegar ao
+> mercado — times que o resolvedor canônico não conhece, em boa parte
+> academias e ligas menores. Só 10 chegam à cotação. É fail-closed correto,
+> mas dimensiona o funil real: mesmo com o B-12 resolvido, a coorte veria ~10
+> eventos por janela, não 39.
+
 **O que a fonte realmente traz** — inspecionado no payload cru do
 `/public-search` em 2026-07-26, para não decidir no escuro:
 
@@ -632,7 +657,15 @@ vale para todo o ecossistema, não só para o LoL.
 Independe do B-0: consertar isto devolve dado-base fresco ao LoL mesmo com a
 trilha de mercado bloqueada.
 
-### B-6 · previsao-cripto — vendor do core desatualizado
+### B-6 · previsao-cripto — vendor do core desatualizado · **RESOLVIDO em 28/07**
+
+> **Sincronizado depois do gate, como planejado.** O veredito da H5 foi
+> registrado (`previsao-cripto@39d13a5`) e só então o vendor subiu de
+> `1.3.2` para `1.3.3`: 46/46 arquivos byte-idênticos, agregado
+> `0cfd8ecbd3e45538`, com `contracts/collection.py` e `data/collection.py`
+> entrando. `sync_core.py --check` volta a exit 0 para os **5 consumidores
+> vivos**; só os 3 PARKED seguem em drift, que é o estado correto deles.
+> Suíte do cripto 325 verde com o vendor novo.
 
 > **Decisão de 26/07: NÃO sincronizar antes do gate de 28/07.** Trocar o vendor de
 > `1.3.2` para `1.3.3` dois dias antes do veredito seria mudança de código no meio
