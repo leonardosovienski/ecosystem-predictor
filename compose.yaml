@@ -47,7 +47,13 @@ services:
       retries: 10
 
   otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.116.0@sha256:70217a89d27c678ead44f196d80aa8c2717cb68d0301dbdc40331dbec0a3e605
+    # NOT 0.116.0: that tag's image is broken upstream (the binary is
+    # missing from the image root - "exec /otelcol-contrib: no such file
+    # or directory" on every platform), see
+    # https://github.com/open-telemetry/opentelemetry-collector/issues/11944
+    # and https://github.com/open-telemetry/opentelemetry-collector-releases/issues/783.
+    # 0.116.1 is upstream's own fix for this exact regression.
+    image: otel/opentelemetry-collector-contrib:0.116.1@sha256:d0ebf65280da2e1b1491d1b93648281afd353d4b9ea19160090303cec9a233bd
     command: ["--config=/etc/otel-collector.yaml"]
     volumes: ["./docker/otel-collector.yaml:/etc/otel-collector.yaml:ro"]
 
