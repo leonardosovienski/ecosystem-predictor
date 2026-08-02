@@ -1,0 +1,91 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ecosystem-predictor"
+version = "0.1.0"
+description = "Aggregator platform: plugin registry, API gateway, and shared infrastructure for the Predictor ecosystem"
+readme = "README.md"
+requires-python = ">=3.13,<3.15"
+license = { text = "Proprietary" }
+dependencies = [
+  "predictor-core>=2.1,<3",
+  "predictor-ops>=2.0.1,<3",
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "pydantic>=2.11,<3",
+  "pydantic-settings>=2.10,<3",
+  "PyJWT>=2.10,<3",
+  "redis[hiredis]>=6.2,<7",
+  "sqlalchemy[asyncio]>=2.0,<3",
+  "asyncpg>=0.30,<1",
+  "alembic>=1.14,<2",
+  "boto3>=1.36,<2",
+  "opentelemetry-sdk>=1.29,<2",
+  "opentelemetry-exporter-otlp>=1.29,<2",
+  "opentelemetry-instrumentation-fastapi>=0.50,<1",
+  "httpx>=0.28,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.3,<2",
+  "coverage[toml]>=7.10,<8",
+  "moto[s3]>=5.0,<6",
+  "pre-commit>=4.3,<5",
+  "pyright>=1.1.403,<2",
+  "pytest>=8.4,<10",
+  "pytest-asyncio>=0.25,<1",
+  "pytest-cov>=6.2,<8",
+  "ruff>=0.12,<1",
+]
+
+[project.scripts]
+ecosystem-gateway = "ecosystem.gateway.__main__:main"
+ecosystem-scheduler = "ecosystem.scheduler.cli:main"
+ecosystem-migrate = "ecosystem.db.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ecosystem"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = ["contract: contract tests against the plugin protocol", "e2e: end-to-end gateway tests"]
+asyncio_mode = "auto"
+filterwarnings = [
+  "error",
+  # Upstream Starlette notice that fastapi.testclient itself triggers on
+  # import (not anything this project does); tracked upstream, not a local
+  # bug to fix. See https://github.com/encode/starlette/discussions/2385
+  "ignore:Using `httpx` with `starlette.testclient` is deprecated:UserWarning",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.pyright]
+pythonVersion = "3.13"
+include = ["src/ecosystem"]
+typeCheckingMode = "basic"
+
+[tool.coverage.run]
+source = ["src/ecosystem"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.uv.sources]
+predictor-core = { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v2.1.0/predictor_core-2.1.0-py3-none-any.whl" }
+predictor-ops = { url = "https://github.com/leonardosovienski/tools-predictor/releases/download/v2.0.1/predictor_ops-2.0.1-py3-none-any.whl" }
+
+[dependency-groups]
+dev = [
+    "fakeredis>=2.26,<3",
+]

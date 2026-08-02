@@ -1,0 +1,26 @@
+# syntax=docker/dockerfile:1.7
+FROM python:3.13.14-alpine3.24@sha256:399babc8b49529dabfd9c922f2b5eea81d611e4512e3ed250d75bd2e7683f4b0 AS build
+RUN apk add --no-cache build-base
+WORKDIR /build
+COPY pyproject.toml README.md ./
+COPY src src
+COPY migrations migrations
+COPY alembic.ini ./
+RUN pip install --no-cache-dir uv==0.12.1 && \
+    uv build && uv venv /opt/venv && uv pip install --python /opt/venv/bin/python \
+        "predictor-core @ https://github.com/leonardosovienski/core-predictor/releases/download/v2.1.0/predictor_core-2.1.0-py3-none-any.whl" \
+        "predictor-ops @ https://github.com/leonardosovienski/tools-predictor/releases/download/v2.0.1/predictor_ops-2.0.1-py3-none-any.whl" \
+        dist/*.whl && \
+    /opt/venv/bin/pip uninstall -y pip
+
+FROM python:3.13.14-alpine3.24@sha256:399babc8b49529dabfd9c922f2b5eea81d611e4512e3ed250d75bd2e7683f4b0 AS runtime
+RUN addgroup -S -g 10001 ecosystem && adduser -S -D -u 10001 -h /nonexistent -G ecosystem ecosystem
+COPY --from=build /opt/venv /opt/venv
+COPY --from=build /build/migrations /app/migrations
+COPY --from=build /build/alembic.ini /app/alembic.ini
+ENV PATH=/opt/venv/bin:$PATH PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
+USER 10001:10001
+WORKDIR /app
+EXPOSE 8000
+HEALTHCHECK --interval=10s --timeout=3s --retries=5 CMD ["python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=2)"]
+ENTRYPOINT ["ecosystem-gateway"]

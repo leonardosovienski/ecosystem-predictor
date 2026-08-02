@@ -1,11 +1,29 @@
-# Este repositório versiona SOMENTE a documentação/config soltas na raiz do
-# workspace (governança cross-projeto). Cada projeto (predictor_core, tools,
-# f1-predictor, cs-predictor, lol-predictor, brasileirao-predictor,
-# previsao-cripto, nba-predictor, predictor-stocks, wc-predictor-v2, e
-# quaisquer outros) já é seu próprio repositório Git independente — nenhum
-# deles deve ser versionado (nem acidentalmente aninhado) aqui.
-*/
-!.gitignore
+# Historical note (superseded 2026-08-02, Fase 5): this file used to blanket-
+# ignore every subdirectory (`*/`) because this repository versioned only
+# loose cross-project documentation, and each domain (f1-predictor,
+# cs-predictor, lol-predictor, cripto-predictor, brasileirao-predictor) plus
+# the shared core-predictor/tools-predictor already lived in their own
+# independent GitHub repositories. That workspace-of-siblings layout predates
+# the current architecture: this repository (ecosystem-predictor) is now the
+# real aggregator platform itself (src/ecosystem/, tests/, migrations/,
+# docker/), not just a documentation hub, per ECOSYSTEM_RULES.md and
+# prompt_fase_5.md. The other 5 domain repos and the 2 shared libraries
+# remain independent Git repositories, unmodified by this change - only
+# ecosystem-predictor's own long-standing "ignore everything" rule is lifted.
+
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+dist/
+build/
+.env
+.ecosystem-runtime/
 
 # Logs e backups gerados localmente não são versionados.
 *.log

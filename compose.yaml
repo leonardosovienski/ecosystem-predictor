@@ -1,0 +1,90 @@
+# Local development / E2E stack for the aggregator's OWN infrastructure.
+#
+# Deliberately does NOT include any domain (f1/cs/lol/cripto/brasileirao)
+# container: none of them implement the aggregator-facing plugin contract
+# yet (see docs/adr/0001-plugin-protocol-v1.md), and this session works
+# only on the aggregator per ECOSYSTEM_RULES.md. Once a domain adds a
+# `predictor.plugins` entry point (in-process case) or an HTTP adapter
+# (service case, required for Brasileirao's Python/Numba/.NET runtime),
+# it is added here as its own service, built from ITS OWN repository -
+# never vendored into this one.
+name: ecosystem-predictor
+services:
+  postgres:
+    image: postgres:17.2-alpine@sha256:7e5df973a74872482e320dcbdeb055e178d6f42de0558b083892c50cda833c96
+    environment:
+      POSTGRES_USER: ecosystem
+      POSTGRES_PASSWORD: ecosystem
+      POSTGRES_DB: ecosystem
+    volumes: ["postgres-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ecosystem"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:8.2.1-alpine3.22@sha256:987c376c727652f99625c7d205a1cba3cb2c53b92b0b62aade2bd48ee1593232
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: ["redis-data:/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  object-storage:
+    image: minio/minio:RELEASE.2025-09-07T16-13-09Z@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes: ["object-storage-data:/data"]
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.116.0@sha256:70217a89d27c678ead44f196d80aa8c2717cb68d0301dbdc40331dbec0a3e605
+    command: ["--config=/etc/otel-collector.yaml"]
+    volumes: ["./docker/otel-collector.yaml:/etc/otel-collector.yaml:ro"]
+
+  migrate:
+    build: {context: ., dockerfile: docker/Dockerfile.gateway}
+    entrypoint: ["ecosystem-migrate", "upgrade"]
+    environment: &gateway_env
+      ECOSYSTEM_JWT_SECRET: ${ECOSYSTEM_JWT_SECRET:?required}
+      ECOSYSTEM_DATABASE_URL: postgresql+asyncpg://ecosystem:ecosystem@postgres:5432/ecosystem
+      ECOSYSTEM_REDIS_URL: redis://redis:6379/0
+      ECOSYSTEM_OBJECT_STORAGE_ENDPOINT_URL: http://object-storage:9000
+      ECOSYSTEM_OBJECT_STORAGE_BUCKET: ecosystem-predictor
+      ECOSYSTEM_OBJECT_STORAGE_ACCESS_KEY: minioadmin
+      ECOSYSTEM_OBJECT_STORAGE_SECRET_KEY: minioadmin
+      ECOSYSTEM_OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4318/v1/traces
+    depends_on:
+      postgres: {condition: service_healthy}
+    restart: "no"
+
+  gateway:
+    build: {context: ., dockerfile: docker/Dockerfile.gateway}
+    ports: ["8000:8000"]
+    environment: *gateway_env
+    read_only: true
+    tmpfs: ["/tmp"]
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+      object-storage: {condition: service_healthy}
+      migrate: {condition: service_completed_successfully}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  postgres-data:
+  redis-data:
+  object-storage-data:

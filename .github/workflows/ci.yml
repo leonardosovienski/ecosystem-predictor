@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python: "3.13"
+            experimental: false
+          - python: "3.14"
+            experimental: true
+    continue-on-error: ${{ matrix.experimental }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.1"
+          enable-cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv sync --all-extras --python ${{ matrix.python }}
+      - run: uv run ruff check src tests
+      - run: uv run ruff format --check src tests
+      - run: uv run pyright
+      - run: uv run coverage run -m pytest -q
+      - run: uv run coverage report --fail-under=0
+      - run: uv build
+      - name: wheel smoke outside checkout
+        run: |
+          uv venv /tmp/ecosystem-wheel --python ${{ matrix.python }} --seed
+          /tmp/ecosystem-wheel/bin/pip install dist/*.whl \
+            "predictor-core @ https://github.com/leonardosovienski/core-predictor/releases/download/v2.1.0/predictor_core-2.1.0-py3-none-any.whl" \
+            "predictor-ops @ https://github.com/leonardosovienski/tools-predictor/releases/download/v2.0.1/predictor_ops-2.0.1-py3-none-any.whl"
+          /tmp/ecosystem-wheel/bin/python -c "import ecosystem.gateway.app; import ecosystem.registry; import ecosystem.scheduler"
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: anchore/sbom-action@v0
+        with: {path: ".", output-file: "sbom.spdx.json"}
+
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f docker/Dockerfile.gateway -t ecosystem-gateway:test .
+      - uses: anchore/sbom-action@v0
+        with:
+          image: ecosystem-gateway:test
+          artifact-name: ecosystem-gateway.spdx.json
+      - uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: ecosystem-gateway:test
+          severity: CRITICAL,HIGH
+          exit-code: "1"
+
+  compose:
+    name: Compose build and health
+    runs-on: ubuntu-latest
+    needs: [quality, container]
+    env:
+      ECOSYSTEM_JWT_SECRET: ci-only-placeholder-not-a-real-secret-32b
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose -f compose.yaml config --quiet
+      - run: docker compose -f compose.yaml build
+      - run: docker compose -f compose.yaml up --detach --wait --wait-timeout 180
+      - name: Gateway responds healthy and ready
+        run: |
+          curl --fail --silent --show-error http://localhost:8000/healthz
+          curl --fail --silent --show-error http://localhost:8000/readyz
+      - name: Graceful shutdown
+        run: |
+          docker compose -f compose.yaml stop --timeout 20 gateway
+          test "$(docker inspect ecosystem-predictor-gateway-1 --format '{{.State.ExitCode}}')" = 0
+      - if: always()
+        run: docker compose -f compose.yaml logs --no-color
+      - if: always()
+        run: docker compose -f compose.yaml down --volumes
