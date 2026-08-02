@@ -1,0 +1,19 @@
+# Minimal local collector: receive OTLP/HTTP from the gateway, log it.
+# A real deployment points `exporters` at whatever backend is chosen
+# (Tempo/Jaeger/Honeycomb/etc.) - deliberately not decided here, see
+# docs/ECOSYSTEM_BLUEPRINT.md "Observability backend" open item.
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+
+exporters:
+  debug:
+    verbosity: normal
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [debug]

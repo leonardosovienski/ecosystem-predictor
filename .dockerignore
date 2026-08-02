@@ -1,0 +1,15 @@
+.git
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache
+.coverage
+htmlcov
+dist
+build
+tests
+docs
+# NOT *.md: pyproject.toml declares readme = "README.md" and the build
+# stage COPYs it - excluding all markdown broke `docker build` in CI (see
+# docs/FASE_5_REPORT.md). docs/ above already excludes the bulk of prose.
