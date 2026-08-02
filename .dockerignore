@@ -10,4 +10,6 @@ dist
 build
 tests
 docs
-*.md
+# NOT *.md: pyproject.toml declares readme = "README.md" and the build
+# stage COPYs it - excluding all markdown broke `docker build` in CI (see
+# docs/FASE_5_REPORT.md). docs/ above already excludes the bulk of prose.

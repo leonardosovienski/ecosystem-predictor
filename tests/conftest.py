@@ -28,7 +28,7 @@ def _shutdown_tracer_provider_before_interpreter_teardown():
 @pytest.fixture
 def settings() -> Settings:
     return Settings(
-        jwt_secret="test-secret-at-least-32-bytes-long-xx",  # noqa: S106 - test fixture, not a real credential
+        jwt_secret="test-secret-at-least-32-bytes-long-xx",  # noqa: S106 - test fixture, not a real credential  # gitleaks:allow
         database_url="postgresql+asyncpg://test:test@localhost:5432/test",
         redis_url="redis://localhost:6379/0",
         object_storage_bucket="test-bucket",

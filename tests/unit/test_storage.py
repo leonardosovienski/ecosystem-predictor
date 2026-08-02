@@ -15,7 +15,7 @@ from ecosystem.storage import ObjectStorage
 @pytest.fixture
 def storage_settings() -> Settings:
     return Settings(
-        jwt_secret="test-secret-at-least-32-bytes-long-xx",
+        jwt_secret="test-secret-at-least-32-bytes-long-xx",  # gitleaks:allow
         database_url="postgresql+asyncpg://t:t@localhost/t",
         redis_url="redis://localhost/0",
         object_storage_bucket="ecosystem-test-bucket",
@@ -53,7 +53,7 @@ def test_exists_is_true_after_put(storage_settings: Settings):
 
 def test_from_settings_fails_closed_without_a_bucket():
     settings = Settings(
-        jwt_secret="test-secret-at-least-32-bytes-long-xx",
+        jwt_secret="test-secret-at-least-32-bytes-long-xx",  # gitleaks:allow
         database_url="postgresql+asyncpg://t:t@localhost/t",
         redis_url="redis://localhost/0",
         object_storage_bucket="",
