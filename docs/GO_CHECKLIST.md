@@ -50,9 +50,16 @@ in `docs/adr/0001-plugin-protocol-v1.md`:
 2. cripto-predictor uses a different entry-point group
    (`ecosystem_predictor.plugins`) and would not be discovered even if its
    shape were otherwise compliant.
-3. lol-predictor's `capabilities` is a non-callable attribute — the
-   registry correctly degrades it rather than crashing, but that means
-   lol is invisible to `/v1/domains` today, not visible-but-broken.
+3. ~~lol-predictor's `capabilities` is a non-callable attribute~~ —
+   **resolved upstream and verified 2026-08-03**: `capabilities()` is now
+   a real method and the group name already matches; a real install of
+   lol-predictor was discovered and loaded by this repo's
+   `Registry.discover()`, non-degraded, `health()`/`capabilities()` both
+   validating against the real pydantic models (see
+   `docs/adr/0001-plugin-protocol-v1.md`'s 2026-08-03 update). lol is the
+   first domain reachable through the registry outside of the test
+   fixture. This does **not** change `operational_status`/betting gates —
+   see the ADR update for the explicit boundary.
 4. f1-predictor and brasileirao-predictor declare no plugin entry point
    at all. Brasileirao specifically needs an HTTP adapter (not in-process
    loading) given its Python/Numba/.NET runtime split —
