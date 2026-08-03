@@ -6,6 +6,8 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Request, Response, status
 
+from ecosystem.contracts import OperationalStatus
+
 router = APIRouter(tags=["health"])
 
 
@@ -32,9 +34,18 @@ def readyz(request: Request, response: Response) -> dict:
     snapshot = registry.health_snapshot()
 
     missing = [d for d in settings.required_domains if d not in snapshot or not registry.get(d).loaded]
-    if missing:
+    unhealthy = [
+        d
+        for d in settings.required_domains
+        if d in snapshot and d not in missing and snapshot[d].status != OperationalStatus.SUCCEEDED
+    ]
+    if missing or unhealthy:
         response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
-        return {"status": "not_ready", "missing_required_domains": missing}
+        return {
+            "status": "not_ready",
+            "missing_required_domains": missing,
+            "unhealthy_required_domains": unhealthy,
+        }
 
     return {
         "status": "ready",

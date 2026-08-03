@@ -17,6 +17,14 @@ pytestmark = pytest.mark.e2e
 REFERENCE_EP = EntryPoint(
     name="reference", value="tests.fixtures.reference_plugin:ReferencePlugin", group="predictor.plugins"
 )
+DEGRADED_EP = EntryPoint(
+    name="degraded", value="tests.fixtures.reference_plugin:DegradedPlugin", group="predictor.plugins"
+)
+PREDICTION_DISABLED_EP = EntryPoint(
+    name="prediction-disabled",
+    value="tests.fixtures.reference_plugin:PredictionDisabledPlugin",
+    group="predictor.plugins",
+)
 
 
 @pytest.fixture
@@ -67,3 +75,25 @@ def test_readyz_is_ready_when_the_required_domain_loads(settings, monkeypatch):
         response = client.get("/readyz")
     assert response.status_code == 200
     assert response.json()["status"] == "ready"
+
+
+def test_readyz_fails_closed_when_a_required_domain_is_unhealthy(settings, monkeypatch):
+    monkeypatch.setattr("ecosystem.registry.entry_points", lambda group: [DEGRADED_EP])
+    settings_with_requirement: Settings = settings.model_copy(update={"required_domains": ["degraded"]})
+    with TestClient(create_app(settings_with_requirement)) as client:
+        response = client.get("/readyz")
+    assert response.status_code == 503
+    assert response.json()["unhealthy_required_domains"] == ["degraded"]
+
+
+def test_predict_fails_closed_when_capability_is_disabled(settings, monkeypatch, token_factory):
+    monkeypatch.setattr("ecosystem.registry.entry_points", lambda group: [PREDICTION_DISABLED_EP])
+    with TestClient(create_app(settings)) as client:
+        token = token_factory(scopes="domains:predict")
+        response = client.post(
+            "/v1/domains/prediction-disabled/predict",
+            json={"x": 1},
+            headers={"Authorization": f"Bearer {token}"},
+        )
+    assert response.status_code == 503
+    assert "does not support prediction" in response.json()["detail"]

@@ -14,6 +14,11 @@ BROKEN_EP = EntryPoint(
 MISSING_EP = EntryPoint(
     name="missing", value="tests.fixtures.reference_plugin:DoesNotExist", group="predictor.plugins"
 )
+CONSTRUCTOR_BROKEN_EP = EntryPoint(
+    name="constructor-broken",
+    value="tests.fixtures.reference_plugin:ConstructorBrokenPlugin",
+    group="predictor.plugins",
+)
 ATTRIBUTE_SHAPED_EP = EntryPoint(
     name="attribute-shaped",
     value="tests.fixtures.reference_plugin:AttributeShapedPlugin",
@@ -48,6 +53,16 @@ def test_import_error_does_not_crash_discovery(monkeypatch):
     record = registry.get("missing")
     assert record is not None
     assert not record.loaded
+
+
+def test_constructor_error_does_not_crash_discovery(monkeypatch):
+    monkeypatch.setattr("ecosystem.registry.entry_points", lambda group: [CONSTRUCTOR_BROKEN_EP])
+    registry = Registry.discover()
+
+    record = registry.get("constructor-broken")
+    assert record is not None
+    assert not record.loaded
+    assert "constructor unavailable" in record.error
 
 
 def test_health_snapshot_reports_failed_for_unloaded_plugin(monkeypatch):

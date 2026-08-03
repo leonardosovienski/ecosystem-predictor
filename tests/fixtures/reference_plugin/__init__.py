@@ -44,3 +44,36 @@ class AttributeShapedPlugin:
 
     def health(self) -> HealthReport:
         return HealthReport(domain=self.domain, status=OperationalStatus.SUCCEEDED)
+
+
+class ConstructorBrokenPlugin:
+    domain = "constructor-broken"
+
+    def __init__(self) -> None:
+        raise RuntimeError("constructor unavailable")
+
+
+class DegradedPlugin:
+    domain = "degraded"
+
+    def health(self) -> HealthReport:
+        return HealthReport(domain=self.domain, status=OperationalStatus.DEGRADED)
+
+    def capabilities(self) -> CapabilityManifest:
+        return CapabilityManifest(domain=self.domain, supports_prediction=True)
+
+    def predict(self, payload: dict) -> dict:
+        return {"echo": payload}
+
+
+class PredictionDisabledPlugin:
+    domain = "prediction-disabled"
+
+    def health(self) -> HealthReport:
+        return HealthReport(domain=self.domain, status=OperationalStatus.SUCCEEDED)
+
+    def capabilities(self) -> CapabilityManifest:
+        return CapabilityManifest(domain=self.domain, supports_prediction=False)
+
+    def predict(self, payload: dict) -> dict:
+        return {"echo": payload}
