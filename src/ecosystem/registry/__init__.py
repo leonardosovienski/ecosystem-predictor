@@ -8,6 +8,14 @@ f1-predictor/brasileirao-predictor declare no plugin entry point at all.
 See docs/adr/0001-plugin-protocol-v1.md for the full inventory and the
 required follow-up in each domain repository (out of scope for this
 session, which works only on the aggregator).
+
+Update (2026-08-03): verified end-to-end against a real install of
+lol-predictor (not the test fixture) — its ``capabilities()`` is now a
+callable method (was a class attribute when ADR 0001 was written) and
+``Registry.discover()`` loads it as a fully compliant, non-degraded
+record. lol-predictor is the first domain proven reachable through this
+mechanism outside of ``tests/fixtures/reference_plugin``. See the ADR's
+2026-08-03 update section for the reproduction and evidence.
 """
 
 from __future__ import annotations
@@ -68,11 +76,13 @@ class Registry:
             self.records[ep.name] = PluginRecord(name=ep.name, entry_point=ep, error=str(exc))
             return
 
-        # callable(), not hasattr(): lol-predictor's real plugin.py today
-        # declares `capabilities` as a class *attribute* (a tuple), not a
-        # method. hasattr() alone would call that compliant here and only
-        # fail later when the gateway actually tries `.capabilities()` -
-        # see docs/adr/0001-plugin-protocol-v1.md.
+        # callable(), not hasattr(): a plugin could still declare
+        # `capabilities` as a non-callable class attribute (a tuple, say)
+        # instead of a method. hasattr() alone would call that compliant
+        # here and only fail later when the gateway actually tries
+        # `.capabilities()`. lol-predictor's plugin.py used to do exactly
+        # this; it was fixed upstream and verified compliant on
+        # 2026-08-03 - see docs/adr/0001-plugin-protocol-v1.md.
         health_callable = callable(getattr(instance, "health", None))
         capabilities_callable = callable(getattr(instance, "capabilities", None))
         if not (health_callable and capabilities_callable):

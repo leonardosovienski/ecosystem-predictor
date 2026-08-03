@@ -98,3 +98,49 @@ tested against `tests/fixtures/reference_plugin`, a fully-compliant
 throwaway implementation, which proves the aggregator's own mechanism
 works — it does not prove any real domain is currently reachable through
 it.
+
+## Update — verified 2026-08-03: lol-predictor is now compliant
+
+The findings table above is stale for one row. Read directly from
+lol-predictor's checkout (not assumed): `src/plugin.py`'s
+`LolPredictorPlugin.capabilities()` is a real method today, and
+`pyproject.toml` already declares the canonical
+`[project.entry-points."predictor.plugins"]` group pointing at
+`lol_predictor_plugin:Plugin`. `git log -- src/plugin.py` shows this
+landed via lol-predictor's own `agent/modernize-lol-predictor` branch,
+independently of this ADR's follow-up list.
+
+This was verified end-to-end, not by reading the domain's source alone:
+a throwaway Python 3.13 venv installed lol-predictor's real dependency
+set (`predictor-core`, `predictor-ops`, `numpy`, `pandas`, `scipy`,
+`httpx`, `pyyaml`, `pydantic-settings`) and this repository's
+`ecosystem.registry.Registry.discover()` was run against it, unmodified:
+
+```
+Registry.discover().list_domains()        -> ['lol']
+Registry.discover().health_snapshot()      -> {'lol': HealthReport(domain='lol', status=SUCCEEDED, version='2.0.0', ...)}
+Registry.discover().capability_snapshot()  -> {'lol': CapabilityManifest(domain='lol', supports_prediction=True,
+                                                supports_settlement=True, supports_collection=True,
+                                                scientific_status='APPROVED_H1_SHADOW_MARKET', ...)}
+```
+
+Both payloads validate against this repository's real `HealthReport` and
+`CapabilityManifest` pydantic models — no `error` field, `loaded=True`,
+not the degraded path. lol-predictor is the first domain proven reachable
+through the registry outside of `tests/fixtures/reference_plugin`.
+
+What this does **not** change: `scientific_status` reports
+`APPROVED_H1_SHADOW_MARKET`, i.e. shadow/observation only. lol-predictor's
+own `go_gate` still hardcodes `decision = "NO-GO"` on both branches
+(`src/betting.py`) — discoverability through the aggregator is an
+operational/infrastructure fact, completely separate from, and not an
+argument toward, any capital-enabling decision. Wiring `ECOSYSTEM_
+REQUIRED_DOMAINS` to include `lol` remains the deliberate human decision
+described in `docs/GO_CHECKLIST.md` item 5, not something this
+verification decides on its own.
+
+Remaining rows in the findings table (cripto-predictor's entry-point
+group and health() shape, cs-predictor's status enum, f1-predictor and
+brasileirao-predictor's missing entry points) were not re-checked in this
+pass — only lol-predictor was re-verified, because only lol-predictor's
+checkout was available to this session.
