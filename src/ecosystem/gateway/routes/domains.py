@@ -60,6 +60,12 @@ def domain_predict(
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=f"domain unavailable: {domain}"
         )
+    capabilities = registry.capability_snapshot().get(domain)
+    if capabilities is None or not capabilities.supports_prediction:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"domain {domain!r} does not support prediction",
+        )
     if not hasattr(record.instance, "predict"):
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,

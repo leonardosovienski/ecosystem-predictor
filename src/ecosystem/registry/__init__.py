@@ -62,12 +62,11 @@ class Registry:
     def _load_one(self, ep: EntryPoint) -> None:
         try:
             target = ep.load()
+            instance = target() if isinstance(target, type) else target
         except Exception as exc:  # noqa: BLE001 - a broken plugin must not take down the gateway
             logger.error("plugin %r failed to load: %s", ep.name, exc)
             self.records[ep.name] = PluginRecord(name=ep.name, entry_point=ep, error=str(exc))
             return
-
-        instance = target() if isinstance(target, type) else target
 
         # callable(), not hasattr(): lol-predictor's real plugin.py today
         # declares `capabilities` as a class *attribute* (a tuple), not a
@@ -105,7 +104,9 @@ class Registry:
                 )
                 continue
             try:
-                snapshot[name] = record.instance.health()  # type: ignore[union-attr]
+                raw = record.instance.health()  # type: ignore[union-attr]
+                payload = raw.model_dump(mode="python") if hasattr(raw, "model_dump") else raw
+                snapshot[name] = HealthReport.model_validate(payload)
             except Exception as exc:  # noqa: BLE001
                 snapshot[name] = HealthReport(
                     domain=name, status=OperationalStatus.FAILED, details={"error": str(exc)}
@@ -119,7 +120,9 @@ class Registry:
                 snapshot[name] = CapabilityManifest(domain=name, extra={"error": record.error})
                 continue
             try:
-                snapshot[name] = record.instance.capabilities()  # type: ignore[union-attr]
+                raw = record.instance.capabilities()  # type: ignore[union-attr]
+                payload = raw.model_dump(mode="python") if hasattr(raw, "model_dump") else raw
+                snapshot[name] = CapabilityManifest.model_validate(payload)
             except Exception as exc:  # noqa: BLE001
                 snapshot[name] = CapabilityManifest(domain=name, extra={"error": str(exc)})
         return snapshot
