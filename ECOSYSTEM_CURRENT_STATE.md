@@ -24,18 +24,19 @@ canônico.
 ## Inventário mecânico
 
 <!-- mechanical-facts:start -->
-_Bloco mecânico gerado por `scripts/sync_ecosystem_facts.py`; decisões humanas não são geradas._
+_Snapshot mecânico `ecosystem-facts/1`; gerado em `2026-08-11T16:25:02+00:00`._
+_Decisões humanas são preservadas e ignoradas pelo validador._
 
 | Repositório | Branch / HEAD | Pacote / Python | Core / Ops | CI | Canônicos |
 |---|---|---|---|---|---|
-| `ecosystem-predictor` | `master` / commit deste documento | `0.1.0` / `>=3.13,<3.15` | Core `>=2.1,<3 (v2.1.0)` / Ops `>=3.0.0,<4 (v3.0.0)` | workflow atual | `ECOSYSTEM_CURRENT_STATE.md`, `ECOSYSTEM_HANDOFF.md`, `P4_CONSOLIDATION.md`, `README.md`, `pyproject.toml`, `uv.lock` |
-| `core-predictor` | `main` / `7933e4aca0ce` | `2.2.1` / `>=3.13` | Core `—` / Ops `—` | [success](https://github.com/leonardosovienski/core-predictor/actions/runs/31314327197) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
-| `tools-predictor` | `main` / `3ca6995e3be1` | `3.0.0` / `>=3.13` | Core `—` / Ops `—` | [success](https://github.com/leonardosovienski/tools-predictor/actions/runs/31250680200) | `README.md`, `pyproject.toml`, `uv.lock` |
 | `brasileirao-predictor` | `main` / `5a42d6c88298` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.2,<3 (v2.2.0)` / Ops `>=3,<4 (v3.0.0)` | [success](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/31462565846) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `core-predictor` | `main` / `7933e4aca0ce` | `2.2.1` / `>=3.13` | Core `—` / Ops `—` | [success](https://github.com/leonardosovienski/core-predictor/actions/runs/31314327197) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
 | `cripto-predictor` | `main` / `375fe6df903e` | `1.0.0` / `>=3.13,<3.15` | Core `>=2.2.0,<2.3 (v2.2.0)` / Ops `>=3.0.0,<3.1 (v3.0.0)` | [success](https://github.com/leonardosovienski/cripto-predictor/actions/runs/31431935255) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `requirements.txt`, `uv.lock` |
-| `cs-predictor` | `main` / `f7bb21411450` | `3.1.0` / `>=3.13,<3.15` | Core `==2.2.1 (v2.2.1)` / Ops `==3.0.0 (v3.0.0)` | [success](https://github.com/leonardosovienski/cs-predictor/actions/runs/31490882633) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `cs-predictor` | `main` / `3f981acc68a4` | `3.1.0` / `>=3.13,<3.15` | Core `==2.2.1 (v2.2.1)` / Ops `==3.0.0 (v3.0.0)` | [success](https://github.com/leonardosovienski/cs-predictor/actions/runs/31511630336) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `ecosystem-predictor` | `master` / HEAD derivado em execução | `0.1.0` / `>=3.13,<3.15` | Core `>=2.1,<3 (v2.1.0)` / Ops `>=3.0.0,<4 (v3.0.0)` | workflow atual | `ECOSYSTEM_CURRENT_STATE.md`, `ECOSYSTEM_HANDOFF.md`, `P4_CONSOLIDATION.md`, `README.md`, `pyproject.toml`, `uv.lock` |
 | `f1-predictor` | `main` / `d6e54cc9997b` | `1.0.0` / `>=3.13,<3.15` | Core `>=2.2,<3 (v2.2.0)` / Ops `>=3,<4 (v3.0.0)` | [success](https://github.com/leonardosovienski/f1-predictor/actions/runs/31486487656) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
 | `lol-predictor` | `main` / `17425a75101c` | `2.1.0` / `>=3.13,<3.15` | Core `>=2.2,<3 (v2.2.0)` / Ops `>=3,<4 (v3.0.0)` | [success](https://github.com/leonardosovienski/lol-predictor/actions/runs/31488598943) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `requirements.txt`, `uv.lock` |
+| `tools-predictor` | `main` / `3ca6995e3be1` | `3.0.0` / `>=3.13` | Core `—` / Ops `—` | [success](https://github.com/leonardosovienski/tools-predictor/actions/runs/31250680200) | `README.md`, `pyproject.toml`, `uv.lock` |
 | `wc-predictor` | `main` / `40fe5135d14a` | `requirements` / `não declarado` | Core `legado vendorizado` / Ops `—` | NOT_APPLICABLE | `HANDOFF.md`, `README.md`, `requirements.txt` |
 <!-- mechanical-facts:end -->
 

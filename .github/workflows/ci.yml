@@ -37,9 +37,7 @@ jobs:
       - run: uv run coverage report --fail-under=0
       - name: Mechanical ecosystem facts are current
         if: matrix.python == '3.13'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: uv run python scripts/sync_ecosystem_facts.py --check
+        run: uv run python scripts/sync_ecosystem_facts.py --offline-check
       - run: uv build
       - name: wheel smoke outside checkout
         run: |
