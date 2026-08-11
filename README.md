@@ -1,203 +1,123 @@
-# Ecossistema Preditivo Local
+# Predictor ecosystem
 
-Verificado em: 2026-07-20. Este é o ponto de entrada. Para retomar o
-trabalho numa nova sessão, leia **[ECOSYSTEM_HANDOFF.md](ECOSYSTEM_HANDOFF.md)**
-antes de qualquer outra coisa.
+Ponto de entrada factual, verificado em **2026-08-11**. Este repositório é a
+plataforma agregadora e a fonte de governança do ecossistema; não é um monorepo
+dos domínios.
 
-## Visão geral
+Para retomar o trabalho, leia nesta ordem:
 
-Workspace com 10 repositórios Git independentes (não é monorepo), duas
-camadas compartilhadas canônicas, 5 domínios de previsão vivos e 3
-projetos históricos congelados.
+1. [ECOSYSTEM_CURRENT_STATE.md](ECOSYSTEM_CURRENT_STATE.md) — inventário
+   mecânico, refs, dependências e CI no HEAD;
+2. [ECOSYSTEM_HANDOFF.md](ECOSYSTEM_HANDOFF.md) — continuidade e limites de
+   autorização;
+3. [PENDENCIAS_ABERTAS.md](PENDENCIAS_ABERTAS.md) — pendências factuais que
+   ainda exigem decisão;
+4. o README/HANDOFF do repositório que será analisado;
+5. Git e código no ref registrado.
 
-## Arquitetura
+## Arquitetura atual
 
-```
-                    ┌─────────────┐         ┌──────────────────┐
-                    │   tools/    │         │  predictor_core/  │
-                    │ operacional │         │    científico      │
-                    └──────┬──────┘         └─────────┬─────────┘
-                           │                           │
-                           │      vendoring (cópia byte-idêntica,
-                           │      sync_core.py --write)
-                           ▼                           ▼
-       ┌────────────────────────────────────────────────────────┐
-       │  brasileirao-predictor · cs-predictor · f1-predictor ·  │
-       │  lol-predictor · previsao-cripto   (5 vivos)             │
-       └────────────────────────────────────────────────────────┘
+```text
+core-predictor 2.2.x ─┐
+                      ├─ wheels versionados ─> consumidores ativos
+tools-predictor 3.0.0 ┘
 
-       wc-predictor-v2 · nba-predictor (PARKED, congelados) ·
-       predictor-stocks (REABERTO p/ ciência 2026-07-18; vendor segue
-       congelado — os 3 permanecem no set PARKED do sync, nunca --write)
+ecosystem-predictor ───> registry, gateway, scheduler e infraestrutura própria
+
+wc-predictor ──────────> projeto histórico encerrado, com Core legado vendorizado
 ```
 
-- **`tools/`** — infraestrutura operacional pura: runner com lock/heartbeat/
-  timeout, redação de segredos, provenance, manifests de release. Zero
-  lógica científica ou de domínio. Ver [tools/README.md](tools/README.md),
-  [tools/HANDOFF.md](tools/HANDOFF.md).
-- **`predictor_core/`** — contratos científicos compartilhados
-  (`PredictionPoint`, `TrialRegistry`, `RatingBook`, mensuração). Só o que
-  já provou ser compartilhável entre 2+ domínios reais. Ver
-  [predictor_core/README.md](predictor_core/README.md),
-  [predictor_core/HANDOFF.md](predictor_core/HANDOFF.md).
-- **5 consumidores vivos** — cada um com hipóteses científicas, dados e
-  automações próprias. Cada um tem `README.md` e `HANDOFF.md` no seu
-  diretório.
-- **2 projetos PARKED** (`wc-predictor-v2`, `nba-predictor`) — congelados,
-  preservados como conhecimento histórico. Nunca sincronizam, nunca
-  recebem evolução funcional.
-- **1 projeto REABERTO com vendor congelado** (`predictor-stocks`) —
-  reaberto para pesquisa por decisão explícita do operador em 2026-07-18
-  (H4/H5 pré-registradas e julgadas), mas o vendor `predictor_core`
-  permanece deliberadamente congelado em 1.3.0 e o projeto continua no
-  set `PARKED` do sync (que hoje, para ele, significa "vendor congelado",
-  não "projeto dormindo"). Ver seção abaixo e
-  [predictor-stocks/HANDOFF.md](predictor-stocks/HANDOFF.md).
+- [core-predictor](https://github.com/leonardosovienski/core-predictor) é o
+  pacote científico compartilhado instalável. A release corrente observada é
+  `2.2.1`.
+- [tools-predictor](https://github.com/leonardosovienski/tools-predictor) é o
+  pacote operacional compartilhado instalável `predictor-ops`. A release
+  corrente observada é `3.0.0`.
+- [ecosystem-predictor](https://github.com/leonardosovienski/ecosystem-predictor)
+  contém registry, gateway, scheduler, storage e contratos da plataforma. No
+  HEAD auditado ainda consome Core `2.1.0` e Ops `2.0.1`; isso é um fato, não
+  autorização para atualizar dependências.
+- Brasileirão, Cripto, CS, F1 e LoL consomem wheels oficiais por URL e lockfile.
+  A versão exata varia conforme a matriz factual.
+- WC permanece encerrado e vendorizado. A F1 não propõe modernização.
 
-## Status atual (2026-07-26)
+Não há importação direta entre domínios demonstrada por esta arquitetura. A
+presença de um import compartilhado também não constitui prova científica.
 
-Todas as suítes reexecutadas em 2026-07-26.
+## Repositórios no escopo corrente
 
-| Camada | Testes | Estado |
+| Repositório | Papel | Ref verificado em 2026-08-11 |
 |---|---|---|
-| tools/ | 142 passed, 1 skipped | Verde |
-| predictor_core | 268 passed | Verde |
-| brasileirao-predictor | 377 passed | Verde |
-| cs-predictor | 159 passed | Verde |
-| f1-predictor | 203 passed | Verde |
-| lol-predictor | 131 passed | Verde |
-| previsao-cripto | 325 passed, 2 skipped | Verde |
-| predictor-stocks | 144 passed | Verde |
+| `ecosystem-predictor` | plataforma e governança | `master@a9214d69f188` |
+| `core-predictor` | Core científico compartilhado | `main@7933e4aca0ce` |
+| `tools-predictor` | Ops operacional compartilhado | `main@3ca6995e3be1` |
+| `brasileirao-predictor` | domínio | `main@5a42d6c88298` |
+| `cripto-predictor` | domínio | `main@375fe6df903e` |
+| `cs-predictor` | domínio | `main@07f14bfea27c` |
+| `f1-predictor` | domínio | `main@617cb2c49cee` |
+| `lol-predictor` | domínio | `main@bd8ed5d69b03` |
+| `wc-predictor` | histórico encerrado | `main@40fe5135d14a` |
 
-**Bugs de código conhecidos e não corrigidos: zero.** Dois foram encontrados e
-corrigidos em 2026-07-26 — manifesto defasado do `tools` (parava toda tarefa
-agendada) e import quebrado do payload semanal do lol —, ambos em código que
-nunca havia sido executado como a produção o executa. Ver
-[FECHAMENTO_2026-07-26.md](FECHAMENTO_2026-07-26.md).
+`stocks-predictor` e `nba-predictor` estão fora do escopo desta linha de
+trabalho. Menções em documentos históricos não os reinserem no inventário.
+`Claude` é snapshot histórico não canônico.
 
-Um incidente de segurança segue aberto (rotação de credencial pendente, ação
-humana externa) — ver [SECURITY_INCIDENT_SECRET_ROTATION.md](SECURITY_INCIDENT_SECRET_ROTATION.md).
-Lista completa de pendências reais: [PENDENCIAS_ABERTAS.md](PENDENCIAS_ABERTAS.md).
+## Estado verificável
 
-## Pré-requisitos
+O estado completo — incluindo Python, Core/Ops, forma de consumo, termos
+declarados por cada domínio e URLs das execuções de CI — está em
+[ECOSYSTEM_CURRENT_STATE.md](ECOSYSTEM_CURRENT_STATE.md). O resumo é:
 
-Python **3.13+** (confirmado testado; `tools/pyproject.toml` declara
-`requires-python = ">=3.13"`). Windows é o ambiente real de produção hoje
-— nenhum CI multiplataforma foi executado. `tools/` e `predictor_core` são
-**stdlib-only**; os domínios têm suas próprias dependências (ver o
-`requirements`/venv de cada um).
+- CI verde e concreta no HEAD dos oito repositórios que possuem workflow;
+- WC sem workflow, de modo coerente com seu papel histórico;
+- Core `2.2.1` e Ops `3.0.0` são as releases correntes observadas;
+- CS já consome Core `2.2.1`; os demais domínios ativos consomem `2.2.0`;
+- a própria plataforma ainda consome Core `2.1.0` e Ops `2.0.1`;
+- nenhuma conclusão científica ou econômica foi reproduzida nesta F1.
 
-## Comandos reais (testados 2026-07-18)
+## F0 encerrada
+
+A F0 corrigiu exclusivamente a integridade dos wheels do
+`brasileirao-predictor`, preservando Core `2.2.0` e Ops `3.0.0`. O merge em
+`main` é `5a42d6c882985ef06ba1bb8056201d4d95436626`, e a execução pós-merge
+[31462565846](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/31462565846)
+terminou com sucesso. A F1 não reabre nem amplia essa implementação.
+
+## Comandos oficiais deste repositório
+
+O ambiente está travado por `uv.lock`; a CI usa Python 3.13 e 3.14.
 
 ```bash
-# tools/ — da raiz do workspace
-python -m pytest tools/ -q
-
-# predictor_core — do próprio diretório
-cd predictor_core && python -m pytest -q
-
-# cada consumidor vivo — do próprio diretório
-cd brasileirao-predictor && python -m pytest -q   # idem para cs/f1/lol/previsao-cripto
-
-# release preflight de tools/
-python tools/release_check.py
-
-# manifest de tools/
-cd tools && python release_manifest.py --check
-
-# sincronização/drift do predictor_core
-cd predictor_core && python sync_core.py --check
-
-# auditoria byte a byte dos vendors
-python tools/vendor_byte_audit.py --workspace . --consumer brasileirao-predictor --consumer cs-predictor --consumer f1-predictor --consumer lol-predictor --consumer previsao-cripto
+uv sync --locked --all-extras --python 3.13
+uv run ruff check src tests
+uv run ruff format --check src tests
+uv run pyright
+uv run coverage run -m pytest -q
+uv run coverage report --fail-under=0
+uv build
 ```
 
-Comandos completos e detalhados: ver os runbooks em `RUNBOOK_*.md`.
+Compose, container e smoke são definidos em
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml). Executá-los pode exigir
+Docker; o fato de constarem no workflow não equivale a execução local.
 
-## Manifests e vendors
+## Fontes correntes e arquivo histórico
 
-`predictor_core/CORE_MANIFEST.json` (por vendor) e
-`tools/TOOLS_MANIFEST.json` — hash por arquivo + agregado. Sincronização é
-sempre unidirecional (`predictor_core/`/`tools/` → vendor), nunca o
-contrário. Ver [RUNBOOK_VENDOR_SYNC.md](RUNBOOK_VENDOR_SYNC.md).
+As fontes correntes são este README, `ECOSYSTEM_CURRENT_STATE.md`,
+`ECOSYSTEM_HANDOFF.md` e `PENDENCIAS_ABERTAS.md`. A classificação editorial
+que fundamentou a F1 está em
+[F1_SECTION_CLASSIFICATION.md](F1_SECTION_CLASSIFICATION.md).
 
-## Política PARKED
+Documentos `FINAL_*`, `FECHAMENTO_*`, `VEREDITOS_*`, `BLOQUEIOS_*`, o
+inventário de artefatos e os runbooks antigos foram preservados como registros
+históricos. Seus números e resultados não foram recalculados. Quando houver
+conflito temporal, o estado corrente deve ser obtido do código/Git no ref
+registrado; o documento histórico continua válido somente para sua data.
 
-`wc-predictor-v2` e `nba-predictor` estão congelados. Regra absoluta:
-nunca sincronizar, nunca atualizar vendor, nunca evoluir funcionalmente.
-Podem ser consultados como fonte histórica. Condição para reabrir cada
-um: ver os respectivos `HANDOFF.md`.
+## Limites
 
-`predictor-stocks` foi **reaberto para pesquisa em 2026-07-18** (decisão
-explícita do operador + hipóteses pré-registradas antes de código — a
-condição formal de reabertura do seu próprio HANDOFF, satisfeita). O que
-NÃO mudou: o vendor dele permanece congelado em 1.3.0-ga-20260711
-(agregado `3445e37f43c458cc`, drift esperado e correto) e ele **continua
-na lista `PARKED` de `predictor_core/sync_core.py:56`** — que para este
-projeto passa a significar "vendor congelado por decisão do projeto",
-não "projeto inativo". A pesquisa usa somente APIs já vendorizadas.
-
-`_is_parked()` é checado antes de qualquer escrita, independente de
-`--target`, para os 3 nomes da lista.
-
-## Artefatos científicos e operacionais
-
-Nem todo artefato citado como "importante" está sob controle de versão —
-`.db`, `ratings.json`, `events.jsonl` são **gitignored por desenho** em
-todos os 5 consumidores (dados de runtime regeneráveis). Os artefatos
-científicos realmente versionados são `trials.json`,
-`trials.harness_attestation.json`, `teams_*.json` — confirmados por
-`git ls-files` em cada projeto. Inventário completo:
-[ARTIFACT_INVENTORY.md](ARTIFACT_INVENTORY.md).
-
-## Política de segredos
-
-Nenhum segredo em código ou documentação. Redação obrigatória via
-`tools.secret_redaction` antes de qualquer persistência de log. Ver
-[SECURITY.md](SECURITY.md).
-
-## Incidente ativo
-
-Chave da SerpAPI (previsao-cripto) registrada em 5 logs históricos, nunca
-versionados pelo Git. Mecanismo de prevenção corrigido e verificado
-funcionando. Rotação da credencial no provedor é ação humana pendente,
-explicitamente despriorizada por decisão do responsável (sem prazo).
-Detalhe completo: [SECURITY_INCIDENT_SECRET_ROTATION.md](SECURITY_INCIDENT_SECRET_ROTATION.md).
-
-## Tarefas agendadas
-
-Ver [RUNBOOK_CRYPTO_AUTOMATION.md](RUNBOOK_CRYPTO_AUTOMATION.md) (único
-projeto com automação via Windows Task Scheduler hoje) e o `HANDOFF.md` de
-`brasileirao-predictor` (`sombra-manha`/`sombra-noite`, agendadas via
-`operational_runner`).
-
-## Documentos canônicos
-
-| Documento | Finalidade |
-|---|---|
-| `README.md` (este) | Entrada |
-| [ECOSYSTEM_HANDOFF.md](ECOSYSTEM_HANDOFF.md) | Continuidade — leia primeiro numa sessão nova |
-| [PENDENCIAS_ABERTAS.md](PENDENCIAS_ABERTAS.md) | Lista ativa de tudo que resta |
-| [SECURITY.md](SECURITY.md) / [SECURITY_INCIDENT_SECRET_ROTATION.md](SECURITY_INCIDENT_SECRET_ROTATION.md) | Segurança e incidente |
-| [ARTIFACT_INVENTORY.md](ARTIFACT_INVENTORY.md) | O que é dado, o que é log, o que é ciência |
-| [ECOSYSTEM_FINAL_CLOSURE.md](ECOSYSTEM_FINAL_CLOSURE.md) | Encerramento técnico (histórico reconstruído) |
-| [FINAL_FORENSIC_REVIEW.md](FINAL_FORENSIC_REVIEW.md) | Revisão independente das rodadas técnicas |
-| [AUDIT_DIRECTORY_RECONCILIATION.md](AUDIT_DIRECTORY_RECONCILIATION.md) | Reconciliação da auditoria independente `audit/` |
-| [FINAL_DOCUMENTATION_CLOSURE.md](FINAL_DOCUMENTATION_CLOSURE.md) | Encerramento documental (esta rodada) |
-| `RUNBOOK_*.md` | Execução — testes, sync, release, automação, incidente, integridade |
-
-## Limites da validação
-
-Tudo testado localmente, com evidência real quando aplicável (ex.: ciclo de
-produção real confirmando o fix de redação de log). Não validado:
-publicação real, CI remoto (nenhum configurado), operação distribuída
-multi-máquina. Nenhuma alegação de "production-ready" sem escopo — ver
-`ECOSYSTEM_FINAL_CLOSURE.md` para a distinção exata entre o que foi
-provado e o que depende de operação real.
-
-## Política de publicação
-
-Nada foi publicado (sem push, sem tag) em nenhum dos 10 repositórios nesta
-linha do tempo. `predictor_core` e `tools/` não têm remoto configurado.
-Publicação é decisão humana explícita, fora do escopo de qualquer rodada
-automática.
+CI verde demonstra os checks que o workflow executou, não prontidão para
+capital, validade de hipótese ou reprodução de dataset/resultado. Decisões de
+padronização, promoção para Core/Ops, alteração de dependências, seleção final
+de estudos de caso e qualquer implementação adicional pertencem a uma F2
+futura, ainda não autorizada.

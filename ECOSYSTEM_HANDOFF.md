@@ -1,5 +1,28 @@
 # ECOSYSTEM_HANDOFF.md
 
+> **ESTADO CORRENTE — F1, verificado em 2026-08-11.** A fonte mecânica atual é
+> [`ECOSYSTEM_CURRENT_STATE.md`](ECOSYSTEM_CURRENT_STATE.md), com branch, HEAD,
+> versões, origem Core/Ops e CI concreta por repositório. O conteúdo datado de
+> 2026-07 abaixo foi preservado integralmente como snapshot histórico e não
+> deve ser usado sozinho para afirmar o estado corrente.
+>
+> Para retomar: (1) leia o inventário corrente; (2) confirme os HEADs remotos;
+> (3) leia README/HANDOFF no ref do projeto-alvo; (4) separe fatos mecânicos de
+> decisões humanas. No escopo corrente há nove repositórios. Stocks e NBA estão
+> excluídos; `Claude` não é fonte canônica.
+>
+> As releases compartilhadas observadas são Core `2.2.1` e Ops `3.0.0. CS usa
+> Core `2.2.1`; Brasileirão, Cripto, F1 e LoL usam Core `2.2.0`; todos esses
+> domínios usam Ops `3.0.0`. A plataforma ainda usa Core `2.1.0`/Ops `2.0.1`.
+> WC permanece histórico e vendorizado. Nenhuma dessas diferenças autoriza
+> migração automática.
+>
+> A F0 do Brasileirão foi incorporada em `main@5a42d6c88298` e a CI pós-merge
+> `31462565846` ficou verde. A F1 é exclusivamente documental. F2, mudanças de
+> dependência, promoções, ciência e capital exigem nova decisão humana.
+
+## Snapshot histórico preservado — verificado originalmente em 2026-07-26
+
 Documento mestre de continuidade. Verificado em: **2026-07-26**. Leia este
 documento **primeiro** em qualquer sessão nova.
 
