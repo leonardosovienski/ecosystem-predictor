@@ -20,6 +20,14 @@
 > A F0 do Brasileirão foi incorporada em `main@5a42d6c88298` e a CI pós-merge
 > `31462565846` ficou verde. A F1 é exclusivamente documental. F2, mudanças de
 > dependência, promoções, ciência e capital exigem nova decisão humana.
+>
+> **ADENDO P4 — 2026-08-11.** P4-A/F1, P4-A.1, P4-B/LoL e P4-CS foram
+> mescladas e consolidadas como `P4_COMPLETED_NO_CORE_CHANGE`. A fonte corrente
+> é [`P4_CONSOLIDATION.md`](P4_CONSOLIDATION.md), evidências `P4E001–P4E034`.
+> `PredictionPoint`/`replay` já são suficientes no Core; regras de cutoff,
+> resultado, identidade, vínculo, métrica e hash continuam locais. A CI CS não
+> comprovou pytest em 3.14: o job correspondente rodou pytest em 3.13.13 e só
+> o smoke usou 3.14.5. O snapshot histórico abaixo permanece inalterado.
 
 ## Snapshot histórico preservado — verificado originalmente em 2026-07-26
 

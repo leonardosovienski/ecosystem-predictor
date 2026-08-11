@@ -12,8 +12,10 @@ Para retomar o trabalho, leia nesta ordem:
    autorização;
 3. [PENDENCIAS_ABERTAS.md](PENDENCIAS_ABERTAS.md) — pendências factuais que
    ainda exigem decisão;
-4. o README/HANDOFF do repositório que será analisado;
-5. Git e código no ref registrado.
+4. [P4_CONSOLIDATION.md](P4_CONSOLIDATION.md) — contrato temporal comparado,
+   decisão sobre Core, proveniência e limites da P4;
+5. o README/HANDOFF do repositório que será analisado;
+6. Git e código no ref registrado.
 
 ## Arquitetura atual
 
@@ -48,14 +50,14 @@ presença de um import compartilhado também não constitui prova científica.
 
 | Repositório | Papel | Ref verificado em 2026-08-11 |
 |---|---|---|
-| `ecosystem-predictor` | plataforma e governança | `master@a9214d69f188` |
+| `ecosystem-predictor` | plataforma e governança | base `master@7918698c04d6` |
 | `core-predictor` | Core científico compartilhado | `main@7933e4aca0ce` |
 | `tools-predictor` | Ops operacional compartilhado | `main@3ca6995e3be1` |
 | `brasileirao-predictor` | domínio | `main@5a42d6c88298` |
 | `cripto-predictor` | domínio | `main@375fe6df903e` |
-| `cs-predictor` | domínio | `main@07f14bfea27c` |
-| `f1-predictor` | domínio | `main@617cb2c49cee` |
-| `lol-predictor` | domínio | `main@bd8ed5d69b03` |
+| `cs-predictor` | domínio | `main@f7bb21411450` |
+| `f1-predictor` | domínio | `main@d6e54cc9997b` |
+| `lol-predictor` | domínio | `main@17425a75101c` |
 | `wc-predictor` | histórico encerrado | `main@40fe5135d14a` |
 
 `stocks-predictor` e `nba-predictor` estão fora do escopo desta linha de
@@ -83,6 +85,20 @@ A F0 corrigiu exclusivamente a integridade dos wheels do
 [31462565846](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/31462565846)
 terminou com sucesso. A F1 não reabre nem amplia essa implementação.
 
+## P4 encerrada sem mudança no Core
+
+Os pilotos temporais F1, LoL e CS e sua consolidação foram concluídos. O estado
+aprovado é `P4_COMPLETED_NO_CORE_CHANGE`. `PredictionPoint` e `replay` já
+cobrem o contrato comum pertencente ao Core; cutoff, disponibilidade do
+resultado, identidade, vínculos, métricas e seleção de hashes permanecem
+locais. Canonicalização/hash foi classificada como padrão reutilizável, ainda
+não como API pública madura. Consulte [P4_CONSOLIDATION.md](P4_CONSOLIDATION.md).
+
+A matriz CS mantém uma dívida factual: pytest do job remoto rotulado 3.14
+executou em 3.13.13; apenas o smoke do wheel usou 3.14.5. A P4 não comprovou
+qualidade científica, equivalência estatística, valor econômico ou operação
+ao vivo.
+
 ## Comandos oficiais deste repositório
 
 O ambiente está travado por `uv.lock`; a CI usa Python 3.13 e 3.14.
@@ -104,7 +120,7 @@ Docker; o fato de constarem no workflow não equivale a execução local.
 ## Fontes correntes e arquivo histórico
 
 As fontes correntes são este README, `ECOSYSTEM_CURRENT_STATE.md`,
-`ECOSYSTEM_HANDOFF.md` e `PENDENCIAS_ABERTAS.md`. A classificação editorial
+`ECOSYSTEM_HANDOFF.md`, `PENDENCIAS_ABERTAS.md` e `P4_CONSOLIDATION.md`. A classificação editorial
 que fundamentou a F1 está em
 [F1_SECTION_CLASSIFICATION.md](F1_SECTION_CLASSIFICATION.md).
 
@@ -118,6 +134,6 @@ registrado; o documento histórico continua válido somente para sua data.
 
 CI verde demonstra os checks que o workflow executou, não prontidão para
 capital, validade de hipótese ou reprodução de dataset/resultado. Decisões de
-padronização, promoção para Core/Ops, alteração de dependências, seleção final
-de estudos de caso e qualquer implementação adicional pertencem a uma F2
-futura, ainda não autorizada.
+Uma promoção adicional para Core/Ops, alteração de dependências, novo piloto
+ou qualquer implementação adicional exige decisão humana separada. O
+encerramento da P4 não autoriza P2, P3, P5 ou P6.
