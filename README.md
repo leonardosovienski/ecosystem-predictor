@@ -14,8 +14,10 @@ Para retomar o trabalho, leia nesta ordem:
    ainda exigem decisão;
 4. [P4_CONSOLIDATION.md](P4_CONSOLIDATION.md) — contrato temporal comparado,
    decisão sobre Core, proveniência e limites da P4;
-5. o README/HANDOFF do repositório que será analisado;
-6. Git e código no ref registrado.
+5. [TCC_EVIDENCE_CLOSURE.md](TCC_EVIDENCE_CLOSURE.md) — contribuições,
+   alegações permitidas e limitações acadêmicas;
+6. o README/HANDOFF do repositório que será analisado;
+7. Git e código no ref registrado.
 
 ## Arquitetura atual
 
@@ -50,7 +52,7 @@ presença de um import compartilhado também não constitui prova científica.
 
 | Repositório | Papel | Ref verificado em 2026-08-11 |
 |---|---|---|
-| `ecosystem-predictor` | plataforma e governança | base `master@7918698c04d6` |
+| `ecosystem-predictor` | plataforma e governança | commit deste documento |
 | `core-predictor` | Core científico compartilhado | `main@7933e4aca0ce` |
 | `tools-predictor` | Ops operacional compartilhado | `main@3ca6995e3be1` |
 | `brasileirao-predictor` | domínio | `main@5a42d6c88298` |
