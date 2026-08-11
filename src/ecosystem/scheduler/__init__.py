@@ -21,6 +21,9 @@ def probe_domains_job(*, runtime_root: Path, timeout_seconds: float = 30.0) -> J
         command=[sys.executable, "-m", "ecosystem.scheduler.probe"],
         timeout_seconds=timeout_seconds,
         heartbeat_interval_seconds=5.0,
+        # This probe has no scientific verdict. Ops transports the value but
+        # never infers it from operational success or failure.
+        scientific_state=None,
         runtime=RuntimeConfig(root=runtime_root, lock_stale_after_seconds=120),
     )
 
