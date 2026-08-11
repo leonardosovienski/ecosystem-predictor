@@ -35,8 +35,8 @@ wc-predictor ──────────> projeto histórico encerrado, com C
   corrente observada é `3.0.0`.
 - [ecosystem-predictor](https://github.com/leonardosovienski/ecosystem-predictor)
   contém registry, gateway, scheduler, storage e contratos da plataforma. No
-  HEAD auditado ainda consome Core `2.1.0` e Ops `2.0.1`; isso é um fato, não
-  autorização para atualizar dependências.
+  HEAD desta migração preserva Core `2.1.0` e consome Ops `3.0.0`, com estado
+  operacional (`RunStatus`) separado de `scientific_state` opaco.
 - Brasileirão, Cripto, CS, F1 e LoL consomem wheels oficiais por URL e lockfile.
   A versão exata varia conforme a matriz factual.
 - WC permanece encerrado e vendorizado. A F1 não propõe modernização.
@@ -72,7 +72,7 @@ declarados por cada domínio e URLs das execuções de CI — está em
 - WC sem workflow, de modo coerente com seu papel histórico;
 - Core `2.2.1` e Ops `3.0.0` são as releases correntes observadas;
 - CS já consome Core `2.2.1`; os demais domínios ativos consomem `2.2.0`;
-- a própria plataforma ainda consome Core `2.1.0` e Ops `2.0.1`;
+- a própria plataforma preserva Core `2.1.0` e consome Ops `3.0.0`;
 - nenhuma conclusão científica ou econômica foi reproduzida nesta F1.
 
 ## F0 encerrada

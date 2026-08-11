@@ -25,7 +25,7 @@ canônico.
 
 | Repositório | Branch / HEAD | Pacote / Python | Core / Ops efetivos | Estado declarado (sem normalização) | CI no HEAD |
 |---|---|---|---|---|---|
-| `ecosystem-predictor` | `master` / `a9214d69f188` | `0.1.0`; `>=3.13,<3.15` | Core `2.1.0`; Ops `2.0.1`, wheels por URL | plataforma agregadora; adoção dos domínios não é implícita | [CI 30857005048](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/30857005048), `success` |
+| `ecosystem-predictor` | base `master` / `0cde8662714a` | `0.1.0`; `>=3.13,<3.15` | Core `2.1.0`; Ops `3.0.0`, wheels por URL | plataforma agregadora; `RunStatus` separado de `scientific_state` | CI do P1 deve ser verificada no HEAD do PR |
 | `core-predictor` | `main` / `7933e4aca0ce` | `2.2.1`; `>=3.13` | camada Core instalável | pacote científico compartilhado | [CI 31314327197](https://github.com/leonardosovienski/core-predictor/actions/runs/31314327197), `success` |
 | `tools-predictor` | `main` / `3ca6995e3be1` | Ops `3.0.0`; `>=3.13` | camada Ops instalável | separação operacional/científica | [CI 31250681330](https://github.com/leonardosovienski/tools-predictor/actions/runs/31250681330), `success` |
 | `brasileirao-predictor` | `main` / `5a42d6c88298` | `0.1.0`; `>=3.13,<3.15` | Core `2.2.0`; Ops `3.0.0`, wheels por URL | `NO-GO`; coleta `COLLECTION_ONLY` | [CI 31462565846](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/31462565846), `success` |
@@ -42,7 +42,7 @@ canônico.
 | F1-E01 | O inventário usa o HEAD corrente de cada repositório | todos os nove | `HEAD`, branch padrão e árvore | refs da tabela acima | `git rev-parse`, `git branch`, checkout limpo | `VERIFIED_FROM_GIT` |
 | F1-E02 | Core é pacote `predictor-core` 2.2.1 para Python >=3.13 | core-predictor | `pyproject.toml` / `[project]` | `7933e4aca0ce` | leitura direta | `VERIFIED_FROM_CODE` |
 | F1-E03 | Ops é pacote `predictor-ops` 3.0.0 para Python >=3.13 | tools-predictor | `pyproject.toml` / `[project]` | `3ca6995e3be1` | leitura direta | `VERIFIED_FROM_CODE` |
-| F1-E04 | A plataforma ainda resolve Core 2.1.0 e Ops 2.0.1 por wheels | ecosystem-predictor | `pyproject.toml` / dependencies e `tool.uv.sources`; `uv.lock` | `a9214d69f188` | leitura direta | `VERIFIED_FROM_CODE` |
+| F1-E04 | A plataforma preserva Core 2.1.0 e resolve Ops 3.0.0 por wheels | ecosystem-predictor | `pyproject.toml` / dependencies e `tool.uv.sources`; `uv.lock` | branch P1 sobre `0cde8662714a` | leitura direta | `VERIFIED_FROM_CODE` |
 | F1-E05 | Brasileirão, Cripto, F1 e LoL resolvem Core 2.2.0/Ops 3.0.0 por wheels | quatro domínios | `pyproject.toml` / `tool.uv.sources`; `uv.lock` | refs da tabela | leitura direta | `VERIFIED_FROM_CODE` |
 | F1-E06 | CS resolve Core 2.2.1/Ops 3.0.0 por wheels | cs-predictor | `pyproject.toml` / dependencies e sources; `uv.lock` | `07f14bfea27c` | leitura direta | `VERIFIED_FROM_CODE` |
 | F1-E07 | WC é legado vendorizado e não possui workflow | wc-predictor | `HANDOFF.md`; ausência de `.github/workflows`; árvore | `40fe5135d14a` | leitura direta e árvore Git | `VERIFIED_FROM_CODE` |
@@ -55,7 +55,7 @@ canônico.
 
 | Consumidor | Core | Ops | Forma | Observação factual |
 |---|---:|---:|---|---|
-| ecosystem | 2.1.0 | 2.0.1 | wheel GitHub fixado por URL/lock | abaixo das releases correntes; mudança depende de F2/autorização própria |
+| ecosystem | 2.1.0 | 3.0.0 | wheel GitHub fixado por URL/lock | Ops reconciliado no P1; Core deliberadamente preservado |
 | Brasileirão | 2.2.0 | 3.0.0 | wheel GitHub fixado por URL/lock | F0 reconciliada e CI verde |
 | Cripto | 2.2.0 | 3.0.0 | wheel GitHub fixado por URL/lock | sem execução científica nesta F1 |
 | CS | 2.2.1 | 3.0.0 | wheel GitHub fixado por URL/lock | único domínio no Core 2.2.1 |

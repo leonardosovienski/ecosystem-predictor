@@ -8,7 +8,7 @@ preservado abaixo como registro histórico, sem reclassificação de ciência.
 
 | ID | Fato | Evidência | Estado/limite |
 |---|---|---|---|
-| F1-P1 | `ecosystem-predictor` resolve Core `2.1.0` e Ops `2.0.1`, enquanto as releases correntes observadas são Core `2.2.1` e Ops `3.0.0` | `pyproject.toml`, `uv.lock`, releases/HEADs em `ECOSYSTEM_CURRENT_STATE.md` | diferença factual; correção não autorizada na F1 |
+| F1-P1 | `ecosystem-predictor` preserva Core `2.1.0` e migrou para Ops `3.0.0`; a dependência Core não é alterada nesta fase | `pyproject.toml`, `uv.lock` e contrato do scheduler | Ops reconciliado no P1; Core exige decisão separada |
 | F1-P2 | os consumidores ativos não usam uma única versão de Core: CS usa `2.2.1`; os demais usam `2.2.0` | manifests e locks nos refs registrados | decisão de convergência pertence à F2 |
 | F1-P3 | itens operacionais/científicos do snapshot de julho não foram todos reproduzidos contra os HEADs atuais | documentos históricos e controle de execução F1 | `UNKNOWN_REQUIRES_REVIEW`; não tratá-los automaticamente como abertos ou resolvidos |
 | F1-P4 | WC não tem CI e não declara Python via `pyproject.toml` | árvore de `wc-predictor@40fe5135d14a` | `NOT_APPLICABLE` ao legado; nenhuma modernização autorizada |
