@@ -25,14 +25,14 @@ canônico.
 
 | Repositório | Branch / HEAD | Pacote / Python | Core / Ops efetivos | Estado declarado (sem normalização) | CI no HEAD |
 |---|---|---|---|---|---|
-| `ecosystem-predictor` | base `master` / `0cde8662714a` | `0.1.0`; `>=3.13,<3.15` | Core `2.1.0`; Ops `3.0.0`, wheels por URL | plataforma agregadora; `RunStatus` separado de `scientific_state` | CI do P1 deve ser verificada no HEAD do PR |
+| `ecosystem-predictor` | base `master` / `7918698c04d6` | `0.1.0`; `>=3.13,<3.15` | Core `2.1.0`; Ops `3.0.0`, wheels por URL | plataforma agregadora; `RunStatus` separado de `scientific_state` | CI desta atualização deve ser verificada no HEAD do PR |
 | `core-predictor` | `main` / `7933e4aca0ce` | `2.2.1`; `>=3.13` | camada Core instalável | pacote científico compartilhado | [CI 31314327197](https://github.com/leonardosovienski/core-predictor/actions/runs/31314327197), `success` |
 | `tools-predictor` | `main` / `3ca6995e3be1` | Ops `3.0.0`; `>=3.13` | camada Ops instalável | separação operacional/científica | [CI 31250681330](https://github.com/leonardosovienski/tools-predictor/actions/runs/31250681330), `success` |
 | `brasileirao-predictor` | `main` / `5a42d6c88298` | `0.1.0`; `>=3.13,<3.15` | Core `2.2.0`; Ops `3.0.0`, wheels por URL | `NO-GO`; coleta `COLLECTION_ONLY` | [CI 31462565846](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/31462565846), `success` |
 | `cripto-predictor` | `main` / `375fe6df903e` | `1.0.0`; `>=3.13,<3.15` | Core `2.2.0`; Ops `3.0.0`, wheels por URL | V3 com `NO-GO`; coleta exploratória `COLLECTION_ONLY` | [CI 31431935255](https://github.com/leonardosovienski/cripto-predictor/actions/runs/31431935255), `success` |
-| `cs-predictor` | `main` / `07f14bfea27c` | `3.1.0`; `>=3.13,<3.15` | Core `2.2.1`; Ops `3.0.0`, wheels por URL | `CLOSED_BY_HUMAN_DECISION`, `NO_GO`, operação `COLLECTION_ONLY` | [CI 31314924862](https://github.com/leonardosovienski/cs-predictor/actions/runs/31314924862), `success` |
-| `f1-predictor` | `main` / `617cb2c49cee` | `1.0.0`; `>=3.13,<3.15` | Core `2.2.0`; Ops `3.0.0`, wheels por URL | `SELADO`; operação `NO-GO`; mercado `COLLECTION_ONLY` | [CI 31303370467](https://github.com/leonardosovienski/f1-predictor/actions/runs/31303370467), `success` |
-| `lol-predictor` | `main` / `bd8ed5d69b03` | `2.1.0`; `>=3.13,<3.15` | Core `2.2.0`; Ops `3.0.0`, wheels por URL | `CLOSED_BY_HUMAN_DECISION`; archival `COLLECTION_ONLY` | [CI 31343386513](https://github.com/leonardosovienski/lol-predictor/actions/runs/31343386513), `success` |
+| `cs-predictor` | `main` / `f7bb21411450` | `3.1.0`; `>=3.13,<3.15` | Core `2.2.1`; Ops `3.0.0`, wheels por URL | `CLOSED_BY_HUMAN_DECISION`, `NO_GO`, operação `COLLECTION_ONLY`; P4-CS validada | [CI 31490882633](https://github.com/leonardosovienski/cs-predictor/actions/runs/31490882633), `success`; pytest efetivo 3.13.13 nos dois jobs, smoke também 3.14.5 |
+| `f1-predictor` | `main` / `d6e54cc9997b` | `1.0.0`; `>=3.13,<3.15` | Core `2.2.0`; Ops `3.0.0`, wheels por URL | `SELADO`; operação `NO-GO`; mercado `COLLECTION_ONLY`; P4-A/P4-A.1 validadas | [CI 31486487656](https://github.com/leonardosovienski/f1-predictor/actions/runs/31486487656), `success`; pytest efetivo 3.13.14/3.14.6 |
+| `lol-predictor` | `main` / `17425a75101c` | `2.1.0`; `>=3.13,<3.15` | Core `2.2.0`; Ops `3.0.0`, wheels por URL | `CLOSED_BY_HUMAN_DECISION`; archival `COLLECTION_ONLY`; P4-B validada | [CI 31488598943](https://github.com/leonardosovienski/lol-predictor/actions/runs/31488598943), `success`; pytest efetivo 3.13.14/3.14.6 |
 | `wc-predictor` | `main` / `40fe5135d14a` | requirements; Python não declarado em `pyproject.toml` | Core legado vendorizado; Ops não declarado | `ENCERRADO`; `PARKED` como registro histórico | sem workflow: `NOT_APPLICABLE` |
 
 ## Evidência por alegação
@@ -50,6 +50,20 @@ canônico.
 | F1-E09 | Os termos de estado por domínio vêm de README/HANDOFF | domínios | `README.md`, `HANDOFF.md`, símbolos citados na tabela | refs da tabela | leitura direta | `DOCUMENTED_NOT_EXECUTED` |
 | F1-E10 | A F0 alinhou Brasileirão para Core 2.2.0/Ops 3.0.0 e ficou verde em main | brasileirao-predictor | `pyproject.toml`, `uv.lock`, `.github/workflows/ci.yml`; PR #9 | `5a42d6c88298`; run `31462565846` | Git, código e CI | `VERIFIED_FROM_CI` |
 | F1-E11 | Nenhuma conclusão científica foi reproduzida nesta F1 | ecosystem-predictor | escopo da F1 / este registro | `a9214d69f188` | controle de execução | `DOCUMENTED_NOT_EXECUTED` |
+
+## Atualização factual P4 — 2026-08-11
+
+A fonte detalhada é [P4_CONSOLIDATION.md](P4_CONSOLIDATION.md), com
+rastreabilidade `P4E001–P4E034`. P4-A/F1, P4-A.1, P4-B/LoL e P4-CS foram
+mescladas e validadas. A comparação aprovou
+`P4_COMPLETED_NO_CORE_CHANGE`: `PredictionPoint` e `replay` já cobrem a parte
+comum do Core; adapters e semânticas de domínio permanecem locais.
+
+A alegação de pytest remoto CS em Python 3.14 é `CONTRADICTED`: no run
+`31490882633`, o job instalou 3.14.5, mas pytest executou em 3.13.13; somente o
+smoke do wheel usou 3.14.5. Execução local 3.14 existe separadamente como
+`VERIFIED_BY_EXECUTION`. Nenhuma evidência P4 confirma ciência, equivalência
+estatística, valor econômico ou comportamento ao vivo.
 
 ## Matriz Core/Ops real
 

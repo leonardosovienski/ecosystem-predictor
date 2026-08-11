@@ -118,7 +118,7 @@ falha sem apagar a versão anterior. Resposta vazia permanece não destrutiva.
 
 | ID | Item | Classificação | Detalhe |
 |---|---|---|---|
-| INC-1 | Lifecycle `PRE_EVENT`/`MATURED` compartilhado — cs-predictor, f1-predictor, lol-predictor têm 3 implementações locais com garantias estruturalmente diferentes. **Reconciliado em 2026-07-20**: CS e F1 hasheiam o payload e vinculam `pre_event_payload_hash`; LoL vincula PRE_EVENT→MATURED por `prediction_id` e copia o registro, sem hash do payload PRE_EVENT. Portanto ainda não há equivalência semântica suficiente para promoção | `SHARED_BUT_INCUBATING` | Reabre quando um 4º domínio precisar do mesmo padrão E as 3 implementações convergirem em garantias |
+| INC-1 | Lifecycle temporal F1/LoL/CS. O registro histórico de 2026-07-20 permanece válido para aquela data. **Decisão P4 em 2026-08-11:** três pilotos sintéticos e a comparação transversal confirmaram que `PredictionPoint`/`replay` já cobrem o contrato comum; cutoff, publicação/recuperação, identidade, vínculo, métricas e seleção de hash continuam locais. Canonicalização/hash é padrão reutilizável, não API madura | `P4_COMPLETED_NO_CORE_CHANGE` | Encerrado nesta P4; qualquer reconsideração exige nova evidência, sem promoção automática. Ver `P4_CONSOLIDATION.md`, `P4E001–P4E034` |
 | INC-2 | `shin_probabilities`, cliente `curl_cffi`+impersonate, `PlattCalibrator`, motor prequential, harness Brier+DM — listados como "candidatos ao core (roadmap de agosto)" em `SINERGIAS_ECOSSISTEMA.md`, cada um hoje duplicado em 2-3 domínios | `SHARED_BUT_INCUBATING` | Nenhuma promoção feita nesta rodada nem nas anteriores — decisão explícita de tratar como ciclo de trabalho próprio, separado de trabalho de domínio |
 
 ## 6. Dívidas técnicas / limpeza cosmética (sem risco, sem prazo)
@@ -130,6 +130,7 @@ falha sem apagar a versão anterior. Resposta vazia permanece não destrutiva.
 | DEBT-3 | 11 scripts de scratch em brasileirao-predictor reimplementam `brier` localmente em vez de importar do core | `DOMAIN_LOCAL` | Só scripts de experimentação, nunca pipeline de produção |
 | DEBT-4 | `cs-predictor` tem rating Elo local (`ShrunkMapElo`) que não usa `RatingBook` | `DOMAIN_LOCAL` | Mecânica de shrinkage parece genuinamente específica do CS |
 | DEBT-5 | Fixtures de teste compartilhadas em `tools/` não criadas | `CORRECTLY_DEFERRED` | Sem duplicação comprovada entre 2+ consumidores ainda |
+| DEBT-6 | Matriz Python do `cs-predictor`: o job pós-merge rotulado `quality (3.14)` instalou 3.14.5, mas `uv sync` e pytest usaram 3.13.13; apenas wheel smoke usou 3.14.5 | `VERIFIED_TECHNICAL_DEBT` | Run `31490882633`, `P4E008–P4E009`. Execução local 3.14 é evidência separada; não reabre P4 e não equivale a pytest remoto 3.14 |
 
 ## 7. Não objetivos (rejeitados deliberadamente)
 
