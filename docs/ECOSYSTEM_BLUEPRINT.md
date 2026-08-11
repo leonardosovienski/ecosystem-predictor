@@ -124,9 +124,9 @@ one-time operation; fixed by checking `trace.get_tracer_provider()` first.
 
 ## Where this fits versus `predictor-core`/`predictor-ops`
 
-`ecosystem-predictor` depends on the same published wheels every domain
-repository already consumes (`predictor-core` v2.1.0, `predictor-ops`
-v2.0.1, both pinned via `[tool.uv.sources]` to the real GitHub Release
+`ecosystem-predictor` depends on published wheels (`predictor-core` v2.1.0,
+deliberately preserved, and `predictor-ops` v3.0.0), both pinned via
+`[tool.uv.sources]` to the real GitHub Release
 URLs, matching the pattern established across all 5 domains in Fase 3/4).
 It does not vendor, fork, or reimplement anything from either — it is a
 consumer, exactly like the 5 domains, just one layer up.

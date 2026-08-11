@@ -13,7 +13,7 @@
 >
 > As releases compartilhadas observadas são Core `2.2.1` e Ops `3.0.0. CS usa
 > Core `2.2.1`; Brasileirão, Cripto, F1 e LoL usam Core `2.2.0`; todos esses
-> domínios usam Ops `3.0.0`. A plataforma ainda usa Core `2.1.0`/Ops `2.0.1`.
+> domínios usam Ops `3.0.0`. A plataforma preserva Core `2.1.0` e usa Ops `3.0.0`.
 > WC permanece histórico e vendorizado. Nenhuma dessas diferenças autoriza
 > migração automática.
 >
