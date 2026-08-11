@@ -1,0 +1,14 @@
+[
+  {
+    "repository": "example-predictor",
+    "branch": "main",
+    "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "version": "1.0.0",
+    "python": ">=3.13",
+    "core": "==2.2.0 (v2.2.0)",
+    "ops": "==3.0.0 (v3.0.0)",
+    "ci": "success",
+    "ci_url": "https://example.invalid/run/1",
+    "canonical": ["README.md", "pyproject.toml"]
+  }
+]

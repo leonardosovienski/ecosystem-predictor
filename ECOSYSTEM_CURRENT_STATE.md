@@ -23,17 +23,38 @@ canônico.
 
 ## Inventário mecânico
 
-| Repositório | Branch / HEAD | Pacote / Python | Core / Ops efetivos | Estado declarado (sem normalização) | CI no HEAD |
+<!-- mechanical-facts:start -->
+_Bloco mecânico gerado por `scripts/sync_ecosystem_facts.py`; decisões humanas não são geradas._
+
+| Repositório | Branch / HEAD | Pacote / Python | Core / Ops | CI | Canônicos |
 |---|---|---|---|---|---|
-| `ecosystem-predictor` | base `master` / `7918698c04d6` | `0.1.0`; `>=3.13,<3.15` | Core `2.1.0`; Ops `3.0.0`, wheels por URL | plataforma agregadora; `RunStatus` separado de `scientific_state` | CI desta atualização deve ser verificada no HEAD do PR |
-| `core-predictor` | `main` / `7933e4aca0ce` | `2.2.1`; `>=3.13` | camada Core instalável | pacote científico compartilhado | [CI 31314327197](https://github.com/leonardosovienski/core-predictor/actions/runs/31314327197), `success` |
-| `tools-predictor` | `main` / `3ca6995e3be1` | Ops `3.0.0`; `>=3.13` | camada Ops instalável | separação operacional/científica | [CI 31250681330](https://github.com/leonardosovienski/tools-predictor/actions/runs/31250681330), `success` |
-| `brasileirao-predictor` | `main` / `5a42d6c88298` | `0.1.0`; `>=3.13,<3.15` | Core `2.2.0`; Ops `3.0.0`, wheels por URL | `NO-GO`; coleta `COLLECTION_ONLY` | [CI 31462565846](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/31462565846), `success` |
-| `cripto-predictor` | `main` / `375fe6df903e` | `1.0.0`; `>=3.13,<3.15` | Core `2.2.0`; Ops `3.0.0`, wheels por URL | V3 com `NO-GO`; coleta exploratória `COLLECTION_ONLY` | [CI 31431935255](https://github.com/leonardosovienski/cripto-predictor/actions/runs/31431935255), `success` |
-| `cs-predictor` | `main` / `f7bb21411450` | `3.1.0`; `>=3.13,<3.15` | Core `2.2.1`; Ops `3.0.0`, wheels por URL | `CLOSED_BY_HUMAN_DECISION`, `NO_GO`, operação `COLLECTION_ONLY`; P4-CS validada | [CI 31490882633](https://github.com/leonardosovienski/cs-predictor/actions/runs/31490882633), `success`; pytest efetivo 3.13.13 nos dois jobs, smoke também 3.14.5 |
-| `f1-predictor` | `main` / `d6e54cc9997b` | `1.0.0`; `>=3.13,<3.15` | Core `2.2.0`; Ops `3.0.0`, wheels por URL | `SELADO`; operação `NO-GO`; mercado `COLLECTION_ONLY`; P4-A/P4-A.1 validadas | [CI 31486487656](https://github.com/leonardosovienski/f1-predictor/actions/runs/31486487656), `success`; pytest efetivo 3.13.14/3.14.6 |
-| `lol-predictor` | `main` / `17425a75101c` | `2.1.0`; `>=3.13,<3.15` | Core `2.2.0`; Ops `3.0.0`, wheels por URL | `CLOSED_BY_HUMAN_DECISION`; archival `COLLECTION_ONLY`; P4-B validada | [CI 31488598943](https://github.com/leonardosovienski/lol-predictor/actions/runs/31488598943), `success`; pytest efetivo 3.13.14/3.14.6 |
-| `wc-predictor` | `main` / `40fe5135d14a` | requirements; Python não declarado em `pyproject.toml` | Core legado vendorizado; Ops não declarado | `ENCERRADO`; `PARKED` como registro histórico | sem workflow: `NOT_APPLICABLE` |
+| `ecosystem-predictor` | `master` / `eaff4c4afce1` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.1,<3 (v2.1.0)` / Ops `>=3.0.0,<4 (v3.0.0)` | [success](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/31495446445) | `ECOSYSTEM_CURRENT_STATE.md`, `ECOSYSTEM_HANDOFF.md`, `P4_CONSOLIDATION.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `core-predictor` | `main` / `7933e4aca0ce` | `2.2.1` / `>=3.13` | Core `—` / Ops `—` | [success](https://github.com/leonardosovienski/core-predictor/actions/runs/31314327197) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `tools-predictor` | `main` / `3ca6995e3be1` | `3.0.0` / `>=3.13` | Core `—` / Ops `—` | [success](https://github.com/leonardosovienski/tools-predictor/actions/runs/31250680200) | `README.md`, `pyproject.toml`, `uv.lock` |
+| `brasileirao-predictor` | `main` / `5a42d6c88298` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.2,<3 (v2.2.0)` / Ops `>=3,<4 (v3.0.0)` | [success](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/31462565846) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `cripto-predictor` | `main` / `375fe6df903e` | `1.0.0` / `>=3.13,<3.15` | Core `>=2.2.0,<2.3 (v2.2.0)` / Ops `>=3.0.0,<3.1 (v3.0.0)` | [success](https://github.com/leonardosovienski/cripto-predictor/actions/runs/31431935255) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `requirements.txt`, `uv.lock` |
+| `cs-predictor` | `main` / `f7bb21411450` | `3.1.0` / `>=3.13,<3.15` | Core `==2.2.1 (v2.2.1)` / Ops `==3.0.0 (v3.0.0)` | [success](https://github.com/leonardosovienski/cs-predictor/actions/runs/31490882633) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `f1-predictor` | `main` / `d6e54cc9997b` | `1.0.0` / `>=3.13,<3.15` | Core `>=2.2,<3 (v2.2.0)` / Ops `>=3,<4 (v3.0.0)` | [success](https://github.com/leonardosovienski/f1-predictor/actions/runs/31486487656) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `lol-predictor` | `main` / `17425a75101c` | `2.1.0` / `>=3.13,<3.15` | Core `>=2.2,<3 (v2.2.0)` / Ops `>=3,<4 (v3.0.0)` | [success](https://github.com/leonardosovienski/lol-predictor/actions/runs/31488598943) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `requirements.txt`, `uv.lock` |
+| `wc-predictor` | `main` / `40fe5135d14a` | `requirements` / `não declarado` | Core `legado vendorizado` / Ops `—` | NOT_APPLICABLE | `HANDOFF.md`, `README.md`, `requirements.txt` |
+<!-- mechanical-facts:end -->
+
+### Estados documentados — autoria humana
+
+Esta tabela não é alterada pelo coletor mecânico. Os termos permanecem os dos
+próprios projetos e não são inferidos de CI, imports ou versões.
+
+| Repositório | Estado documentado corrente |
+|---|---|
+| `ecosystem-predictor` | plataforma agregadora; `RunStatus` separado de `scientific_state` |
+| `core-predictor` | pacote científico compartilhado |
+| `tools-predictor` | camada operacional compartilhada |
+| `brasileirao-predictor` | `NO-GO`; coleta `COLLECTION_ONLY` |
+| `cripto-predictor` | V3 com `NO-GO`; coleta exploratória `COLLECTION_ONLY` |
+| `cs-predictor` | `CLOSED_BY_HUMAN_DECISION`, `NO_GO`, operação `COLLECTION_ONLY`; P4-CS validada |
+| `f1-predictor` | `SELADO`; operação `NO-GO`; mercado `COLLECTION_ONLY`; P4-A/P4-A.1 validadas |
+| `lol-predictor` | `CLOSED_BY_HUMAN_DECISION`; archival `COLLECTION_ONLY`; P4-B validada |
+| `wc-predictor` | `ENCERRADO`; `PARKED` como registro histórico |
 
 ## Evidência por alegação
 
