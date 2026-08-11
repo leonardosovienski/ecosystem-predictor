@@ -24,7 +24,7 @@ canônico.
 ## Inventário mecânico
 
 <!-- mechanical-facts:start -->
-_Snapshot mecânico `ecosystem-facts/1`; gerado em `2026-08-11T16:25:02+00:00`._
+_Snapshot mecânico `ecosystem-facts/1`; gerado em `2026-08-11T16:30:29+00:00`._
 _Decisões humanas são preservadas e ignoradas pelo validador._
 
 | Repositório | Branch / HEAD | Pacote / Python | Core / Ops | CI | Canônicos |

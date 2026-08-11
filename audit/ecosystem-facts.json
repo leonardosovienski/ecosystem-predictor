@@ -1,6 +1,6 @@
 {
   "schema_version": "ecosystem-facts/1",
-  "generated_at": "2026-08-11T16:25:02+00:00",
+  "generated_at": "2026-08-11T16:30:29+00:00",
   "source_ref": "runtime checkout (self HEAD derived, never pinned)",
   "human_decision_policy": "HUMAN_DECISION_UNTOUCHED",
   "repositories": [
@@ -84,8 +84,8 @@
     {
       "repository": "ecosystem-predictor",
       "branch": "master",
-      "head": "de54c66a16e5cc9033b3c9a97c5ce8962c3c499f",
-      "source_ref": "ecosystem-predictor@de54c66a16e5cc9033b3c9a97c5ce8962c3c499f",
+      "head": "c98523340483e371d033440d248788d5d7286d3e",
+      "source_ref": "ecosystem-predictor@c98523340483e371d033440d248788d5d7286d3e",
       "version": "0.1.0",
       "python": ">=3.13,<3.15",
       "core": ">=2.1,<3 (v2.1.0)",
