@@ -29,6 +29,28 @@ def test_render_keeps_mechanical_and_human_facts_separate():
     assert "decisões humanas não são geradas" in block
 
 
+def test_ecosystem_avoids_self_referential_commit_hash():
+    block = render(
+        [
+            {
+                "repository": "ecosystem-predictor",
+                "branch": "master",
+                "head": "b" * 40,
+                "version": "1.0.0",
+                "python": ">=3.13",
+                "core": "—",
+                "ops": "—",
+                "ci": "success",
+                "ci_url": "https://example.invalid/run/2",
+                "canonical": ["README.md"],
+            }
+        ]
+    )
+    assert "commit deste documento" in block
+    assert "bbbbbbbbbbbb" not in block
+    assert "workflow atual" in block
+
+
 def test_check_fails_closed_when_inventory_is_stale(tmp_path):
     document = tmp_path / "state.md"
     document.write_text(

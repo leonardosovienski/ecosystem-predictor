@@ -159,11 +159,19 @@ def render(facts: list[dict[str, Any]]) -> str:
     ]
     for fact in facts:
         ci = fact["ci"]
-        if fact.get("ci_url"):
+        head = f"`{fact['head'][:12]}`"
+        if fact["repository"] == "ecosystem-predictor":
+            # A committed document cannot contain its own final Git SHA: adding
+            # that SHA changes the commit. Git identifies this file's revision,
+            # while the active workflow validates it. Remote SHAs remain pinned
+            # for every external repository.
+            head = "commit deste documento"
+            ci = "workflow atual"
+        elif fact.get("ci_url"):
             ci = f"[{ci}]({fact['ci_url']})"
         canonical = ", ".join(f"`{path}`" for path in fact["canonical"]) or "—"
         lines.append(
-            f"| `{fact['repository']}` | `{fact['branch']}` / `{fact['head'][:12]}` | "
+            f"| `{fact['repository']}` | `{fact['branch']}` / {head} | "
             f"`{fact['version']}` / `{fact['python']}` | Core `{fact['core']}` / Ops `{fact['ops']}` | "
             f"{ci} | {canonical} |"
         )

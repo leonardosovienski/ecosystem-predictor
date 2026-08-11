@@ -28,7 +28,7 @@ _Bloco mecânico gerado por `scripts/sync_ecosystem_facts.py`; decisões humanas
 
 | Repositório | Branch / HEAD | Pacote / Python | Core / Ops | CI | Canônicos |
 |---|---|---|---|---|---|
-| `ecosystem-predictor` | `master` / `eaff4c4afce1` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.1,<3 (v2.1.0)` / Ops `>=3.0.0,<4 (v3.0.0)` | [success](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/31495446445) | `ECOSYSTEM_CURRENT_STATE.md`, `ECOSYSTEM_HANDOFF.md`, `P4_CONSOLIDATION.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `ecosystem-predictor` | `master` / commit deste documento | `0.1.0` / `>=3.13,<3.15` | Core `>=2.1,<3 (v2.1.0)` / Ops `>=3.0.0,<4 (v3.0.0)` | workflow atual | `ECOSYSTEM_CURRENT_STATE.md`, `ECOSYSTEM_HANDOFF.md`, `P4_CONSOLIDATION.md`, `README.md`, `pyproject.toml`, `uv.lock` |
 | `core-predictor` | `main` / `7933e4aca0ce` | `2.2.1` / `>=3.13` | Core `—` / Ops `—` | [success](https://github.com/leonardosovienski/core-predictor/actions/runs/31314327197) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
 | `tools-predictor` | `main` / `3ca6995e3be1` | `3.0.0` / `>=3.13` | Core `—` / Ops `—` | [success](https://github.com/leonardosovienski/tools-predictor/actions/runs/31250680200) | `README.md`, `pyproject.toml`, `uv.lock` |
 | `brasileirao-predictor` | `main` / `5a42d6c88298` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.2,<3 (v2.2.0)` / Ops `>=3,<4 (v3.0.0)` | [success](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/31462565846) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
