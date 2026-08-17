@@ -24,18 +24,18 @@ canônico.
 ## Inventário mecânico
 
 <!-- mechanical-facts:start -->
-_Snapshot mecânico `ecosystem-facts/1`; gerado em `2026-08-17T12:39:18+00:00`._
+_Snapshot mecânico `ecosystem-facts/1`; gerado em `2026-08-17T14:40:22+00:00`._
 _Decisões humanas são preservadas e ignoradas pelo validador._
 
 | Repositório | Branch / HEAD | Pacote / Python | Core / Ops | CI | Canônicos |
 |---|---|---|---|---|---|
-| `brasileirao-predictor` | `main` / `fd38ee60ebc5` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | [success](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/31899154459) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `brasileirao-predictor` | `main` / `3336565692ff` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | [success](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/32036979309) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
 | `core-predictor` | `main` / `f6754957eaed` | `2.3.0` / `>=3.13` | Core `—` / Ops `—` | [success](https://github.com/leonardosovienski/core-predictor/actions/runs/31994598474) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
-| `cripto-predictor` | `main` / `770af84252f4` | `1.0.0` / `>=3.13,<3.15` | Core `>=2.3.0,<3 (v2.3.0)` / Ops `>=3.1.0,<4 (v3.1.0)` | [success](https://github.com/leonardosovienski/cripto-predictor/actions/runs/31899201505) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `requirements.txt`, `uv.lock` |
-| `cs-predictor` | `main` / `a762d2530772` | `3.1.0` / `>=3.13,<3.15` | Core `==2.3.0 (v2.3.0)` / Ops `==3.1.0 (v3.1.0)` | [success](https://github.com/leonardosovienski/cs-predictor/actions/runs/31994022038) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
-| `ecosystem-predictor` | `master` / HEAD derivado em execução | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | workflow atual | `ECOSYSTEM_CURRENT_STATE.md`, `ECOSYSTEM_HANDOFF.md`, `P4_CONSOLIDATION.md`, `README.md`, `pyproject.toml`, `uv.lock` |
-| `f1-predictor` | `main` / `f92c50b673e4` | `1.0.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | [success](https://github.com/leonardosovienski/f1-predictor/actions/runs/31899128561) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
-| `lol-predictor` | `main` / `59670fd4dec7` | `2.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | UNKNOWN | `HANDOFF.md`, `README.md`, `pyproject.toml`, `requirements.txt`, `uv.lock` |
+| `cripto-predictor` | `main` / `b77b5a3ca409` | `1.0.0` / `>=3.13,<3.15` | Core `>=2.3.0,<3 (v2.3.0)` / Ops `>=3.1.0,<4 (v3.1.0)` | [success](https://github.com/leonardosovienski/cripto-predictor/actions/runs/32036806552) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `requirements.txt`, `uv.lock` |
+| `cs-predictor` | `main` / `e02d9064a6fa` | `3.1.0` / `>=3.13,<3.15` | Core `==2.3.0 (v2.3.0)` / Ops `==3.1.0 (v3.1.0)` | [success](https://github.com/leonardosovienski/cs-predictor/actions/runs/32036813304) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `ecosystem-predictor` | `main` / HEAD derivado em execução | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | workflow atual | `ECOSYSTEM_CURRENT_STATE.md`, `ECOSYSTEM_HANDOFF.md`, `P4_CONSOLIDATION.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `f1-predictor` | `main` / `8fd1e3c83c96` | `1.0.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | [success](https://github.com/leonardosovienski/f1-predictor/actions/runs/32036817971) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `lol-predictor` | `main` / `eb7a06b5ce6c` | `2.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | [success](https://github.com/leonardosovienski/lol-predictor/actions/runs/32036823457) | `HANDOFF.md`, `README.md`, `pyproject.toml`, `requirements.txt`, `uv.lock` |
 | `predictor-ops` | `main` / `eff6fc795a12` | `3.1.0` / `>=3.13` | Core `—` / Ops `—` | [success](https://github.com/leonardosovienski/predictor-ops/actions/runs/32029908996) | `README.md`, `pyproject.toml`, `uv.lock` |
 | `wc-predictor` | `main` / `40fe5135d14a` | `requirements` / `não declarado` | Core `legado vendorizado` / Ops `—` | NOT_APPLICABLE | `HANDOFF.md`, `README.md`, `requirements.txt` |
 <!-- mechanical-facts:end -->
