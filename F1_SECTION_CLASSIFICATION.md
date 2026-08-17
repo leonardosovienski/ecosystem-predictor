@@ -25,7 +25,7 @@ decisão editorial; ela não substitui a evidência primária indicada em
 | `ECOSYSTEM_FINAL_CLOSURE.md`, `FINAL_*`, `FECHAMENTO_*`, `VEREDITOS_*`, `BLOQUEIOS_*` | todas | registros de encerramento e resultados datados | conteúdo versionado nos commits históricos | `KEEP_CURRENT` | não reescrever nem recalcular |
 | `docs/ECOSYSTEM_BLUEPRINT.md`, `docs/adr/*`, `docs/GO_CHECKLIST.md`, `docs/FASE_5_REPORT.md` | todas | arquitetura e decisões da plataforma criada em agosto | código, testes e CI do próprio repositório | `KEEP_CURRENT` | referenciar como arquitetura da plataforma; não promover a estado dos domínios |
 | `PREDICTOR_CORE_BLUEPRINT.md`, `SINERGIAS_ECOSSISTEMA.md` | propostas/candidatos | propostas e decisões antigas | sem autorização F2 | `MARK_HISTORICAL` | manter fora das fontes correntes; nenhuma promoção nesta F1 |
-| referências `tools/`, `predictor_core/`, `previsao-cripto`, `wc-predictor-v2` | múltiplas | caminhos locais antigos | remotos `tools-predictor`, `core-predictor`, `cripto-predictor`, `wc-predictor` | `BROKEN_REFERENCE` | substituir nas fontes correntes por URLs GitHub válidas |
+| referências `tools/`, `predictor_core/`, `previsao-cripto`, `wc-predictor-v2` | múltiplas | caminhos locais antigos | remotos `predictor-ops`, `core-predictor`, `cripto-predictor`, `wc-predictor` | `BROKEN_REFERENCE` | substituir nas fontes correntes por URLs GitHub válidas |
 | referências a `Claude` | múltiplas | snapshot mencionado como fóssil | decisão de escopo F1 | `KEEP_CURRENT` | manter apenas a nota de que não é fonte canônica |
 
 Nenhuma classificação acima autoriza alteração de ciência, execução de coleta,

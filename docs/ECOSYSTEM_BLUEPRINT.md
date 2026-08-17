@@ -8,7 +8,7 @@ architecture purposes, the pre-GitHub description in
 describe a Windows-workspace monorepo (`wc-predictor`, `predictor-stocks`,
 `previsao-cripto`, `tools/`, `predictor_core/` as sibling directories) that
 no longer matches reality: the ecosystem is now **7 independent GitHub
-repositories** (`core-predictor`, `tools-predictor`, and 5 domain
+repositories** (`core-predictor`, `predictor-ops`, and 5 domain
 predictors: `lol`, `cs`, `f1`, `cripto`, `brasileirao`), each with its own
 CI, releases, and homologation cycle. Those two root documents are kept
 as historical record, not deleted (out of scope for this session and not

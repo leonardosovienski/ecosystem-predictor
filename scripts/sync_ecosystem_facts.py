@@ -19,7 +19,7 @@ SCHEMA = "ecosystem-facts/1"
 REPOSITORIES = (
     "ecosystem-predictor",
     "core-predictor",
-    "tools-predictor",
+    "predictor-ops",
     "brasileirao-predictor",
     "cripto-predictor",
     "cs-predictor",

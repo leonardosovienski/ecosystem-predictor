@@ -105,7 +105,7 @@ apontam para os nomes novos.
 
 | Pasta local | Papel | Branch | Remoto (github.com/leonardosovienski/) |
 |---|---|---|---|
-| `tools/` | Operacional canônico | `main` | `tools-predictor` ✓ |
+| `predictor-ops/` | Operacional canônico | `main` | `predictor-ops` ✓ |
 | `predictor_core/` | Científico canônico | `main` | `core-predictor` ✓ (linha junho em `arquivo/core-junho-2026`) |
 | `brasileirao-predictor` | Vivo | `main` | `brasileirao-predictor` ✓ |
 | `cs-predictor` | Vivo | `main` | `cs-predictor` ✓ |

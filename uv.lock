@@ -437,8 +437,8 @@ requires-dist = [
     { name = "opentelemetry-instrumentation-fastapi", specifier = ">=0.50,<1" },
     { name = "opentelemetry-sdk", specifier = ">=1.29,<2" },
     { name = "pre-commit", marker = "extra == 'dev'", specifier = ">=4.3,<5" },
-    { name = "predictor-core", url = "https://github.com/leonardosovienski/core-predictor/releases/download/v2.1.0/predictor_core-2.1.0-py3-none-any.whl" },
-    { name = "predictor-ops", url = "https://github.com/leonardosovienski/tools-predictor/releases/download/v3.0.0/predictor_ops-3.0.0-py3-none-any.whl" },
+    { name = "predictor-core", url = "https://github.com/leonardosovienski/core-predictor/releases/download/v2.3.0/predictor_core-2.3.0-py3-none-any.whl" },
+    { name = "predictor-ops", url = "https://github.com/leonardosovienski/predictor-ops/releases/download/v3.1.0/predictor_ops-3.1.0-py3-none-any.whl" },
     { name = "pydantic", specifier = ">=2.11,<3" },
     { name = "pydantic-settings", specifier = ">=2.10,<3" },
     { name = "pyjwt", specifier = ">=2.10,<3" },
@@ -1036,10 +1036,10 @@ wheels = [
 
 [[package]]
 name = "predictor-core"
-version = "2.1.0"
-source = { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v2.1.0/predictor_core-2.1.0-py3-none-any.whl" }
+version = "2.3.0"
+source = { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v2.3.0/predictor_core-2.3.0-py3-none-any.whl" }
 wheels = [
-    { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v2.1.0/predictor_core-2.1.0-py3-none-any.whl", hash = "sha256:83de1d4415700dedaf387bc46dd9685e046de1fa47f37367bf2167462b09761b" },
+    { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v2.3.0/predictor_core-2.3.0-py3-none-any.whl", hash = "sha256:e0d29eac348e2be4092dde1b629c101d54973b54b5d43014cdaee69e4e17b3b9" },
 ]
 
 [package.metadata]
@@ -1055,24 +1055,24 @@ requires-dist = [
     { name = "pydantic", marker = "extra == 'dev'", specifier = ">=2.11,<3" },
     { name = "pydantic", marker = "extra == 'test'", specifier = ">=2.11,<3" },
     { name = "pyright", marker = "extra == 'dev'", specifier = ">=1.1.403,<2" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.4,<9" },
-    { name = "pytest", marker = "extra == 'test'", specifier = ">=8.4,<9" },
-    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=6.2,<7" },
-    { name = "pytest-cov", marker = "extra == 'test'", specifier = ">=6.2,<7" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=9.0.3,<10" },
+    { name = "pytest", marker = "extra == 'test'", specifier = ">=9.0.3,<10" },
+    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=6.2,<8" },
+    { name = "pytest-cov", marker = "extra == 'test'", specifier = ">=6.2,<8" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.12.7,<1" },
 ]
 provides-extras = ["dev", "http", "science", "scraping", "test"]
 
 [[package]]
 name = "predictor-ops"
-version = "3.0.0"
-source = { url = "https://github.com/leonardosovienski/tools-predictor/releases/download/v3.0.0/predictor_ops-3.0.0-py3-none-any.whl" }
+version = "3.1.0"
+source = { url = "https://github.com/leonardosovienski/predictor-ops/releases/download/v3.1.0/predictor_ops-3.1.0-py3-none-any.whl" }
 dependencies = [
     { name = "pydantic" },
     { name = "pydantic-settings" },
 ]
 wheels = [
-    { url = "https://github.com/leonardosovienski/tools-predictor/releases/download/v3.0.0/predictor_ops-3.0.0-py3-none-any.whl", hash = "sha256:9574d5fa4d17232a9d7dbd1aaff0131b65f341974508c5457b8d570bf41e8945" },
+    { url = "https://github.com/leonardosovienski/predictor-ops/releases/download/v3.1.0/predictor_ops-3.1.0-py3-none-any.whl", hash = "sha256:490ece696f9173bbaa56c2c53a1ff6e5ffab1a7625fb00ac0a5f896c37081b37" },
 ]
 
 [package.metadata]

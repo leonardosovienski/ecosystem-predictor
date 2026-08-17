@@ -1,6 +1,6 @@
 # Predictor ecosystem
 
-Ponto de entrada factual, verificado em **2026-08-11**. Este repositório é a
+Ponto de entrada factual, verificado em **2026-08-17**. Este repositório é a
 plataforma agregadora e a fonte de governança do ecossistema; não é um monorepo
 dos domínios.
 
@@ -22,9 +22,9 @@ Para retomar o trabalho, leia nesta ordem:
 ## Arquitetura atual
 
 ```text
-core-predictor 2.2.x ─┐
-                      ├─ wheels versionados ─> consumidores ativos
-tools-predictor 3.0.0 ┘
+core-predictor 2.3.x ─┐
+                      ├─ contratos e operação compartilhados
+predictor-ops 3.1.x ──┘
 
 ecosystem-predictor ───> registry, gateway, scheduler e infraestrutura própria
 
@@ -33,13 +33,13 @@ wc-predictor ──────────> projeto histórico encerrado, com C
 
 - [core-predictor](https://github.com/leonardosovienski/core-predictor) é o
   pacote científico compartilhado instalável. A release corrente observada é
-  `2.2.1`.
-- [tools-predictor](https://github.com/leonardosovienski/tools-predictor) é o
-  pacote operacional compartilhado instalável `predictor-ops`. A release
-  corrente observada é `3.0.0`.
+  `2.3.0`, que adiciona contratos econômicos neutros de domínio.
+- [predictor-ops](https://github.com/leonardosovienski/predictor-ops) é o
+  pacote operacional compartilhado. O repositório e o pacote agora possuem o
+  mesmo nome; a release corrente observada é `3.1.0`.
 - [ecosystem-predictor](https://github.com/leonardosovienski/ecosystem-predictor)
   contém registry, gateway, scheduler, storage e contratos da plataforma. No
-  HEAD desta migração preserva Core `2.1.0` e consome Ops `3.0.0`, com estado
+  HEAD desta migração consome Core `2.3.0` e Ops `3.1.0`, com estado
   operacional (`RunStatus`) separado de `scientific_state` opaco.
 - Brasileirão, Cripto, CS, F1 e LoL consomem wheels oficiais por URL e lockfile.
   A versão exata varia conforme a matriz factual.
@@ -50,16 +50,16 @@ presença de um import compartilhado também não constitui prova científica.
 
 ## Repositórios no escopo corrente
 
-| Repositório | Papel | Ref verificado em 2026-08-11 |
+| Repositório | Papel | Ref verificado em 2026-08-17 |
 |---|---|---|
 | `ecosystem-predictor` | plataforma e governança | commit deste documento |
-| `core-predictor` | Core científico compartilhado | `main@7933e4aca0ce` |
-| `tools-predictor` | Ops operacional compartilhado | `main@3ca6995e3be1` |
-| `brasileirao-predictor` | domínio | `main@5a42d6c88298` |
-| `cripto-predictor` | domínio | `main@375fe6df903e` |
-| `cs-predictor` | domínio | `main@f7bb21411450` |
-| `f1-predictor` | domínio | `main@d6e54cc9997b` |
-| `lol-predictor` | domínio | `main@17425a75101c` |
+| `core-predictor` | Core científico compartilhado | `main@f6754957eaed` |
+| `predictor-ops` | Ops operacional compartilhado | `main@eff6fc795a12` |
+| `brasileirao-predictor` | domínio | `main@fd38ee60ebc5` |
+| `cripto-predictor` | domínio | `main@770af84252f4` |
+| `cs-predictor` | domínio | `main@a762d2530772` |
+| `f1-predictor` | domínio | `main@f92c50b673e4` |
+| `lol-predictor` | domínio | `main@59670fd4dec7` |
 | `wc-predictor` | histórico encerrado | `main@40fe5135d14a` |
 
 `stocks-predictor` e `nba-predictor` estão fora do escopo desta linha de
@@ -72,12 +72,16 @@ O estado completo — incluindo Python, Core/Ops, forma de consumo, termos
 declarados por cada domínio e URLs das execuções de CI — está em
 [ECOSYSTEM_CURRENT_STATE.md](ECOSYSTEM_CURRENT_STATE.md). O resumo é:
 
-- CI verde e concreta no HEAD dos oito repositórios que possuem workflow;
-- WC sem workflow, de modo coerente com seu papel histórico;
-- Core `2.2.1` e Ops `3.0.0` são as releases correntes observadas;
-- CS já consome Core `2.2.1`; os demais domínios ativos consomem `2.2.0`;
-- a própria plataforma preserva Core `2.1.0` e consome Ops `3.0.0`;
-- nenhuma conclusão científica ou econômica foi reproduzida nesta F1.
+- o Core `2.3.0` agora define a cadeia portátil forecast → quote → decisão →
+  execução → settlement, sem incorporar política de risco ou autorização;
+- o Ops `3.1.0` agora oferece tipos de job econômicos, chave idempotente,
+  reconciliação de execução ambígua, kill switches e auditoria encadeada;
+- a plataforma agregadora e os cinco predictors ativos foram migrados para
+  Core `2.3.0` e Ops `3.1.0`; WC permanece legado por decisão de encerramento;
+- Brasileirão, CS e LoL avançaram seus pipelines shadow; F1 corrigiu o gate
+  para ser específico por estratégia; Cripto adicionou contratos, execução,
+  microestrutura e portfólio locais, sem autorizar capital;
+- WC permanece encerrado e nenhuma conclusão econômica foi promovida a GO.
 
 ## F0 encerrada
 
