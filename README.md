@@ -7,19 +7,19 @@ Este repositório é a plataforma agregadora e a fonte de governança do PREDICT
 Para retomar o trabalho, leia nesta ordem:
 
 1. [ECOSYSTEM_CHARTER.md](ECOSYSTEM_CHARTER.md) — **decisão humana canônica** sobre composição, papéis, objetivo econômico e regras de autoridade;
-2. [ECOSYSTEM_CURRENT_STATE.md](ECOSYSTEM_CURRENT_STATE.md) — fatos mecânicos, refs, dependências, CI e estado observado;
-3. [ECOSYSTEM_HANDOFF_2026-08-23.md](ECOSYSTEM_HANDOFF_2026-08-23.md) — handoff corrente após a reconciliação P0;
+2. [ECOSYSTEM_MECHANICAL_STATE.md](ECOSYSTEM_MECHANICAL_STATE.md) — inventário mecânico corrente dos seis projetos canônicos;
+3. [ECOSYSTEM_HANDOFF_2026-08-23.md](ECOSYSTEM_HANDOFF_2026-08-23.md) — handoff corrente após P0 e a reconciliação mecânica;
 4. [PENDENCIAS_ABERTAS.md](PENDENCIAS_ABERTAS.md) — pendências e registros históricos que ainda exigem interpretação temporal;
 5. o README/HANDOFF/charter do repositório que será analisado;
 6. Git, código, dados e execução observável no ref correspondente.
 
-O antigo `ECOSYSTEM_HANDOFF.md` permanece preservado como snapshot histórico.
+`ECOSYSTEM_CURRENT_STATE.md` e o antigo `ECOSYSTEM_HANDOFF.md` permanecem preservados como snapshots históricos da linha anterior.
 
 **Regra:** inventário mecânico não define escopo humano; documentação não transforma claim em fato; CI verde não comprova validade científica nem lucro.
 
 ## Composição canônica atual
 
-A composição vigente, definida por decisão humana em 2026-08-23, possui **seis projetos**:
+A composição vigente possui **seis projetos**:
 
 | Repositório | Papel |
 |---|---|
@@ -35,8 +35,6 @@ A composição vigente, definida por decisão humana em 2026-08-23, possui **sei
 ## Objetivo global
 
 Os três predictors econômicos — Cripto, Brasileirão e Stocks — existem para produzir recomendações baseadas somente em informação disponível no momento da decisão que possam demonstrar **expectativa de lucro líquido positivo de forma prospectiva e auditável**.
-
-O fluxo atual esperado é:
 
 ```text
 dados disponíveis
@@ -88,25 +86,25 @@ O Core não decide sizing, risco ou autorização de capital. O Ops não julga h
 
 ## Estados globais
 
-Os predictors devem ser descritos em eixos separados, nunca por um único `GO/NO-GO` global:
+Os predictors devem ser descritos em eixos separados:
 
-- `scientific_state`: validade da hipótese/mecanismo;
-- `predictive_state`: capacidade preditiva contra benchmark apropriado;
-- `economic_state`: evidência de edge líquido;
-- `operational_state`: capacidade de produzir/registrar/liquidar decisões de forma reproduzível;
-- `capital_permission`: autorização humana separada e fail-closed.
+- `scientific_state`;
+- `predictive_state`;
+- `economic_state`;
+- `operational_state`;
+- `capital_permission`.
 
 A semântica completa está em [ECOSYSTEM_CHARTER.md](ECOSYSTEM_CHARTER.md).
 
-## Estado mecânico e histórico
+## Inventário mecânico atual
 
-[ECOSYSTEM_CURRENT_STATE.md](ECOSYSTEM_CURRENT_STATE.md) contém um snapshot mecânico criado por uma reconciliação anterior. Ele continua útil como evidência dos refs e versões daquela coleta, mas **não tem autoridade para redefinir a composição canônica dos seis projetos**.
+A fonte corrente é [ECOSYSTEM_MECHANICAL_STATE.md](ECOSYSTEM_MECHANICAL_STATE.md), gerada a partir de `audit/canonical-ecosystem-facts.json` e validada por `scripts/sync_canonical_ecosystem_facts.py`.
 
-Documentos `FINAL_*`, `FECHAMENTO_*`, `VEREDITOS_*`, `BLOQUEIOS_*`, P4, F1 e outros artefatos datados permanecem como registros históricos. Quando houver conflito temporal, deve-se comparar a data, o ref Git e a fonte corrente antes de concluir que existe contradição.
+A primeira fotografia dos seis já evidencia uma divergência estrutural importante: `stocks-predictor` continua sem `pyproject.toml`, sem runtime Python declarado no manifest e com Core legado vendorizado, enquanto Cripto e Brasileirão consomem Core 2.3/Ops 3.1 de forma moderna. Isso é registrado como drift; não é corrigido por inferência.
+
+O snapshot de nove repositórios de 2026-08-17 em [ECOSYSTEM_CURRENT_STATE.md](ECOSYSTEM_CURRENT_STATE.md) continua histórico e não é mais o inventário mecânico corrente dos seis.
 
 ## Comandos oficiais deste repositório
-
-O ambiente é gerenciado por `uv.lock` e a CI atual cobre Python 3.13 e 3.14.
 
 ```bash
 uv sync --locked --all-extras --python 3.13
@@ -114,7 +112,14 @@ uv run ruff check src tests scripts
 uv run ruff format --check src tests scripts
 uv run pyright
 uv run coverage run -m pytest -q
+uv run python scripts/sync_canonical_ecosystem_facts.py --offline-check
 uv build
+```
+
+Para comparar explicitamente os seis HEADs remotos com o snapshot:
+
+```bash
+uv run python scripts/sync_canonical_ecosystem_facts.py --check
 ```
 
 Compose, container, segurança e smokes são definidos em [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
