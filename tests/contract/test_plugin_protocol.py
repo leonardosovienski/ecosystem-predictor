@@ -5,8 +5,8 @@ from __future__ import annotations
 import pytest
 
 from ecosystem.contracts import (
-    CapitalPermission,
     CapabilityManifest,
+    CapitalPermission,
     EconomicStatus,
     HealthReport,
     OperationalStatus,
