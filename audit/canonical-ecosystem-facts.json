@@ -1,6 +1,6 @@
 {
   "schema_version": "canonical-ecosystem-facts/1",
-  "generated_at": "2026-08-24T01:11:00+00:00",
+  "generated_at": "2026-08-24T02:31:00+00:00",
   "scope_authority": "ECOSYSTEM_CHARTER.md",
   "repositories": [
     {
@@ -42,8 +42,8 @@
     {
       "repository": "ecosystem-predictor",
       "branch": "main",
-      "head": "f109641dc6c21a7817574fbc9e7c54e41abea532",
-      "source_ref": "ecosystem-predictor@f109641dc6c21a7817574fbc9e7c54e41abea532",
+      "head": "22dc663c253664f20baa05cb05a5eca9c262d733",
+      "source_ref": "ecosystem-predictor@22dc663c253664f20baa05cb05a5eca9c262d733",
       "version": "0.1.0",
       "python": ">=3.13,<3.15",
       "core": ">=2.3,<3 (v2.3.0)",
@@ -66,14 +66,14 @@
     {
       "repository": "stocks-predictor",
       "branch": "main",
-      "head": "e51443b8d53ff826117280b8435b03335294dfcf",
-      "source_ref": "stocks-predictor@e51443b8d53ff826117280b8435b03335294dfcf",
-      "version": "requirements",
-      "python": "não declarado",
-      "core": "legado vendorizado",
-      "ops": "—",
+      "head": "111182edbf4999515e89271e88ecd7b90a898070",
+      "source_ref": "stocks-predictor@111182edbf4999515e89271e88ecd7b90a898070",
+      "version": "0.1.0",
+      "python": ">=3.13,<3.15",
+      "core": ">=2.3,<3 (v2.3.0)",
+      "ops": ">=3.1,<4 (v3.1.0)",
       "workflow": ".github/workflows/ci.yml",
-      "canonical": ["HANDOFF.md", "README.md", "requirements.txt"]
+      "canonical": ["HANDOFF.md", "README.md", "STOCKS_CURRENT_STATE.md", "pyproject.toml", "requirements.txt"]
     }
   ]
 }

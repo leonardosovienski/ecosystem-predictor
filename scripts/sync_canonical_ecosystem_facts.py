@@ -26,6 +26,7 @@ REPOSITORIES = (
 CANONICAL_NAMES = {
     "README.md",
     "HANDOFF.md",
+    "STOCKS_CURRENT_STATE.md",
     "ECOSYSTEM_CHARTER.md",
     "ECOSYSTEM_HANDOFF_2026-08-23.md",
     "ECOSYSTEM_MECHANICAL_STATE.md",
@@ -85,7 +86,6 @@ def _source_tag(document: dict[str, Any], package: str) -> str:
 
 def _package_facts(content: str | None) -> tuple[str, str, str, str]:
     if content is None:
-        # The current Stocks repository deliberately exposes this legacy shape.
         return "requirements", "não declarado", "legado vendorizado", "—"
     document = tomllib.loads(content)
     project = document.get("project", {})
