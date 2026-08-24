@@ -7,13 +7,13 @@ Este repositório é a plataforma agregadora e a fonte de governança do PREDICT
 Para retomar o trabalho, leia nesta ordem:
 
 1. [ECOSYSTEM_CHARTER.md](ECOSYSTEM_CHARTER.md) — **decisão humana canônica** sobre composição, papéis, objetivo econômico e regras de autoridade;
-2. [ECOSYSTEM_MECHANICAL_STATE.md](ECOSYSTEM_MECHANICAL_STATE.md) — inventário mecânico corrente dos seis projetos canônicos;
-3. [ECOSYSTEM_HANDOFF_2026-08-23.md](ECOSYSTEM_HANDOFF_2026-08-23.md) — handoff corrente após P0 e a reconciliação mecânica;
-4. [PENDENCIAS_ABERTAS.md](PENDENCIAS_ABERTAS.md) — pendências e registros históricos que ainda exigem interpretação temporal;
-5. o README/HANDOFF/charter do repositório que será analisado;
+2. [PREDICTOR_CONTRACT.md](PREDICTOR_CONTRACT.md) — contrato canônico dos predictors e dos estados globais;
+3. [ECOSYSTEM_MECHANICAL_STATE.md](ECOSYSTEM_MECHANICAL_STATE.md) — inventário mecânico corrente dos seis projetos canônicos;
+4. [ECOSYSTEM_HANDOFF_2026-08-23.md](ECOSYSTEM_HANDOFF_2026-08-23.md) — continuidade corrente após P0/P1;
+5. o README/HANDOFF/current-state/charter do repositório que será analisado;
 6. Git, código, dados e execução observável no ref correspondente.
 
-`ECOSYSTEM_CURRENT_STATE.md` e o antigo `ECOSYSTEM_HANDOFF.md` permanecem preservados como snapshots históricos da linha anterior.
+`ECOSYSTEM_CURRENT_STATE.md`, o antigo `ECOSYSTEM_HANDOFF.md` e demais fechamentos datados permanecem preservados como snapshots históricos. Eles não redefinem o estado atual quando divergem do Charter, do contrato, do código ou de evidência mais recente.
 
 **Regra:** inventário mecânico não define escopo humano; documentação não transforma claim em fato; CI verde não comprova validade científica nem lucro.
 
@@ -76,7 +76,7 @@ Melhora de accuracy, RPS, Brier, log-loss, correlação, um backtest bruto posit
               └──────────── predictors econômicos ───┘
 ```
 
-O Core já define a cadeia econômica portátil:
+O Core define a cadeia econômica portátil:
 
 ```text
 ProbabilisticForecast → MarketQuote → EconomicDecision → ExecutionRecord → SettlementRecord
@@ -84,23 +84,31 @@ ProbabilisticForecast → MarketQuote → EconomicDecision → ExecutionRecord �
 
 O Core não decide sizing, risco ou autorização de capital. O Ops não julga hipótese nem rentabilidade. O Ecosystem não inventa previsão nem reclassifica ciência local sem evidência.
 
-## Estados globais
+## Estados e contrato global
 
-Os predictors devem ser descritos em eixos separados:
+Os predictors são descritos em eixos separados:
 
-- `scientific_state`;
-- `predictive_state`;
-- `economic_state`;
-- `operational_state`;
+- `scientific_status`;
+- `predictive_status`;
+- `economic_status`;
+- `operational_status`;
 - `capital_permission`.
 
-A semântica completa está em [ECOSYSTEM_CHARTER.md](ECOSYSTEM_CHARTER.md).
+Estados ausentes falham fechados e `capital_permission` permanece `FORBIDDEN` sem promoção humana explícita. A semântica executável está em [PREDICTOR_CONTRACT.md](PREDICTOR_CONTRACT.md) e nos tipos em `src/ecosystem/contracts/`.
 
-## Inventário mecânico atual
+## Integração mecânica atual
 
 A fonte corrente é [ECOSYSTEM_MECHANICAL_STATE.md](ECOSYSTEM_MECHANICAL_STATE.md), gerada a partir de `audit/canonical-ecosystem-facts.json` e validada por `scripts/sync_canonical_ecosystem_facts.py`.
 
-A primeira fotografia dos seis já evidencia uma divergência estrutural importante: `stocks-predictor` continua sem `pyproject.toml`, sem runtime Python declarado no manifest e com Core legado vendorizado, enquanto Cripto e Brasileirão consomem Core 2.3/Ops 3.1 de forma moderna. Isso é registrado como drift; não é corrigido por inferência.
+Após a reconciliação P1, os três predictors econômicos declaram Python `>=3.13,<3.15`, Core 2.3.x e Ops 3.1.x e publicam adapters pelo mesmo entry-point `predictor.plugins`:
+
+```text
+cripto      = GarimpoInvestimentos.plugin:PLUGIN
+brasileirao = src.ecosystem_plugin:PLUGIN
+stocks      = src.ecosystem_plugin:PLUGIN
+```
+
+O snapshot mecânico também coleta esses entry-points. Essa integração comprova apenas compatibilidade arquitetural/descoberta; não comprova edge científico, resultado econômico ou prontidão para capital.
 
 O snapshot de nove repositórios de 2026-08-17 em [ECOSYSTEM_CURRENT_STATE.md](ECOSYSTEM_CURRENT_STATE.md) continua histórico e não é mais o inventário mecânico corrente dos seis.
 
