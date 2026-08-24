@@ -1,34 +1,34 @@
 # Estado mecânico dos seis projetos canônicos
 
-Este documento é o inventário mecânico corrente dos **seis repositórios definidos por `ECOSYSTEM_CHARTER.md`**. Ele mede identidade, HEAD, runtime declarado, forma de consumo de Core/Ops, workflow e arquivos canônicos encontrados.
+Este documento é o inventário mecânico corrente dos **seis repositórios definidos por `ECOSYSTEM_CHARTER.md`**. Ele mede identidade, HEAD, runtime declarado, forma de consumo de Core/Ops, entry point do plugin, workflow e arquivos canônicos encontrados.
 
 Ele **não decide escopo**, não promove hipótese, não prova edge e não autoriza capital. O snapshot F1 de nove repositórios em `ECOSYSTEM_CURRENT_STATE.md` permanece preservado como evidência histórica de 2026-08-17.
 
 <!-- canonical-mechanical-facts:start -->
-_Snapshot `canonical-ecosystem-facts/1` gerado em `2026-08-24T02:31:00+00:00`._
+_Snapshot `canonical-ecosystem-facts/2` gerado em `2026-08-24T02:55:00+00:00`._
 _Escopo humano vem de `ECOSYSTEM_CHARTER.md`; este bloco só mede fatos mecânicos._
 
-| Repositório | Branch / HEAD | Pacote / Python | Core / Ops | Workflow | Canônicos |
-|---|---|---|---|---|---|
-| `brasileirao-predictor` | `main` / `3837f84cce4c` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | `.github/workflows/ci.yml` | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
-| `core-predictor` | `main` / `f6754957eaed` | `2.3.0` / `>=3.13` | Core `—` / Ops `—` | `.github/workflows/ci.yml` | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
-| `cripto-predictor` | `main` / `742b91ccd8a9` | `1.0.0` / `>=3.13,<3.15` | Core `>=2.3.0,<3 (v2.3.0)` / Ops `>=3.1.0,<4 (v3.1.0)` | `.github/workflows/ci.yml` | `HANDOFF.md`, `README.md`, `pyproject.toml`, `requirements.txt`, `uv.lock` |
-| `ecosystem-predictor` | `main` / `22dc663c2536` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | `.github/workflows/ci.yml` | `ECOSYSTEM_CHARTER.md`, `ECOSYSTEM_HANDOFF_2026-08-23.md`, `ECOSYSTEM_MECHANICAL_STATE.md`, `README.md`, `pyproject.toml`, `uv.lock` |
-| `predictor-ops` | `main` / `c48b0a31a7eb` | `3.1.0` / `>=3.13` | Core `—` / Ops `—` | `.github/workflows/ci.yml` | `README.md`, `pyproject.toml`, `uv.lock` |
-| `stocks-predictor` | `main` / `111182edbf49` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | `.github/workflows/ci.yml` | `HANDOFF.md`, `README.md`, `STOCKS_CURRENT_STATE.md`, `pyproject.toml`, `requirements.txt` |
+| Repositório | Branch / HEAD | Pacote / Python | Core / Ops | Plugin | Workflow | Canônicos |
+|---|---|---|---|---|---|---|
+| `brasileirao-predictor` | `main` / `f1ced5d09a48` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | `brasileirao=src.ecosystem_plugin:PLUGIN` | `.github/workflows/ci.yml` | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `core-predictor` | `main` / `f6754957eaed` | `2.3.0` / `>=3.13` | Core `—` / Ops `—` | `—` | `.github/workflows/ci.yml` | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `cripto-predictor` | `main` / `2fc87a19011c` | `1.0.0` / `>=3.13,<3.15` | Core `>=2.3.0,<3 (v2.3.0)` / Ops `>=3.1.0,<4 (v3.1.0)` | `cripto=GarimpoInvestimentos.plugin:PLUGIN` | `.github/workflows/ci.yml` | `HANDOFF.md`, `README.md`, `pyproject.toml`, `requirements.txt`, `uv.lock` |
+| `ecosystem-predictor` | `main` / `0bb83c89cc59` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | `—` | `.github/workflows/ci.yml` | `ECOSYSTEM_CHARTER.md`, `ECOSYSTEM_HANDOFF_2026-08-23.md`, `ECOSYSTEM_MECHANICAL_STATE.md`, `PREDICTOR_CONTRACT.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `predictor-ops` | `main` / `c48b0a31a7eb` | `3.1.0` / `>=3.13` | Core `—` / Ops `—` | `—` | `.github/workflows/ci.yml` | `README.md`, `pyproject.toml`, `uv.lock` |
+| `stocks-predictor` | `main` / `fb9262f5fece` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | `stocks=src.ecosystem_plugin:PLUGIN` | `.github/workflows/ci.yml` | `HANDOFF.md`, `README.md`, `STOCKS_CURRENT_STATE.md`, `pyproject.toml`, `requirements.txt` |
 <!-- canonical-mechanical-facts:end -->
 
 ## Achados mecânicos imediatos
 
-A reconciliação de 2026-08-24 confirma que o drift arquitetural principal do Stocks foi fechado:
+A reconciliação de 2026-08-24 confirma o fechamento dos principais drifts arquiteturais de P1:
 
-- os seis projetos canônicos agora declaram runtime/package metadata compatível com sua função; 
 - os três predictors econômicos — Cripto, Brasileirão e Stocks — declaram Core 2.3 e Ops 3.1 como dependências compartilhadas;
-- Stocks deixou de aparecer mecanicamente como `requirements / Python não declarado / Core vendorizado / Ops ausente` e passou a `stocks-predictor 0.1.0 / Python >=3.13,<3.15 / Core 2.3 / Ops 3.1`;
-- `vendor/predictor_core` ainda existe em Stocks como artefato histórico, mas sua existência não altera os fatos de dependência coletados do `pyproject.toml`;
-- Stocks ainda não possui `uv.lock` no snapshot corrente. Isso permanece dívida técnica de reprodutibilidade de dependências, não falha científica do RJ.
+- os três agora expõem um adapter pelo mesmo entry-point group `predictor.plugins`, tornando a superfície de descoberta mecanicamente verificável;
+- `PREDICTOR_CONTRACT.md` define o vocabulário comum de estados científico, preditivo, econômico, operacional e permissão de capital, além de `NO_OPPORTUNITY` como resultado válido;
+- Stocks permanece sem `uv.lock`; isso é dívida técnica de reprodutibilidade de dependências, não falha científica do RJ;
+- a existência de plugin/dependência não prova que um domínio tem edge nem que toda a operação já usa todas as funções de Ops.
 
-A migração técnica do Stocks não constitui prova de edge, não altera estado científico e não autoriza capital.
+A integração técnica não constitui prova de edge, não altera estado científico e não autoriza capital.
 
 ## Atualização
 

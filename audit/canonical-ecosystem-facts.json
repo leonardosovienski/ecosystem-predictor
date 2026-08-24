@@ -1,17 +1,18 @@
 {
-  "schema_version": "canonical-ecosystem-facts/1",
-  "generated_at": "2026-08-24T02:31:00+00:00",
+  "schema_version": "canonical-ecosystem-facts/2",
+  "generated_at": "2026-08-24T02:55:00+00:00",
   "scope_authority": "ECOSYSTEM_CHARTER.md",
   "repositories": [
     {
       "repository": "brasileirao-predictor",
       "branch": "main",
-      "head": "3837f84cce4c727c0e39bba1caf351f5206e2cdb",
-      "source_ref": "brasileirao-predictor@3837f84cce4c727c0e39bba1caf351f5206e2cdb",
+      "head": "f1ced5d09a483c3a1c261df0728b00f4c78671c1",
+      "source_ref": "brasileirao-predictor@f1ced5d09a483c3a1c261df0728b00f4c78671c1",
       "version": "0.1.0",
       "python": ">=3.13,<3.15",
       "core": ">=2.3,<3 (v2.3.0)",
       "ops": ">=3.1,<4 (v3.1.0)",
+      "plugin": "brasileirao=src.ecosystem_plugin:PLUGIN",
       "workflow": ".github/workflows/ci.yml",
       "canonical": ["HANDOFF.md", "README.md", "pyproject.toml", "uv.lock"]
     },
@@ -24,32 +25,35 @@
       "python": ">=3.13",
       "core": "—",
       "ops": "—",
+      "plugin": "—",
       "workflow": ".github/workflows/ci.yml",
       "canonical": ["HANDOFF.md", "README.md", "pyproject.toml", "uv.lock"]
     },
     {
       "repository": "cripto-predictor",
       "branch": "main",
-      "head": "742b91ccd8a9b7bcc73351b8d6c90446355ac8cc",
-      "source_ref": "cripto-predictor@742b91ccd8a9b7bcc73351b8d6c90446355ac8cc",
+      "head": "2fc87a19011c77df8fa89c828e469203369219e7",
+      "source_ref": "cripto-predictor@2fc87a19011c77df8fa89c828e469203369219e7",
       "version": "1.0.0",
       "python": ">=3.13,<3.15",
       "core": ">=2.3.0,<3 (v2.3.0)",
       "ops": ">=3.1.0,<4 (v3.1.0)",
+      "plugin": "cripto=GarimpoInvestimentos.plugin:PLUGIN",
       "workflow": ".github/workflows/ci.yml",
       "canonical": ["HANDOFF.md", "README.md", "pyproject.toml", "requirements.txt", "uv.lock"]
     },
     {
       "repository": "ecosystem-predictor",
       "branch": "main",
-      "head": "22dc663c253664f20baa05cb05a5eca9c262d733",
-      "source_ref": "ecosystem-predictor@22dc663c253664f20baa05cb05a5eca9c262d733",
+      "head": "0bb83c89cc5984039244cf30a5e86bf130e17df5",
+      "source_ref": "ecosystem-predictor@0bb83c89cc5984039244cf30a5e86bf130e17df5",
       "version": "0.1.0",
       "python": ">=3.13,<3.15",
       "core": ">=2.3,<3 (v2.3.0)",
       "ops": ">=3.1,<4 (v3.1.0)",
+      "plugin": "—",
       "workflow": ".github/workflows/ci.yml",
-      "canonical": ["ECOSYSTEM_CHARTER.md", "ECOSYSTEM_HANDOFF_2026-08-23.md", "ECOSYSTEM_MECHANICAL_STATE.md", "README.md", "pyproject.toml", "uv.lock"]
+      "canonical": ["ECOSYSTEM_CHARTER.md", "ECOSYSTEM_HANDOFF_2026-08-23.md", "ECOSYSTEM_MECHANICAL_STATE.md", "PREDICTOR_CONTRACT.md", "README.md", "pyproject.toml", "uv.lock"]
     },
     {
       "repository": "predictor-ops",
@@ -60,18 +64,20 @@
       "python": ">=3.13",
       "core": "—",
       "ops": "—",
+      "plugin": "—",
       "workflow": ".github/workflows/ci.yml",
       "canonical": ["README.md", "pyproject.toml", "uv.lock"]
     },
     {
       "repository": "stocks-predictor",
       "branch": "main",
-      "head": "111182edbf4999515e89271e88ecd7b90a898070",
-      "source_ref": "stocks-predictor@111182edbf4999515e89271e88ecd7b90a898070",
+      "head": "fb9262f5fecebdd1844dee43e5ae2d1ec25ef32c",
+      "source_ref": "stocks-predictor@fb9262f5fecebdd1844dee43e5ae2d1ec25ef32c",
       "version": "0.1.0",
       "python": ">=3.13,<3.15",
       "core": ">=2.3,<3 (v2.3.0)",
       "ops": ">=3.1,<4 (v3.1.0)",
+      "plugin": "stocks=src.ecosystem_plugin:PLUGIN",
       "workflow": ".github/workflows/ci.yml",
       "canonical": ["HANDOFF.md", "README.md", "STOCKS_CURRENT_STATE.md", "pyproject.toml", "requirements.txt"]
     }
