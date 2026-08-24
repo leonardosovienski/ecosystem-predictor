@@ -1,16 +1,14 @@
 # Handoff corrente do PREDICTORS — 2026-08-23
 
-Este é o handoff corrente após a reconciliação P0 de escopo. O antigo
-`ECOSYSTEM_HANDOFF.md` permanece preservado como histórico e não deve ser usado
-para redefinir o escopo atual quando divergir deste documento ou do Charter.
+Este é o handoff corrente após a reconciliação P0 de escopo e a primeira reconciliação mecânica dos seis projetos canônicos. O antigo `ECOSYSTEM_HANDOFF.md` permanece preservado como histórico e não deve ser usado para redefinir o escopo atual quando divergir deste documento ou do Charter.
 
 ## 1. Fonte de autoridade
 
 1. `ECOSYSTEM_CHARTER.md` — composição, papéis, objetivo econômico, estados e regra de autoridade;
-2. `ECOSYSTEM_CURRENT_STATE.md` — fatos mecânicos e snapshots, sempre interpretados pela data;
+2. `ECOSYSTEM_MECHANICAL_STATE.md` — inventário mecânico corrente dos seis canônicos;
 3. este handoff — continuidade operacional da governança;
 4. código/Git/dados/CI do projeto analisado;
-5. documentos históricos, válidos para suas datas.
+5. `ECOSYSTEM_CURRENT_STATE.md` e demais documentos históricos, válidos para suas datas.
 
 ## 2. Escopo canônico
 
@@ -37,7 +35,7 @@ Capital real continua fail-closed e depende de decisão humana explícita.
 
 ## 4. Estados globais
 
-A governança passa a separar obrigatoriamente:
+A governança separa obrigatoriamente:
 
 - `scientific_state`;
 - `predictive_state`;
@@ -47,21 +45,34 @@ A governança passa a separar obrigatoriamente:
 
 Nenhum domínio deve usar um único `GO/NO-GO` para esconder diferenças entre esses eixos.
 
-## 5. Reconciliação desta P0
+## 5. Reconciliação P0 concluída
 
-Corrigido no `ecosystem-predictor`:
+Foi corrigido no `ecosystem-predictor`:
 
 - criação do Charter canônico;
 - README deixa de declarar Stocks fora do escopo;
-- README separa os seis atuais dos projetos históricos;
-- `ECOSYSTEM_CURRENT_STATE.md` passa a rotular explicitamente o inventário de 17/08 como snapshot histórico da F1;
-- ausência de Stocks no snapshot de 17/08 deixa de ser interpretável como exclusão vigente;
-- missão econômica dos três predictors passa a estar escrita de forma explícita;
-- ciência, predição, economia e operação passam a ter estados globais separados por definição.
+- separação dos seis atuais dos projetos históricos;
+- snapshot F1 de 17/08 preservado como histórico, sem poder excluir Stocks;
+- missão econômica dos três predictors escrita explicitamente;
+- ciência, predição, economia e operação separados por definição;
+- criação de `ECOSYSTEM_MECHANICAL_STATE.md` e `audit/canonical-ecosystem-facts.json`;
+- novo coletor `scripts/sync_canonical_ecosystem_facts.py` limitado exatamente aos seis definidos pelo Charter;
+- CI passa a validar a consistência interna do snapshot mecânico canônico.
 
-## 6. O que esta P0 NÃO afirma
+## 6. Primeira fotografia mecânica dos seis
 
-Esta P0 não afirma que:
+A coleta atual registra:
+
+- Ecosystem, Core, Ops, Cripto e Brasileirão com `pyproject.toml` e runtime Python declarado;
+- Cripto e Brasileirão consumindo Core 2.3 / Ops 3.1 por dependência moderna;
+- Stocks como a exceção estrutural: sem `pyproject.toml`, sem runtime Python declarado no manifest, Core vendorizado legado e sem Ops compartilhado declarado;
+- todos os seis possuem workflow `.github/workflows/ci.yml` no HEAD observado.
+
+A assimetria de Stocks é classificada como **drift arquitetural observado**. Ela não é corrigida automaticamente nesta fase.
+
+## 7. O que esta fase NÃO afirma
+
+Esta fase não afirma que:
 
 - Stocks já esteja integrado tecnicamente a Core 2.3/Ops 3.1;
 - o registry atual consiga descobrir/despachar os três predictors;
@@ -70,10 +81,8 @@ Esta P0 não afirma que:
 - Stocks/RJ tenha dados reais ou edge comprovado;
 - qualquer predictor esteja autorizado para capital real.
 
-Esses pontos continuam sujeitos a auditoria e fases posteriores.
+## 8. Próxima fronteira
 
-## 7. Próxima fronteira
+Com o escopo e o inventário dos seis reconciliados, a próxima fase deve atacar **drift técnico real**, começando por Stocks e pela capacidade do Ecosystem de representar/descobrir os três predictors econômicos de forma coerente.
 
-Depois desta P0 de governança, a próxima reconciliação mecânica deve inspecionar os HEADs atuais dos seis projetos, incluir Stocks no inventário técnico e classificar divergências como `CONTRADICTION`, `STALE`, `INTENTIONAL_DIVERGENCE`, `UNVERIFIED_CLAIM`, `BROKEN` ou `INCOMPLETE`.
-
-Não promover automaticamente dependências, modelos ou capital durante essa coleta.
+Qualquer mudança deve continuar classificada como `CONTRADICTION`, `STALE`, `INTENTIONAL_DIVERGENCE`, `UNVERIFIED_CLAIM`, `BROKEN` ou `INCOMPLETE` antes de ser corrigida.
