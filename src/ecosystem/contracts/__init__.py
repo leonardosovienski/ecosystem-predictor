@@ -1,8 +1,8 @@
 """Versioned wire and plugin contracts for the ecosystem aggregator."""
 
 from ecosystem.contracts.v1 import (
-    CapitalPermission,
     CapabilityManifest,
+    CapitalPermission,
     EconomicStatus,
     HealthReport,
     OperationalStatus,
@@ -14,8 +14,8 @@ from ecosystem.contracts.v1 import (
 )
 
 __all__ = [
-    "CapitalPermission",
     "CapabilityManifest",
+    "CapitalPermission",
     "EconomicStatus",
     "HealthReport",
     "OperationalStatus",
