@@ -49,7 +49,7 @@
       "core": ">=2.3,<3 (v2.3.0)",
       "ops": ">=3.1,<4 (v3.1.0)",
       "workflow": ".github/workflows/ci.yml",
-      "canonical": ["ECOSYSTEM_CHARTER.md", "ECOSYSTEM_HANDOFF_2026-08-23.md", "README.md", "pyproject.toml", "uv.lock"]
+      "canonical": ["ECOSYSTEM_CHARTER.md", "ECOSYSTEM_HANDOFF_2026-08-23.md", "ECOSYSTEM_MECHANICAL_STATE.md", "README.md", "pyproject.toml", "uv.lock"]
     },
     {
       "repository": "predictor-ops",
