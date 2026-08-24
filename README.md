@@ -8,10 +8,12 @@ Para retomar o trabalho, leia nesta ordem:
 
 1. [ECOSYSTEM_CHARTER.md](ECOSYSTEM_CHARTER.md) — **decisão humana canônica** sobre composição, papéis, objetivo econômico e regras de autoridade;
 2. [ECOSYSTEM_CURRENT_STATE.md](ECOSYSTEM_CURRENT_STATE.md) — fatos mecânicos, refs, dependências, CI e estado observado;
-3. [ECOSYSTEM_HANDOFF.md](ECOSYSTEM_HANDOFF.md) — continuidade e histórico de decisões;
+3. [ECOSYSTEM_HANDOFF_2026-08-23.md](ECOSYSTEM_HANDOFF_2026-08-23.md) — handoff corrente após a reconciliação P0;
 4. [PENDENCIAS_ABERTAS.md](PENDENCIAS_ABERTAS.md) — pendências e registros históricos que ainda exigem interpretação temporal;
 5. o README/HANDOFF/charter do repositório que será analisado;
 6. Git, código, dados e execução observável no ref correspondente.
+
+O antigo `ECOSYSTEM_HANDOFF.md` permanece preservado como snapshot histórico.
 
 **Regra:** inventário mecânico não define escopo humano; documentação não transforma claim em fato; CI verde não comprova validade científica nem lucro.
 
