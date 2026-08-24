@@ -1,0 +1,79 @@
+{
+  "schema_version": "canonical-ecosystem-facts/1",
+  "generated_at": "2026-08-24T01:11:00+00:00",
+  "scope_authority": "ECOSYSTEM_CHARTER.md",
+  "repositories": [
+    {
+      "repository": "brasileirao-predictor",
+      "branch": "main",
+      "head": "3837f84cce4c727c0e39bba1caf351f5206e2cdb",
+      "source_ref": "brasileirao-predictor@3837f84cce4c727c0e39bba1caf351f5206e2cdb",
+      "version": "0.1.0",
+      "python": ">=3.13,<3.15",
+      "core": ">=2.3,<3 (v2.3.0)",
+      "ops": ">=3.1,<4 (v3.1.0)",
+      "workflow": ".github/workflows/ci.yml",
+      "canonical": ["HANDOFF.md", "README.md", "pyproject.toml", "uv.lock"]
+    },
+    {
+      "repository": "core-predictor",
+      "branch": "main",
+      "head": "f6754957eaed619a9a0e800668d845aec4c227f1",
+      "source_ref": "core-predictor@f6754957eaed619a9a0e800668d845aec4c227f1",
+      "version": "2.3.0",
+      "python": ">=3.13",
+      "core": "—",
+      "ops": "—",
+      "workflow": ".github/workflows/ci.yml",
+      "canonical": ["HANDOFF.md", "README.md", "pyproject.toml", "uv.lock"]
+    },
+    {
+      "repository": "cripto-predictor",
+      "branch": "main",
+      "head": "742b91ccd8a9b7bcc73351b8d6c90446355ac8cc",
+      "source_ref": "cripto-predictor@742b91ccd8a9b7bcc73351b8d6c90446355ac8cc",
+      "version": "1.0.0",
+      "python": ">=3.13,<3.15",
+      "core": ">=2.3.0,<3 (v2.3.0)",
+      "ops": ">=3.1.0,<4 (v3.1.0)",
+      "workflow": ".github/workflows/ci.yml",
+      "canonical": ["HANDOFF.md", "README.md", "pyproject.toml", "requirements.txt", "uv.lock"]
+    },
+    {
+      "repository": "ecosystem-predictor",
+      "branch": "main",
+      "head": "f109641dc6c21a7817574fbc9e7c54e41abea532",
+      "source_ref": "ecosystem-predictor@f109641dc6c21a7817574fbc9e7c54e41abea532",
+      "version": "0.1.0",
+      "python": ">=3.13,<3.15",
+      "core": ">=2.3,<3 (v2.3.0)",
+      "ops": ">=3.1,<4 (v3.1.0)",
+      "workflow": ".github/workflows/ci.yml",
+      "canonical": ["ECOSYSTEM_CHARTER.md", "ECOSYSTEM_HANDOFF_2026-08-23.md", "README.md", "pyproject.toml", "uv.lock"]
+    },
+    {
+      "repository": "predictor-ops",
+      "branch": "main",
+      "head": "c48b0a31a7eb584c571b6c224e9700fc212aa7ab",
+      "source_ref": "predictor-ops@c48b0a31a7eb584c571b6c224e9700fc212aa7ab",
+      "version": "3.1.0",
+      "python": ">=3.13",
+      "core": "—",
+      "ops": "—",
+      "workflow": ".github/workflows/ci.yml",
+      "canonical": ["README.md", "pyproject.toml", "uv.lock"]
+    },
+    {
+      "repository": "stocks-predictor",
+      "branch": "main",
+      "head": "e51443b8d53ff826117280b8435b03335294dfcf",
+      "source_ref": "stocks-predictor@e51443b8d53ff826117280b8435b03335294dfcf",
+      "version": "requirements",
+      "python": "não declarado",
+      "core": "legado vendorizado",
+      "ops": "—",
+      "workflow": ".github/workflows/ci.yml",
+      "canonical": ["HANDOFF.md", "README.md", "requirements.txt"]
+    }
+  ]
+}
