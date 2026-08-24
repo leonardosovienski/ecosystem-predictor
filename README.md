@@ -1,145 +1,122 @@
 # Predictor ecosystem
 
-Ponto de entrada factual, verificado em **2026-08-17**. Este repositório é a
-plataforma agregadora e a fonte de governança do ecossistema; não é um monorepo
-dos domínios.
+Este repositório é a plataforma agregadora e a fonte de governança do PREDICTORS; não é um monorepo dos domínios.
+
+## Fonte de autoridade
 
 Para retomar o trabalho, leia nesta ordem:
 
-1. [ECOSYSTEM_CURRENT_STATE.md](ECOSYSTEM_CURRENT_STATE.md) — inventário
-   mecânico, refs, dependências e CI no HEAD;
-2. [ECOSYSTEM_HANDOFF.md](ECOSYSTEM_HANDOFF.md) — continuidade e limites de
-   autorização;
-3. [PENDENCIAS_ABERTAS.md](PENDENCIAS_ABERTAS.md) — pendências factuais que
-   ainda exigem decisão;
-4. [P4_CONSOLIDATION.md](P4_CONSOLIDATION.md) — contrato temporal comparado,
-   decisão sobre Core, proveniência e limites da P4;
-5. [TCC_EVIDENCE_CLOSURE.md](TCC_EVIDENCE_CLOSURE.md) — contribuições,
-   alegações permitidas e limitações acadêmicas;
-6. o README/HANDOFF do repositório que será analisado;
-7. Git e código no ref registrado.
+1. [ECOSYSTEM_CHARTER.md](ECOSYSTEM_CHARTER.md) — **decisão humana canônica** sobre composição, papéis, objetivo econômico e regras de autoridade;
+2. [ECOSYSTEM_CURRENT_STATE.md](ECOSYSTEM_CURRENT_STATE.md) — fatos mecânicos, refs, dependências, CI e estado observado;
+3. [ECOSYSTEM_HANDOFF.md](ECOSYSTEM_HANDOFF.md) — continuidade e histórico de decisões;
+4. [PENDENCIAS_ABERTAS.md](PENDENCIAS_ABERTAS.md) — pendências e registros históricos que ainda exigem interpretação temporal;
+5. o README/HANDOFF/charter do repositório que será analisado;
+6. Git, código, dados e execução observável no ref correspondente.
 
-## Arquitetura atual
+**Regra:** inventário mecânico não define escopo humano; documentação não transforma claim em fato; CI verde não comprova validade científica nem lucro.
+
+## Composição canônica atual
+
+A composição vigente, definida por decisão humana em 2026-08-23, possui **seis projetos**:
+
+| Repositório | Papel |
+|---|---|
+| `ecosystem-predictor` | governança, registry, gateway, scheduler, storage e visão agregada |
+| `core-predictor` | contratos científicos, temporais, métricas e contratos econômicos compartilhados |
+| `predictor-ops` | execução operacional, idempotência, observabilidade, reconciliação e controles de runtime |
+| `cripto-predictor` | predictor econômico de cripto |
+| `brasileirao-predictor` | predictor econômico de mercados do Brasileirão |
+| `stocks-predictor` | predictor econômico de ações; domínio ativo atual `predictor-rj` |
+
+`cs-predictor`, `f1-predictor`, `lol-predictor`, `wc-predictor`, `nba-predictor` e outros repositórios preservados são históricos, referência ou trabalho fora do escopo canônico atual. Eles não são apagados e seus resultados históricos continuam válidos para a data em que foram produzidos.
+
+## Objetivo global
+
+Os três predictors econômicos — Cripto, Brasileirão e Stocks — existem para produzir recomendações baseadas somente em informação disponível no momento da decisão que possam demonstrar **expectativa de lucro líquido positivo de forma prospectiva e auditável**.
+
+O fluxo atual esperado é:
 
 ```text
-core-predictor 2.3.x ─┐
-                      ├─ contratos e operação compartilhados
-predictor-ops 3.1.x ──┘
-
-ecosystem-predictor ───> registry, gateway, scheduler e infraestrutura própria
-
-wc-predictor ──────────> projeto histórico encerrado, com Core legado vendorizado
+dados disponíveis
+      ↓
+previsão / sinal
+      ↓
+recomendação
+      ↓
+execução humana
+      ↓
+settlement
+      ↓
+P&L líquido auditável
 ```
 
-- [core-predictor](https://github.com/leonardosovienski/core-predictor) é o
-  pacote científico compartilhado instalável. A release corrente observada é
-  `2.3.0`, que adiciona contratos econômicos neutros de domínio.
-- [predictor-ops](https://github.com/leonardosovienski/predictor-ops) é o
-  pacote operacional compartilhado. O repositório e o pacote agora possuem o
-  mesmo nome; a release corrente observada é `3.1.0`.
-- [ecosystem-predictor](https://github.com/leonardosovienski/ecosystem-predictor)
-  contém registry, gateway, scheduler, storage e contratos da plataforma. No
-  HEAD desta migração consome Core `2.3.0` e Ops `3.1.0`, com estado
-  operacional (`RunStatus`) separado de `scientific_state` opaco.
-- Brasileirão, Cripto, CS, F1 e LoL consomem wheels oficiais por URL e lockfile.
-  A versão exata varia conforme a matriz factual.
-- WC permanece encerrado e vendorizado. A F1 não propõe modernização.
+A execução pode ser otimizada ou automatizada no futuro. Hoje, automação não é requisito para validar edge. `NO_OPPORTUNITY` é uma saída válida.
 
-Não há importação direta entre domínios demonstrada por esta arquitetura. A
-presença de um import compartilhado também não constitui prova científica.
+Melhora de accuracy, RPS, Brier, log-loss, correlação, um backtest bruto positivo, CI verde ou identificação retrospectiva de rally **não equivalem a lucro**.
 
-## Repositórios no escopo corrente
+## Arquitetura
 
-| Repositório | Papel | Ref verificado em 2026-08-17 |
-|---|---|---|
-| `ecosystem-predictor` | plataforma e governança | commit deste documento |
-| `core-predictor` | Core científico compartilhado | `main@f6754957eaed` |
-| `predictor-ops` | Ops operacional compartilhado | `main@eff6fc795a12` |
-| `brasileirao-predictor` | domínio | `main@fd38ee60ebc5` |
-| `cripto-predictor` | domínio | `main@770af84252f4` |
-| `cs-predictor` | domínio | `main@a762d2530772` |
-| `f1-predictor` | domínio | `main@f92c50b673e4` |
-| `lol-predictor` | domínio | `main@59670fd4dec7` |
-| `wc-predictor` | histórico encerrado | `main@40fe5135d14a` |
+```text
+                  ┌───────────────────────────────┐
+                  │       ecosystem-predictor     │
+                  │ governança / gateway / visão  │
+                  └───────────────┬───────────────┘
+                                  │
+              ┌───────────────────┴───────────────────┐
+              │                                       │
+     core-predictor 2.3.x                    predictor-ops 3.1.x
+   contratos/medição/tempo                 execução/operação/auditoria
+              │                                       │
+              └───────────────────┬───────────────────┘
+                                  │
+              ┌───────────────────┼───────────────────┐
+              │                   │                   │
+     cripto-predictor   brasileirao-predictor   stocks-predictor
+              │                   │                   │
+              └──────────── predictors econômicos ───┘
+```
 
-`stocks-predictor` e `nba-predictor` estão fora do escopo desta linha de
-trabalho. Menções em documentos históricos não os reinserem no inventário.
-`Claude` é snapshot histórico não canônico.
+O Core já define a cadeia econômica portátil:
 
-## Estado verificável
+```text
+ProbabilisticForecast → MarketQuote → EconomicDecision → ExecutionRecord → SettlementRecord
+```
 
-O estado completo — incluindo Python, Core/Ops, forma de consumo, termos
-declarados por cada domínio e URLs das execuções de CI — está em
-[ECOSYSTEM_CURRENT_STATE.md](ECOSYSTEM_CURRENT_STATE.md). O resumo é:
+O Core não decide sizing, risco ou autorização de capital. O Ops não julga hipótese nem rentabilidade. O Ecosystem não inventa previsão nem reclassifica ciência local sem evidência.
 
-- o Core `2.3.0` agora define a cadeia portátil forecast → quote → decisão →
-  execução → settlement, sem incorporar política de risco ou autorização;
-- o Ops `3.1.0` agora oferece tipos de job econômicos, chave idempotente,
-  reconciliação de execução ambígua, kill switches e auditoria encadeada;
-- a plataforma agregadora e os cinco predictors ativos foram migrados para
-  Core `2.3.0` e Ops `3.1.0`; WC permanece legado por decisão de encerramento;
-- Brasileirão, CS e LoL avançaram seus pipelines shadow; F1 corrigiu o gate
-  para ser específico por estratégia; Cripto adicionou contratos, execução,
-  microestrutura e portfólio locais, sem autorizar capital;
-- WC permanece encerrado e nenhuma conclusão econômica foi promovida a GO.
+## Estados globais
 
-## F0 encerrada
+Os predictors devem ser descritos em eixos separados, nunca por um único `GO/NO-GO` global:
 
-A F0 corrigiu exclusivamente a integridade dos wheels do
-`brasileirao-predictor`, preservando Core `2.2.0` e Ops `3.0.0`. O merge em
-`main` é `5a42d6c882985ef06ba1bb8056201d4d95436626`, e a execução pós-merge
-[31462565846](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/31462565846)
-terminou com sucesso. A F1 não reabre nem amplia essa implementação.
+- `scientific_state`: validade da hipótese/mecanismo;
+- `predictive_state`: capacidade preditiva contra benchmark apropriado;
+- `economic_state`: evidência de edge líquido;
+- `operational_state`: capacidade de produzir/registrar/liquidar decisões de forma reproduzível;
+- `capital_permission`: autorização humana separada e fail-closed.
 
-## P4 encerrada sem mudança no Core
+A semântica completa está em [ECOSYSTEM_CHARTER.md](ECOSYSTEM_CHARTER.md).
 
-Os pilotos temporais F1, LoL e CS e sua consolidação foram concluídos. O estado
-aprovado é `P4_COMPLETED_NO_CORE_CHANGE`. `PredictionPoint` e `replay` já
-cobrem o contrato comum pertencente ao Core; cutoff, disponibilidade do
-resultado, identidade, vínculos, métricas e seleção de hashes permanecem
-locais. Canonicalização/hash foi classificada como padrão reutilizável, ainda
-não como API pública madura. Consulte [P4_CONSOLIDATION.md](P4_CONSOLIDATION.md).
+## Estado mecânico e histórico
 
-A matriz CS mantém uma dívida factual: pytest do job remoto rotulado 3.14
-executou em 3.13.13; apenas o smoke do wheel usou 3.14.5. A P4 não comprovou
-qualidade científica, equivalência estatística, valor econômico ou operação
-ao vivo.
+[ECOSYSTEM_CURRENT_STATE.md](ECOSYSTEM_CURRENT_STATE.md) contém um snapshot mecânico criado por uma reconciliação anterior. Ele continua útil como evidência dos refs e versões daquela coleta, mas **não tem autoridade para redefinir a composição canônica dos seis projetos**.
+
+Documentos `FINAL_*`, `FECHAMENTO_*`, `VEREDITOS_*`, `BLOQUEIOS_*`, P4, F1 e outros artefatos datados permanecem como registros históricos. Quando houver conflito temporal, deve-se comparar a data, o ref Git e a fonte corrente antes de concluir que existe contradição.
 
 ## Comandos oficiais deste repositório
 
-O ambiente está travado por `uv.lock`; a CI usa Python 3.13 e 3.14.
+O ambiente é gerenciado por `uv.lock` e a CI atual cobre Python 3.13 e 3.14.
 
 ```bash
 uv sync --locked --all-extras --python 3.13
-uv run ruff check src tests
-uv run ruff format --check src tests
+uv run ruff check src tests scripts
+uv run ruff format --check src tests scripts
 uv run pyright
 uv run coverage run -m pytest -q
-uv run coverage report --fail-under=0
 uv build
 ```
 
-Compose, container e smoke são definidos em
-[`.github/workflows/ci.yml`](.github/workflows/ci.yml). Executá-los pode exigir
-Docker; o fato de constarem no workflow não equivale a execução local.
-
-## Fontes correntes e arquivo histórico
-
-As fontes correntes são este README, `ECOSYSTEM_CURRENT_STATE.md`,
-`ECOSYSTEM_HANDOFF.md`, `PENDENCIAS_ABERTAS.md` e `P4_CONSOLIDATION.md`. A classificação editorial
-que fundamentou a F1 está em
-[F1_SECTION_CLASSIFICATION.md](F1_SECTION_CLASSIFICATION.md).
-
-Documentos `FINAL_*`, `FECHAMENTO_*`, `VEREDITOS_*`, `BLOQUEIOS_*`, o
-inventário de artefatos e os runbooks antigos foram preservados como registros
-históricos. Seus números e resultados não foram recalculados. Quando houver
-conflito temporal, o estado corrente deve ser obtido do código/Git no ref
-registrado; o documento histórico continua válido somente para sua data.
+Compose, container, segurança e smokes são definidos em [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
 
 ## Limites
 
-CI verde demonstra os checks que o workflow executou, não prontidão para
-capital, validade de hipótese ou reprodução de dataset/resultado. Decisões de
-Uma promoção adicional para Core/Ops, alteração de dependências, novo piloto
-ou qualquer implementação adicional exige decisão humana separada. O
-encerramento da P4 não autoriza P2, P3, P5 ou P6.
+Este repositório governa a arquitetura e a interpretação do estado global, mas não substitui a evidência dos domínios. Nenhuma mudança documental autoriza capital real. Promoção econômica exige evidência específica do predictor e decisão humana explícita.
