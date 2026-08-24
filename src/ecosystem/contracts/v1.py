@@ -1,13 +1,10 @@
-"""Contract v1: the canonical plugin protocol and wire shapes.
+"""Contract v1: canonical plugin protocol and cross-domain state vocabulary.
 
-This is the FIRST version of a contract that, as of this session, no
-existing domain plugin (f1/cs/lol/cripto/brasileirao) fully implements —
-see docs/adr/0001-plugin-protocol-v1.md for the concrete gaps found in each
-repository and what each one needs to change to comply. The registry
-(``ecosystem.registry``) is defensive about non-compliant plugins: it loads
-what it can and reports the rest as degraded capabilities rather than
-crashing the aggregator, but a plugin that doesn't implement at least
-``health()`` is rejected outright (fail-closed).
+The current economic domains are crypto, brasileirao and stocks. The registry
+loads them through the ``predictor.plugins`` entry-point group. Operational,
+scientific, predictive and economic state are intentionally separate: a green
+job is not scientific evidence, predictive skill is not economic edge, and no
+state authorizes capital by implication.
 """
 
 from __future__ import annotations
@@ -19,12 +16,6 @@ from pydantic import BaseModel, Field
 
 
 class OperationalStatus(StrEnum):
-    """Union of the canonical status values actually observed across the
-    ecosystem's domain plugins this cycle (lol/cs/cripto health() payloads).
-    A domain reporting a status outside this set is a contract violation,
-    not a new legitimate state — extend this enum deliberately, don't widen
-    silently in a plugin adapter."""
-
     SUCCEEDED = "SUCCEEDED"
     DEGRADED = "DEGRADED"
     WAITING = "WAITING"
@@ -34,8 +25,45 @@ class OperationalStatus(StrEnum):
     CLOSED_BY_HUMAN_DECISION = "CLOSED_BY_HUMAN_DECISION"
 
 
+class ScientificStatus(StrEnum):
+    UNKNOWN = "UNKNOWN"
+    RESEARCH_ONLY = "RESEARCH_ONLY"
+    M0 = "M0"
+    ACTIVE_HYPOTHESIS = "ACTIVE_HYPOTHESIS"
+    INCONCLUSIVE = "INCONCLUSIVE"
+    SIGNAL_DEMONSTRATED = "SIGNAL_DEMONSTRATED"
+    NO_GO = "NO_GO"
+    CLOSED_NO_GO = "CLOSED_NO_GO"
+
+
+class PredictiveStatus(StrEnum):
+    UNKNOWN = "UNKNOWN"
+    NOT_TESTED_REAL_DATA = "NOT_TESTED_REAL_DATA"
+    NOT_DEMONSTRATED = "NOT_DEMONSTRATED"
+    INCONCLUSIVE = "INCONCLUSIVE"
+    BEATS_BASELINE = "BEATS_BASELINE"
+    PROSPECTIVE_VALIDATION = "PROSPECTIVE_VALIDATION"
+    PROSPECTIVELY_VALIDATED = "PROSPECTIVELY_VALIDATED"
+
+
+class EconomicStatus(StrEnum):
+    UNKNOWN = "UNKNOWN"
+    NOT_DEFINED = "NOT_DEFINED"
+    NOT_TESTED = "NOT_TESTED"
+    NOT_VALIDATED = "NOT_VALIDATED"
+    HISTORICAL_NO_GO = "HISTORICAL_NO_GO"
+    SHADOW_VALIDATION = "SHADOW_VALIDATION"
+    ECONOMICALLY_VALIDATED = "ECONOMICALLY_VALIDATED"
+
+
+class CapitalPermission(StrEnum):
+    FORBIDDEN = "FORBIDDEN"
+    MANUAL_ONLY = "MANUAL_ONLY"
+    AUTHORIZED = "AUTHORIZED"
+
+
 class HealthReport(BaseModel):
-    """Typed replacement for the ad-hoc dicts each plugin returns today."""
+    """Operational health only; never a scientific/economic verdict."""
 
     domain: str
     status: OperationalStatus
@@ -44,25 +72,25 @@ class HealthReport(BaseModel):
 
 
 class CapabilityManifest(BaseModel):
-    """What a domain plugin can actually do, declared up front so the
-    gateway can fail closed on a route the domain never claimed to support,
-    instead of discovering it via a runtime AttributeError."""
+    """Domain capabilities plus orthogonal governance states.
+
+    Fields default to UNKNOWN/forbidden so a partially migrated plugin fails
+    closed rather than being promoted by absence of information.
+    """
 
     domain: str
     supports_prediction: bool = False
     supports_settlement: bool = False
     supports_collection: bool = False
-    scientific_status: str | None = None
+    supports_no_opportunity: bool = True
+    scientific_status: ScientificStatus = ScientificStatus.UNKNOWN
+    predictive_status: PredictiveStatus = PredictiveStatus.UNKNOWN
+    economic_status: EconomicStatus = EconomicStatus.UNKNOWN
+    capital_permission: CapitalPermission = CapitalPermission.FORBIDDEN
     extra: dict[str, Any] = Field(default_factory=dict)
 
 
 class PredictionRequest(BaseModel):
-    """Envelope around a domain-specific payload. The aggregator does not
-    know or validate the shape of ``payload`` — that is the domain's own
-    contract (e.g. lol-predictor's PredictionRequest). This envelope only
-    carries what the aggregator needs to route, authorize, and trace the
-    call without importing anything from the target domain's checkout."""
-
     domain: str
     run_id: str
     payload: dict[str, Any] = Field(default_factory=dict)
@@ -77,13 +105,7 @@ class PredictionResponse(BaseModel):
 
 @runtime_checkable
 class PluginV1(Protocol):
-    """Structural contract a domain plugin should satisfy to be served
-    in-process by the gateway. ``predict`` is intentionally not part of
-    this Protocol's required surface: cripto-predictor is research-only
-    today (no predict() at all) and that is a legitimate, documented
-    state (BLOCKED_PENDING_SECRET_ROTATION), not a bug. The registry
-    checks for ``predict`` with ``hasattr`` at dispatch time and returns
-    503 (fail-closed) rather than assuming every plugin implements it."""
+    """Minimum in-process integration surface for a canonical predictor."""
 
     domain: str
 
