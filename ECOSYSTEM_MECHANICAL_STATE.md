@@ -13,7 +13,7 @@ _Escopo humano vem de `ECOSYSTEM_CHARTER.md`; este bloco só mede fatos mecânic
 | `brasileirao-predictor` | `main` / `3837f84cce4c` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | `.github/workflows/ci.yml` | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
 | `core-predictor` | `main` / `f6754957eaed` | `2.3.0` / `>=3.13` | Core `—` / Ops `—` | `.github/workflows/ci.yml` | `HANDOFF.md`, `README.md`, `pyproject.toml`, `uv.lock` |
 | `cripto-predictor` | `main` / `742b91ccd8a9` | `1.0.0` / `>=3.13,<3.15` | Core `>=2.3.0,<3 (v2.3.0)` / Ops `>=3.1.0,<4 (v3.1.0)` | `.github/workflows/ci.yml` | `HANDOFF.md`, `README.md`, `pyproject.toml`, `requirements.txt`, `uv.lock` |
-| `ecosystem-predictor` | `main` / `f109641dc6c2` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | `.github/workflows/ci.yml` | `ECOSYSTEM_CHARTER.md`, `ECOSYSTEM_HANDOFF_2026-08-23.md`, `README.md`, `pyproject.toml`, `uv.lock` |
+| `ecosystem-predictor` | `main` / `f109641dc6c2` | `0.1.0` / `>=3.13,<3.15` | Core `>=2.3,<3 (v2.3.0)` / Ops `>=3.1,<4 (v3.1.0)` | `.github/workflows/ci.yml` | `ECOSYSTEM_CHARTER.md`, `ECOSYSTEM_HANDOFF_2026-08-23.md`, `ECOSYSTEM_MECHANICAL_STATE.md`, `README.md`, `pyproject.toml`, `uv.lock` |
 | `predictor-ops` | `main` / `c48b0a31a7eb` | `3.1.0` / `>=3.13` | Core `—` / Ops `—` | `.github/workflows/ci.yml` | `README.md`, `pyproject.toml`, `uv.lock` |
 | `stocks-predictor` | `main` / `e51443b8d53f` | `requirements` / `não declarado` | Core `legado vendorizado` / Ops `—` | `.github/workflows/ci.yml` | `HANDOFF.md`, `README.md`, `requirements.txt` |
 <!-- canonical-mechanical-facts:end -->
