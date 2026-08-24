@@ -1,16 +1,19 @@
-"""Contract tests: mechanical compliance checks any real domain adapter
-should be able to run against itself. This is the executable half of
-docs/adr/0001-plugin-protocol-v1.md - a domain team can point this test
-module at their own plugin instance (see the `plugin_under_test` fixture
-override pattern) to find out exactly what's missing, instead of reading
-prose.
-"""
+"""Executable contract checks for PluginV1 adapters."""
 
 from __future__ import annotations
 
 import pytest
 
-from ecosystem.contracts import CapabilityManifest, HealthReport, OperationalStatus, PluginV1
+from ecosystem.contracts import (
+    CapitalPermission,
+    CapabilityManifest,
+    EconomicStatus,
+    HealthReport,
+    OperationalStatus,
+    PluginV1,
+    PredictiveStatus,
+    ScientificStatus,
+)
 from tests.fixtures.reference_plugin import ReferencePlugin
 
 pytestmark = pytest.mark.contract
@@ -18,10 +21,6 @@ pytestmark = pytest.mark.contract
 
 @pytest.fixture
 def plugin_under_test() -> PluginV1:
-    """Swap this fixture for a real domain's plugin instance to contract-test it.
-    Left as the reference implementation here since no real domain plugin can be
-    imported from this repository without violating the "no checkout imports
-    another" rule."""
     return ReferencePlugin()
 
 
@@ -40,14 +39,28 @@ def test_health_returns_a_typed_report_with_matching_domain(plugin_under_test: P
     assert isinstance(report.status, OperationalStatus)
 
 
-def test_capabilities_returns_a_typed_manifest_with_matching_domain(plugin_under_test: PluginV1):
+def test_capabilities_returns_canonical_orthogonal_states(plugin_under_test: PluginV1):
     manifest = plugin_under_test.capabilities()
     assert isinstance(manifest, CapabilityManifest)
     assert manifest.domain == plugin_under_test.domain
+    assert isinstance(manifest.scientific_status, ScientificStatus)
+    assert isinstance(manifest.predictive_status, PredictiveStatus)
+    assert isinstance(manifest.economic_status, EconomicStatus)
+    assert isinstance(manifest.capital_permission, CapitalPermission)
+    assert manifest.supports_no_opportunity is True
+
+
+def test_missing_state_fails_closed_by_default():
+    manifest = CapabilityManifest(domain="research-only")
+    assert manifest.scientific_status is ScientificStatus.UNKNOWN
+    assert manifest.predictive_status is PredictiveStatus.UNKNOWN
+    assert manifest.economic_status is EconomicStatus.UNKNOWN
+    assert manifest.capital_permission is CapitalPermission.FORBIDDEN
+    assert manifest.supports_no_opportunity is True
 
 
 def test_predict_if_present_accepts_a_plain_dict_and_returns_one(plugin_under_test: PluginV1):
     if not hasattr(plugin_under_test, "predict"):
-        pytest.skip(f"{plugin_under_test.domain} does not declare predict() - legitimate, e.g. research-only")
+        pytest.skip(f"{plugin_under_test.domain} does not declare predict()")
     result = plugin_under_test.predict({"probe": True})
     assert isinstance(result, dict)
