@@ -14,7 +14,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 OWNER = "leonardosovienski"
-SCHEMA = "canonical-ecosystem-facts/1"
+SCHEMA = "canonical-ecosystem-facts/2"
 REPOSITORIES = (
     "ecosystem-predictor",
     "core-predictor",
@@ -30,6 +30,7 @@ CANONICAL_NAMES = {
     "ECOSYSTEM_CHARTER.md",
     "ECOSYSTEM_HANDOFF_2026-08-23.md",
     "ECOSYSTEM_MECHANICAL_STATE.md",
+    "PREDICTOR_CONTRACT.md",
     "pyproject.toml",
     "requirements.txt",
     "uv.lock",
@@ -43,6 +44,7 @@ FIELDS = (
     "python",
     "core",
     "ops",
+    "plugin",
     "workflow",
     "canonical",
 )
@@ -84,9 +86,17 @@ def _source_tag(document: dict[str, Any], package: str) -> str:
     return url.split(marker, 1)[1].split("/", 1)[0] if marker in url else "URL"
 
 
-def _package_facts(content: str | None) -> tuple[str, str, str, str]:
+def _plugin_fact(project: dict[str, Any]) -> str:
+    entry_points = project.get("entry-points", {})
+    plugins = entry_points.get("predictor.plugins", {}) if isinstance(entry_points, dict) else {}
+    if not isinstance(plugins, dict) or not plugins:
+        return "—"
+    return ", ".join(f"{name}={target}" for name, target in sorted(plugins.items()))
+
+
+def _package_facts(content: str | None) -> tuple[str, str, str, str, str]:
     if content is None:
-        return "requirements", "não declarado", "legado vendorizado", "—"
+        return "requirements", "não declarado", "legado vendorizado", "—", "—"
     document = tomllib.loads(content)
     project = document.get("project", {})
     core = _dependency(project, "predictor-core")
@@ -100,6 +110,7 @@ def _package_facts(content: str | None) -> tuple[str, str, str, str]:
         str(project.get("requires-python", "—")),
         core,
         ops,
+        _plugin_fact(project),
     )
 
 
@@ -118,7 +129,7 @@ def collect(token: str | None = None, timeout: float = 30) -> list[dict[str, Any
                 f"/repos/{OWNER}/{repository}/contents/pyproject.toml?ref={commit}", token, timeout
             )["content"]
             pyproject = base64.b64decode(encoded).decode("utf-8")
-        version, python, core, ops = _package_facts(pyproject)
+        version, python, core, ops, plugin = _package_facts(pyproject)
         facts.append(
             {
                 "repository": repository,
@@ -129,6 +140,7 @@ def collect(token: str | None = None, timeout: float = 30) -> list[dict[str, Any
                 "python": python,
                 "core": core,
                 "ops": ops,
+                "plugin": plugin,
                 "workflow": ".github/workflows/ci.yml" if ".github/workflows/ci.yml" in paths else "—",
                 "canonical": canonical,
             }
@@ -171,15 +183,15 @@ def render(snapshot: dict[str, Any]) -> str:
         f"_Snapshot `{snapshot['schema_version']}` gerado em `{snapshot['generated_at']}`._",
         "_Escopo humano vem de `ECOSYSTEM_CHARTER.md`; este bloco só mede fatos mecânicos._",
         "",
-        "| Repositório | Branch / HEAD | Pacote / Python | Core / Ops | Workflow | Canônicos |",
-        "|---|---|---|---|---|---|",
+        "| Repositório | Branch / HEAD | Pacote / Python | Core / Ops | Plugin | Workflow | Canônicos |",
+        "|---|---|---|---|---|---|---|",
     ]
     for fact in snapshot["repositories"]:
         canonical = ", ".join(f"`{path}`" for path in fact["canonical"]) or "—"
         lines.append(
             f"| `{fact['repository']}` | `{fact['branch']}` / `{fact['head'][:12]}` | "
             f"`{fact['version']}` / `{fact['python']}` | Core `{fact['core']}` / Ops `{fact['ops']}` | "
-            f"`{fact['workflow']}` | {canonical} |"
+            f"`{fact['plugin']}` | `{fact['workflow']}` | {canonical} |"
         )
     lines.extend([END, ""])
     return "\n".join(lines)
