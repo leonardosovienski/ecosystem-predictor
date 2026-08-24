@@ -9,11 +9,11 @@ Para retomar o trabalho, leia nesta ordem:
 1. [ECOSYSTEM_CHARTER.md](ECOSYSTEM_CHARTER.md) — **decisão humana canônica** sobre composição, papéis, objetivo econômico e regras de autoridade;
 2. [PREDICTOR_CONTRACT.md](PREDICTOR_CONTRACT.md) — contrato canônico dos predictors e dos estados globais;
 3. [ECOSYSTEM_MECHANICAL_STATE.md](ECOSYSTEM_MECHANICAL_STATE.md) — inventário mecânico corrente dos seis projetos canônicos;
-4. [ECOSYSTEM_HANDOFF_2026-08-23.md](ECOSYSTEM_HANDOFF_2026-08-23.md) — continuidade corrente após P0/P1;
+4. [ECOSYSTEM_HANDOFF_2026-08-24.md](ECOSYSTEM_HANDOFF_2026-08-24.md) — continuidade corrente após P0/P1;
 5. o README/HANDOFF/current-state/charter do repositório que será analisado;
 6. Git, código, dados e execução observável no ref correspondente.
 
-`ECOSYSTEM_CURRENT_STATE.md`, o antigo `ECOSYSTEM_HANDOFF.md` e demais fechamentos datados permanecem preservados como snapshots históricos. Eles não redefinem o estado atual quando divergem do Charter, do contrato, do código ou de evidência mais recente.
+`ECOSYSTEM_CURRENT_STATE.md`, `ECOSYSTEM_HANDOFF.md`, `ECOSYSTEM_HANDOFF_2026-08-23.md` e demais fechamentos datados permanecem preservados como snapshots históricos. Eles não redefinem o estado atual quando divergem do Charter, do contrato, do código ou de evidência mais recente.
 
 **Regra:** inventário mecânico não define escopo humano; documentação não transforma claim em fato; CI verde não comprova validade científica nem lucro.
 
