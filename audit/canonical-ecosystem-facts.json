@@ -1,6 +1,6 @@
 {
   "schema_version": "canonical-ecosystem-facts/2",
-  "generated_at": "2026-08-24T02:55:00+00:00",
+  "generated_at": "2026-08-24T03:10:00+00:00",
   "scope_authority": "ECOSYSTEM_CHARTER.md",
   "repositories": [
     {
@@ -19,8 +19,8 @@
     {
       "repository": "core-predictor",
       "branch": "main",
-      "head": "f6754957eaed619a9a0e800668d845aec4c227f1",
-      "source_ref": "core-predictor@f6754957eaed619a9a0e800668d845aec4c227f1",
+      "head": "8dab1d9d806b4c02902ebab9fdcbd4eae51b7039",
+      "source_ref": "core-predictor@8dab1d9d806b4c02902ebab9fdcbd4eae51b7039",
       "version": "2.3.0",
       "python": ">=3.13",
       "core": "—",
@@ -45,8 +45,8 @@
     {
       "repository": "ecosystem-predictor",
       "branch": "main",
-      "head": "0bb83c89cc5984039244cf30a5e86bf130e17df5",
-      "source_ref": "ecosystem-predictor@0bb83c89cc5984039244cf30a5e86bf130e17df5",
+      "head": "b460073780c9a11f30bd0b029ce14ac74d96dfd8",
+      "source_ref": "ecosystem-predictor@b460073780c9a11f30bd0b029ce14ac74d96dfd8",
       "version": "0.1.0",
       "python": ">=3.13,<3.15",
       "core": ">=2.3,<3 (v2.3.0)",
@@ -71,8 +71,8 @@
     {
       "repository": "stocks-predictor",
       "branch": "main",
-      "head": "fb9262f5fecebdd1844dee43e5ae2d1ec25ef32c",
-      "source_ref": "stocks-predictor@fb9262f5fecebdd1844dee43e5ae2d1ec25ef32c",
+      "head": "6138be093f8120a6582932282ec885868c79dcf1",
+      "source_ref": "stocks-predictor@6138be093f8120a6582932282ec885868c79dcf1",
       "version": "0.1.0",
       "python": ">=3.13,<3.15",
       "core": ">=2.3,<3 (v2.3.0)",
