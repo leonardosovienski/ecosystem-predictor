@@ -1,4 +1,4 @@
-"""Generate and validate the six-repository canonical mechanical inventory."""
+"""Generate and validate the mechanical inventory of the six canonical repos."""
 
 from __future__ import annotations
 
@@ -45,15 +45,16 @@ FIELDS = (
     "workflow",
     "canonical",
 )
+SELF_DYNAMIC_FIELDS = {"head", "source_ref"}
 START = "<!-- canonical-mechanical-facts:start -->"
 END = "<!-- canonical-mechanical-facts:end -->"
 
 
 class FactError(RuntimeError):
-    pass
+    """Stable failure used by CI and manual reconciliation."""
 
 
-def _request(path: str, token: str | None, *, timeout: float = 30) -> Any:
+def _request(path: str, token: str | None, timeout: float) -> Any:
     headers = {"Accept": "application/vnd.github+json", "User-Agent": SCHEMA}
     if token:
         headers["Authorization"] = f"Bearer {token}"
@@ -84,17 +85,16 @@ def _source_tag(document: dict[str, Any], package: str) -> str:
 
 def _package_facts(content: str | None) -> tuple[str, str, str, str]:
     if content is None:
+        # The current Stocks repository deliberately exposes this legacy shape.
         return "requirements", "não declarado", "legado vendorizado", "—"
     document = tomllib.loads(content)
     project = document.get("project", {})
     core = _dependency(project, "predictor-core")
     ops = _dependency(project, "predictor-ops")
-    core_tag = _source_tag(document, "predictor-core")
-    ops_tag = _source_tag(document, "predictor-ops")
-    if core_tag:
-        core = f"{core} ({core_tag})"
-    if ops_tag:
-        ops = f"{ops} ({ops_tag})"
+    if tag := _source_tag(document, "predictor-core"):
+        core = f"{core} ({tag})"
+    if tag := _source_tag(document, "predictor-ops"):
+        ops = f"{ops} ({tag})"
     return (
         str(project.get("version", "—")),
         str(project.get("requires-python", "—")),
@@ -103,31 +103,22 @@ def _package_facts(content: str | None) -> tuple[str, str, str, str]:
     )
 
 
-def collect(token: str | None = None, *, timeout: float = 30) -> list[dict[str, Any]]:
+def collect(token: str | None = None, timeout: float = 30) -> list[dict[str, Any]]:
     facts: list[dict[str, Any]] = []
     for repository in REPOSITORIES:
-        metadata = _request(f"/repos/{OWNER}/{repository}", token, timeout=timeout)
+        metadata = _request(f"/repos/{OWNER}/{repository}", token, timeout)
         branch = metadata["default_branch"]
-        commit = _request(f"/repos/{OWNER}/{repository}/commits/{branch}", token, timeout=timeout)["sha"]
-        tree = _request(
-            f"/repos/{OWNER}/{repository}/git/trees/{commit}?recursive=1",
-            token,
-            timeout=timeout,
-        )["tree"]
+        commit = _request(f"/repos/{OWNER}/{repository}/commits/{branch}", token, timeout)["sha"]
+        tree = _request(f"/repos/{OWNER}/{repository}/git/trees/{commit}?recursive=1", token, timeout)["tree"]
         paths = {item["path"] for item in tree if item.get("type") == "blob"}
-        canonical = sorted(
-            path for path in paths if "/" not in path and Path(path).name in CANONICAL_NAMES
-        )
+        canonical = sorted(path for path in paths if "/" not in path and Path(path).name in CANONICAL_NAMES)
         pyproject: str | None = None
         if "pyproject.toml" in paths:
             encoded = _request(
-                f"/repos/{OWNER}/{repository}/contents/pyproject.toml?ref={commit}",
-                token,
-                timeout=timeout,
+                f"/repos/{OWNER}/{repository}/contents/pyproject.toml?ref={commit}", token, timeout
             )["content"]
             pyproject = base64.b64decode(encoded).decode("utf-8")
         version, python, core, ops = _package_facts(pyproject)
-        workflow = ".github/workflows/ci.yml" if ".github/workflows/ci.yml" in paths else "—"
         facts.append(
             {
                 "repository": repository,
@@ -138,7 +129,7 @@ def collect(token: str | None = None, *, timeout: float = 30) -> list[dict[str, 
                 "python": python,
                 "core": core,
                 "ops": ops,
-                "workflow": workflow,
+                "workflow": ".github/workflows/ci.yml" if ".github/workflows/ci.yml" in paths else "—",
                 "canonical": canonical,
             }
         )
@@ -162,16 +153,15 @@ def validate(snapshot: dict[str, Any]) -> None:
     repositories = snapshot["repositories"]
     if not isinstance(repositories, list):
         raise FactError("INVALID_SCHEMA: repositories")
-    names = []
+    names: list[str] = []
     for fact in repositories:
         if not isinstance(fact, dict) or set(fact) != set(FIELDS):
             raise FactError("INVALID_SCHEMA: repository fields")
         if not isinstance(fact["canonical"], list):
             raise FactError("INVALID_SCHEMA: canonical")
         names.append(fact["repository"])
-    expected = sorted(REPOSITORIES)
-    if names != expected:
-        raise FactError(f"CANONICAL_SCOPE_DRIFT: expected {expected}, got {names}")
+    if names != sorted(REPOSITORIES):
+        raise FactError(f"CANONICAL_SCOPE_DRIFT: expected {sorted(REPOSITORIES)}, got {names}")
 
 
 def render(snapshot: dict[str, Any]) -> str:
@@ -197,7 +187,7 @@ def render(snapshot: dict[str, Any]) -> str:
 
 def update_document(document: str, block: str) -> str:
     if START not in document or END not in document:
-        raise FactError("INVALID_SCHEMA: generated inventory markers not found")
+        raise FactError("INVALID_SCHEMA: inventory markers not found")
     before, rest = document.split(START, 1)
     _, after = rest.split(END, 1)
     return before + block.rstrip() + after
@@ -209,12 +199,28 @@ def load(path: Path) -> dict[str, Any]:
     return snapshot
 
 
+def compare(expected: dict[str, Any], observed: dict[str, Any]) -> None:
+    validate(expected)
+    validate(observed)
+    old = {item["repository"]: item for item in expected["repositories"]}
+    new = {item["repository"]: item for item in observed["repositories"]}
+    differences: list[str] = []
+    for repository in sorted(old):
+        for field in FIELDS:
+            if repository == "ecosystem-predictor" and field in SELF_DYNAMIC_FIELDS:
+                continue
+            if old[repository][field] != new[repository][field]:
+                differences.append(f"{repository}.{field}")
+    if differences:
+        raise FactError("FACTUAL_DRIFT: " + ", ".join(differences))
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     mode = parser.add_mutually_exclusive_group(required=True)
-    mode.add_argument("--check", action="store_true", help="compare GitHub HEADs with snapshot")
-    mode.add_argument("--offline-check", action="store_true", help="validate snapshot/document only")
-    mode.add_argument("--write", action="store_true", help="refresh snapshot/document from GitHub")
+    mode.add_argument("--check", action="store_true")
+    mode.add_argument("--offline-check", action="store_true")
+    mode.add_argument("--write", action="store_true")
     parser.add_argument("--snapshot", type=Path, default=Path("audit/canonical-ecosystem-facts.json"))
     parser.add_argument("--document", type=Path, default=Path("ECOSYSTEM_MECHANICAL_STATE.md"))
     parser.add_argument("--timeout", type=float, default=30)
@@ -232,22 +238,13 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     observed = make_snapshot(
-        collect(os.getenv("GITHUB_TOKEN"), timeout=args.timeout),
+        collect(os.getenv("GITHUB_TOKEN"), args.timeout),
         args.generated_at or datetime.now(UTC).isoformat(timespec="seconds"),
     )
     if args.check:
         if expected is None:
             raise FactError("INVALID_SCHEMA: snapshot absent")
-        old = {item["repository"]: item for item in expected["repositories"]}
-        new = {item["repository"]: item for item in observed["repositories"]}
-        differences = [
-            f"{repo}.{field}"
-            for repo in sorted(old)
-            for field in FIELDS
-            if old[repo][field] != new[repo][field]
-        ]
-        if differences:
-            raise FactError("FACTUAL_DRIFT: " + ", ".join(differences))
+        compare(expected, observed)
         print("CANONICAL_SCOPE_OK")
         return 0
 
