@@ -1,21 +1,15 @@
 """Plugin discovery and the registry the gateway dispatches through.
 
-Canonical entry-point group: ``predictor.plugins``. This is a deliberate
-choice, not a discovery of existing consensus — as of this session,
-lol-predictor and cs-predictor already use this group name, but
-cripto-predictor uses ``ecosystem_predictor.plugins`` instead, and
-f1-predictor/brasileirao-predictor declare no plugin entry point at all.
-See docs/adr/0001-plugin-protocol-v1.md for the full inventory and the
-required follow-up in each domain repository (out of scope for this
-session, which works only on the aggregator).
+Canonical entry-point group: ``predictor.plugins``. The current Cripto,
+Brasileirão and Stocks distributions all publish their adapters through this
+group. Their adapter modules must live in domain-specific top-level packages;
+generic packages such as ``src`` or ``scripts`` are forbidden because Python
+can otherwise resolve one domain's adapter from another installed wheel.
 
-Update (2026-08-03): verified end-to-end against a real install of
-lol-predictor (not the test fixture) — its ``capabilities()`` is now a
-callable method (was a class attribute when ADR 0001 was written) and
-``Registry.discover()`` loads it as a fully compliant, non-degraded
-record. lol-predictor is the first domain proven reachable through this
-mechanism outside of ``tests/fixtures/reference_plugin``. See the ADR's
-2026-08-03 update section for the reproduction and evidence.
+The cross-repository integration check in
+``scripts/check_real_plugin_integration.py`` is the executable source of truth:
+it discovers all three real distributions in one environment and verifies
+identity, domain and health isolation pairwise.
 """
 
 from __future__ import annotations
