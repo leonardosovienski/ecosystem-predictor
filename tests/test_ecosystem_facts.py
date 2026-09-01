@@ -1,10 +1,16 @@
 import copy
+import importlib.util
 import json
 from datetime import UTC, datetime
+from pathlib import Path
 
 import pytest
 
-from scripts import sync_ecosystem_facts as facts
+_SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "sync_ecosystem_facts.py"
+_SPEC = importlib.util.spec_from_file_location("ecosystem_local_sync_facts", _SCRIPT)
+assert _SPEC is not None and _SPEC.loader is not None
+facts = importlib.util.module_from_spec(_SPEC)
+_SPEC.loader.exec_module(facts)
 
 
 def _repository(name="example-predictor"):

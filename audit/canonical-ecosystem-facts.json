@@ -1,85 +1,13 @@
 {
   "schema_version": "canonical-ecosystem-facts/2",
-  "generated_at": "2026-08-24T03:10:00+00:00",
+  "generated_at": "2026-09-01T00:00:00-03:00",
   "scope_authority": "ECOSYSTEM_CHARTER.md",
   "repositories": [
-    {
-      "repository": "brasileirao-predictor",
-      "branch": "main",
-      "head": "f1ced5d09a483c3a1c261df0728b00f4c78671c1",
-      "source_ref": "brasileirao-predictor@f1ced5d09a483c3a1c261df0728b00f4c78671c1",
-      "version": "0.1.0",
-      "python": ">=3.13,<3.15",
-      "core": ">=2.3,<3 (v2.3.0)",
-      "ops": ">=3.1,<4 (v3.1.0)",
-      "plugin": "brasileirao=src.ecosystem_plugin:PLUGIN",
-      "workflow": ".github/workflows/ci.yml",
-      "canonical": ["HANDOFF.md", "README.md", "pyproject.toml", "uv.lock"]
-    },
-    {
-      "repository": "core-predictor",
-      "branch": "main",
-      "head": "8dab1d9d806b4c02902ebab9fdcbd4eae51b7039",
-      "source_ref": "core-predictor@8dab1d9d806b4c02902ebab9fdcbd4eae51b7039",
-      "version": "2.3.0",
-      "python": ">=3.13",
-      "core": "—",
-      "ops": "—",
-      "plugin": "—",
-      "workflow": ".github/workflows/ci.yml",
-      "canonical": ["HANDOFF.md", "README.md", "pyproject.toml", "uv.lock"]
-    },
-    {
-      "repository": "cripto-predictor",
-      "branch": "main",
-      "head": "2fc87a19011c77df8fa89c828e469203369219e7",
-      "source_ref": "cripto-predictor@2fc87a19011c77df8fa89c828e469203369219e7",
-      "version": "1.0.0",
-      "python": ">=3.13,<3.15",
-      "core": ">=2.3.0,<3 (v2.3.0)",
-      "ops": ">=3.1.0,<4 (v3.1.0)",
-      "plugin": "cripto=GarimpoInvestimentos.plugin:PLUGIN",
-      "workflow": ".github/workflows/ci.yml",
-      "canonical": ["HANDOFF.md", "README.md", "pyproject.toml", "requirements.txt", "uv.lock"]
-    },
-    {
-      "repository": "ecosystem-predictor",
-      "branch": "main",
-      "head": "b460073780c9a11f30bd0b029ce14ac74d96dfd8",
-      "source_ref": "ecosystem-predictor@b460073780c9a11f30bd0b029ce14ac74d96dfd8",
-      "version": "0.1.0",
-      "python": ">=3.13,<3.15",
-      "core": ">=2.3,<3 (v2.3.0)",
-      "ops": ">=3.1,<4 (v3.1.0)",
-      "plugin": "—",
-      "workflow": ".github/workflows/ci.yml",
-      "canonical": ["ECOSYSTEM_CHARTER.md", "ECOSYSTEM_HANDOFF_2026-08-23.md", "ECOSYSTEM_MECHANICAL_STATE.md", "PREDICTOR_CONTRACT.md", "README.md", "pyproject.toml", "uv.lock"]
-    },
-    {
-      "repository": "predictor-ops",
-      "branch": "main",
-      "head": "c48b0a31a7eb584c571b6c224e9700fc212aa7ab",
-      "source_ref": "predictor-ops@c48b0a31a7eb584c571b6c224e9700fc212aa7ab",
-      "version": "3.1.0",
-      "python": ">=3.13",
-      "core": "—",
-      "ops": "—",
-      "plugin": "—",
-      "workflow": ".github/workflows/ci.yml",
-      "canonical": ["README.md", "pyproject.toml", "uv.lock"]
-    },
-    {
-      "repository": "stocks-predictor",
-      "branch": "main",
-      "head": "6138be093f8120a6582932282ec885868c79dcf1",
-      "source_ref": "stocks-predictor@6138be093f8120a6582932282ec885868c79dcf1",
-      "version": "0.1.0",
-      "python": ">=3.13,<3.15",
-      "core": ">=2.3,<3 (v2.3.0)",
-      "ops": ">=3.1,<4 (v3.1.0)",
-      "plugin": "stocks=src.ecosystem_plugin:PLUGIN",
-      "workflow": ".github/workflows/ci.yml",
-      "canonical": ["HANDOFF.md", "README.md", "STOCKS_CURRENT_STATE.md", "pyproject.toml", "requirements.txt"]
-    }
+    {"repository":"brasileirao-predictor","branch":"main","head":"29ce04f68046b7d6fd76dcafad2a622d2e4a8ff4","source_ref":"brasileirao-predictor@29ce04f68046b7d6fd76dcafad2a622d2e4a8ff4","version":"0.1.0","python":">=3.13,<3.15","core":">=3.0,<4 (v3.0.0)","ops":">=4.0,<5 (v4.0.0)","plugin":"brasileirao=brasileirao_predictor.ecosystem_plugin:PLUGIN","workflow":".github/workflows/ci.yml","canonical":["HANDOFF.md","README.md","pyproject.toml","uv.lock"]},
+    {"repository":"core-predictor","branch":"main","head":"628b509d55b62cfdece94ad7fbae9737f2446048","source_ref":"core-predictor@628b509d55b62cfdece94ad7fbae9737f2446048","version":"3.0.0","python":">=3.13","core":"—","ops":"—","plugin":"—","workflow":".github/workflows/ci.yml","canonical":["HANDOFF.md","README.md","pyproject.toml","uv.lock"]},
+    {"repository":"cripto-predictor","branch":"main","head":"0f54e1cd7b20f5e63115e436cfe165359f8e2457","source_ref":"cripto-predictor@0f54e1cd7b20f5e63115e436cfe165359f8e2457","version":"1.0.0","python":">=3.13,<3.15","core":">=3.0.0,<4 (v3.0.0)","ops":">=4.0.0,<5 (v4.0.0)","plugin":"cripto=GarimpoInvestimentos.plugin:PLUGIN","workflow":".github/workflows/ci.yml","canonical":["HANDOFF.md","README.md","pyproject.toml","requirements.txt","uv.lock"]},
+    {"repository":"ecosystem-predictor","branch":"main","head":"5201836ddb469164147e2daa1138bfbcb66ab144","source_ref":"ecosystem-predictor@5201836ddb469164147e2daa1138bfbcb66ab144","version":"0.1.0","python":">=3.13,<3.15","core":"—","ops":"—","plugin":"—","workflow":".github/workflows/ci.yml","canonical":["ECOSYSTEM_CHARTER.md","ECOSYSTEM_HANDOFF.md","ECOSYSTEM_MECHANICAL_STATE.md","PREDICTOR_CONTRACT.md","README.md","pyproject.toml","uv.lock"]},
+    {"repository":"predictor-ops","branch":"main","head":"46cd8e2b43aa23362e2cab3de363a82bc796e700","source_ref":"predictor-ops@46cd8e2b43aa23362e2cab3de363a82bc796e700","version":"4.0.0","python":">=3.13","core":"—","ops":"—","plugin":"—","workflow":".github/workflows/ci.yml","canonical":["HANDOFF.md","README.md","pyproject.toml","uv.lock"]},
+    {"repository":"stocks-predictor","branch":"main","head":"dc5e34441fc11ab1d5eef5738439cc8bb0b83069","source_ref":"stocks-predictor@dc5e34441fc11ab1d5eef5738439cc8bb0b83069","version":"0.1.0","python":">=3.13,<3.15","core":">=3.0,<4 (v3.0.0)","ops":"—","plugin":"stocks=stocks_predictor.ecosystem_plugin:PLUGIN","workflow":".github/workflows/ci.yml","canonical":["HANDOFF.md","README.md","STOCKS_CURRENT_STATE.md","pyproject.toml","requirements.txt","uv.lock"]}
   ]
 }

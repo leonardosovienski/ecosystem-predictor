@@ -1,5 +1,21 @@
 # ECOSYSTEM_HANDOFF.md
 
+> **ESTADO CORRENTE — reconciliação local de 2026-09-01.** O escopo permanece
+> nos seis repositórios do `ECOSYSTEM_CHARTER.md`. Core está em 3.0.0 e Ops em
+> 4.0.0. Cripto e Brasileirão consomem ambos; Stocks consome Core 3.0 e ainda
+> não declara Ops. Os entry points atuais são namespaced e estão registrados em
+> `ECOSYSTEM_MECHANICAL_STATE.md`/`audit/canonical-ecosystem-facts.json`.
+>
+> Gates econômicos: Brasileirão avalia Over/Under pós-fricção em shadow;
+> Cripto possui filtro fee+slippage+funding explicitamente opt-in; Stocks possui
+> somente uma primitiva `REBALANCE/HOLD` ainda não integrada às hipóteses
+> congeladas. Todos preservam `capital_enabled=false`. O Core 3.0 não expõe os
+> antigos records econômicos 2.3; o Ops 4.0 já suporta jobs `SHADOW_DECISION`,
+> idempotência, risco e reconciliação, sem julgar rentabilidade.
+>
+> Os blocos datados abaixo são históricos e não prevalecem sobre esta errata,
+> o Charter e o inventário mecânico de 2026-09-01.
+
 > **ESTADO CORRENTE — F1, verificado em 2026-08-11.** A fonte mecânica atual é
 > [`ECOSYSTEM_CURRENT_STATE.md`](ECOSYSTEM_CURRENT_STATE.md), com branch, HEAD,
 > versões, origem Core/Ops e CI concreta por repositório. O conteúdo datado de

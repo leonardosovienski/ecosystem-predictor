@@ -11,7 +11,7 @@ O PREDICTORS é composto por **seis repositórios canônicos**:
 | Repositório | Papel canônico | Deve gerar lucro diretamente? |
 |---|---|---|
 | `ecosystem-predictor` | governança, registry, gateway, scheduler, storage e visão agregada | não |
-| `core-predictor` | contratos científicos, temporais, métricas e contratos econômicos compartilhados | não |
+| `core-predictor` | primitivas científicas, temporais, métricas e testes prequential compartilhados | não |
 | `predictor-ops` | execução operacional, idempotência, observabilidade, reconciliação, segurança operacional e controles de runtime | não |
 | `cripto-predictor` | predictor econômico de cripto | sim, quando houver edge validado |
 | `brasileirao-predictor` | predictor econômico de mercados do Brasileirão | sim, quando houver edge validado |
@@ -91,7 +91,10 @@ Exemplos: `RESEARCH_ONLY`, `SHADOW_INCOMPLETE`, `SHADOW_OPERATIONAL`, `MANUAL_LI
 
 ## 5. Cadeia econômica compartilhada
 
-O desenho comum do Core é a referência semântica para transportar uma decisão econômica entre domínios:
+Na versão 3.0, o Core foi deliberadamente estreitado e não publica mais os antigos
+records econômicos da linha 2.3. A referência semântica vigente é o contrato do
+ecossistema; as representações executáveis permanecem locais aos domínios até existir
+uma abstração comprovadamente compartilhada:
 
 ```text
 ProbabilisticForecast
@@ -105,7 +108,8 @@ ExecutionRecord
 SettlementRecord
 ```
 
-O Core define contratos portáveis; não deve decidir estratégia, sizing, bankroll, risco de domínio ou autorização de capital.
+O Core fornece medição, causalidade temporal e avaliação prequential; não decide gate,
+estratégia, sizing, bankroll, risco de domínio ou autorização de capital.
 
 O Ops executa e audita workloads; não deve decidir se uma hipótese é cientificamente verdadeira ou lucrativa.
 
