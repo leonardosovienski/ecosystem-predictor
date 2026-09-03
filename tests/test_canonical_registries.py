@@ -37,6 +37,7 @@ def test_required_claims_exist_and_business_claim_stays_b0() -> None:
         "CLAIM-ST-FACTOR-FAMILIES",
         "CLAIM-ST-PIT",
         "CLAIM-ST-SURVIVORSHIP",
+        "CLAIM-ST-VENDOR",
         "CLAIM-BIZ-001",
     }
     assert required <= claims.keys()
@@ -60,6 +61,14 @@ def test_exp001_remains_fail_closed() -> None:
     assert checkpoints["EXP001_EXECUTION"] == "NOT_STARTED"
     assert checkpoints["BR_RESEARCH_DECISION"] == "UNKNOWN"
     assert checkpoints["EXP001_HISTORICAL"] == "NOT_VIABLE"
+
+
+def test_exp001_prospective_contract_is_active_and_complete() -> None:
+    contract = json.loads(
+        (ROOT / "canonical_contracts" / "exp001_prospective.json").read_text(encoding="utf-8")
+    )
+    assert contract["state"] == "ACTIVE"
+    assert {"dataset_version", "probabilities"} <= set(contract["required_fields"])
 
 
 def test_commercial_discovery_starts_with_real_names_but_no_claim_promotion() -> None:

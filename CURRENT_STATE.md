@@ -62,6 +62,7 @@ ampla; execução do EXP-001 neste repositório.
 - `registries/harness_registry.json`
 - `PENDENCIAS_ABERTAS.md`
 - `docs/HISTORICAL_DOCUMENT_INDEX.md`
+- `SESSION_HANDOFF.md`
 
 `TECHNICAL_DISCOVERY_PHASE = CLOSED` e `COMMERCIAL_DISCOVERY_PHASE = STARTING`.
 Este repositório só muda diante de mudança

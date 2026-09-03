@@ -121,6 +121,15 @@
       "limitations": [], "decision": "PASS", "next_evidence_required": "none while frozen", "last_updated": "2026-09-03"
     },
     {
+      "claim_id": "CLAIM-ST-VENDOR",
+      "claim": "The legacy vendored Core cannot silently participate in normal Stocks runtime or tests",
+      "evidence": ["stocks-predictor@936f3f2", "CI 33740279995 for isolation patch", "253 tests against official Core 3.0.0", "wheel excludes vendor", "historical PoC import-side-effect regression"],
+      "L": "L4", "Q": "Q4", "state": "SUPPORTED", "supports": ["STOCKS_RESEARCH_FROZEN"],
+      "contradicts": ["vendor participates silently in normal runtime"], "supersedes": ["poc_leak import mutates sys.path"],
+      "limitations": ["vendor remains as explicit historical archive", "global host Python may resolve a non-project Core and is not the canonical CI environment"],
+      "decision": "VENDOR_MIGRATION_CLOSED", "next_evidence_required": "only a failing import-path regression or dependency change", "last_updated": "2026-09-03"
+    },
+    {
       "claim_id": "CLAIM-BIZ-001",
       "claim": "Companies with predictive systems in production may pay for independent predictive-system audit",
       "evidence": ["idea only; no real conversations recorded"],
