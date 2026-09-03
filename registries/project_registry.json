@@ -54,8 +54,8 @@
       "integration_state": "CURRENT_CORE_3_1_OPS_4_0",
       "ci_state": "PASS",
       "remote_main_sha": "b6e667aac150f91c940580daa6b1fc1efc570bcb",
-      "open_blockers": ["BR-01", "BR-02", "BR-03", "BR-04"],
-      "next_allowed_action": "resolve same-cutoff market and feature PIT, then execute EXP-001 in this domain only",
+      "open_blockers": ["BR-05"],
+      "next_allowed_action": "collect native same-cutoff prospective evidence for EXP-001 in this domain only",
       "forbidden_actions": ["retroactive prospective-store reconstruction", "run EXP-001 in ecosystem-predictor", "promote UNKNOWN"],
       "source_of_truth": "brasileirao-predictor reports dated 2026-09-02 and main"
     },
@@ -113,7 +113,7 @@
       "ci_state": "PASS",
       "ci_evidence": "https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/33726292893",
       "open_blockers": ["BIZ-01"],
-      "next_allowed_action": "update only on real state change",
+      "next_allowed_action": "customer discovery: human-authorized outreach and first qualified conversation",
       "forbidden_actions": ["prediction", "research", "MLOps platform", "dashboard", "audit service implementation"],
       "source_of_truth": "CURRENT_STATE.md and registries/"
     }

@@ -52,11 +52,11 @@
     {
       "claim_id": "CLAIM-BR-MARKET-PIT",
       "claim": "Historical market quotes are reconstructible at the required cutoffs",
-      "evidence": ["2026 audit: 245 fixtures", "2024 and 2025 free-source probes: no historical odds"],
+      "evidence": ["2026 audit: 245 fixtures", "2024 and 2025 free-source probes: no historical odds", "The Odds API official docs: timestamped historical snapshots are paid-only; general history from 2020 and Pinnacle listed for EU, but exact Campeonato Brasileiro 2024-2025 coverage requires a licensed query"],
       "L": "L3", "Q": "Q3", "state": "PARTIAL",
       "supports": [], "contradicts": ["multi-season market PIT is ready"], "supersedes": [],
-      "limitations": ["paid-source availability is UNKNOWN", "2026 has stale outliers"],
-      "decision": "2024_UNKNOWN_2025_UNKNOWN_2026_PARTIAL", "next_evidence_required": "licensed paid-source export or period-specific NOT_VIABLE decision", "last_updated": "2026-09-03"
+      "limitations": ["exact paid-source competition/bookmaker coverage remains UNKNOWN without purchase", "2026 has stale outliers"],
+      "decision": "COMMERCIAL_DESK_INVESTIGATION_CLOSED_WITHOUT_LICENSED_EXPORT", "next_evidence_required": "licensed query only if historical line is explicitly reopened", "last_updated": "2026-09-03"
     },
     {
       "claim_id": "CLAIM-BR-FEATURE-PIT",
@@ -127,7 +127,31 @@
       "L": "B0", "Q": "Q0", "state": "B0", "supports": [],
       "contradicts": ["validated market", "validated ICP", "willingness to pay", "product-market fit"], "supersedes": [],
       "limitations": ["no external demand evidence"], "decision": "NO_SAAS_BEFORE_REAL_DEMAND",
-      "next_evidence_required": "V1: 10 real conversations across at most ICP-1 fintech/credit and ICP-2 industry/demand forecasting", "last_updated": "2026-09-03"
+      "next_evidence_required": "first qualified customer-discovery conversation; public contact research is not demand evidence", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-BIZ-001A", "claim": "Material validation or predictive-system reliability pain exists", "evidence": ["none; nominal contacts only"],
+      "L": "B0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["no interview completed"], "decision": "DO_NOT_PROMOTE", "next_evidence_required": "past incident plus concrete consequence and workaround", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-BIZ-001B", "claim": "The pain is important enough to consider an external evaluation", "evidence": ["none"],
+      "L": "B0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["no interview completed"], "decision": "DO_NOT_PROMOTE", "next_evidence_required": "explicit past behavior or concrete interest", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-BIZ-001C", "claim": "An identifiable owner and budget owner exist", "evidence": ["none"],
+      "L": "B0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["public roles do not prove budget authority"], "decision": "DO_NOT_PROMOTE", "next_evidence_required": "named decision path from a qualified conversation", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-BIZ-001D", "claim": "Independent audit or validation is an acceptable solution format", "evidence": ["none"],
+      "L": "B0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["service label is internal language"], "decision": "DO_NOT_RENAME_OR_BUILD", "next_evidence_required": "customer language and accepted process category", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-BIZ-001E", "claim": "Organizations can grant sufficient data, artifact and team access", "evidence": ["none"],
+      "L": "B0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["security, procurement and data-access constraints untested"], "decision": "DO_NOT_PROMOTE", "next_evidence_required": "documented access constraints from discovery", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-BIZ-001F", "claim": "A buyer will make a verifiable economic or operational commitment", "evidence": ["none"],
+      "L": "B0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["no offer, pilot, payment or commitment"], "decision": "DO_NOT_PROMOTE", "next_evidence_required": "verifiable commitment after pain and interest", "last_updated": "2026-09-03"
     }
   ]
 }
