@@ -1,6 +1,9 @@
 # ecosystem-predictor
 
-> **Estado reconciliado em 2026-09-01:** Core 3.0.0, Ops 4.0.0 e os três
+> **Fonte de verdade:** [`CURRENT_STATE.md`](CURRENT_STATE.md) e `registries/`.
+> Documentos FINAL/CLOSURE/AUDIT antigos são históricos e não definem o estado atual.
+
+> **Estado reconciliado em 2026-09-03:** Core 3.1.0, Ops 4.0.0 e os três
 > predictors econômicos descobertos sem colisão pelos entry points namespaced.
 > Brasileirão e cripto consomem Core/Ops; Stocks consome Core e ainda não declara
 > Ops. O inventário verificável está em `ECOSYSTEM_MECHANICAL_STATE.md`.

@@ -1,0 +1,71 @@
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def load(name: str) -> dict:
+    return json.loads((ROOT / "registries" / name).read_text(encoding="utf-8"))
+
+
+def test_project_registry_has_exactly_six_canonical_projects() -> None:
+    projects = load("project_registry.json")["projects"]
+    assert {item["project_id"] for item in projects} == {
+        "ecosystem-predictor",
+        "core-predictor",
+        "predictor-ops",
+        "brasileirao-predictor",
+        "cripto-predictor",
+        "stocks-predictor",
+    }
+
+
+def test_required_claims_exist_and_business_claim_stays_b0() -> None:
+    claims = {item["claim_id"]: item for item in load("evidence_registry.json")["claims"]}
+    required = {
+        "CLAIM-CORE-FOUNDATION",
+        "CLAIM-OPS-INTEGRITY",
+        "CLAIM-BR-MARKET-H24",
+        "CLAIM-BR-MARKET-H6",
+        "CLAIM-BR-MARKET-H1",
+        "CLAIM-BR-MARKET-PIT",
+        "CLAIM-BR-FEATURE-PIT",
+        "CLAIM-CR-HMM",
+        "CLAIM-CR-LLM",
+        "CLAIM-CR-H6",
+        "CLAIM-CR-COSTS",
+        "CLAIM-ST-FACTOR-FAMILIES",
+        "CLAIM-ST-PIT",
+        "CLAIM-ST-SURVIVORSHIP",
+        "CLAIM-BIZ-001",
+    }
+    assert required <= claims.keys()
+    assert claims["CLAIM-BIZ-001"]["state"] == "B0"
+    assert claims["CLAIM-CR-H6"]["state"] == "INCONCLUSIVE"
+
+
+def test_br_preservation_is_granular_and_not_false_pass() -> None:
+    backup = load("backup_registry.json")
+    br = backup["br_preservation"]
+    assert br["matches_db"] == "PASS"
+    assert br["prediction_store"] == "MISSING"
+    assert br["overall"] == "PARTIAL"
+    assert backup["v0_offsite_backup"] == "PARTIAL"
+
+
+def test_exp001_remains_fail_closed() -> None:
+    checkpoints = load("canonical_checkpoints.json")
+    assert checkpoints["EXP001_DATA_STATUS"] == "PARTIALLY_READY"
+    assert checkpoints["EXP001_HISTORICAL_READY"] == "NO"
+    assert checkpoints["EXP001_EXECUTION"] == "NOT_STARTED"
+    assert checkpoints["BR_RESEARCH_DECISION"] == "UNKNOWN"
+
+
+def test_harness_alignment_does_not_equate_core_versions() -> None:
+    registry = load("harness_registry.json")
+    statuses = {
+        (item["repo"], item["reported_core_version"]): item["status"] for item in registry["harnesses"]
+    }
+    assert statuses[("brasileirao-predictor", "3.1.0")] == "ALIGNED"
+    assert statuses[("cripto-predictor", "3.0.0")] == "COMPATIBLE_BUT_OLDER"
+    assert registry["overall_alignment"] == "COMPATIBLE_BUT_OLDER"

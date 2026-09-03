@@ -1,5 +1,12 @@
 # SECURITY_INCIDENT_SECRET_ROTATION.md
 
+> **SUPERSEDED em 2026-09-03.** A credencial foi rotacionada. Varredura segura do
+> `cripto-predictor` confirmou ausência dos cinco logs incidentais em todo o histórico
+> Git; o scan de valores literais em arquivos rastreados encontrou apenas referências
+> a secrets, placeholders/documentação e valores sintéticos de testes. Estado atual:
+> `SERPAPI_CURRENT_FILES=CLEAN`, `SERPAPI_GIT_HISTORY=CLEAN`. O texto abaixo é o
+> registro histórico anterior à rotação e não deve ser lido como pendência vigente.
+
 **Nenhum valor de segredo aparece neste documento ou em qualquer comando
 usado para produzi-lo.** Toda verificação foi feita por metadados (tamanho,
 timestamp, status Git, contagem de ocorrências por padrão estrutural, e

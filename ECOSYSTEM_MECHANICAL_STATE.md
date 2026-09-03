@@ -1,5 +1,8 @@
 # Estado mecânico dos seis projetos canônicos
 
+> **HISTORICAL — snapshot de 2026-09-01.** Não representa versões ou estados
+> atuais. Use [`CURRENT_STATE.md`](CURRENT_STATE.md) e `registries/`.
+
 Este documento é o inventário mecânico corrente dos **seis repositórios definidos por `ECOSYSTEM_CHARTER.md`**. Ele mede identidade, HEAD, runtime declarado, forma de consumo de Core/Ops, entry point do plugin, workflow e arquivos canônicos encontrados.
 
 Ele **não decide escopo**, não promove hipótese, não prova edge e não autoriza capital. O snapshot F1 de nove repositórios em `ECOSYSTEM_CURRENT_STATE.md` permanece preservado como evidência histórica de 2026-08-17.

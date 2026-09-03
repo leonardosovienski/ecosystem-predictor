@@ -2,8 +2,7 @@
 
 O handoff canônico deste repositório é [ECOSYSTEM_HANDOFF.md](ECOSYSTEM_HANDOFF.md).
 
-Estado resumido em 2026-09-01: seis repositórios canônicos, Core 3.0.0, Ops 4.0.0,
-três plugins econômicos carregados sem colisão e capital bloqueado em todos os
-domínios. Consulte também [ECOSYSTEM_MECHANICAL_STATE.md](ECOSYSTEM_MECHANICAL_STATE.md)
-para o snapshot verificável e [ECOSYSTEM_CHARTER.md](ECOSYSTEM_CHARTER.md) para a
-autoridade de escopo.
+Estado vigente: [CURRENT_STATE.md](CURRENT_STATE.md). Em 2026-09-03, Core 3.1.0 e
+Ops 4.0.0 estão publicados; Cripto e Stocks estão congelados; somente o EXP-001 do
+Brasileirão permanece cientificamente aberto. `ECOSYSTEM_MECHANICAL_STATE.md` é um
+snapshot histórico, não uma fonte corrente.

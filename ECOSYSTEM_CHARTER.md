@@ -10,12 +10,12 @@ O PREDICTORS é composto por **seis repositórios canônicos**:
 
 | Repositório | Papel canônico | Deve gerar lucro diretamente? |
 |---|---|---|
-| `ecosystem-predictor` | governança, registry, gateway, scheduler, storage e visão agregada | não |
+| `ecosystem-predictor` | governança interna, estado/evidência canônicos e decision log | não |
 | `core-predictor` | primitivas científicas, temporais, métricas e testes prequential compartilhados | não |
 | `predictor-ops` | execução operacional, idempotência, observabilidade, reconciliação, segurança operacional e controles de runtime | não |
-| `cripto-predictor` | predictor econômico de cripto | sim, quando houver edge validado |
-| `brasileirao-predictor` | predictor econômico de mercados do Brasileirão | sim, quando houver edge validado |
-| `stocks-predictor` | predictor econômico de ações; domínio ativo atual: `predictor-rj` | sim, quando houver edge validado |
+| `cripto-predictor` | ativo de pesquisa congelado e casos científicos | não; pesquisa congelada |
+| `brasileirao-predictor` | laboratório científico ativo somente para EXP-001 e portfólio público | não; não é produto |
+| `stocks-predictor` | ativo de pesquisa congelado e caso de falsificação quantitativa | não; pesquisa e RJ congelados |
 
 A composição acima é uma **decisão humana**, não um resultado do coletor mecânico.
 
@@ -27,7 +27,10 @@ Nada neste charter apaga o histórico científico desses projetos.
 
 ## 2. Objetivo global
 
-Os três predictors econômicos — Cripto, Brasileirão e Stocks — existem para produzir recomendações baseadas em informação disponível no momento da decisão que, quando executadas segundo uma política definida e mensurável, apresentem **evidência prospectiva de expectativa de lucro líquido positivo**.
+Historicamente, os três predictors econômicos buscaram recomendações baseadas em
+informação disponível no momento da decisão. Em 2026-09-03, Cripto e Stocks estão
+congelados; apenas a pergunta EXP-001 do Brasileirão continua aberta. Nenhum deles é
+um produto comercial e nenhum está autorizado a buscar novo alpha fora desse escopo.
 
 No estágio atual, o fluxo operacional esperado é:
 

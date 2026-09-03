@@ -1,0 +1,133 @@
+{
+  "schema_version": "evidence-registry/1.0",
+  "last_updated": "2026-09-03",
+  "axes": {"L": "evidence level", "Q": "methodological quality; independent from L"},
+  "claims": [
+    {
+      "claim_id": "CLAIM-CORE-FOUNDATION",
+      "claim": "Core provides the released scientific and temporal foundation",
+      "evidence": ["core-predictor@29eb8b73", "release v3.1.0", "CHANGELOG 3.1.0", "green CI"],
+      "L": "L4", "Q": "Q4", "state": "SUPPORTED",
+      "supports": ["EXP000B_TEMPORAL", "EXP000_PROVENANCE"], "contradicts": [], "supersedes": ["Core 3.0.0 is current"],
+      "limitations": ["domain data provenance remains domain-owned"], "decision": "FOUNDATION_READY",
+      "next_evidence_required": "new release only", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-OPS-INTEGRITY",
+      "claim": "Ops 4.0.0 supplies fail-closed local operational controls",
+      "evidence": ["predictor-ops@ab41e6a", "CHANGELOG 4.0.0", "CI 33724070941"],
+      "L": "L4", "Q": "Q4", "state": "SUPPORTED",
+      "supports": ["locking", "heartbeat", "idempotency", "kill-switch", "provenance", "retry/reconciliation"],
+      "contradicts": [], "supersedes": ["shared gate monitor is required"],
+      "limitations": ["scheduler is external", "scientific gates are domain-owned"],
+      "decision": "READY", "next_evidence_required": "runtime regression or new release", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-BR-MARKET-H24",
+      "claim": "2026 provider fixtures have an H-24 market snapshot",
+      "evidence": ["245/245 returned fixtures covered; 242 within 24h maximum age"],
+      "L": "L3", "Q": "Q3", "state": "PARTIAL",
+      "supports": ["2026 coverage feasibility"], "contradicts": [], "supersedes": [],
+      "limitations": ["3 stale outliers", "maximum-age rule not preregistered", "no 2024-2025 history"],
+      "decision": "DO_NOT_PROMOTE_TO_HISTORICAL_READY", "next_evidence_required": "preregister age rule and obtain multi-season data", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-BR-MARKET-H6",
+      "claim": "2026 provider fixtures have an H-6 market snapshot",
+      "evidence": ["245/245 returned fixtures covered; 241 within 6h maximum age"],
+      "L": "L3", "Q": "Q3", "state": "PARTIAL",
+      "supports": ["2026 coverage feasibility"], "contradicts": [], "supersedes": [],
+      "limitations": ["4 stale outliers", "maximum-age rule not preregistered"],
+      "decision": "DO_NOT_PROMOTE_TO_HISTORICAL_READY", "next_evidence_required": "same-cutoff admissibility rule", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-BR-MARKET-H1",
+      "claim": "2026 provider fixtures have an H-1 market snapshot",
+      "evidence": ["245/245 returned fixtures covered; 241 within 1h maximum age"],
+      "L": "L3", "Q": "Q3", "state": "PARTIAL",
+      "supports": ["2026 coverage feasibility"], "contradicts": [], "supersedes": [],
+      "limitations": ["4 stale outliers", "maximum-age rule not preregistered"],
+      "decision": "DO_NOT_PROMOTE_TO_HISTORICAL_READY", "next_evidence_required": "same-cutoff admissibility rule", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-BR-MARKET-PIT",
+      "claim": "Historical market quotes are reconstructible at the required cutoffs",
+      "evidence": ["2026 audit: 245 fixtures", "2024 and 2025 free-source probes: no historical odds"],
+      "L": "L3", "Q": "Q3", "state": "PARTIAL",
+      "supports": [], "contradicts": ["multi-season market PIT is ready"], "supersedes": [],
+      "limitations": ["paid-source availability is UNKNOWN", "2026 has stale outliers"],
+      "decision": "2024_UNKNOWN_2025_UNKNOWN_2026_PARTIAL", "next_evidence_required": "licensed paid-source export or period-specific NOT_VIABLE decision", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-BR-FEATURE-PIT",
+      "claim": "Model inputs existed and were observable at H-24, H-6 and H-1",
+      "evidence": ["feature PIT audit: score/xG lack completion/publication timestamp; statistics lack available_at/ingested_at"],
+      "L": "L3", "Q": "Q4", "state": "PARTIAL",
+      "supports": ["fail-closed decision"], "contradicts": ["historical feature PIT is proven"], "supersedes": [],
+      "limitations": ["kickoff proves event start, not result availability"],
+      "decision": "2024_PARTIAL_2025_PARTIAL_2026_PARTIAL", "next_evidence_required": "source publication timestamps or prospective bitemporal cohort", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-CR-HMM",
+      "claim": "Frozen HMM funding/OI family does not support deployment",
+      "evidence": ["H1/H2/H3 CLOSED_NO_GO with cost-aware results"],
+      "L": "L4", "Q": "Q4", "state": "CLOSED_NO_GO", "supports": ["CRYPTO_RESEARCH_FROZEN"],
+      "contradicts": ["positive deployable edge"], "supersedes": ["historical pre-cost GO"],
+      "limitations": [], "decision": "DO_NOT_REOPEN_WITHOUT_DOSSIER", "next_evidence_required": "new preregistered prospective evidence", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-CR-LLM",
+      "claim": "Prospective LLM signal did not establish deployable edge",
+      "evidence": ["H4 insufficient sample", "H5 CLOSED_NO_GO"],
+      "L": "L4", "Q": "Q3", "state": "CLOSED", "supports": ["CRYPTO_RESEARCH_FROZEN"],
+      "contradicts": ["validated LLM trading"], "supersedes": [], "limitations": ["H4 was stopped at n=5"],
+      "decision": "FROZEN", "next_evidence_required": "complete reopen dossier", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-CR-H6",
+      "claim": "Inverted H6 signal has a directional scientific verdict",
+      "evidence": ["n=84, rho=-0.057, IC95 [-0.231,+0.129], power 23% for rho=0.2"],
+      "L": "L3", "Q": "Q4", "state": "INCONCLUSIVE", "supports": ["passive collection only"],
+      "contradicts": ["SUPPORTED", "REFUTED"], "supersedes": [], "limitations": ["underpowered for small-to-moderate effect"],
+      "decision": "REMAINS_INCONCLUSIVE", "next_evidence_required": "legitimate additional observations under frozen definition", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-CR-COSTS",
+      "claim": "Costs are included in the canonical perpetual-futures verdict",
+      "evidence": ["domain CostModel", "cost-aware closed HMM verdicts"],
+      "L": "L4", "Q": "Q4", "state": "SUPPORTED", "supports": ["HMM no-go"], "contradicts": [], "supersedes": ["pre-cost GO"],
+      "limitations": ["spot walk-the-book model is archived and uncalibrated"], "decision": "KEEP_DOMAIN_OWNED", "next_evidence_required": "second real consumer before abstraction", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-ST-FACTOR-FAMILIES",
+      "claim": "Tested stock factor families produced no supported winner in the frozen window",
+      "evidence": ["six registered families", "DSR and bootstrap verdicts", "252 passing tests"],
+      "L": "L4", "Q": "Q4", "state": "CLOSED_NOT_SUPPORTED_IN_WINDOW", "supports": ["STOCKS_RESEARCH_FROZEN"],
+      "contradicts": ["validated stock alpha"], "supersedes": [], "limitations": ["single historical window"],
+      "decision": "FROZEN", "next_evidence_required": "complete reopen dossier", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-ST-PIT",
+      "claim": "Stocks tests enforce point-in-time membership and chronology",
+      "evidence": ["named PIT/listing tests", "252 passing tests with Core 3.0.0"],
+      "L": "L4", "Q": "Q4", "state": "SUPPORTED", "supports": ["ST_PIT_INTEGRITY"], "contradicts": [], "supersedes": [],
+      "limitations": ["purge/embargo remains an explicit design limitation"], "decision": "PASS", "next_evidence_required": "none while frozen", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-ST-SURVIVORSHIP",
+      "claim": "Survivorship effects are explicitly tested and materially affect interpretation",
+      "evidence": ["universe snapshots", "late-listing regression test", "CASE-ST-003"],
+      "L": "L4", "Q": "Q4", "state": "SUPPORTED", "supports": ["ST_PIT_INTEGRITY"], "contradicts": [], "supersedes": [],
+      "limitations": [], "decision": "PASS", "next_evidence_required": "none while frozen", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-BIZ-001",
+      "claim": "Companies with predictive systems in production may pay for independent predictive-system audit",
+      "evidence": ["idea only; no real conversations recorded"],
+      "L": "B0", "Q": "Q0", "state": "B0", "supports": [],
+      "contradicts": ["validated market", "validated ICP", "willingness to pay", "product-market fit"], "supersedes": [],
+      "limitations": ["no external demand evidence"], "decision": "NO_SAAS_BEFORE_REAL_DEMAND",
+      "next_evidence_required": "V1: 10 real conversations across at most ICP-1 fintech/credit and ICP-2 industry/demand forecasting", "last_updated": "2026-09-03"
+    }
+  ]
+}

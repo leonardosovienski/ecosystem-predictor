@@ -1,0 +1,18 @@
+{
+  "schema_version": "exp001-prospective-contract/1.0",
+  "owner": "brasileirao-predictor",
+  "implementation_in_ecosystem_forbidden": true,
+  "state": "ACTIVE_IF_HISTORICAL_NOT_VIABLE",
+  "required_fields": [
+    "prediction_id", "created_at", "cutoff", "kickoff",
+    "feature_snapshot_id", "feature_dataset_hash", "feature_available_at",
+    "market_snapshot_id", "market_timestamp", "bookmaker",
+    "model_version", "code_version"
+  ],
+  "invariants": [
+    "created_at <= cutoff < kickoff",
+    "feature_available_at <= cutoff",
+    "market_timestamp <= cutoff",
+    "records are append-only and must not be reconstructed retroactively"
+  ]
+}
