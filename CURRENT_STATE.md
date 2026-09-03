@@ -1,6 +1,6 @@
 # Estado canônico atual
 
-**Data:** 2026-09-03  
+**Data:** 2026-09-03
 **Autoridade:** este arquivo e os registros em `registries/` substituem qualquer
 descrição de estado anterior. Evidência executada prevalece sobre documentação antiga.
 
