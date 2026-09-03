@@ -69,7 +69,14 @@ def test_commercial_discovery_starts_with_real_names_but_no_claim_promotion() ->
     assert len({item["contact_id"] for item in registry["contacts"]}) == len(registry["contacts"])
     assert {item["ICP"] for item in registry["contacts"]} <= {"ICP-1", "ICP-2"}
     assert registry["gates"]["BIZ-001_10_NOMINAL_CONTACTS"] == "YES"
-    assert registry["v1"]["outreach"] == "NOT_STARTED_REQUIRES_HUMAN_AUTHORIZATION"
+    assert registry["v1"]["outreach"] == "READY_FOR_HUMAN_EXECUTION"
+    assert registry["outreach_001"]["selected_contact_id"] == "ICP2-001"
+    assert registry["outreach_001"]["status"] == "READY_FOR_HUMAN_EXECUTION"
+    assert registry["outreach_001"]["sent_at"] is None
+    assert registry["interview_001"]["status"] == "NOT_STARTED"
+    assert registry["interview_001"]["evidence_source"] is None
+    assert len(registry["evidence_capture_template"]["subclaims"]) == 6
+    assert registry["follow_up_rule"]["maximum_follow_ups"] == 1
     assert all(item["status"] == "RESEARCHED_NOT_CONTACTED" for item in registry["contacts"])
 
 

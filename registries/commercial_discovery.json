@@ -21,10 +21,63 @@
     "BIZ-005_PAYMENT": "NOT_TESTED"
   },
   "v1": {
-    "operationally_started": "YES_CONTACT_LIST_ONLY",
-    "outreach": "NOT_STARTED_REQUIRES_HUMAN_AUTHORIZATION",
+    "operationally_started": "YES_OUTREACH_PREPARED",
+    "outreach": "READY_FOR_HUMAN_EXECUTION",
     "first_qualified_conversation": "NOT_STARTED",
     "day_0": "NOT_STARTED"
+  },
+  "outreach_001": {
+    "status": "READY_FOR_HUMAN_EXECUTION",
+    "selected_contact_id": "ICP2-001",
+    "selected_contact": "Daniel Djonatha",
+    "company": "Promax Bardahl Brasil",
+    "ICP": "ICP-2",
+    "likely_role": ["USER", "POSSIBLE_CHAMPION"],
+    "why_this_contact": "Combines direct proximity to supply-chain forecasting and S&OP with a practical view of validation failures, while remaining closer to operations than a senior executive.",
+    "pain_hypothesis": "Forecast errors may cause replanning, manual overrides, cross-functional reconciliation and uncertainty about whether failures came from model, data or assumptions.",
+    "channel": "LINKEDIN_PUBLIC_PROFESSIONAL_PROFILE",
+    "message": "Olá, Daniel. Vi sua experiência com planejamento, S&OP e forecasting na Promax Bardahl. Estou pesquisando como equipes industriais validam forecasts na prática, especialmente quando os resultados ficam abaixo do esperado e precisam ser investigados ou defendidos internamente. Você teria 20–25 minutos para me contar como esse processo funciona na sua experiência? É uma conversa de pesquisa, sem apresentação ou pitch comercial. Se fizer sentido, adapto ao melhor horário para você.",
+    "prepared_at": "2026-09-03",
+    "sent_at": null,
+    "evidence_source": "AGENT_PREPARATION",
+    "authorization_required": true
+  },
+  "interview_001": {
+    "status": "NOT_STARTED",
+    "guide_status": "READY",
+    "opening": "Queria entender como isso funciona na prática por aí. Você consegue me contar sobre a última vez em que um modelo ou forecast importante precisou ser revisado porque o resultado não saiu como esperado?",
+    "questions": [
+      "Que decisão esse forecast suportava e quem dependia dele?",
+      "Como perceberam o problema e o que aconteceu depois?",
+      "Quanto tempo, retrabalho, custo ou risco operacional isso gerou?",
+      "Como validam forecasts antes do uso e qual baseline utilizam?",
+      "Como registram ajustes, versões e performance depois da adoção?",
+      "Seria possível reproduzir exatamente a versão usada seis meses atrás?",
+      "Já usaram alguém externo para revisar forecast, modelo ou metodologia?",
+      "Em que situação uma avaliação independente faria sentido e em qual não faria?",
+      "Quais dados e artefatos poderiam ser compartilhados e quais aprovações seriam necessárias?",
+      "Quem decide como resolver esse problema e quem aprova orçamento externo?",
+      "Quem mais deveria ser ouvido sobre esse processo?"
+    ],
+    "evidence_source": null
+  },
+  "evidence_capture_template": {
+    "identity_fields": ["interview_id", "date", "contact_id", "company", "role", "ICP"],
+    "provenance_fields": ["interaction_medium", "evidence_source", "source_reference", "recorded_by", "recorded_at"],
+    "context_fields": ["model_context", "decision_supported", "production_or_experiment", "users_and_stakeholders"],
+    "pain_fields": ["past_incident", "consequence", "current_workaround", "time_cost", "financial_or_operational_cost", "decision_risk", "recurrence"],
+    "process_fields": ["validation_process", "baseline_used", "version_and_experiment_history", "post_deploy_monitoring", "reproducibility_status"],
+    "commercial_fields": ["problem_owner", "budget_owner", "external_validation_used_before", "when_external_review_makes_sense", "shareable_artifacts", "access_constraints", "customer_language", "referral", "next_step"],
+    "subclaim_values": ["SUPPORTED", "PARTIAL", "CONTRADICTED", "UNKNOWN"],
+    "subclaims": ["BIZ-001A", "BIZ-001B", "BIZ-001C", "BIZ-001D", "BIZ-001E", "BIZ-001F"],
+    "legitimate_evidence_sources": ["HUMAN_OUTREACH", "HUMAN_INTERVIEW", "CUSTOMER_EMAIL", "CUSTOMER_MESSAGE", "MEETING_NOTES", "PROPOSAL_EVENT", "PILOT_EVENT", "PROCUREMENT_EVENT", "PAYMENT_EVENT", "RENEWAL_EVENT"]
+  },
+  "follow_up_rule": {
+    "maximum_follow_ups": 1,
+    "wait_business_days": 5,
+    "message": "Olá, Daniel. Retomando brevemente minha mensagem anterior: continuo conversando com profissionais de planejamento para entender como forecasts são validados e investigados na prática. Se o tema estiver próximo da sua experiência, agradeceria muito uma conversa de 20–25 minutos. Se não for sua área direta, sem problema — uma indicação da pessoa mais próxima desse processo também ajudaria.",
+    "after_second_wait": "REGISTER_NO_RESPONSE_AND_ADVANCE",
+    "interpretation": "NO_RESPONSE_IS_OPERATIONAL_DATA_NOT_EVIDENCE_AGAINST_PAIN"
   },
   "contacts": [
     {"contact_id":"ICP1-001","name":"Juliana Barby Simão","company":"Nubank","role":"Risk Analytics Director (public-profile description)","ICP":"ICP-1","why_this_person":"Model-risk and analytics leadership is close to independent validation pain.","pain_hypothesis":"Reproducibility, model-risk review, drift and independent challenge of credit models.","relationship_strength":"UNKNOWN","access_channel":"PUBLIC_PROFESSIONAL_PROFILE","USER":"POSSIBLE","CHAMPION":"POSSIBLE","BUYER":"UNKNOWN","RISK_PROCUREMENT":"POSSIBLE","priority":"P1","status":"RESEARCHED_NOT_CONTACTED","last_action":"Public professional profile verified","next_action":"Human review, then request authorization for a personalized outreach","source":"https://br.linkedin.com/in/juliana-barby-sim%C3%A3o-8463965"},
@@ -38,5 +91,5 @@
     {"contact_id":"ICP2-004","name":"Filipe W.","company":"Minalba Brasil","role":"Forecasting/demand-planning professional (exact current title unverified)","ICP":"ICP-2","why_this_person":"Public work context is centered on long-term forecasting and planning.","pain_hypothesis":"Forecast reproducibility, manual workarounds and linkage between error metrics and decisions.","relationship_strength":"UNKNOWN","access_channel":"PUBLIC_PROFESSIONAL_PROFILE","USER":"LIKELY","CHAMPION":"POSSIBLE","BUYER":"UNKNOWN","RISK_PROCUREMENT":"UNKNOWN","priority":"P2","status":"RESEARCHED_NOT_CONTACTED","last_action":"Public professional profile verified; exact title remains UNKNOWN","next_action":"Verify full name and current title before any outreach","source":"https://br.linkedin.com/in/filipew/pt"},
     {"contact_id":"ICP2-005","name":"Tobias Favero","company":"Galderma","role":"Supply-chain / forecasting professional (exact current title unverified)","ICP":"ICP-2","why_this_person":"Long public track record in supply chain, forecasting and demand planning.","pain_hypothesis":"Forecast governance, planning overrides and independent review after performance failures.","relationship_strength":"UNKNOWN","access_channel":"PUBLIC_PROFESSIONAL_PROFILE","USER":"POSSIBLE","CHAMPION":"POSSIBLE","BUYER":"UNKNOWN","RISK_PROCUREMENT":"UNKNOWN","priority":"P2","status":"RESEARCHED_NOT_CONTACTED","last_action":"Public professional profile verified; exact title remains UNKNOWN","next_action":"Verify current role and geography before any outreach","source":"https://br.linkedin.com/in/tobias-favero-3b2525b8/en"}
   ],
-  "invariants": ["Public-profile research is not customer evidence", "No contact has been approached", "No role, access path, buyer authority or pain is promoted beyond what public evidence supports", "Outreach requires explicit human authorization"]
+  "invariants": ["Public-profile research is not customer evidence", "No contact has been approached", "No role, access path, buyer authority or pain is promoted beyond what public evidence supports", "Outreach requires explicit human authorization", "Synthetic customer discovery is not customer discovery"]
 }

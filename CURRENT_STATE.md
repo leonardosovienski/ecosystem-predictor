@@ -33,8 +33,10 @@ descrição de estado anterior. Evidência executada prevalece sobre documentaç
 `CLAIM_BIZ_001 = B0` e `COMMERCIAL_DISCOVERY_PHASE = STARTING`. A lista P3.0 tem
 dez contatos nominais públicos em ICP-1 e ICP-2, registrada em
 `registries/commercial_discovery.json`; isso inicia apenas a preparação operacional
-de V1, não valida dor, acesso, comprador ou disposição a pagar. Nenhuma abordagem
-foi enviada. Próxima evidência: primeira conversa qualificada, após autorização humana.
+de V1, não valida dor, acesso, comprador ou disposição a pagar. `OUTREACH_001` foi
+preparado para Daniel Djonatha e está `READY_FOR_HUMAN_EXECUTION`; roteiro, captura
+de evidência e follow-up também estão registrados. Nenhuma abordagem foi enviada.
+Próxima evidência: envio pelo operador e primeira conversa qualificada real.
 
 ## Próximas ações permitidas
 
@@ -42,7 +44,7 @@ foi enviada. Próxima evidência: primeira conversa qualificada, após autoriza�
 2. Não reabrir o EXP-001 histórico sem evidência nativa e timestamped dos dois lados PIT.
 3. Observar o próximo disparo natural do scheduler do Cripto sem reabrir pesquisa.
 4. Reemitir harnesses do Cripto contra Core 3.1.0 somente se a certificação atual for exigida.
-5. Revisar a lista nominal e, com autorização humana, iniciar outreach para a primeira conversa V1.
+5. O operador revisar e enviar `OUTREACH_001`; depois registrar somente a interação humana real.
 
 ## Ações proibidas
 
