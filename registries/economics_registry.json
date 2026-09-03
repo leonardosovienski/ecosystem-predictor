@@ -1,0 +1,91 @@
+{
+  "schema_version": "economics-registry/1.0",
+  "as_of": "2026-09-03",
+  "claim": "CLAIM-ECON-001",
+  "claim_state": "E0",
+  "unit_economics": "UNKNOWN",
+  "profitability": "UNKNOWN",
+  "repeatability": "UNKNOWN",
+  "actuals": {
+    "proposals": 0,
+    "pilots": 0,
+    "paid_engagements": 0,
+    "payments": 0,
+    "revenue": 0,
+    "renewals": 0,
+    "referrals": 0
+  },
+  "subclaims": {
+    "ECON-001A": {"name": "PRICE", "state": "UNKNOWN"},
+    "ECON-001B": {"name": "DELIVERY_EFFORT", "state": "UNKNOWN"},
+    "ECON-001C": {"name": "CONTRIBUTION_MARGIN", "state": "UNKNOWN"},
+    "ECON-001D": {"name": "ACQUISITION", "state": "UNKNOWN"},
+    "ECON-001E": {"name": "REPEATABILITY", "state": "UNKNOWN"},
+    "ECON-001F": {"name": "RETENTION_EXPANSION", "state": "UNKNOWN"}
+  },
+  "offer": {
+    "working_name": "Evidence-Backed Predictive System Review",
+    "for_whom": "Teams operating one material predictive model or operational forecast",
+    "problem": "Uncertainty about whether the system's evidence, temporal integrity and production performance support the decisions made from it",
+    "decision_supported": "Whether to trust, constrain, remediate, revalidate or retire the reviewed system",
+    "deliverable": "Independent evidence-backed report with supported, unsupported and unknown claims, priority findings and bounded remediation recommendations",
+    "client_input": ["system owner interview", "existing documentation", "available data and predictions", "experiment/version history", "limited technical access"],
+    "included": ["one predictive system", "bounded independent review", "temporal integrity and leakage", "provenance and baseline adequacy", "selection and multiplicity", "calibration, robustness and drift when applicable", "research-to-production gaps", "decision implications"],
+    "excluded": ["system reconstruction", "new model development", "feature engineering", "retraining", "MLOps", "continuous monitoring", "dashboard", "SaaS", "API", "permanent support"],
+    "duration": "UNKNOWN_UNTIL_DISCOVERY_AND_SCOPE",
+    "promises_excluded": ["profit increase", "accuracy increase", "guaranteed risk reduction", "regulatory approval", "automatic remediation"]
+  },
+  "minimal_pipeline": {
+    "stages": ["OUTREACH", "REAL_CONVERSATION", "MATERIAL_PAIN", "OWNER_BUYER_PATH", "EXTERNALIZATION", "ACCESS", "SCOPE", "PROPOSAL", "COMMITMENT", "PAYMENT", "DELIVERY", "MEASURED_MARGIN"],
+    "metrics": ["prospects_contacted", "responses", "qualified_conversations", "material_pain_count", "buyer_path_count", "externalization_positive", "access_feasible_count", "scope_conversations", "proposals_sent", "commitments", "paid_engagements", "revenue", "delivery_hours", "acquisition_hours", "cash_cost", "economic_cost", "contribution_margin", "repeat_customers", "referrals"]
+  },
+  "scope_template": {
+    "fields": ["customer", "system", "decision_context", "review_question", "included_artifacts", "excluded_work", "access_constraints", "stakeholders", "deliverables", "acceptance_boundary", "estimated_window", "change_control"]
+  },
+  "pricing_framework": {
+    "state": "HYPOTHESIS_ONLY",
+    "internal_range": "NOT_SET",
+    "market_price": "UNKNOWN",
+    "evidence_fields": ["price_discussed", "customer_reaction", "budget_context", "procurement_constraint", "alternative_cost", "scope_expected"],
+    "rule": "Do not promote an internal estimate to market price"
+  },
+  "proposal_trigger": {
+    "required": ["REAL_MATERIAL_PAIN", "PROBLEM_OWNER", "BUYER_PATH", "EXTERNALIZATION_ACCEPTED", "ACCESS_POSSIBLE"],
+    "action": "SCOPE_CONVERSATION",
+    "not_required": "exactly ten completed interviews"
+  },
+  "first_paid_engagement_template": {
+    "identity": ["engagement_id", "customer", "system_scope", "B_stage", "E_stage"],
+    "cash": ["contract_value", "cash_received", "taxes_if_applicable"],
+    "acquisition": ["founder_outreach_hours", "sales_call_hours", "proposal_hours", "travel", "sales_tools", "paid_acquisition"],
+    "delivery_hours": ["meetings", "access_setup", "data_understanding", "reproduction", "audit", "analysis", "report", "presentation", "rework", "scope_creep"],
+    "variable_costs": ["infra_cost", "tooling_cost", "external_data_cost", "travel_cost", "other_variable_cost"],
+    "labor": ["internal_hourly_cost_assumption", "imputed_labor_cost"],
+    "economics": ["cash_margin", "contribution_margin", "contribution_margin_percent", "economic_margin", "operating_profit"],
+    "reuse": ["reusable_work", "client_specific_work", "reusable_work_share", "manual_audit_from_scratch_hours", "actual_hours_with_infrastructure", "hours_saved"],
+    "outcomes": ["customer_outcome", "referral", "renewal", "expansion", "lessons"]
+  },
+  "formulas": {
+    "cash_margin": "revenue - cash_variable_cost",
+    "contribution_margin": "revenue - variable_delivery_cost - variable_acquisition_cost",
+    "economic_margin": "revenue - cash_variable_cost - imputed_labor_cost",
+    "operating_profit": "revenue - variable_costs - economic_labor_cost - commercial_costs - fixed_operating_costs"
+  },
+  "kill_criteria": {
+    "commercial": "90 days AND 30-40 genuinely targeted contacts AND at least 10 qualified conversations AND justified offers made AND no B3",
+    "economic": ["acceptable price below delivery economics", "delivery overwhelmingly custom", "access or compliance structurally infeasible", "acquisition consumes margin", "uncontrollable scope creep", "no second independent buyer", "all demand unpaid", "no repeat, referral or expansion signal"]
+  },
+  "gates": {
+    "E1": "measured delivery scope",
+    "E2": "pricing discussed with a real prospect",
+    "E3": "real commercial proposal",
+    "E4": "cash actually received",
+    "E5": "payment plus measured delivery and acquisition cost plus positive contribution margin",
+    "E6": "two independent paid positive-margin engagements with reusable process evidence",
+    "E7": "renewal, repeat or expansion economics",
+    "AUTOMATION": "at least three paid engagements plus repeated workflow plus demonstrated manual bottleneck",
+    "SAAS": "repeated paid demand plus recurring similar problem, inputs, outputs and customer demand for recurring workflow"
+  },
+  "primary_next_action": "HUMAN_OPERATOR_SEND_OUTREACH_001",
+  "invariants": ["agent preparation is not a commercial event", "first revenue means cash actually received", "revenue is not profit", "founder time is not free", "no E-stage promotion from estimates or simulations", "service first"]
+}

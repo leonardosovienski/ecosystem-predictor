@@ -23,6 +23,8 @@ BR EXP-001 prospective evidence collection only. `BR_RESEARCH_DECISION = UNKNOWN
 
 `OUTREACH_001 = READY_FOR_HUMAN_EXECUTION` for Daniel Djonatha. No outreach was sent
 and no interview occurred. `CLAIM_BIZ_001 = B0`; BIZ-001A..F remain `UNKNOWN`.
+`CLAIM_ECON_001 = E0`; revenue and paid engagements are zero, while unit economics
+and profitability remain `UNKNOWN`.
 
 ## Known Unknowns
 

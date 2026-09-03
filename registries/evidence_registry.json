@@ -161,6 +161,28 @@
     {
       "claim_id": "CLAIM-BIZ-001F", "claim": "A buyer will make a verifiable economic or operational commitment", "evidence": ["none"],
       "L": "B0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["no offer, pilot, payment or commitment"], "decision": "DO_NOT_PROMOTE", "next_evidence_required": "verifiable commitment after pain and interest", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-ECON-001", "claim": "An independent predictive-system review can produce repeatable positive-margin economics", "evidence": ["hypothesis and measurement framework only"],
+      "L": "E0", "Q": "Q0", "state": "E0", "supports": [], "contradicts": ["validated unit economics", "validated profitability"], "supersedes": [], "limitations": ["no proposal, payment or measured engagement"], "decision": "MEASURE_REAL_ENGAGEMENTS", "next_evidence_required": "real scoped commercial event followed by measured delivery", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-ECON-001A", "claim": "A buyer-acceptable price exists", "evidence": ["none"], "L": "E0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["no price discussion"], "decision": "NO_MARKET_PRICE_INFERENCE", "next_evidence_required": "real prospect price discussion", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-ECON-001B", "claim": "Delivery effort is controllable", "evidence": ["none"], "L": "E0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["no real delivery measured"], "decision": "MEASURE_ALL_HOURS", "next_evidence_required": "completed scoped engagement with time tracking", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-ECON-001C", "claim": "Contribution margin is positive", "evidence": ["none"], "L": "E0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["zero revenue and unknown cost"], "decision": "DO_NOT_CALL_REVENUE_PROFIT", "next_evidence_required": "cash received plus measured variable acquisition and delivery costs", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-ECON-001D", "claim": "Customer acquisition does not destroy margin", "evidence": ["none"], "L": "E0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["no acquisition cycle completed"], "decision": "MEASURE_FOUNDER_SALES_TIME", "next_evidence_required": "actual acquisition hours and cash cost", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-ECON-001E", "claim": "A material share of delivery is reusable", "evidence": ["none"], "L": "E0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["no client delivery"], "decision": "CLASSIFY_REUSABLE_VS_CLIENT_SPECIFIC", "next_evidence_required": "measured work classification across engagements", "last_updated": "2026-09-03"
+    },
+    {
+      "claim_id": "CLAIM-ECON-001F", "claim": "Retention, repeat or expansion demand exists", "evidence": ["none"], "L": "E0", "Q": "Q0", "state": "UNKNOWN", "supports": [], "contradicts": [], "supersedes": [], "limitations": ["no customer"], "decision": "DO_NOT_INVENT_RECURRENCE", "next_evidence_required": "real renewal, repeat, referral or expansion event", "last_updated": "2026-09-03"
     }
   ]
 }

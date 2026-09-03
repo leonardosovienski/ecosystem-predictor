@@ -38,6 +38,11 @@ preparado para Daniel Djonatha e está `READY_FOR_HUMAN_EXECUTION`; roteiro, cap
 de evidência e follow-up também estão registrados. Nenhuma abordagem foi enviada.
 Próxima evidência: envio pelo operador e primeira conversa qualificada real.
 
+`CLAIM_ECON_001 = E0`: preço, esforço de entrega, aquisição, margem, reutilização e
+retenção permanecem `UNKNOWN`. Receita e engagements pagos são zero. A oferta e os
+templates de medição estão em `registries/economics_registry.json`; não constituem
+evidência de mercado.
+
 ## Próximas ações permitidas
 
 1. Manter coleta prospectiva do Brasileirão com o contrato em `canonical_contracts/exp001_prospective.json`.
@@ -60,6 +65,7 @@ ampla; execução do EXP-001 neste repositório.
 - `registries/decision_log.json`
 - `registries/backup_registry.json`
 - `registries/harness_registry.json`
+- `registries/economics_registry.json`
 - `PENDENCIAS_ABERTAS.md`
 - `docs/HISTORICAL_DOCUMENT_INDEX.md`
 - `SESSION_HANDOFF.md`

@@ -39,6 +39,13 @@ def test_required_claims_exist_and_business_claim_stays_b0() -> None:
         "CLAIM-ST-SURVIVORSHIP",
         "CLAIM-ST-VENDOR",
         "CLAIM-BIZ-001",
+        "CLAIM-ECON-001",
+        "CLAIM-ECON-001A",
+        "CLAIM-ECON-001B",
+        "CLAIM-ECON-001C",
+        "CLAIM-ECON-001D",
+        "CLAIM-ECON-001E",
+        "CLAIM-ECON-001F",
     }
     assert required <= claims.keys()
     assert claims["CLAIM-BIZ-001"]["state"] == "B0"
@@ -87,6 +94,17 @@ def test_commercial_discovery_starts_with_real_names_but_no_claim_promotion() ->
     assert len(registry["evidence_capture_template"]["subclaims"]) == 6
     assert registry["follow_up_rule"]["maximum_follow_ups"] == 1
     assert all(item["status"] == "RESEARCHED_NOT_CONTACTED" for item in registry["contacts"])
+
+
+def test_economics_stays_e0_without_fabricated_revenue_or_margin() -> None:
+    registry = load("economics_registry.json")
+    assert registry["claim_state"] == "E0"
+    assert registry["actuals"]["revenue"] == 0
+    assert registry["actuals"]["paid_engagements"] == 0
+    assert registry["unit_economics"] == "UNKNOWN"
+    assert registry["profitability"] == "UNKNOWN"
+    assert registry["pricing_framework"]["market_price"] == "UNKNOWN"
+    assert registry["primary_next_action"] == "HUMAN_OPERATOR_SEND_OUTREACH_001"
 
 
 def test_harness_alignment_does_not_equate_core_versions() -> None:
