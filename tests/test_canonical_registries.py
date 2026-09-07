@@ -108,10 +108,47 @@ def test_economics_stays_e0_without_fabricated_revenue_or_margin() -> None:
 
 
 def test_harness_alignment_does_not_equate_core_versions() -> None:
+    """Alinhamento é sobre certificação, não sobre igualdade de versão do Core.
+
+    Atualizado em 2026-09-06: o Core corrente passou a 3.2.0 e os três domínios
+    ficaram deliberadamente em estados diferentes. Brasileirão reemitiu contra
+    3.2.0; Cripto ficou em 3.0.0 por decisão (subir exige trabalho de código, não
+    troca de pin); Stocks teve o atestado invalidado pelo bump e precisa reemitir.
+    """
     registry = load("harness_registry.json")
     statuses = {
         (item["repo"], item["reported_core_version"]): item["status"] for item in registry["harnesses"]
     }
-    assert statuses[("brasileirao-predictor", "3.1.0")] == "ALIGNED"
+    assert statuses[("brasileirao-predictor", "3.2.0")] == "ALIGNED"
     assert statuses[("cripto-predictor", "3.0.0")] == "COMPATIBLE_BUT_OLDER"
-    assert registry["overall_alignment"] == "COMPATIBLE_BUT_OLDER"
+    assert statuses[("stocks-predictor", "3.1.0")] == "INVALIDATED_BY_CORE_BUMP"
+    assert registry["overall_alignment"] == "MIXED_BY_DECISION"
+
+
+def test_invalidated_harness_demands_reissue_and_is_never_silently_ok() -> None:
+    """Um atestado invalidado não pode passar por 'não precisa reemitir'.
+
+    A entrada anterior do Stocks dizia `reissue_required: false` com a justificativa
+    'research is frozen' — e a pesquisa não estava congelada: H17/H18/H19 estavam
+    pré-registradas desde 2026-09-04. Este teste impede que a combinação volte.
+    """
+    registry = load("harness_registry.json")
+    for item in registry["harnesses"]:
+        if item["status"] == "INVALIDATED_BY_CORE_BUMP":
+            assert item["reissue_required"] is True
+        assert item["reported_core_version"] != "UNKNOWN"
+
+
+def test_released_core_version_matches_the_aligned_harness() -> None:
+    """O Core anunciado como corrente tem que ser o mesmo que algum harness certifica.
+
+    Antes desta correção o registry anunciava 3.1.0 como release corrente enquanto a
+    release publicada já era 3.2.0 — a checagem que faltava.
+    """
+    registry = load("harness_registry.json")
+    released = registry["current_released_core_version"]
+    aligned = {
+        item["reported_core_version"] for item in registry["harnesses"] if item["status"] == "ALIGNED"
+    }
+    assert aligned, "nenhum harness ALIGNED: o ecossistema não tem certificação corrente"
+    assert released in aligned

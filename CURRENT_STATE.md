@@ -1,6 +1,6 @@
 # Estado canônico atual
 
-**Data:** 2026-09-03
+**Data:** 2026-09-06
 **Autoridade:** este arquivo e os registros em `registries/` substituem qualquer
 descrição de estado anterior. Evidência executada prevalece sobre documentação antiga.
 
@@ -13,7 +13,7 @@ descrição de estado anterior. Evidência executada prevalece sobre documentaç
 | predictor-ops | infraestrutura interna | ACTIVE | FROZEN | NOT_APPLICABLE | READY | NOT_A_PRODUCT |
 | brasileirao-predictor | laboratório científico e portfólio público | ACTIVE_MINIMAL | ACTIVE_EXP001_ONLY | OPEN | READY_WITH_DATA_GATES | NOT_A_PRODUCT |
 | cripto-predictor | ativo de pesquisa congelado e casos científicos | PASSIVE | FROZEN | CLOSED | PASSIVE_COLLECTION | NOT_A_PRODUCT |
-| stocks-predictor | ativo de pesquisa congelado e caso de falsificação | FROZEN | FROZEN | CLOSED | ARCHIVED | NOT_A_PRODUCT |
+| stocks-predictor | caso de falsificação; H1–H16 congeladas, H17–H19 pré-registradas | ACTIVE_MINIMAL | FROZEN_H1_H16 + PREREGISTERED_H17_H19 | CLOSED_FOR_H1_H16 | MEASUREMENT_PENDING | NOT_A_PRODUCT |
 
 ## Questões abertas
 
@@ -25,8 +25,17 @@ descrição de estado anterior. Evidência executada prevalece sobre documentaç
   `MISSING_CONFIRMED` após a busca final; não serão reconstruídos retroativamente.
 - Cripto: o disparo natural do Task Scheduler ainda é `PENDING_OBSERVATION`; não é
   blocker técnico nem científico.
-- Harnesses: Brasileirão certifica Core 3.1.0; Cripto certifica Core 3.0.0 e é
-  `COMPATIBLE_BUT_OLDER`, não alinhado.
+- Harnesses: Brasileirão certifica Core **3.2.0** (reemitido em 2026-09-06, sem
+  `;dirty`, expira 2026-09-13); Cripto certifica Core 3.0.0 e segue
+  `COMPATIBLE_BUT_OLDER` por decisão, não por esquecimento — subir exige emitir
+  atestado nos cinco pontos que atualizam veredito (CR-01).
+- Stocks: o atestado vigente foi emitido com Core 3.1.0 e o bump para 3.2.0, em
+  2026-09-06, **o invalidou**. Enquanto não for reemitido na máquina do operador,
+  com árvore limpa, a H18 não registra trial. É o único item com prazo do
+  ecossistema (ST-01).
+- Stocks: a **ordem** das rodadas H17/H18/H19 não está fixada. O N do DSR cresce a
+  cada tentativa, então escolher depois de ver resultado é p-hacking; a ordem precisa
+  ser decidida antes da primeira medição (ST-03).
 
 ## Estado comercial
 
@@ -48,7 +57,10 @@ evidência de mercado.
 1. Manter coleta prospectiva do Brasileirão com o contrato em `canonical_contracts/exp001_prospective.json`.
 2. Não reabrir o EXP-001 histórico sem evidência nativa e timestamped dos dois lados PIT.
 3. Observar o próximo disparo natural do scheduler do Cripto sem reabrir pesquisa.
-4. Reemitir harnesses do Cripto contra Core 3.1.0 somente se a certificação atual for exigida.
+4. Reemitir harnesses do Cripto contra Core 3.2.0 somente se a certificação atual for
+   exigida — e tratando como trabalho de código, não troca de pin (CR-01).
+6. Reemitir o atestado do Stocks contra Core 3.2.0 antes de qualquer rodada de
+   H17/H18/H19, e fixar a ordem das três antes da primeira medição.
 5. O operador revisar e enviar `OUTREACH_001`; depois registrar somente a interação humana real.
 
 ## Ações proibidas

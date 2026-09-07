@@ -2,8 +2,8 @@
 
 ## Current State
 
-Technical discovery is closed. Commercial discovery is starting at B0. Core 3.1.0
-and Ops 4.0.0 are ready internal foundations, not products. Ecosystem is governance.
+Technical discovery is closed. Commercial discovery is starting at B0. Core **3.2.0**
+and Ops **4.1.0** are ready internal foundations, not products. Ecosystem is governance.
 
 ## Closed
 
@@ -13,7 +13,14 @@ unreachable by default, excluded from packaging, and protected by import/replay 
 
 ## Frozen
 
-Stocks and Crypto. H6 remains `INCONCLUSIVE`. Do not search for new alpha or reopen RJ.
+Crypto, and Stocks H1–H16. H6 remains `INCONCLUSIVE`. Do not search for new alpha or
+reopen RJ.
+
+**Stocks is no longer simply frozen.** Three NEW hypotheses (H17/H18/H19) were
+pre-registered on 2026-09-04 under the criterion §11 already allowed ("genuinely new
+data source"), without reopening any of the sixteen judged. H18 met its five
+acceptance criteria on 2026-09-06. Two things gate the first run: the attestation,
+invalidated by the Core 3.2.0 bump, and the unfixed order of the three rounds.
 
 ## Active
 
