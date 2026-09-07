@@ -32,7 +32,16 @@ integração correspondente.
 uv sync --all-extras
 uv run pytest -q
 uv run python scripts/check_real_plugin_integration.py
+uv run python scripts/check_ecosystem_drift.py          # registries x seis repos reais
+uv run python scripts/check_ecosystem_drift.py --offline-check   # só invariantes, sem rede
 ```
+
+`check_ecosystem_drift.py` responde à pergunta que este repositório existe para
+responder: **o que os registries afirmam ainda é verdade?** Falha quando versão, pin
+ou atestado divergem do `main` real; SHA de `main` movido vira apenas aviso, porque
+muda a cada merge legítimo. Roda no CI a cada push e **diariamente** — o drift não
+precisa de commit aqui para acontecer, basta outro repositório se mover. Sem rede,
+use `--from-clones /caminho` para conferir a partir de clones locais.
 
 O último comando deve rodar em ambiente com `cripto-predictor`,
 `brasileirao-predictor` e `stocks-predictor` instalados simultaneamente. Ele verifica
