@@ -3,10 +3,14 @@
 > **Fonte de verdade:** [`CURRENT_STATE.md`](CURRENT_STATE.md) e `registries/`.
 > Documentos FINAL/CLOSURE/AUDIT antigos são históricos e não definem o estado atual.
 
-> **Estado reconciliado em 2026-09-03:** Core 3.1.0, Ops 4.0.0 e os três
+> **Estado reconciliado em 2026-09-06:** Core **3.2.0**, Ops **4.1.0** e os três
 > predictors econômicos descobertos sem colisão pelos entry points namespaced.
 > Brasileirão e cripto consomem Core/Ops; Stocks consome Core e ainda não declara
-> Ops. O inventário verificável está em `ECOSYSTEM_MECHANICAL_STATE.md`.
+> Ops. Os pins não são uniformes de propósito: Brasileirão em Core 3.2.0/Ops 4.1.0,
+> Cripto em Core **3.0.0** (bump é trabalho, não troca de pin — ver
+> `PENDENCIAS_ABERTAS.md` CR-01) e Ops 4.1.0, Stocks em Core 3.2.0.
+> O inventário mecânico em `ECOSYSTEM_MECHANICAL_STATE.md` é snapshot de
+> 2026-09-01 e está superado quanto a versões.
 
 Pacote mínimo de contratos e descoberta de plugins do ecossistema PREDICTORS.
 

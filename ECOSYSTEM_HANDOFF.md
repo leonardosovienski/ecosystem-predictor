@@ -1,6 +1,15 @@
 # ECOSYSTEM_HANDOFF.md
 
-> **ESTADO CORRENTE — reconciliação local de 2026-09-01.** O escopo permanece
+> **SUPERSEDED quanto a estado e versões — leia primeiro
+> [`CURRENT_STATE.md`](CURRENT_STATE.md) e `registries/`.** O bloco abaixo dizia
+> "ESTADO CORRENTE" e ficou defasado: em 2026-09-06 o Core está em **3.2.0** e o
+> Ops em **4.1.0**, e a adoção é por repositório, não uniforme (Cripto segue em
+> Core 3.0.0 por decisão). O conteúdo permanece como registro datado de
+> 2026-09-01 — é a fonte que outros repositórios citam como
+> `../ECOSYSTEM_HANDOFF.md`, então não é removido, apenas rebaixado de "corrente"
+> para "histórico".
+
+> **Reconciliação local de 2026-09-01 (histórico).** O escopo permanece
 > nos seis repositórios do `ECOSYSTEM_CHARTER.md`. Core está em 3.0.0 e Ops em
 > 4.0.0. Cripto e Brasileirão consomem ambos; Stocks consome Core 3.0 e ainda
 > não declara Ops. Os entry points atuais são namespaced e estão registrados em

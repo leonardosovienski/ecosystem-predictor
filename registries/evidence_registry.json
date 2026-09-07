@@ -1,12 +1,12 @@
 {
   "schema_version": "evidence-registry/1.0",
-  "last_updated": "2026-09-03",
+  "last_updated": "2026-09-06",
   "axes": {"L": "evidence level", "Q": "methodological quality; independent from L"},
   "claims": [
     {
       "claim_id": "CLAIM-CORE-FOUNDATION",
       "claim": "Core provides the released scientific and temporal foundation",
-      "evidence": ["core-predictor@29eb8b73", "release v3.1.0", "CHANGELOG 3.1.0", "green CI"],
+      "evidence": ["core-predictor main", "release v3.2.0", "CHANGELOG 3.2.0", "green CI", "264/264 tests"],
       "L": "L4", "Q": "Q4", "state": "SUPPORTED",
       "supports": ["EXP000B_TEMPORAL", "EXP000_PROVENANCE"], "contradicts": [], "supersedes": ["Core 3.0.0 is current"],
       "limitations": ["domain data provenance remains domain-owned"], "decision": "FOUNDATION_READY",
@@ -14,8 +14,8 @@
     },
     {
       "claim_id": "CLAIM-OPS-INTEGRITY",
-      "claim": "Ops 4.0.0 supplies fail-closed local operational controls",
-      "evidence": ["predictor-ops@ab41e6a", "CHANGELOG 4.0.0", "CI 33724070941"],
+      "claim": "Ops 4.1.0 supplies fail-closed local operational controls",
+      "evidence": ["predictor-ops main", "release v4.1.0", "CHANGELOG 4.1.0", "green CI"],
       "L": "L4", "Q": "Q4", "state": "SUPPORTED",
       "supports": ["locking", "heartbeat", "idempotency", "kill-switch", "provenance", "retry/reconciliation"],
       "contradicts": [], "supersedes": ["shared gate monitor is required"],
