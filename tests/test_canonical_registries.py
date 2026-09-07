@@ -147,8 +147,6 @@ def test_released_core_version_matches_the_aligned_harness() -> None:
     """
     registry = load("harness_registry.json")
     released = registry["current_released_core_version"]
-    aligned = {
-        item["reported_core_version"] for item in registry["harnesses"] if item["status"] == "ALIGNED"
-    }
+    aligned = {item["reported_core_version"] for item in registry["harnesses"] if item["status"] == "ALIGNED"}
     assert aligned, "nenhum harness ALIGNED: o ecossistema não tem certificação corrente"
     assert released in aligned
