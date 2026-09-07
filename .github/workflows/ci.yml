@@ -3,6 +3,10 @@ name: CI
 on:
   push:
   pull_request:
+  # O drift não precisa de um push para acontecer: basta outro repositório se mover.
+  # Em 2026-09-06 o estado canônico estava três dias defasado sem nenhum commit aqui.
+  schedule:
+    - cron: "17 6 * * *"
 
 permissions:
   contents: read
@@ -38,6 +42,9 @@ jobs:
       - name: Canonical six-repository facts are internally consistent
         if: matrix.python == '3.13'
         run: uv run python scripts/sync_canonical_ecosystem_facts.py --offline-check
+      - name: Registries are internally consistent
+        if: matrix.python == '3.13'
+        run: uv run python scripts/check_ecosystem_drift.py --offline-check
       - run: uv build
       - name: wheel smoke outside checkout
         run: |
@@ -81,3 +88,21 @@ jobs:
       - name: Verify discovery, identity and domain isolation
         run: /tmp/predictors-integration/bin/python scripts/check_real_plugin_integration.py
 
+  ecosystem-drift:
+    name: Registries still match the six repositories
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.1"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: uv sync --all-extras --python 3.13
+      # Falha em versão, pin ou atestado divergente. SHA de main apenas vira aviso:
+      # muda a cada merge legítimo, e vermelho constante ensina a ignorar vermelho.
+      - name: Compare registries against every canonical repository
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: uv run python scripts/check_ecosystem_drift.py --token "$GITHUB_TOKEN"
