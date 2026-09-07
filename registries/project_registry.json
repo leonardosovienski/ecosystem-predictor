@@ -53,7 +53,7 @@
       "evidence_state": "PARTIAL",
       "integration_state": "CURRENT_CORE_3_2_OPS_4_1",
       "ci_state": "PASS",
-      "remote_main_sha": "03f1e99ad01abcbc41726dd9fcca43e14aeb0346",
+      "remote_main_sha": "02b8d88fa0b15ba28565351848a9737b2edcda48",
       "open_blockers": ["BR-05"],
       "next_allowed_action": "collect native same-cutoff prospective evidence for EXP-001 in this domain only",
       "forbidden_actions": ["retroactive prospective-store reconstruction", "run EXP-001 in ecosystem-predictor", "promote UNKNOWN"],
