@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
   pull_request:
   # O drift não precisa de um push para acontecer: basta outro repositório se mover.
