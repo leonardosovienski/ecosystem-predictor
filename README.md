@@ -62,3 +62,8 @@ Os gates econômicos permanecem domain-owned: futebol e cripto estão integrados
 shadow (cripto opt-in), enquanto ações possui apenas a primitiva ainda não conectada
 ao backtest congelado. O agregador não transforma nenhum desses estados em permissão
 de capital.
+
+
+## Implementação arquitetural local — 2026-09-11
+
+As alterações candidatas, seus limites, verificações e rollback estão em [ARCHITECTURE_IMPLEMENTATION.md](ARCHITECTURE_IMPLEMENTATION.md). Esta implementação local não publica releases, não atualiza automaticamente os consumidores e não altera os vereditos científicos históricos.

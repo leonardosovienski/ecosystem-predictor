@@ -39,13 +39,19 @@ jobs:
       - run: uv run pyright
       - run: uv run coverage run -m pytest -q
       - run: uv run coverage report --fail-under=0
-      - name: Canonical six-repository facts are internally consistent
+      - name: Historical six-repository facts remain internally consistent
         if: matrix.python == '3.13'
         run: uv run python scripts/sync_canonical_ecosystem_facts.py --offline-check
       - name: Registries are internally consistent
         if: matrix.python == '3.13'
         run: uv run python scripts/check_ecosystem_drift.py --offline-check
       - run: uv build
+      - run: uv build --directory packages/research-snapshot --out-dir ../../dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ecosystem-distributions-${{ matrix.python }}
+          path: dist/*
+          if-no-files-found: error
       - name: wheel smoke outside checkout
         run: |
           uv venv /tmp/ecosystem-wheel --python ${{ matrix.python }} --seed
@@ -62,7 +68,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: anchore/sbom-action@v0
-        with: {path: ".", output-file: "sbom.spdx.json"}
+        with: {path: ".", output-file: "sbom.spdx.json", upload-release-assets: false}
 
   real-plugin-integration:
     name: Three real plugins installed together
@@ -76,33 +82,55 @@ jobs:
         with:
           python-version: "3.13"
       - run: uv venv /tmp/predictors-integration --python 3.13 --seed
-      - name: Install ecosystem and real domain distributions
-        run: |
-          /tmp/predictors-integration/bin/pip install \
-            "predictor-core @ https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.0/predictor_core-3.2.0-py3-none-any.whl" \
-            "predictor-ops @ https://github.com/leonardosovienski/predictor-ops/releases/download/v4.1.0/predictor_ops-4.1.0-py3-none-any.whl"
-          /tmp/predictors-integration/bin/pip install . \
-            "git+https://github.com/leonardosovienski/cripto-predictor.git" \
-            "git+https://github.com/leonardosovienski/brasileirao-predictor.git" \
-            "git+https://github.com/leonardosovienski/stocks-predictor.git"
-      - name: Verify discovery, identity and domain isolation
+      - name: Install immutable candidate distributions
+        run: python scripts/install_compatibility_candidate.py --python /tmp/predictors-integration/bin/python
+      - name: Verify identities, hashes and domain isolation
+        env:
+          CRIPTO_ROOT: ${{ runner.temp }}/crypto-integration
+          COMPATIBILITY_RECEIPT: compatibility-receipt.json
         run: /tmp/predictors-integration/bin/python scripts/check_real_plugin_integration.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: exact-plugin-compatibility
+          path: compatibility-receipt.json
+          if-no-files-found: error
 
   ecosystem-drift:
-    name: Registries still match the six repositories
+    name: Seven-project immutable compatibility manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python scripts/check_architecture_manifest.py
+
+  research-transport:
+    name: Standalone exporter and snapshot contract
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
-        with:
-          version: "0.12.1"
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-      - run: uv sync --all-extras --python 3.13
-      # Falha em versão, pin ou atestado divergente. SHA de main apenas vira aviso:
-      # muda a cada merge legítimo, e vermelho constante ensina a ignorar vermelho.
-      - name: Compare registries against every canonical repository
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: uv run python scripts/check_ecosystem_drift.py --token "$GITHUB_TOKEN"
+      - name: Checkout exact exporter source
+        run: |
+          git clone https://github.com/leonardosovienski/cripto-predictor.git /tmp/crypto-export-source
+          git -C /tmp/crypto-export-source checkout $(python -c "import json; print(json.load(open('registries/compatibility_candidate.json'))['consumers']['cripto-predictor']['commit'])")
+      - name: Build independent wheels
+        run: |
+          uv build --directory packages/research-snapshot --out-dir /tmp/transport-wheels
+          uv build --directory /tmp/crypto-export-source/packages/research-export --out-dir /tmp/transport-wheels
+          uv venv /tmp/transport --python 3.13 --seed
+          /tmp/transport/bin/pip install /tmp/transport-wheels/*.whl pytest
+      - name: Test publication and recovery without the Crypto runtime
+        run: |
+          cd /tmp
+          /tmp/transport/bin/python -I -m pytest -q /tmp/crypto-export-source/packages/research-export/tests
+          /tmp/transport/bin/python -I -c "import importlib.util; assert importlib.util.find_spec('GarimpoInvestimentos') is None"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: research-transport-distributions
+          path: /tmp/transport-wheels/*
+          if-no-files-found: error

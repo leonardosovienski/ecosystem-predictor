@@ -15,10 +15,12 @@ identity, domain and health isolation pairwise.
 from __future__ import annotations
 
 import logging
+from collections import Counter
 from dataclasses import dataclass, field
 from importlib.metadata import EntryPoint, entry_points
 
 from ecosystem.contracts import CapabilityManifest, HealthReport, OperationalStatus, PluginV1
+from ecosystem.contracts.diagnostics import NativeCapabilities
 
 logger = logging.getLogger("ecosystem.registry")
 
@@ -57,9 +59,74 @@ class Registry:
     @classmethod
     def discover(cls, *, group: str = PLUGIN_GROUP) -> Registry:
         registry = cls()
-        for ep in entry_points(group=group):
-            registry._load_one(ep)
+        discovered = sorted(
+            entry_points(group=group),
+            key=lambda ep: (
+                ep.name,
+                ep.value,
+                ep.dist.metadata["Name"] if ep.dist else "",
+                ep.dist.version if ep.dist else "",
+            ),
+        )
+        counts = Counter(ep.name for ep in discovered)
+        for ep in discovered:
+            if counts[ep.name] > 1:
+                registry.records[ep.name] = PluginRecord(
+                    name=ep.name, entry_point=ep, error="duplicate entry-point name"
+                )
+            else:
+                registry._load_one(ep)
         return registry
+
+    def diagnostic_snapshot(self) -> dict[str, dict]:
+        """V2 diagnostics retain literal producer payloads, without status translation.
+
+        INVALID describes the contract, not the producer's scientific state.
+        This optional registry never grants permission to execute capital.
+        """
+        result: dict[str, dict] = {}
+        for name, record in self.records.items():
+            distribution = record.entry_point.dist
+            diagnostic: dict = {
+                "schema_version": "plugin-diagnostics/2",
+                "origin": {
+                    "entry_point": record.entry_point.value,
+                    "distribution": distribution.metadata["Name"] if distribution else None,
+                    "version": distribution.version if distribution else None,
+                },
+                "capital_authorized_by_diagnostic": False,
+            }
+            for method, model in (("health", HealthReport), ("capabilities", NativeCapabilities)):
+                payload = None
+                try:
+                    if record.instance is None:
+                        raise ValueError(record.error or "plugin unavailable")
+                    raw = getattr(record.instance, method)()
+                    payload = raw.model_dump(mode="json") if hasattr(raw, "model_dump") else raw
+                    model.model_validate(payload)
+                except Exception as exc:  # noqa: BLE001
+                    diagnostic[method] = {
+                        "contract_status": "INVALID",
+                        "payload": payload,
+                        "error_type": type(exc).__name__,
+                    }
+                else:
+                    legacy = HealthReport if method == "health" else CapabilityManifest
+                    try:
+                        legacy.model_validate(payload)
+                    except Exception:  # noqa: BLE001
+                        legacy_status = "INVALID"
+                    else:
+                        legacy_status = "VALID"
+                    diagnostic[method] = {
+                        "contract_status": "VALID",
+                        "payload": payload,
+                        "state_namespace": payload["domain"],
+                        "legacy_v1_contract_status": legacy_status,
+                        "state_mapping": None,
+                    }
+            result[name] = diagnostic
+        return result
 
     def _load_one(self, ep: EntryPoint) -> None:
         try:
