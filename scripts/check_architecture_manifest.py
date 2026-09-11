@@ -19,7 +19,8 @@ def main():
         url = item["repository"].replace("https://github.com/", "https://raw.githubusercontent.com/")
         with urllib.request.urlopen(f"{url}/{item['commit']}/pyproject.toml", timeout=60) as response:
             project = tomllib.loads(response.read().decode())["project"]
-        assert (project["name"], project["version"]) == (name, item["version"])
+        package_name = "cain-research" if name == "cain" else name
+        assert (project["name"], project["version"]) == (package_name, item["version"])
     for item in manifest["shared"].values():
         assert re.fullmatch(r"sha256:[0-9a-f]{64}", item["hash"])
         assert f"/v{item['version']}/" in item["url"]
