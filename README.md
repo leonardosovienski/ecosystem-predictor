@@ -7,14 +7,11 @@ Versão **0.2.0** publicada: [release e artefatos](https://github.com/leonardoso
 > **Fonte de verdade:** [`CURRENT_STATE.md`](CURRENT_STATE.md) e `registries/`.
 > Documentos FINAL/CLOSURE/AUDIT antigos são históricos e não definem o estado atual.
 
-> **Estado reconciliado em 2026-09-06:** Core **3.2.0**, Ops **4.1.0** e os três
-> predictors econômicos descobertos sem colisão pelos entry points namespaced.
-> Brasileirão e cripto consomem Core/Ops; Stocks consome Core e ainda não declara
-> Ops. Os pins não são uniformes de propósito: Brasileirão em Core 3.2.0/Ops 4.1.0,
-> Cripto em Core **3.0.0** (bump é trabalho, não troca de pin — ver
-> `PENDENCIAS_ABERTAS.md` CR-01) e Ops 4.1.0, Stocks em Core 3.2.0.
-> O inventário mecânico em `ECOSYSTEM_MECHANICAL_STATE.md` é snapshot de
-> 2026-09-01 e está superado quanto a versões.
+A arquitetura atual, os pacotes publicados e as instruções de uso estão em
+[ECOSYSTEM_RUNBOOK.md](ECOSYSTEM_RUNBOOK.md) e
+[released_architecture.json](registries/released_architecture.json).
+Os snapshots mecânicos/científicos de seis projetos de 01–06/09 são históricos;
+a topologia atual contém sete repositórios e nove distribuições independentes.
 
 Pacote mínimo de contratos e descoberta de plugins do ecossistema PREDICTORS.
 
