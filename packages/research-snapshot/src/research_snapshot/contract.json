@@ -1,0 +1,22 @@
+{
+  "contract": "ResearchSnapshotV1",
+  "profile": "local-evidence/1",
+  "validator": "research_snapshot.validate",
+  "canonical_encoding": "UTF-8 JSON, sorted keys, no whitespace, nonfinite values forbidden",
+  "publication_hash": "SHA-256 of canonical publication without publication_id",
+  "hashes_are_not": ["authorship", "permission", "scientific truth", "semantic support"],
+  "limits": {"publication_bytes": 2000000, "records": 200, "evidence_objects": 200, "depth": 18, "evidence_characters": 100000},
+  "core_fields": ["contract", "profile", "extensions", "publication_id", "origin", "exported_at", "coverage", "restrictions", "records", "evidence"],
+  "unknown_core_fields": "reject",
+  "unsupported_required_extensions": "reject",
+  "optional_extensions": "opaque, cannot grant capabilities",
+  "evidence_hash_basis": "received_utf8",
+  "offset_unit": "unicode_codepoints",
+  "end_offset": "exclusive in decoded source text",
+  "reference_only": "no content or verified excerpt hash; no automatic retrieval",
+  "identity_namespace": ["domain", "repository", "publisher", "stream", "source_id", "revision"],
+  "ordering": "supersedes only; import time never selects latest scientific truth",
+  "source_identity": "source_assigned, document_identity, or explicitly ambiguous_observation",
+  "timestamps": "ISO 8601 with timezone; unknown event/record/availability is null",
+  "trust": "trusted receiver grant plus admitted import root, outside the publication"
+}
