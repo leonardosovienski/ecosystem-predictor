@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "injected_forbidden_import_rejected": true,
+  "exit_code": 1,
+  "production_files_modified": false
+}
