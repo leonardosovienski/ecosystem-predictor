@@ -134,3 +134,25 @@ jobs:
           name: research-transport-distributions
           path: /tmp/transport-wheels/*
           if-no-files-found: error
+
+  released-wheel-integration:
+    name: Six published wheels with exact hashes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m venv /tmp/released-wheels
+      - run: python scripts/install_compatibility_candidate.py --released --python /tmp/released-wheels/bin/python
+      - name: Validate published plugin behavior and artifact identity
+        env:
+          CRIPTO_ROOT: ${{ runner.temp }}/crypto-released-integration
+          COMPATIBILITY_RECEIPT: released-wheel-receipt.json
+          RELEASED_WHEELS: "1"
+        run: /tmp/released-wheels/bin/python scripts/check_real_plugin_integration.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: released-wheel-compatibility
+          path: released-wheel-receipt.json
+          if-no-files-found: error

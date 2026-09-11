@@ -1,0 +1,148 @@
+{
+  "schema_version": "released-architecture/1",
+  "verified_at": "2026-09-11",
+  "status": "PUBLISHED_HASH_VERIFIED",
+  "economic_validation": false,
+  "repositories": [
+    {
+      "repository": "stocks-predictor",
+      "tag": "v0.2.0",
+      "source_commit": "56c1a7b8db33f15404342fc61cceaa64452517d5",
+      "release_url": "https://github.com/leonardosovienski/stocks-predictor/releases/tag/v0.2.0",
+      "ci_run_id": 34629227472,
+      "ci_url": "https://github.com/leonardosovienski/stocks-predictor/actions/runs/34629227472",
+      "wheels": [
+        {
+          "name": "stocks-predictor",
+          "version": "0.2.0",
+          "filename": "stocks_predictor-0.2.0-py3-none-any.whl",
+          "url": "https://github.com/leonardosovienski/stocks-predictor/releases/download/v0.2.0/stocks_predictor-0.2.0-py3-none-any.whl",
+          "sha256": "a839aeca095b27ce65ab7a29333713223e89358f1bf5878ca8f1dcaaab5440ae"
+        }
+      ]
+    },
+    {
+      "repository": "brasileirao-predictor",
+      "tag": "v0.2.0",
+      "source_commit": "4dbd35332344000d116ea2ac56903c77e73f9aa2",
+      "release_url": "https://github.com/leonardosovienski/brasileirao-predictor/releases/tag/v0.2.0",
+      "ci_run_id": 34630041002,
+      "ci_url": "https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34630041002",
+      "wheels": [
+        {
+          "name": "brasileirao-predictor",
+          "version": "0.2.0",
+          "filename": "brasileirao_predictor-0.2.0-py3-none-any.whl",
+          "url": "https://github.com/leonardosovienski/brasileirao-predictor/releases/download/v0.2.0/brasileirao_predictor-0.2.0-py3-none-any.whl",
+          "sha256": "2a862b4cb955e7e5fc32162248bb306ddcc5519d5fb715c520665082d98e0e4d"
+        }
+      ]
+    },
+    {
+      "repository": "cain",
+      "tag": "v0.4.5",
+      "source_commit": "37cdc604d4c3bbb66684c018c76a4ea38713ee2a",
+      "release_url": "https://github.com/leonardosovienski/cain/releases/tag/v0.4.5",
+      "ci_run_id": 34628951943,
+      "ci_url": "https://github.com/leonardosovienski/cain/actions/runs/34628951943",
+      "wheels": [
+        {
+          "name": "cain-research",
+          "version": "0.4.5",
+          "filename": "cain_research-0.4.5-py3-none-any.whl",
+          "url": "https://github.com/leonardosovienski/cain/releases/download/v0.4.5/cain_research-0.4.5-py3-none-any.whl",
+          "sha256": "89f23665ac6d86fc08135aae6ad4dcef14bde326cffcf9c165e5fe27878fcbc9"
+        },
+        {
+          "name": "predictor-research-snapshot",
+          "version": "1.0.0",
+          "filename": "predictor_research_snapshot-1.0.0-py3-none-any.whl",
+          "url": "https://github.com/leonardosovienski/cain/releases/download/v0.4.5/predictor_research_snapshot-1.0.0-py3-none-any.whl",
+          "sha256": "4e2298047b48f12017d519adb7992ffbfaf6f5cb17ade2a0911da835c6cf64bd"
+        }
+      ]
+    },
+    {
+      "repository": "ecosystem-predictor",
+      "tag": "v0.2.0",
+      "source_commit": "2e8be61d3d8b0cf10e1dfbcce8ff7acdef219327",
+      "release_url": "https://github.com/leonardosovienski/ecosystem-predictor/releases/tag/v0.2.0",
+      "ci_run_id": 34630167633,
+      "ci_url": "https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34630167633",
+      "wheels": [
+        {
+          "name": "ecosystem-predictor",
+          "version": "0.2.0",
+          "filename": "ecosystem_predictor-0.2.0-py3-none-any.whl",
+          "url": "https://github.com/leonardosovienski/ecosystem-predictor/releases/download/v0.2.0/ecosystem_predictor-0.2.0-py3-none-any.whl",
+          "sha256": "c0925a6039cb31a0446cbb2b15e4d505b6a7a8abb76ed7c24df2fb4073cafb62"
+        },
+        {
+          "name": "predictor-research-snapshot",
+          "version": "1.0.1",
+          "filename": "predictor_research_snapshot-1.0.1-py3-none-any.whl",
+          "url": "https://github.com/leonardosovienski/ecosystem-predictor/releases/download/v0.2.0/predictor_research_snapshot-1.0.1-py3-none-any.whl",
+          "sha256": "ad42126d8c13fa3e0754805ddf0ebb5a3ecba33cf7bccf959977e4be53c0a8e0"
+        }
+      ]
+    },
+    {
+      "repository": "cripto-predictor",
+      "tag": "v1.1.0",
+      "source_commit": "6ea0d2ccdcfc6a3858083acb6ded5cb39e178586",
+      "release_url": "https://github.com/leonardosovienski/cripto-predictor/releases/tag/v1.1.0",
+      "ci_run_id": 34630038441,
+      "ci_url": "https://github.com/leonardosovienski/cripto-predictor/actions/runs/34630038441",
+      "wheels": [
+        {
+          "name": "cripto-predictor",
+          "version": "1.1.0",
+          "filename": "cripto_predictor-1.1.0-py3-none-any.whl",
+          "url": "https://github.com/leonardosovienski/cripto-predictor/releases/download/v1.1.0/cripto_predictor-1.1.0-py3-none-any.whl",
+          "sha256": "41e48e0dd74cb28d5367257495a3fd51048a5c66e594d1d50cf5e854c74a82fe"
+        },
+        {
+          "name": "crypto-research-export",
+          "version": "1.0.1",
+          "filename": "crypto_research_export-1.0.1-py3-none-any.whl",
+          "url": "https://github.com/leonardosovienski/cripto-predictor/releases/download/v1.1.0/crypto_research_export-1.0.1-py3-none-any.whl",
+          "sha256": "f5b9f254e1058895e4b25fe978d3f82b5248e52a008fa26bc814adde2c1cd86b"
+        }
+      ]
+    },
+    {
+      "repository": "core-predictor",
+      "tag": "v3.2.1",
+      "source_commit": "7bb212cfa06333886e11e849b209c5aab801c04b",
+      "release_url": "https://github.com/leonardosovienski/core-predictor/releases/tag/v3.2.1",
+      "ci_run_id": 34627786114,
+      "ci_url": "https://github.com/leonardosovienski/core-predictor/actions/runs/34627786114",
+      "wheels": [
+        {
+          "name": "predictor-core",
+          "version": "3.2.1",
+          "filename": "predictor_core-3.2.1-py3-none-any.whl",
+          "url": "https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.1/predictor_core-3.2.1-py3-none-any.whl",
+          "sha256": "10ef42f34ace8bb2df5f83ff7de2ceec79b035a25ea0a690e8942bd60d2fb4e3"
+        }
+      ]
+    },
+    {
+      "repository": "predictor-ops",
+      "tag": "v4.2.0",
+      "source_commit": "e804ac8b5173156737e2212d9bd47cd3f2072700",
+      "release_url": "https://github.com/leonardosovienski/predictor-ops/releases/tag/v4.2.0",
+      "ci_run_id": 34628184138,
+      "ci_url": "https://github.com/leonardosovienski/predictor-ops/actions/runs/34628184138",
+      "wheels": [
+        {
+          "name": "predictor-ops",
+          "version": "4.2.0",
+          "filename": "predictor_ops-4.2.0-py3-none-any.whl",
+          "url": "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.0/predictor_ops-4.2.0-py3-none-any.whl",
+          "sha256": "a6108ee1c6fe9c14752766a435109f9b6bcf98102ee178330512efbcac984000"
+        }
+      ]
+    }
+  ]
+}

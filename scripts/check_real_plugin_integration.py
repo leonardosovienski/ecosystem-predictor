@@ -20,8 +20,29 @@ EXPECTED_DOMAINS = {
 
 def main() -> int:
     manifest = json.loads(Path("registries/compatibility_candidate.json").read_text())
+    released_mode = os.environ.get("RELEASED_WHEELS") == "1"
+    if released_mode:
+        released = json.loads(Path("registries/released_architecture.json").read_text())
+        names = {
+            "predictor-core",
+            "predictor-ops",
+            "ecosystem-predictor",
+            "cripto-predictor",
+            "stocks-predictor",
+            "brasileirao-predictor",
+        }
+        for wheel in (
+            wheel for repo in released["repositories"] for wheel in repo["wheels"] if wheel["name"] in names
+        ):
+            installed = distribution(wheel["name"])
+            direct = json.loads(installed.read_text("direct_url.json") or "{}")
+            if (
+                installed.version != wheel["version"]
+                or direct.get("archive_info", {}).get("hashes", {}).get("sha256") != wheel["sha256"]
+            ):
+                raise SystemExit(f"published wheel mismatch: {wheel['name']}")
     for name, expected in manifest["consumers"].items():
-        if name == "cain":
+        if name == "cain" or released_mode:
             continue
         installed = distribution(name)
         direct = json.loads(installed.read_text("direct_url.json") or "{}")
@@ -79,7 +100,15 @@ def main() -> int:
     print("real plugin integration OK: cripto, brasileirao and stocks are isolated")
     if destination := os.environ.get("COMPATIBILITY_RECEIPT"):
         Path(destination).write_text(
-            json.dumps({"status": "PASS", "manifest": manifest, "diagnostics": diagnostics}, indent=2),
+            json.dumps(
+                {
+                    "status": "PASS",
+                    "manifest": manifest,
+                    "released_wheels": released_mode,
+                    "diagnostics": diagnostics,
+                },
+                indent=2,
+            ),
             encoding="utf-8",
         )
     return 0
