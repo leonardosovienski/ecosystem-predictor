@@ -1,5 +1,10 @@
 # ResearchBundleV1
 
+<!-- DOC-SYNC-20260912 -->
+> **Estado de publicação em 12/09/2026:** leia [a continuidade atual](../../PUBLICATION_STATUS_20260912.md). Branch `feature/research-bundle-v1`. O código deste projeto foi publicado na branch indicada. O candidato CAIN Supply permanece sem aprovação de estabilização. Afirmações anteriores de “sem push” descrevem a etapa histórica anterior à autorização.
+<!-- /DOC-SYNC-20260912 -->
+
+
 Standalone `predictor-research-bundle` 1.0.0, Python >=3.11, stdlib plus the existing
 `predictor-research-snapshot>=1.0.0,<2` canonical serializer. SnapshotV1 remains byte-compatible;
 its files and golden expectations are unchanged. The Ecosystem main package and domain runtimes
