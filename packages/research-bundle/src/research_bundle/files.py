@@ -5,6 +5,7 @@ opens with sharing restricted to readers, rejects reparse points, and checks
 the opened handle's final path. Storage parents must be administrator-owned.
 """
 
+import errno
 import hashlib
 import os
 import stat
@@ -33,6 +34,15 @@ def safe_mkdirs(path):
         if not part.is_dir():
             raise ValueError("UNSAFE_PATH: expected directory")
     return path
+
+
+def _posix_open(path, flags, *, dir_fd=None):
+    try:
+        return os.open(path, flags, dir_fd=dir_fd)
+    except OSError as exc:
+        if exc.errno in (errno.ELOOP, errno.ENOTDIR):
+            raise ValueError("UNSAFE_PATH: symlink or non-directory component") from exc
+        raise
 
 
 @contextmanager
@@ -87,14 +97,14 @@ def safe_open(root, relative):
                 close.argtypes = [wintypes.HANDLE]
                 close(handle)
     else:
-        directory = os.open(root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+        directory = _posix_open(root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
         try:
             parts = relative.split("/")
             for part in parts[:-1]:
-                child = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=directory)
+                child = _posix_open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=directory)
                 os.close(directory)
                 directory = child
-            fd = os.open(parts[-1], os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=directory)
+            fd = _posix_open(parts[-1], os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=directory)
         finally:
             os.close(directory)
     with os.fdopen(fd, "rb") as stream:

@@ -1,10 +1,29 @@
+import errno
 import os
 import subprocess
 
 import pytest
 from research_bundle import digest
 from research_bundle.export import admitted_sources
-from research_bundle.files import safe_open, transfer
+from research_bundle.files import _posix_open, safe_open, transfer
+
+
+@pytest.mark.parametrize("code", [errno.ELOOP, errno.ENOTDIR, errno.ENOENT])
+def test_posix_path_errors(monkeypatch, code):
+    error = OSError(code, "injected")
+
+    def fail(*args, **kwargs):
+        raise error
+
+    monkeypatch.setattr(os, "open", fail)
+    if code == errno.ENOENT:
+        with pytest.raises(OSError) as caught:
+            _posix_open("missing", os.O_RDONLY)
+        assert caught.value is error
+    else:
+        with pytest.raises(ValueError, match="UNSAFE_PATH") as caught:
+            _posix_open("unsafe", os.O_RDONLY)
+        assert caught.value.__cause__ is error
 
 
 @pytest.fixture
