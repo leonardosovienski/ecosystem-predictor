@@ -1,3 +1,5 @@
+> **Stocks — atualização de software:** [integração observada em 12/09](STOCKS_INTEGRATION_20260912.md). A linha histórica H1–H19 abaixo não define a prontidão atual do runtime. Estados científicos não foram recertificados.
+
 # ecosystem-predictor
 
 ## Entrega arquitetural publicada — 11/09/2026
