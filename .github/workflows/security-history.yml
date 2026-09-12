@@ -1,0 +1,68 @@
+name: Full-history security regression
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  historical-scan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_VERSION: "8.24.3"
+          GITLEAKS_ENABLE_COMMENTS: "false"
+      - name: Scan all fetched history rather than only the push range
+        run: |
+          /tmp/gitleaks-8.24.3/gitleaks detect --redact --exit-code=2 --report-format=json --report-path="$RUNNER_TEMP/ecosystem-history.json"
+      - name: Scan the complete committed tree
+        run: |
+          mkdir "$RUNNER_TEMP/ecosystem-current-tree"
+          git archive HEAD | tar -x -C "$RUNNER_TEMP/ecosystem-current-tree"
+          /tmp/gitleaks-8.24.3/gitleaks detect --no-git --redact --exit-code=2 --source "$RUNNER_TEMP/ecosystem-current-tree" --report-format=json --report-path="$RUNNER_TEMP/ecosystem-tree.json"
+      - name: Prove historical exceptions cannot hide a new credential
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          import secrets
+          root = Path(os.environ['RUNNER_TEMP']) / 'ecosystem-security-control'
+          target = root / 'tests' / 'conftest.py'
+          target.parent.mkdir(parents=True)
+          target.write_text('api_key = "' + secrets.token_urlsafe(32) + '"\n', encoding='utf-8')
+          PY
+          set +e
+          /tmp/gitleaks-8.24.3/gitleaks detect --no-git --redact --exit-code=2 --source "$RUNNER_TEMP/ecosystem-security-control" --report-format=json --report-path="$RUNNER_TEMP/ecosystem-control.json"
+          result=$?
+          set -e
+          test "$result" -eq 2
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          findings = json.loads((Path(os.environ['RUNNER_TEMP']) / 'ecosystem-control.json').read_text(encoding='utf-8'))
+          assert any(item['RuleID'] == 'generic-api-key' and item['File'].endswith('tests/conftest.py') for item in findings), 'Synthetic credential was not detected'
+          print('PASS: a new synthetic credential is detected in the historically exempted path')
+          PY
+      - name: Retain redacted security evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: full-history-security-regression
+          path: |
+            ${{ runner.temp }}/ecosystem-history.json
+            ${{ runner.temp }}/ecosystem-tree.json
+            ${{ runner.temp }}/ecosystem-control.json
+          retention-days: 30
+          if-no-files-found: warn
