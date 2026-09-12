@@ -11,18 +11,19 @@
       "predictive_state": "NOT_APPLICABLE",
       "operational_state": "FOUNDATION_READY",
       "commercial_state": "NOT_A_PRODUCT",
-      "current_version": "3.2.0",
+      "current_version": "3.2.1",
       "evidence_state": "VERIFIED_FROM_MAIN_RELEASE_CHANGELOG_AND_CI",
       "integration_state": "CURRENT",
       "ci_state": "PASS",
-      "remote_main_sha": "abe267b38e2e46bdb7720f2a2c1d220fa7c1dba3",
+      "remote_main_sha": "de79cc19914b70bd8a8fa74a6e49b4ea192c1f91",
       "open_blockers": [],
       "next_allowed_action": "maintenance or a shared primitive with a second real consumer",
       "forbidden_actions": [
         "domain policy",
         "unconsumed abstraction"
       ],
-      "source_of_truth": "core-predictor main, release v3.2.0, CHANGELOG.md"
+      "source_of_truth": "core-predictor main, release v3.2.0, CHANGELOG.md; software metadata reconciled 2026-09-12 against published source; historical scientific fields not recertified",
+      "software_verified_at": "2026-09-12"
     },
     {
       "project_id": "predictor-ops",
@@ -33,18 +34,19 @@
       "predictive_state": "NOT_APPLICABLE",
       "operational_state": "READY",
       "commercial_state": "NOT_A_PRODUCT",
-      "current_version": "4.1.0",
+      "current_version": "4.2.0",
       "evidence_state": "VERIFIED_FROM_MAIN_CHANGELOG_AND_CI",
       "integration_state": "CURRENT",
       "ci_state": "PASS",
-      "remote_main_sha": "d02f16407364f8d21a06308e4f614e6960fc5c4e",
+      "remote_main_sha": "0aa803fcaf0656061d9e251a85cbf0cf55071066",
       "open_blockers": [],
       "next_allowed_action": "minimal operational maintenance",
       "forbidden_actions": [
         "scientific gate decisions",
         "restore intentionally removed monitor"
       ],
-      "source_of_truth": "predictor-ops main, release v4.1.0, CHANGELOG.md"
+      "source_of_truth": "predictor-ops main, release v4.1.0, CHANGELOG.md; software metadata reconciled 2026-09-12 against published source; historical scientific fields not recertified",
+      "software_verified_at": "2026-09-12"
     },
     {
       "project_id": "brasileirao-predictor",
@@ -80,11 +82,11 @@
       "predictive_state": "CLOSED_NO_GO_WITH_H6_INCONCLUSIVE",
       "operational_state": "PASSIVE_COLLECTION",
       "commercial_state": "NOT_A_PRODUCT",
-      "current_version": "1.0.0",
+      "current_version": "1.1.0",
       "evidence_state": "VERIFIED_WITH_VERSION_CAVEAT",
-      "integration_state": "CORE_3_0_BY_DECISION_OPS_4_1",
+      "integration_state": "CORE_3_2_1_OPS_4_2_RESEARCH_ONLY",
       "ci_state": "PASS",
-      "remote_main_sha": "3c104ceb8f20b6c8c7ca26d344d733ff20ececbe",
+      "remote_main_sha": "2d53d4a79112642837eb0cff2f4942c0af0482c0",
       "open_blockers": [
         "CR-01"
       ],
@@ -97,7 +99,8 @@
         "reopen HMM/LLM/trend",
         "change H6 without new legitimate evidence"
       ],
-      "source_of_truth": "cripto-predictor CR_RESEARCH_FREEZE.md and main"
+      "source_of_truth": "cripto-predictor CR_RESEARCH_FREEZE.md and main; software metadata reconciled 2026-09-12 against published source; historical scientific fields not recertified",
+      "software_verified_at": "2026-09-12"
     },
     {
       "project_id": "stocks-predictor",

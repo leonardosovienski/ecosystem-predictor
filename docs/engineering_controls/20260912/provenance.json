@@ -1,0 +1,9 @@
+{
+  "source_commit": "22219e3db8130bfe81abe95b38ecfbc3cacdb5f9",
+  "source_clean": true,
+  "installed_harness_matches_source_after_explicit_newline_normalization": true,
+  "harness_sha256": "674d99d721ec4370a42ec3fb1aecddc91930b75adc581229b1752dc9f5860092",
+  "core_version": "3.2.1",
+  "originals_unchanged": true,
+  "command_receipt": "receipts/official-synthetic-attestation.json"
+}

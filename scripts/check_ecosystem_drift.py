@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import hashlib
 import json
 import tomllib
 from datetime import UTC, date, datetime
@@ -156,6 +157,38 @@ def wheel_versions(text: str) -> tuple[set[str], set[str]]:
 # --------------------------------------------------------------------------- offline
 
 
+def check_recorded_evidence(item: dict[str, Any], root: Path = ROOT) -> list[str]:
+    """Bind newly recorded controls to their original, hash-identified evidence."""
+    if "evidence_path" not in item:
+        return []
+    try:
+        relative = Path(item["evidence_path"])
+        path = (root / relative).resolve()
+        if relative.is_absolute() or not path.is_relative_to(root.resolve()):
+            raise ValueError("evidence outside registry root")
+        raw = path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != item.get("evidence_sha256"):
+            raise ValueError("evidence hash mismatch")
+        evidence = json.loads(raw)
+        fields = {
+            "harness_version": "schema_version",
+            "reported_core_version": "core_version",
+            "domain_code_version": "code_version",
+            "executed_at": "passed_at",
+            "expires_at": "expires_at",
+            "metric": "metric",
+            "pipeline_fingerprint": "pipeline_fingerprint",
+        }
+        if any(
+            not evidence.get(source) or item.get(target) != evidence[source]
+            for target, source in fields.items()
+        ):
+            raise ValueError("registry fields differ from recorded evidence")
+    except (OSError, ValueError, TypeError, KeyError) as exc:
+        return [f"{item['repo']}: recorded harness evidence invalid: {exc}"]
+    return []
+
+
 def check_offline() -> list[str]:
     """Invariantes que não dependem de rede — coerência interna dos registries."""
     problems: list[str] = []
@@ -167,6 +200,7 @@ def check_offline() -> list[str]:
     #    O registro do stocks dizia exatamente isso, com a justificativa
     #    "research is frozen" — e a pesquisa não estava congelada.
     for item in entries:
+        problems.extend(check_recorded_evidence(item))
         if item["status"] == "INVALIDATED_BY_CORE_BUMP" and not item.get("reissue_required"):
             problems.append(f"{item['repo']}: atestado invalidado com reissue_required=false")
         if item.get("reported_core_version") == "UNKNOWN":

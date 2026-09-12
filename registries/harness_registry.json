@@ -1,6 +1,6 @@
 {
   "schema_version": "harness-registry/1.0",
-  "current_released_core_version": "3.2.0",
+  "current_released_core_version": "3.2.1",
   "last_verified_at": "2026-09-06",
   "harnesses": [
     {
@@ -47,7 +47,76 @@
       "status": "INVALIDATED_BY_CORE_BUMP",
       "reissue_required": true,
       "basis": "The previous entry claimed legacy-no-schema-version, core UNKNOWN, STALE and 'research is frozen; reissue is not required' — all superseded. The real attestation is pipeline-power/2, issued 2026-09-04 against Core 3.1.0; the 2026-09-06 bump to 3.2.0 invalidated it. Research is not frozen: H17/H18/H19 were pre-registered on 2026-09-04 and H18 met its five acceptance criteria. Reissue BLOCKS the first run. See ST-01"
+    },
+    {
+      "repo": "cripto-predictor",
+      "harness_version": "pipeline-power/2",
+      "reported_core_version": "3.2.0",
+      "core_code_sha": "de79cc19914b70bd8a8fa74a6e49b4ea192c1f91",
+      "domain_code_version": "package:3.2.0;git:b765948f5f7b48986dcbb00533193669d1202b41",
+      "executed_at": "2026-09-07T18:19:27Z",
+      "expires_at": "2026-09-14T18:19:27Z",
+      "status": "RECORDED_SOURCE_NOT_RECERTIFIED",
+      "reissue_required": false,
+      "metric": "psr",
+      "pipeline_fingerprint": "36985cab78faaab7e84b3bf4e7a2369577c9977b616dbc4d4cd11b12799df4f9",
+      "evidence_path": "docs/engineering_controls/20260912/historical-source-trials.harness_attestation.json",
+      "evidence_sha256": "97ceb19036967be7519b633c1087140237630d920a094894e762cbef346f10b1",
+      "scope": "Synthetic judge power controls only; no live trial, economic verdict or capital authorization",
+      "basis": "Exact copy of admitted historical domain source; recorded dates and version only, not recertification"
+    },
+    {
+      "repo": "cripto-predictor",
+      "harness_version": "pipeline-power/2",
+      "reported_core_version": "3.2.1",
+      "core_code_sha": "de79cc19914b70bd8a8fa74a6e49b4ea192c1f91",
+      "domain_code_version": "package:3.2.1;git:22219e3db8130bfe81abe95b38ecfbc3cacdb5f9",
+      "executed_at": "2026-09-12T23:26:37Z",
+      "expires_at": "2026-09-19T23:26:37Z",
+      "status": "ALIGNED",
+      "reissue_required": false,
+      "metric": "psr",
+      "pipeline_fingerprint": "36985cab78faaab7e84b3bf4e7a2369577c9977b616dbc4d4cd11b12799df4f9",
+      "evidence_path": "docs/engineering_controls/20260912/synthetic-control-trials.harness_attestation.json",
+      "evidence_sha256": "6e3018ed635fb64dee9dfb621bae811b553012a63cf107b09c66f6d2868cde7b",
+      "scope": "Synthetic judge power controls only; no live trial, economic verdict or capital authorization",
+      "basis": "Official installed Crypto harness with fixed edge/noise seeds and canonical Core; original domain attestation files unchanged"
+    },
+    {
+      "repo": "cripto-predictor",
+      "harness_version": "pipeline-power/2",
+      "reported_core_version": "3.2.0",
+      "core_code_sha": "de79cc19914b70bd8a8fa74a6e49b4ea192c1f91",
+      "domain_code_version": "package:3.2.0;git:b765948f5f7b48986dcbb00533193669d1202b41",
+      "executed_at": "2026-09-07T18:19:19Z",
+      "expires_at": "2026-09-14T18:19:19Z",
+      "status": "RECORDED_SOURCE_NOT_RECERTIFIED",
+      "reissue_required": false,
+      "metric": "spearman_ic",
+      "pipeline_fingerprint": "69a096c9d86b9fcdc49cad22d43e76a675554b494a7969fbe222065a014c59db",
+      "evidence_path": "docs/engineering_controls/20260912/historical-source-trials.phase1_harness_attestation.json",
+      "evidence_sha256": "3656accf2eec642812bc5f09fdc2c3abb094fdd2d32f8572300143496a345d15",
+      "scope": "Synthetic judge power controls only; no live trial, economic verdict or capital authorization",
+      "basis": "Exact copy of admitted historical domain source; recorded dates and version only, not recertification"
+    },
+    {
+      "repo": "cripto-predictor",
+      "harness_version": "pipeline-power/2",
+      "reported_core_version": "3.2.1",
+      "core_code_sha": "de79cc19914b70bd8a8fa74a6e49b4ea192c1f91",
+      "domain_code_version": "package:3.2.1;git:22219e3db8130bfe81abe95b38ecfbc3cacdb5f9",
+      "executed_at": "2026-09-12T23:26:16Z",
+      "expires_at": "2026-09-19T23:26:16Z",
+      "status": "ALIGNED",
+      "reissue_required": false,
+      "metric": "spearman_ic",
+      "pipeline_fingerprint": "69a096c9d86b9fcdc49cad22d43e76a675554b494a7969fbe222065a014c59db",
+      "evidence_path": "docs/engineering_controls/20260912/synthetic-control-trials.phase1_harness_attestation.json",
+      "evidence_sha256": "141b11fd863a5fcd2f2d55ae2c60c2af66df90a13b81c3cef6f23c15ef4a6033",
+      "scope": "Synthetic judge power controls only; no live trial, economic verdict or capital authorization",
+      "basis": "Official installed Crypto harness with fixed edge/noise seeds and canonical Core; original domain attestation files unchanged"
     }
   ],
-  "overall_alignment": "MIXED_BY_DECISION"
+  "overall_alignment": "MIXED_BY_DECISION",
+  "software_controls_verified_at": "2026-09-12"
 }

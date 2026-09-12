@@ -1,0 +1,12 @@
+{
+  "schema_version": "pipeline-power/2",
+  "passed_at": "2026-09-12T23:26:16Z",
+  "expires_at": "2026-09-19T23:26:16Z",
+  "core_version": "3.2.1",
+  "code_version": "package:3.2.1;git:22219e3db8130bfe81abe95b38ecfbc3cacdb5f9",
+  "evaluate": "judge_phase1",
+  "edge_verdict": "VALIDADO",
+  "note": "Juiz da Fase 1 (analyzers/backtest._report): VALIDADO/RUIDO via Spearman IC95 block bootstrap nao cruza zero, seeds 21/22, n=120 — edge plantado e ruido",
+  "metric": "spearman_ic",
+  "pipeline_fingerprint": "69a096c9d86b9fcdc49cad22d43e76a675554b494a7969fbe222065a014c59db"
+}
