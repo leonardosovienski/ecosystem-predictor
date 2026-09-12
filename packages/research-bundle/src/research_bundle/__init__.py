@@ -13,6 +13,7 @@ from research_snapshot import canonical, digest, keys, string, strings, timestam
 
 VERSION = "ResearchBundleV1"
 PROFILE = "local-research/1"
+CURRENT_PROFILE = "local-research/2"
 MAX_BYTES = 2_000_000
 MAX_ENTITIES = 200
 MAX_EVIDENCE = 200
@@ -150,7 +151,7 @@ def validate(bundle):
         "contract profile bundle_id origin exported_at coverage restrictions "
         "entities evidence artifacts relations",
     )
-    if bundle["contract"] != VERSION or bundle["profile"] != PROFILE:
+    if bundle["contract"] != VERSION or bundle["profile"] not in (PROFILE, CURRENT_PROFILE):
         raise ValueError("CONTRACT_INVALID: version/profile")
     sha(bundle["bundle_id"])
     if len(canonical(bundle)) > MAX_BYTES:
@@ -281,7 +282,9 @@ def validate(bundle):
                 string(ep["revision"])
                 exists = (ep["id"], ep["revision"]) in entities
             else:
-                if ep["revision"] is not None:
+                if ep["external"] and bundle["profile"] == CURRENT_PROFILE:
+                    sha(ep["revision"])
+                elif ep["revision"] is not None:
                     raise ValueError("CONTRACT_INVALID: artifact revision")
                 exists = ep["id"] in artifacts
             if not ep["external"] and (ep["namespace"] != namespace(origin) or not exists):

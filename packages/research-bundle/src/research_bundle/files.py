@@ -25,7 +25,12 @@ def no_links(path):
 
 
 def safe_mkdirs(path):
-    """Create beneath trusted parents, checking before following each component."""
+    """Create and durably link each directory beneath trusted parents on POSIX.
+
+    Sync existing entries too: another writer may have created them without yet
+    syncing, or a previous failed attempt may have left an unsynced directory.
+    Windows fsync_dir deliberately provides no directory durability guarantee.
+    """
     path = Path(path).absolute()
     for part in [*reversed(path.parents), path]:
         if not part.exists():
@@ -33,6 +38,8 @@ def safe_mkdirs(path):
         no_links(part)
         if not part.is_dir():
             raise ValueError("UNSAFE_PATH: expected directory")
+        if part != part.parent:
+            fsync_dir(part.parent)
     return path
 
 

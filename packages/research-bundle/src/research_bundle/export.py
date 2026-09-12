@@ -4,6 +4,8 @@ import io
 import os
 import re
 import subprocess
+import sys
+from importlib import metadata
 from pathlib import Path
 
 from research_bundle import canonical, digest, endpoint, seal, sha, validate
@@ -43,22 +45,49 @@ def admitted_sources(root, expected, allowed):
     return revision, sources
 
 
+def exporter_provenance(producer_files):
+    """Fingerprint executed source/schema bytes, not just a nominal package version."""
+    import research_snapshot
+
+    import research_bundle
+
+    packages = {}
+    for name, module in (
+        ("predictor-research-bundle", research_bundle),
+        ("predictor-research-snapshot", research_snapshot),
+    ):
+        root = Path(module.__file__).parent
+        try:
+            version = metadata.version(name)
+        except metadata.PackageNotFoundError:
+            version = "source-tree"
+        packages[name] = dict(
+            version=version,
+            files={
+                p.relative_to(root).as_posix(): digest(p.read_bytes())
+                for p in sorted(root.rglob("*"))
+                if p.suffix in {".py", ".json"}
+            },
+        )
+    return dict(
+        schema="exporter-provenance/1",
+        python=sys.version.split()[0],
+        packages=packages,
+        producer_files={
+            name: digest(Path(path).read_bytes()) for name, path in sorted(producer_files.items())
+        },
+    )
+
+
 class Builder:
-    def __init__(self, domain, revision, exporter_revision, expected, exported_at):
+    def __init__(self, origin, restrictions, exported_at, *, provenance):
+        expected = origin["inputs"]
+        if origin["exporter_revision"] != "sha256:" + digest(canonical(provenance)):
+            raise ValueError("Exporter provenance fingerprint mismatch")
         self.body = dict(
             contract="ResearchBundleV1",
-            profile="local-research/1",
-            origin=dict(
-                domain=domain,
-                repository="https://github.com/leonardosovienski/"
-                + ("cripto" if domain == "crypto" else domain)
-                + "-predictor",
-                publisher=domain + "-local",
-                stream="research-bundle",
-                code_revision=revision,
-                exporter_revision=exporter_revision,
-                inputs=expected,
-            ),
+            profile="local-research/2",
+            origin=origin,
             exported_at=exported_at,
             coverage=dict(
                 scope="Explicitly admitted existing research metadata",
@@ -72,13 +101,19 @@ class Builder:
                     "Unknown clocks remain null",
                 ],
             ),
-            restrictions=dict(
-                policy=domain + "-research-bundle/1", read=True, disclose=False, generate=False
-            ),
+            restrictions=restrictions,
             entities=[],
             evidence=[],
             artifacts=[],
             relations=[],
+        )
+        self.body["evidence"].append(
+            dict(
+                id="exporter-provenance:" + digest(canonical(provenance)),
+                source=sorted(expected)[0],
+                locator="exporter-provenance/1",
+                payload=provenance,
+            )
         )
         self.received = {}
 
@@ -96,8 +131,17 @@ class Builder:
         event_at=None,
         available_at=None,
     ):
-        evidence_id = digest(canonical([source, identity, payload]))
-        self.body["evidence"].append(dict(id=evidence_id, source=source, locator=identity, payload=payload))
+        # Preserve provenance without duplicating the entire entity payload.
+        evidence = dict(
+            source=source,
+            locator=identity,
+            payload=dict(
+                source_sha256=self.body["origin"]["inputs"][source],
+                entity_payload_sha256=digest(canonical(payload)),
+            ),
+        )
+        evidence_id = digest(canonical(evidence))
+        self.body["evidence"].append(dict(id=evidence_id, **evidence))
         entity = dict(
             entity_id=identity,
             entity_type=kind,

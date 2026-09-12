@@ -19,7 +19,7 @@
       "const": "ResearchBundleV1"
     },
     "profile": {
-      "const": "local-research/1"
+      "enum": ["local-research/1", "local-research/2"]
     },
     "bundle_id": {
       "type": "string",

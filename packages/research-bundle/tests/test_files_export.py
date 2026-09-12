@@ -8,6 +8,59 @@ from research_bundle.export import admitted_sources
 from research_bundle.files import _posix_open, safe_open, transfer
 
 
+def test_directory_chain_synced_before_descendants(tmp_path, monkeypatch):
+    from research_bundle import files
+
+    target = tmp_path / "cas" / "sha256" / "ab"
+    synced = []
+
+    def sync(parent):
+        if parent == tmp_path:
+            assert (tmp_path / "cas").is_dir()
+            assert not (tmp_path / "cas/sha256").exists()
+        synced.append(parent)
+
+    monkeypatch.setattr(files, "fsync_dir", sync)
+    files.safe_mkdirs(target)
+    assert synced[-3:] == [tmp_path, tmp_path / "cas", tmp_path / "cas/sha256"]
+    # Existing entries are synchronized on retries, too.
+    monkeypatch.setattr(files, "fsync_dir", synced.append)
+    files.safe_mkdirs(target)
+    assert synced[-3:] == [tmp_path, tmp_path / "cas", tmp_path / "cas/sha256"]
+
+
+def test_provenance_tracks_dependency_bytes_and_builder_has_no_domain_defaults(tmp_path, monkeypatch):
+    import research_bundle
+    from research_bundle import canonical
+    from research_bundle.export import Builder, exporter_provenance
+
+    package = tmp_path / "package"
+    package.mkdir()
+    module = package / "__init__.py"
+    module.write_bytes(b"# shared code v1")
+    monkeypatch.setattr(research_bundle, "__file__", str(module))
+    producer = tmp_path / "producer.py"
+    producer.write_bytes(b"# producer")
+    first = exporter_provenance({"producer.py": producer})
+    module.write_bytes(b"# shared code v2")
+    second = exporter_provenance({"producer.py": producer})
+    assert first["producer_files"] == second["producer_files"]
+    assert digest(canonical(first)) != digest(canonical(second))
+    origin = dict(
+        domain="unrelated",
+        repository="urn:explicit",
+        publisher="chosen",
+        stream="owned",
+        code_revision="code",
+        exporter_revision="sha256:" + digest(canonical(second)),
+        inputs={"input.json": "0" * 64},
+    )
+    restrictions = dict(policy="receiver-selected", read=True, disclose=False, generate=False)
+    builder = Builder(origin, restrictions, "2026-09-12T00:00:00Z", provenance=second)
+    assert builder.body["origin"] == origin and builder.body["restrictions"] == restrictions
+    assert builder.body["evidence"][0]["payload"] == second
+
+
 @pytest.mark.parametrize("code", [errno.ELOOP, errno.ENOTDIR, errno.ENOENT])
 def test_posix_path_errors(monkeypatch, code):
     error = OSError(code, "injected")

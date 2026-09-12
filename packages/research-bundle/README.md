@@ -22,8 +22,11 @@ are validated by this envelope. Entities have explicit status/status_axis and th
 clocks. Evidence has id/source/locator/payload. Artifacts have producer descriptor identity,
 role, availability, MIME type, optional SHA/size, transport path, locator, logical name and
 metadata. Relations contain typed entity/artifact endpoints, four-part producer namespace,
-id, revision (entity only), and an explicit external boolean. Local endpoints must resolve
-in the bundle. External endpoints are preserved without resolution or I/O.
+id, revision, and an explicit external boolean. Local endpoints must resolve
+in the bundle. New profile local-research/2 requires external artifact revision to
+be SHA256(canonical(full descriptor)); local artifact revision stays null. Profile 1
+remains readable with its original identity. Ambiguous or unauthorized external
+relations must be withheld by receivers. External never grants permission or I/O.
 
 Canonical UTF-8: ensure_ascii=False, sorted object keys, separators `,` and `:`, no insignificant
 whitespace, no Unicode normalization. Array order and nulls are significant. Finite Python JSON
@@ -51,7 +54,13 @@ Common roles/types are exported as ROLES/RELATIONS. Additional values require th
 `namespace:Name` syntax; consumers still require an explicit role grant. New required semantics
 require a new profile/version, not a silent extension to V1.
 
-Producer helpers in export.py only implement pinned, bounded source reads, secret-pattern
+Builder receives producer-owned origin and restrictions. exporter_revision fingerprints
+retrievable exporter-provenance/1 evidence with actual producer/shared source/schema
+hashes, versions and Python version. New exports use profile 2. Entity evidence contains
+source and payload hashes without a redundant full payload. Existing raw bytes remain.
+Determinism requires the same effective code/dependencies/interpreter, not just nominal versions.
+
+Producer helpers in export.py implement pinned, bounded source reads, secret-pattern
 defense in depth and new-directory publication. Each producer owns its allowlist and domain
 mapping. This is not a universal secret detector. Sources must be committed, pinned and regular;
 all remain read-only. A completion manifest is written last. Repeated exports with identical
