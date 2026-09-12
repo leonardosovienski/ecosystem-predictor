@@ -1,0 +1,6 @@
+# Reviewed on 2026-09-12 against the exact historical source commit.
+# These three findings use the same explicitly fictitious JWT test fixture.
+# Exceptions are limited to commit + path + rule + line. No path/rule-wide bypass.
+9d53e53a2e523d1dbf5386bf5b998931351ece2f:tests/conftest.py:generic-api-key:31
+9d53e53a2e523d1dbf5386bf5b998931351ece2f:tests/unit/test_storage.py:generic-api-key:18
+9d53e53a2e523d1dbf5386bf5b998931351ece2f:tests/unit/test_storage.py:generic-api-key:56
