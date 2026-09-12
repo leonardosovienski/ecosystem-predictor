@@ -4,8 +4,11 @@ Run this only in an environment where cripto-predictor,
 brasileirao-predictor and stocks-predictor are installed together.
 """
 
+import argparse
+import hashlib
 import json
 import os
+import re
 from importlib.metadata import distribution
 from pathlib import Path
 
@@ -18,9 +21,36 @@ EXPECTED_DOMAINS = {
 }
 
 
-def main() -> int:
-    manifest = json.loads(Path("registries/compatibility_candidate.json").read_text())
+def candidate_matches(installed, expected: dict) -> bool:
+    """Require the declared version and immutable VCS or wheel provenance."""
+    direct = json.loads(installed.read_text("direct_url.json") or "{}")
+    if installed.version != expected["version"]:
+        return False
+    if "wheel_sha256" in expected:
+        digest = expected["wheel_sha256"]
+        return (
+            isinstance(digest, str)
+            and re.fullmatch(r"[a-f0-9]{64}", digest) is not None
+            and direct.get("archive_info", {}).get("hashes", {}).get("sha256") == digest
+        )
+    commit = expected.get("commit")
+    return (
+        isinstance(commit, str)
+        and re.fullmatch(r"[a-f0-9]{40}", commit) is not None
+        and direct.get("vcs_info", {}).get("commit_id") == commit
+    )
+
+
+def main(argv=None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--manifest", type=Path)
+    args = parser.parse_args(argv)
     released_mode = os.environ.get("RELEASED_WHEELS") == "1"
+    if released_mode and args.manifest is not None:
+        parser.error("A candidate manifest cannot certify released wheels")
+    manifest_path = args.manifest or Path("registries/compatibility_candidate.json")
+    manifest_bytes = manifest_path.read_bytes()
+    manifest = json.loads(manifest_bytes)
     if released_mode:
         released = json.loads(Path("registries/released_architecture.json").read_text())
         names = {
@@ -45,11 +75,7 @@ def main() -> int:
         if name == "cain" or released_mode:
             continue
         installed = distribution(name)
-        direct = json.loads(installed.read_text("direct_url.json") or "{}")
-        if (
-            installed.version != expected["version"]
-            or direct.get("vcs_info", {}).get("commit_id") != expected["commit"]
-        ):
+        if not candidate_matches(installed, expected):
             raise SystemExit(f"candidate distribution mismatch: {name}")
     for name, expected in manifest["shared"].items():
         installed = distribution(name)
@@ -104,6 +130,7 @@ def main() -> int:
                 {
                     "status": "PASS",
                     "manifest": manifest,
+                    "manifest_sha256": hashlib.sha256(manifest_bytes).hexdigest(),
                     "released_wheels": released_mode,
                     "diagnostics": diagnostics,
                 },
