@@ -18,7 +18,10 @@
       "remote_main_sha": "abe267b38e2e46bdb7720f2a2c1d220fa7c1dba3",
       "open_blockers": [],
       "next_allowed_action": "maintenance or a shared primitive with a second real consumer",
-      "forbidden_actions": ["domain policy", "unconsumed abstraction"],
+      "forbidden_actions": [
+        "domain policy",
+        "unconsumed abstraction"
+      ],
       "source_of_truth": "core-predictor main, release v3.2.0, CHANGELOG.md"
     },
     {
@@ -37,7 +40,10 @@
       "remote_main_sha": "d02f16407364f8d21a06308e4f614e6960fc5c4e",
       "open_blockers": [],
       "next_allowed_action": "minimal operational maintenance",
-      "forbidden_actions": ["scientific gate decisions", "restore intentionally removed monitor"],
+      "forbidden_actions": [
+        "scientific gate decisions",
+        "restore intentionally removed monitor"
+      ],
       "source_of_truth": "predictor-ops main, release v4.1.0, CHANGELOG.md"
     },
     {
@@ -54,9 +60,15 @@
       "integration_state": "CURRENT_CORE_3_2_OPS_4_1",
       "ci_state": "PASS",
       "remote_main_sha": "02b8d88fa0b15ba28565351848a9737b2edcda48",
-      "open_blockers": ["BR-05"],
+      "open_blockers": [
+        "BR-05"
+      ],
       "next_allowed_action": "collect native same-cutoff prospective evidence for EXP-001 in this domain only",
-      "forbidden_actions": ["retroactive prospective-store reconstruction", "run EXP-001 in ecosystem-predictor", "promote UNKNOWN"],
+      "forbidden_actions": [
+        "retroactive prospective-store reconstruction",
+        "run EXP-001 in ecosystem-predictor",
+        "promote UNKNOWN"
+      ],
       "source_of_truth": "brasileirao-predictor reports dated 2026-09-02 and main"
     },
     {
@@ -73,10 +85,18 @@
       "integration_state": "CORE_3_0_BY_DECISION_OPS_4_1",
       "ci_state": "PASS",
       "remote_main_sha": "3c104ceb8f20b6c8c7ca26d344d733ff20ececbe",
-      "open_blockers": ["CR-01"],
-      "open_observations": ["CR-02"],
+      "open_blockers": [
+        "CR-01"
+      ],
+      "open_observations": [
+        "CR-02"
+      ],
       "next_allowed_action": "passive collection and natural scheduler observation",
-      "forbidden_actions": ["new alpha hunt", "reopen HMM/LLM/trend", "change H6 without new legitimate evidence"],
+      "forbidden_actions": [
+        "new alpha hunt",
+        "reopen HMM/LLM/trend",
+        "change H6 without new legitimate evidence"
+      ],
       "source_of_truth": "cripto-predictor CR_RESEARCH_FREEZE.md and main"
     },
     {
@@ -86,17 +106,26 @@
       "research_state": "FROZEN_H1_H16_PREREGISTERED_H17_H19",
       "scientific_state": "CLOSED_FOR_H1_THROUGH_H16",
       "predictive_state": "NOT_SUPPORTED_IN_WINDOW",
-      "operational_state": "MEASUREMENT_PENDING",
+      "operational_state": "BATCH_RESEARCH_VALIDATED_NO_CAPITAL",
       "commercial_state": "NOT_A_PRODUCT",
-      "current_version": "0.1.0",
+      "current_version": "0.2.0",
       "evidence_state": "VERIFIED",
-      "integration_state": "CORE_3_2_NO_OPS",
+      "integration_state": "CORE_3_2_1_SNAPSHOT_VALIDATED_BUNDLE_CANDIDATE",
       "ci_state": "PASS",
-      "remote_main_sha": "d48d05dc590c7e14a9186e7097c048c3020a6a53",
-      "open_blockers": ["ST-01", "ST-02", "ST-03"],
-      "next_allowed_action": "reissue the attestation against Core 3.2.0 and fix the order of H17/H18/H19 before the first measurement; H1-H16 stay closed and still require a complete reopen dossier",
-      "forbidden_actions": ["reopen factors", "reopen RJ", "reinterpret falsification as product"],
-      "source_of_truth": "stocks-predictor RESEARCH_FREEZE.md and main"
+      "remote_main_sha": "938f646b82eb999ee4513ccad13b0c93cac310f0",
+      "open_blockers": [
+        "ST-01",
+        "ST-02",
+        "ST-03"
+      ],
+      "next_allowed_action": "Follow current Stocks HANDOFF and protocols; software audit does not authorize new scientific measurements or capital",
+      "forbidden_actions": [
+        "reopen factors",
+        "reopen RJ",
+        "reinterpret falsification as product"
+      ],
+      "source_of_truth": "Stocks main README.md, STOCKS_CURRENT_STATE.md, pyproject.toml; see STOCKS_INTEGRATION_20260912.md. Scientific fields remain historical and are not recertified by this software audit.",
+      "software_verified_at": "2026-09-12"
     },
     {
       "project_id": "ecosystem-predictor",
@@ -112,9 +141,17 @@
       "integration_state": "REGISTRY_ONLY",
       "ci_state": "PASS",
       "ci_evidence": "https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/33726292893",
-      "open_blockers": ["BIZ-01"],
+      "open_blockers": [
+        "BIZ-01"
+      ],
       "next_allowed_action": "customer discovery: human-authorized outreach and first qualified conversation",
-      "forbidden_actions": ["prediction", "research", "MLOps platform", "dashboard", "audit service implementation"],
+      "forbidden_actions": [
+        "prediction",
+        "research",
+        "MLOps platform",
+        "dashboard",
+        "audit service implementation"
+      ],
       "source_of_truth": "CURRENT_STATE.md and registries/"
     }
   ]
