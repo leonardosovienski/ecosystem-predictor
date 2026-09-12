@@ -1,0 +1,109 @@
+{
+  "contract": "ResearchBundleV1",
+  "profile": "local-research/1",
+  "origin": {
+    "domain": "test",
+    "repository": "test/repo",
+    "publisher": "test",
+    "stream": "test",
+    "code_revision": "test-code",
+    "exporter_revision": "test-exporter",
+    "inputs": {
+      "report.json": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+  "exported_at": "2026-09-11T00:00:00Z",
+  "restrictions": {
+    "policy": "test/1",
+    "read": true,
+    "disclose": false,
+    "generate": false
+  },
+  "coverage": {
+    "scope": "test",
+    "completeness": "partial",
+    "included": [
+      "report.json"
+    ],
+    "missing": [],
+    "excluded": [],
+    "limitations": [
+      "test fixture"
+    ]
+  },
+  "entities": [
+    {
+      "entity_id": "TEST-HYPOTHESIS-001",
+      "revision": "1",
+      "entity_type": "hypothesis",
+      "identity_basis": "source_assigned",
+      "status": "UNKNOWN",
+      "status_axis": "scientific",
+      "event_at": null,
+      "recorded_at": null,
+      "available_at": null,
+      "payload": {
+        "unknown": null
+      },
+      "supersedes": [],
+      "evidence_ids": [
+        "e1"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "source": "report.json",
+      "locator": "/",
+      "payload": {}
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "a1",
+      "role": "document",
+      "availability": "received",
+      "media_type": "text/plain",
+      "sha256": "ec2724ced539df62d75c0dcdeb7ccf6841ef1ddac92088a5f0747059384119c5",
+      "size": 15,
+      "relative_path": "files/report.txt",
+      "locator": null,
+      "logical_name": "report",
+      "metadata": {
+        "license": "UNKNOWN"
+      }
+    }
+  ],
+  "relations": [
+    {
+      "relation_id": "r1",
+      "type": "SUPPORTED_BY",
+      "source": {
+        "kind": "entity",
+        "namespace": [
+          "test",
+          "test/repo",
+          "test",
+          "test"
+        ],
+        "id": "TEST-HYPOTHESIS-001",
+        "revision": "1",
+        "external": false
+      },
+      "target": {
+        "kind": "artifact",
+        "namespace": [
+          "test",
+          "test/repo",
+          "test",
+          "test"
+        ],
+        "id": "a1",
+        "revision": null,
+        "external": false
+      }
+    }
+  ],
+  "bundle_id": "96a2018157ce52e78e1ce98f6b18e4f3e910f1071a3ff5088db1890d1cbb8e72"
+}
