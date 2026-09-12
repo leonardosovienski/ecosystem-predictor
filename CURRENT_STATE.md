@@ -1,3 +1,5 @@
+> **Stocks — atualização de software:** [integração observada em 12/09](STOCKS_INTEGRATION_20260912.md). A linha histórica H1–H19 abaixo não define a prontidão atual do runtime. Estados científicos não foram recertificados.
+
 # Estado canônico atual
 
 A arquitetura vigente está em [ECOSYSTEM_RUNBOOK.md](ECOSYSTEM_RUNBOOK.md). As tabelas científicas e pendências datadas de 06/09 abaixo são históricas; o estado científico vigente pertence ao respectivo domínio. A entrega de engenharia de 11/09 não reemite esses vereditos.
