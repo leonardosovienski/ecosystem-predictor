@@ -1,3 +1,5 @@
+> **Core integrado — 13/09/2026:** main `9bf43ef`, wheel oficial 3.2.1 e combinação fixa dos três predictors validadas. [Integração, CI, arquivos locais e limites](CORE_INTEGRATION_20260913.md).
+
 > **Ops — integração e implantação local conferidas:** versão 4.2.1 instalada nos ambientes de Cripto e Brasileirão; arquivos, recuperação e registros reconciliados. [Página do Ops no ecossistema](OPS_INTEGRATION_20260913.md). Agendamentos e capital não ativados.
 
 > **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
@@ -43,4 +45,4 @@ As alterações candidatas, seus limites, verificações e rollback estão em [A
 
 O inventário corrente inclui dez pacotes em sete repositórios, incluindo ResearchBundle. O gate compara os caminhos declarados com metadados reais da fonte local e dos candidatos remotos imutáveis. O runbook distingue Ops 4.2.1 publicado, CAIN 0.4.9 observado localmente e combinações históricas de integração.
 
-As integrações documentais de Brasileirão e Stocks com CAIN já existem, conforme os recibos próprios ligados acima. A rodada do core no PR29 testou outra combinação e um percurso sintético adicional de Crypto; sua lacuna não deve ser descrita como ausência geral das integrações BR/Stocks. Qualquer gate adicional precisa de requisito contratual e análise de impacto explícitos; evidência histórica não certifica outro SHA automaticamente.
+As integrações documentais de Brasileirão e Stocks com CAIN já existem, conforme os recibos próprios ligados acima. A rodada final do core integrou o PR29 e repetiu os três percursos em uma combinação fixada: Crypto com atestado sintético novo, BR e Stocks com documentos/metadados admitidos. Veja CORE_INTEGRATION_20260913.md; os recibos anteriores continuam históricos. Qualquer gate adicional precisa de requisito contratual e análise de impacto explícitos; evidência histórica não certifica outro SHA automaticamente.

@@ -15,15 +15,15 @@
       "evidence_state": "VERIFIED_FROM_MAIN_RELEASE_CHANGELOG_AND_CI",
       "integration_state": "CURRENT",
       "ci_state": "PASS",
-      "remote_main_sha": "de79cc19914b70bd8a8fa74a6e49b4ea192c1f91",
+      "remote_main_sha": "9bf43efe92459a0b484cac00f51170b2c70d420f",
       "open_blockers": [],
       "next_allowed_action": "maintenance or a shared primitive with a second real consumer",
       "forbidden_actions": [
         "domain policy",
         "unconsumed abstraction"
       ],
-      "source_of_truth": "core-predictor main, release v3.2.0, CHANGELOG.md; software metadata reconciled 2026-09-12 against published source; historical scientific fields not recertified",
-      "software_verified_at": "2026-09-12"
+      "source_of_truth": "Core main 9bf43efe92459a0b484cac00f51170b2c70d420f; published wheel 3.2.1 from tag source 7bb212c; CI 34740848667/34740848668; CORE_INTEGRATION_20260913.md; historical scientific fields not recertified",
+      "software_verified_at": "2026-09-13"
     },
     {
       "project_id": "predictor-ops",

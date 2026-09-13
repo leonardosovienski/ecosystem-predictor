@@ -1,0 +1,121 @@
+{
+  "schema_version": "core-integration/1",
+  "verified_at": "2026-09-13",
+  "status": "PASS_ENGINEERING_AND_EXISTING_TRANSPORTS",
+  "repository": "https://github.com/leonardosovienski/core-predictor",
+  "source_commit": "9bf43efe92459a0b484cac00f51170b2c70d420f",
+  "release_source_commit": "7bb212cfa06333886e11e849b209c5aab801c04b",
+  "distribution": {
+    "version": "3.2.1",
+    "url": "https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.1/predictor_core-3.2.1-py3-none-any.whl",
+    "hash": "sha256:10ef42f34ace8bb2df5f83ff7de2ceec79b035a25ea0a690e8942bd60d2fb4e3"
+  },
+  "runtime_comparison": {
+    "status": "PASS",
+    "runtime_files_equal": 41,
+    "local_sha256": "8164e91e4bd819a5edef1776bf5c2d9ac930a7c027941c9136e63fca9c6dd2de",
+    "published_sha256": "10ef42f34ace8bb2df5f83ff7de2ceec79b035a25ea0a690e8942bd60d2fb4e3",
+    "source_sha": "9bf43efe92459a0b484cac00f51170b2c70d420f",
+    "release_required": false,
+    "metadata_difference": "Current README metadata and wheel build metadata; runtime files identical; no published asset replaced"
+  },
+  "ci": {
+    "core": 34740848667,
+    "compatibility": 34740848668
+  },
+  "combination": {
+    "schema_version": "architecture-compatibility/1",
+    "consumers": {
+      "cripto-predictor": {
+        "repository": "https://github.com/leonardosovienski/cripto-predictor",
+        "commit": "59f6cf80d4a95153efa159c8b6e0d7d5e7f540ff",
+        "version": "1.1.0"
+      },
+      "stocks-predictor": {
+        "repository": "https://github.com/leonardosovienski/stocks-predictor",
+        "commit": "3066321e599ee15dd0ace4167d2791545ce6eb95",
+        "version": "0.2.0"
+      },
+      "brasileirao-predictor": {
+        "repository": "https://github.com/leonardosovienski/brasileirao-predictor",
+        "commit": "0f69ba8a1da744eb4239b680fc0389f9dc631987",
+        "version": "0.2.0"
+      },
+      "cain": {
+        "repository": "https://github.com/leonardosovienski/cain",
+        "commit": "203048c752973cd730a18345a739c29413eede12",
+        "version": "0.4.10"
+      }
+    },
+    "shared": {
+      "predictor-core": {
+        "version": "3.2.1",
+        "url": "https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.1/predictor_core-3.2.1-py3-none-any.whl",
+        "hash": "sha256:10ef42f34ace8bb2df5f83ff7de2ceec79b035a25ea0a690e8942bd60d2fb4e3"
+      },
+      "predictor-ops": {
+        "version": "4.2.1",
+        "url": "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.1/predictor_ops-4.2.1-py3-none-any.whl",
+        "hash": "sha256:da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e"
+      }
+    },
+    "capital_authorized": false,
+    "authority": "Engineering compatibility fixture for this mission; not a scientific attestation",
+    "research_transport": {
+      "publisher": "1.0.1",
+      "cain_reader": "1.0.1",
+      "contract": "ResearchSnapshotV1"
+    }
+  },
+  "tests": {
+    "core_source": 278,
+    "coverage_percent": 86,
+    "installed_cases_per_wheel": 8,
+    "crypto": 40,
+    "brasileirao": 20,
+    "cain": 56,
+    "final_skips": 0
+  },
+  "consolidation": {
+    "main": "9bf43efe92459a0b484cac00f51170b2c70d420f",
+    "remote_branches": [
+      "main"
+    ],
+    "canonical_local_branches": [
+      "main"
+    ],
+    "tags_preserved": true
+  },
+  "limitations": [
+    "Engineering only; no scientific or economic validation",
+    "Only Crypto produces a new synthetic core-derived attestation; BR and Stocks transport admitted documentary metadata",
+    "Auxiliary GitHub AI review failed with unsupported model; required CI and CodeQL passed",
+    "The Ecosystem CI of this integration is separate from the prior core CI recorded here"
+  ],
+  "transports": {
+    "crypto": {
+      "bundle_id": "be90ff76969089758c0ec6d6acd5780966dcb050136456b8afab6a6ce0bffc29",
+      "receipt_sha256": "a002595170293060a97811b9518c976080a7957b7c70f771505750c5cf63cb23",
+      "status": "PASS_REPRESENTATIVE_CRYPTO_SYNTHETIC",
+      "idempotency": "PASS",
+      "tampering_rejected": "PASS",
+      "offline_recovery": "PASS"
+    },
+    "brasileirao": {
+      "bundle_id": "f0064170145c52c8975f89beb977641c679b5764215305ff2fa138bdd32743f4",
+      "receipt_sha256": "880165ece1b6cbdcb8446600f25c51452201048ab0d9057a00e80c7ff6945eb9",
+      "status": "PASS",
+      "idempotency": "PASS",
+      "tampering_rejected": "PASS",
+      "offline_recovery": "PASS"
+    },
+    "stocks": {
+      "bundle_id": "1d8c7be7a5bae91e156632f2d238d902d8823b6fa139aa0ad5f0738832589aa8",
+      "receipt_sha256": "9607e08b426cb05a6cf7ba703a0fc2dddef65e06b14e593dd37cf15091e73e79",
+      "status": "PASS",
+      "idempotency": "PASS",
+      "tampering_rejected": "PASS",
+      "offline_recovery": "PASS"
+    }
+  }
+}

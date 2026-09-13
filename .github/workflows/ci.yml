@@ -178,3 +178,56 @@ jobs:
           name: released-wheel-compatibility
           path: released-wheel-receipt.json
           if-no-files-found: error
+
+  core-distribution:
+    name: Core official wheel functional integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read immutable core source
+        id: core
+        shell: python
+        run: |
+          import json, os, re
+          from pathlib import Path
+          receipt = json.loads(Path("docs/core_integration_20260913/receipt.json").read_text())
+          sha = receipt["source_commit"]
+          assert re.fullmatch(r"[0-9a-f]{40}", sha)
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write(f"sha={sha}\n")
+      - uses: actions/checkout@v4
+        with:
+          repository: leonardosovienski/core-predictor
+          ref: ${{ steps.core.outputs.sha }}
+          path: core-source
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Download, identify and exercise the distributed runtime outside source
+        shell: python
+        run: |
+          import hashlib, json, os, shutil, subprocess, sys, urllib.request
+          from pathlib import Path
+          from urllib.parse import urlparse
+          core = json.loads(Path("registries/compatibility_candidate.json").read_text())["shared"]["predictor-core"]
+          target = Path(os.environ["RUNNER_TEMP"]) / "core-validation"
+          target.mkdir()
+          wheel = target / Path(urlparse(core["url"]).path).name
+          with urllib.request.urlopen(core["url"]) as response:
+              wheel.write_bytes(response.read())
+          assert "sha256:" + hashlib.sha256(wheel.read_bytes()).hexdigest() == core["hash"]
+          subprocess.run([sys.executable, "-m", "venv", str(target / "venv")], check=True)
+          python = str(target / "venv/bin/python")
+          subprocess.run([python, "-m", "pip", "install", str(wheel)], check=True)
+          shutil.copyfile("core-source/tools/check_installed_wheel.py", target / "check.py")
+          result = subprocess.run([python, "-I", "check.py", "--wheel", str(wheel)], cwd=target,
+                                  text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+          (target / "result.log").write_text(result.stdout)
+          print(result.stdout)
+          result.check_returncode()
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: core-distribution-validation
+          path: ${{ runner.temp }}/core-validation/result.log
+          if-no-files-found: warn

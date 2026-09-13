@@ -8,7 +8,7 @@
     },
     "stocks-predictor": {
       "repository": "https://github.com/leonardosovienski/stocks-predictor",
-      "commit": "56c1a7b8db33f15404342fc61cceaa64452517d5",
+      "commit": "3066321e599ee15dd0ace4167d2791545ce6eb95",
       "version": "0.2.0"
     },
     "brasileirao-predictor": {
@@ -18,8 +18,8 @@
     },
     "cain": {
       "repository": "https://github.com/leonardosovienski/cain",
-      "commit": "37cdc604d4c3bbb66684c018c76a4ea38713ee2a",
-      "version": "0.4.5"
+      "commit": "203048c752973cd730a18345a739c29413eede12",
+      "version": "0.4.10"
     }
   },
   "shared": {
@@ -35,10 +35,10 @@
     }
   },
   "capital_authorized": false,
-  "authority": "Exact noneditable candidate distributions; verification receipt required",
+  "authority": "Engineering compatibility fixture for this mission; not a scientific attestation",
   "research_transport": {
     "publisher": "1.0.1",
-    "cain_reader": "1.0.0",
+    "cain_reader": "1.0.1",
     "contract": "ResearchSnapshotV1"
   }
 }

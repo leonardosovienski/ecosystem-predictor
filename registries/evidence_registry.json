@@ -10,7 +10,8 @@
       "L": "L4", "Q": "Q4", "state": "SUPPORTED",
       "supports": ["EXP000B_TEMPORAL", "EXP000_PROVENANCE"], "contradicts": [], "supersedes": ["Core 3.0.0 is current"],
       "limitations": ["domain data provenance remains domain-owned"], "decision": "FOUNDATION_READY",
-      "next_evidence_required": "new release only", "last_updated": "2026-09-03"
+      "next_evidence_required": "new release only", "last_updated": "2026-09-03",
+      "engineering_verification": {"verified_at": "2026-09-13", "source_commit": "9bf43efe92459a0b484cac00f51170b2c70d420f", "version": "3.2.1", "receipt": "docs/core_integration_20260913/receipt.json", "scope": "Engineering and existing evidence transports; historical L/Q/scientific claims unchanged"}
     },
     {
       "claim_id": "CLAIM-OPS-INTEGRITY",

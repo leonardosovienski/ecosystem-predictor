@@ -1,3 +1,5 @@
+> **Core integrado — 13/09/2026:** main `9bf43ef`, wheel oficial 3.2.1 e combinação fixa dos três predictors validadas. [Integração, CI, arquivos locais e limites](CORE_INTEGRATION_20260913.md).
+
 > **Ops — integração e implantação local conferidas:** versão 4.2.1 instalada nos ambientes de Cripto e Brasileirão; arquivos, recuperação e registros reconciliados. [Página do Ops no ecossistema](OPS_INTEGRATION_20260913.md). Agendamentos e capital não ativados.
 
 # Ecossistema — operação e combinações verificadas
@@ -59,3 +61,16 @@ Antes de compartilhar um runtime root com Ops 4.2, parar runners antigos. Não m
 Os gates são de engenharia. Coortes futuras, atestados de poder científico, observação natural de agendamentos e validação econômica continuam sob os protocolos originais. As releases não transformam `NO_GO`, `UNKNOWN` ou ausência de hipótese em autorização de operação.
 
 Para reconferir a versão instalada, use `C:/CAIN/.venv/Scripts/python.exe -I -c "from importlib.metadata import version; print(version('cain-research'))"`. A tabela de releases e a instalação local são registros distintos. Dez pacotes no inventário não significa dez releases publicadas.
+
+## Combinação validada com a main final do Core
+
+`registries/compatibility_candidate.json` corresponde à combinação validada com
+Core main 9bf43ef, wheel 3.2.1, Ops 4.2.1 e CAIN 0.4.10 isolado. O CAIN declarado
+nesse manifesto não identifica automaticamente a instalação operacional do PC.
+A origem da release do Core continua 7bb212c; a main posterior contém os gates
+funcionais e documentação, com 41 arquivos de runtime iguais ao wheel publicado.
+
+Para reproduzir os três plugins em Linux, use os comandos de instalação acima
+sem `--released` e execute o checker sem `RELEASED_WHEELS`. A CI também executa
+o verificador funcional do core instalado fora dos checkouts, obtido do SHA
+fixado no recibo. Relatório: [Core](CORE_INTEGRATION_20260913.md).

@@ -1,0 +1,57 @@
+[
+  {
+    "path": "C:\\PREDICTORS\\core-predictor\\README.md",
+    "bytes": 3885,
+    "sha256": "6f911cdbd5cb9a1dd7a0be86e06fcd4c76ca94fe1c705916859f550452a8747b"
+  },
+  {
+    "path": "C:\\PREDICTORS\\core-predictor\\HANDOFF.md",
+    "bytes": 4620,
+    "sha256": "0c949acc507e64c93597250b791a47051c1b37f2ca2c8fdf259bb0b9b5ea0422"
+  },
+  {
+    "path": "C:\\PREDICTORS\\core-predictor\\tools\\check_installed_wheel.py",
+    "bytes": 6478,
+    "sha256": "8a42ac0916d80b2e05c06e23cf35ba23751e2e8047129c1fd8fd90dd85013b49"
+  },
+  {
+    "path": "C:\\PREDICTORS\\work\\core-completion-20260913\\manifest.json",
+    "bytes": 5291,
+    "sha256": "d9f47347649e56d2a855fd844c7e51c447ccddd760f9ab542e17733836ec9f99"
+  },
+  {
+    "path": "C:\\PREDICTORS\\work\\core-completion-20260913\\final-receipt.json",
+    "bytes": 1255,
+    "sha256": "8cacb340db2defc4ca4c35dad9a952d9503a3abeae00aada0b5d72eb5b0cb2dd"
+  },
+  {
+    "path": "C:\\PREDICTORS\\work\\core-completion-20260913\\cleanup-gate.json",
+    "bytes": 3772,
+    "sha256": "1e818a6e3f354955ba90c12c40efef3de2e4ae6419844814a97f2a914fdd73da"
+  },
+  {
+    "path": "C:\\PREDICTORS\\work\\core-completion-20260913\\backup-receipt.json",
+    "bytes": 452,
+    "sha256": "178e4bac51f101f7182449b74ac315e46284061d1c1eafa39965a8715d97891a"
+  },
+  {
+    "path": "C:\\PREDICTORS\\work\\core-completion-20260913\\wheel-comparison.json",
+    "bytes": 455,
+    "sha256": "805115d0ab11a0e623c8ab0159d5f8a9957765d0bcfffbdff20e1230a809613c"
+  },
+  {
+    "path": "C:\\PREDICTORS\\work\\core-completion-20260913\\main-compatibility-receipt.json",
+    "bytes": 7152,
+    "sha256": "48e55659c3d4e51fa513603993de4dc8dc96a6d623513747cb82572f54a8bf8a"
+  },
+  {
+    "path": "C:\\PREDICTORS\\work\\core-completion-20260913\\distributed-functional.log",
+    "bytes": 1415,
+    "sha256": "450454a257e131fa882e29a73e9e622cf6046af0ca1e5d9d94e5a99a975179c4"
+  },
+  {
+    "path": "C:\\PREDICTORS\\work\\core-completion-20260913\\fresh-checks.json",
+    "bytes": 2179,
+    "sha256": "c3a9837b507d871028f3cc0a122b34e3248d2e67d5b348aa345f842d74916156"
+  }
+]
