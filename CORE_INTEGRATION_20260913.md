@@ -26,6 +26,20 @@ No clone novo da main do Core: 278 testes e 86% de cobertura, Ruff, Pyright, fro
 
 O Ecosystem agora possui o job `Core official wheel functional integration`: obtém o verificador do SHA fixado no recibo, baixa a wheel oficial com conferência de hash e executa as oito verificações em ambiente mínimo externo. O job de três plugins usa o manifesto atualizado. O resultado da CI deste commit Ecosystem é uma execução separada da CI anterior do Core; não se transfere aprovação entre SHAs.
 
+## Publicação da integração no Ecosystem
+
+A integração foi publicada no commit
+`3cfb74bef126c421424c08cc774034b42cae5cd4` da main do Ecosystem.
+A [CI 34765563374](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34765563374)
+aprovou o teste funcional da wheel oficial, os três plugins, as distribuições
+publicadas, o inventário e os contratos. A
+[segurança 34765563366](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34765563366)
+também passou. Foram 79 testes locais e oito casos funcionais da wheel no novo job.
+
+Esse recibo identifica o commit de integração. Atualizações posteriores somente
+em Markdown preservam sua proveniência; o resultado de cada novo SHA deve ser
+consultado na própria CI. Nenhum recibo antigo recebe um SHA novo por substituição.
+
 ## Evidências até o CAIN
 
 - Crypto executou um controle do domínio com Core instalado, produziu um atestado sintético novo e o exportou pelo contrato admitido.

@@ -1,5 +1,13 @@
 # Pendências — registro histórico e encaminhamento atual
 
+## Encaminhamento atual de engenharia
+
+A missão do Core foi concluída: main consolidada, wheel 3.2.1 validada e
+integração publicada no Ecosystem. Veja [o recibo e seus limites](CORE_INTEGRATION_20260913.md).
+As referências a Core 3.0/3.1/3.2.0 na lista de 06/09 são históricas e não definem
+a versão de instalação atual. A manutenção documental não reavalia nem encerra
+os gates científicos dos domínios.
+
 Os bloqueios técnicos de Bundle fora da main e instalação principal CAIN não
 validada foram encerrados no [aceite Stocks](STOCKS_INTEGRATION_20260912.md).
 A lista datada abaixo conserva os itens e critérios daquela revisão; não foi
@@ -11,8 +19,10 @@ A arquitetura vigente está em [ECOSYSTEM_RUNBOOK.md](ECOSYSTEM_RUNBOOK.md). As 
 
 Versão **0.2.0** publicada: [release e artefatos](https://github.com/leonardosovienski/ecosystem-predictor/releases/tag/v0.2.0). [CI de engenharia aprovada](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34630167633) para a fonte `2e8be61d3d8b0cf10e1dfbcce8ff7acdef219327`. Consulte [ARCHITECTURE_IMPLEMENTATION.md](ARCHITECTURE_IMPLEMENTATION.md) para comportamento, migração e limites. Este registro atualiza a entrega de software; estados científicos e registros datados abaixo conservam sua autoridade e contexto histórico.
 
-Verificado em 2026-09-06. Itens encerrados e listas históricas foram removidos desta
-visão; continuam no histórico Git e no índice de documentos históricos.
+## Lista histórica — verificada em 06/09/2026
+
+Os itens e critérios seguintes pertencem àquela revisão. Consulte o domínio
+responsável antes de tratá-los como pendências vigentes.
 
 | ID | repo | blocker | why_it_matters | owner | required_evidence | state |
 |---|---|---|---|---|---|---|

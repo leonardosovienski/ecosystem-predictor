@@ -1,19 +1,10 @@
-> **Core integrado — 13/09/2026:** main `9bf43ef`, wheel oficial 3.2.1 e combinação fixa dos três predictors validadas. [Integração, CI, arquivos locais e limites](CORE_INTEGRATION_20260913.md).
-
-> **Ops — integração e implantação local conferidas:** versão 4.2.1 instalada nos ambientes de Cripto e Brasileirão; arquivos, recuperação e registros reconciliados. [Página do Ops no ecossistema](OPS_INTEGRATION_20260913.md). Agendamentos e capital não ativados.
-
-> **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
-
-> **Crypto — integração atual:** [combinação, CI e limites](CRYPTO_INTEGRATION_20260912.md). Os controles sintéticos de engenharia não reemitem os vereditos científicos das tabelas históricas abaixo.
-
-> **Stocks — integração principal validada:** [revisões, instalação, CI e recuperação](STOCKS_INTEGRATION_20260912.md). Snapshot e Bundle estão integrados; CAIN principal atualizado. As tabelas H1–H19 preservam seu contexto histórico e não recertificam ciência ou capital.
-
 # ecosystem-predictor
 
-<!-- DOC-SYNC-20260912 -->
-> **Continuidade de publicação:** [estado e evidências atuais](PUBLICATION_STATUS_20260912.md). A combinação Crypto/Ecosystem/CAIN foi integrada e validada em main. As referências anteriores à branch candidata e à falha Linux são históricas; não definem o resultado desta combinação. Estados científicos e releases mantêm suas fontes próprias.
-<!-- /DOC-SYNC-20260912 -->
-
+**Continuidade de engenharia:** [estado e navegação atuais](CURRENT_STATE.md),
+[integração do Core](CORE_INTEGRATION_20260913.md) e
+[índice documental](docs/HISTORICAL_DOCUMENT_INDEX.md). Core 3.2.1 em main
+`9bf43ef`; a integração Ecosystem `3cfb74b` tem CI e segurança aprovadas.
+As seções datadas abaixo conservam a identidade da execução original.
 
 ## Entrega arquitetural publicada — 11/09/2026
 

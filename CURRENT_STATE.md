@@ -1,19 +1,26 @@
-> **Core integrado — 13/09/2026:** main `9bf43ef`, wheel oficial 3.2.1 e combinação fixa dos três predictors validadas. [Integração, CI, arquivos locais e limites](CORE_INTEGRATION_20260913.md).
-
-> **Ops — integração e implantação local conferidas:** versão 4.2.1 instalada nos ambientes de Cripto e Brasileirão; arquivos, recuperação e registros reconciliados. [Página do Ops no ecossistema](OPS_INTEGRATION_20260913.md). Agendamentos e capital não ativados.
-
-> **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
-
-> **Crypto — integração atual:** [combinação, CI e limites](CRYPTO_INTEGRATION_20260912.md). Os controles sintéticos de engenharia não reemitem os vereditos científicos das tabelas históricas abaixo.
-
-> **Stocks — integração principal validada:** [revisões, instalação, CI e recuperação](STOCKS_INTEGRATION_20260912.md). Snapshot e Bundle estão integrados; CAIN principal atualizado. As tabelas H1–H19 preservam seu contexto histórico e não recertificam ciência ou capital.
-
 # Estado canônico atual
 
-<!-- DOC-SYNC-20260912 -->
-> **Continuidade de publicação:** [estado e evidências atuais](PUBLICATION_STATUS_20260912.md). A combinação Crypto/Ecosystem/CAIN foi integrada e validada em main. As referências anteriores à branch candidata e à falha Linux são históricas; não definem o resultado desta combinação. Estados científicos e releases mantêm suas fontes próprias.
-<!-- /DOC-SYNC-20260912 -->
+## Continuidade de engenharia — 13/09/2026
 
+Core main `9bf43efe92459a0b484cac00f51170b2c70d420f`, wheel oficial 3.2.1,
+e combinação fixada dos três predictors estão integrados no Ecosystem.
+O commit de integração `3cfb74bef126c421424c08cc774034b42cae5cd4` passou na
+[CI](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34765563374)
+e na [verificação de segurança](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34765563366).
+
+| Assunto | Referência |
+|---|---|
+| Core: fonte, wheel, CI e arquivos do PC | [Integração do Core](CORE_INTEGRATION_20260913.md) |
+| Topologia, instalação e reprodução | [Runbook](ECOSYSTEM_RUNBOOK.md) |
+| Ops e ambientes locais | [Integração do Ops](OPS_INTEGRATION_20260913.md) |
+| Percursos dos domínios | [Crypto](CRYPTO_INTEGRATION_20260912.md), [Brasileirão](BRASILEIRAO_INTEGRATION_20260912.md), [Stocks](STOCKS_INTEGRATION_20260912.md) |
+| Versões publicadas e combinação testada | [Releases](registries/released_architecture.json), [candidatos](registries/compatibility_candidate.json) |
+| Autoridade e registros históricos | [Índice documental](docs/HISTORICAL_DOCUMENT_INDEX.md) |
+
+O checkout canônico é `C:/CAIN/contrato`, branch `main`. Fonte da release,
+main validada, combinação de teste e instalação operacional têm identidades
+próprias. As tabelas científicas datadas abaixo preservam o estado da época;
+não certificam versões posteriores nem autorizam capital.
 
 A arquitetura vigente está em [ECOSYSTEM_RUNBOOK.md](ECOSYSTEM_RUNBOOK.md). As tabelas científicas e pendências datadas de 06/09 abaixo são históricas; o estado científico vigente pertence ao respectivo domínio. A entrega de engenharia de 11/09 não reemite esses vereditos.
 

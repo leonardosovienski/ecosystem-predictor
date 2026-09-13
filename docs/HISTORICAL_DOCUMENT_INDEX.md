@@ -1,11 +1,14 @@
 # Índice de autoridade documental
 
-**Atualizado:** 2026-09-03. Este índice impede que snapshots e fechamentos antigos
+**Navegação revisada:** 13/09/2026. Este índice impede que snapshots e fechamentos antigos
 sejam interpretados como estado presente.
 
 | Fonte | Classe | Uso permitido |
 |---|---|---|
-| `CURRENT_STATE.md`, `registries/*.json`, `PENDENCIAS_ABERTAS.md` | CURRENT | estado, evidência, decisões, backups e blockers vigentes |
+| [CURRENT_STATE.md](../CURRENT_STATE.md), [runbook](../ECOSYSTEM_RUNBOOK.md) | CURRENT_ENGINEERING | navegação e combinação de engenharia; tabelas datadas mantêm seu escopo histórico |
+| [Integração Core](../CORE_INTEGRATION_20260913.md) | VERIFIED_COMBINATION | fonte 9bf43ef, wheel 3.2.1, integração Ecosystem 3cfb74b e recibos de CI |
+| `registries/released_architecture.json`, `registries/compatibility_candidate.json` | RELEASE_OR_PINNED_COMBINATION | distinguir fonte da release de combinação candidata e main observada |
+| `registries/harness_registry.json`, claims científicas e [pendências](../PENDENCIAS_ABERTAS.md) | DATED_EVIDENCE | versões, datas e critérios dos recibos originais; não recertificar ciência por atualização documental |
 | `ECOSYSTEM_CHARTER.md` | CURRENT | papel e fronteiras do ecossistema, reconciliados em 2026-09-03 |
 | `ECOSYSTEM_CURRENT_STATE.md` | SUPERSEDED | ponte para a fonte corrente; conteúdo antigo está no Git |
 | `ECOSYSTEM_MECHANICAL_STATE.md`, `audit/*ecosystem-facts.json` | HISTORICAL | snapshots mecânicos datados; nunca estado corrente |
@@ -15,7 +18,7 @@ sejam interpretados como estado presente.
 | `docs/audit-2026-08-31/*`, `audit/AUDIT_STATE.md` | ARCHIVE | pacote de auditoria anterior, não backlog atual |
 | `SECURITY_INCIDENT_SECRET_ROTATION.md` | SUPERSEDED | incidente histórico; errata no topo registra rotação e Git limpo |
 
-## Mapa de inconsistências reconciliadas
+## Reconciliações históricas — registro de 03/09/2026
 
 | Conflito | Origem antiga | Evidência atual | Resultado |
 |---|---|---|---|

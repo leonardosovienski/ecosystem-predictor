@@ -1,8 +1,10 @@
-> **Core integrado — 13/09/2026:** main `9bf43ef`, wheel oficial 3.2.1 e combinação fixa dos três predictors validadas. [Integração, CI, arquivos locais e limites](CORE_INTEGRATION_20260913.md).
-
-> **Ops — integração e implantação local conferidas:** versão 4.2.1 instalada nos ambientes de Cripto e Brasileirão; arquivos, recuperação e registros reconciliados. [Página do Ops no ecossistema](OPS_INTEGRATION_20260913.md). Agendamentos e capital não ativados.
-
 # Continuidade atual — Ecosystem em main
+
+**Continuidade de engenharia:** [estado e navegação atuais](CURRENT_STATE.md),
+[integração do Core](CORE_INTEGRATION_20260913.md) e
+[índice documental](docs/HISTORICAL_DOCUMENT_INDEX.md). Core 3.2.1 em main
+`9bf43ef`; a integração Ecosystem `3cfb74b` tem CI e segurança aprovadas.
+As seções datadas abaixo conservam a identidade da execução original.
 
 > **Reconciliação em 13/09/2026:** inventário de dez pacotes, gate contra metadados reais, versões observadas e erratas de navegação corrigidos. Consulte a seção de 13/09 no [HANDOFF](HANDOFF.md) e o [runbook atual](ECOSYSTEM_RUNBOOK.md). Os relatos e combinações anteriores abaixo continuam datados.
 
