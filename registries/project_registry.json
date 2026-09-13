@@ -57,11 +57,11 @@
       "predictive_state": "UNKNOWN",
       "operational_state": "READY_WITH_DATA_GATES",
       "commercial_state": "NOT_A_PRODUCT",
-      "current_version": "0.1.0",
+      "current_version": "0.2.0",
       "evidence_state": "PARTIAL",
-      "integration_state": "CURRENT_CORE_3_2_OPS_4_1",
+      "integration_state": "VERIFIED_DOCUMENTARY_CAIN_CORE_3_2_1_OPS_4_2_0",
       "ci_state": "PASS",
-      "remote_main_sha": "02b8d88fa0b15ba28565351848a9737b2edcda48",
+      "remote_main_sha": "abdd965c98c228d73ae416944eb7531bed9ab197",
       "open_blockers": [
         "BR-05"
       ],
@@ -71,7 +71,8 @@
         "run EXP-001 in ecosystem-predictor",
         "promote UNKNOWN"
       ],
-      "source_of_truth": "brasileirao-predictor reports dated 2026-09-02 and main"
+      "source_of_truth": "brasileirao-predictor reports dated 2026-09-02 and main; software and documentary integration: BRASILEIRAO_INTEGRATION_20260912.md; historical scientific fields not recertified",
+      "software_verified_at": "2026-09-12"
     },
     {
       "project_id": "cripto-predictor",

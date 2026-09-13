@@ -13,7 +13,7 @@
     },
     "brasileirao-predictor": {
       "repository": "https://github.com/leonardosovienski/brasileirao-predictor",
-      "commit": "4dbd35332344000d116ea2ac56903c77e73f9aa2",
+      "commit": "abdd965c98c228d73ae416944eb7531bed9ab197",
       "version": "0.2.0"
     },
     "cain": {

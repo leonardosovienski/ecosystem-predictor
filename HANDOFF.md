@@ -1,3 +1,5 @@
+> **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
+
 # HANDOFF — ecosystem-predictor
 
 <!-- DOC-SYNC-20260912 -->
@@ -5,7 +7,7 @@
 <!-- /DOC-SYNC-20260912 -->
 
 
-## Candidato local de intercâmbio ampliado
+## Registro histórico: candidato de intercâmbio ampliado
 
 [ResearchBundleV1](packages/research-bundle/README.md) é um pacote aditivo independente.
 SnapshotV1 permanece intacto. 57 testes novos do contrato e 60 existentes passaram

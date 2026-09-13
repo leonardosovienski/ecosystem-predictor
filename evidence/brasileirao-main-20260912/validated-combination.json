@@ -1,0 +1,84 @@
+{
+  "run": "BR-CAIN-MAIN-20260912",
+  "brasileirao": "abdd965c98c228d73ae416944eb7531bed9ab197",
+  "cain": "5ba4177a11b9312900e5035517aa5ef25d509859",
+  "ecosystem": "a9f6594c840482419d6c310f373813e0e71f17d0",
+  "python": "3.13.12",
+  "uv": "0.10.9",
+  "dotnet": "10.0.401",
+  "redis": "8.2.9",
+  "suite": {
+    "full_python_passed": 2090,
+    "full_python_skipped": 31,
+    "redis_skips_exercised_separately": 30,
+    "subtests": 30,
+    "scoped": 415,
+    "dotnet": 160,
+    "cain": 118,
+    "cain_skipped": 1,
+    "bundle_contract": 62
+  },
+  "ci_pending": false,
+  "production_activated": false,
+  "unchanged_runtime_since_validated_sha": true,
+  "ci": "all 3 workflows, 12 jobs: success",
+  "artifacts": {
+    "brasileirao_predictor-0.2.0-py3-none-any.whl": "040fb815e80a76b930b3cb421ce777772590b7e1a84202ec0a7e4f30422e0a2a",
+    "brasileirao_predictor-0.2.0.tar.gz": "0fb4b5bd4a8913873e4636960d92effaed53e8bc1099e4db3c8bda4ece3e573f"
+  },
+  "delivered_wheel_identical_to_installed_tested_wheel": true,
+  "integration": {
+    "bundle_id": "def9f8a03e06c8e75a258f538a99a2c941b88374ceb7534911414bdae04fd4f0",
+    "cli_api_equal": true,
+    "entities": 3,
+    "negative_cases": {
+      "corrupted_object": {
+        "error": "CORRUPTION: size mismatch",
+        "error_type": "ValueError",
+        "rejected": true
+      },
+      "identity_conflict": {
+        "error": "CONFLICT",
+        "error_type": "ValueError",
+        "rejected": true
+      },
+      "missing_manifest": {
+        "error": "[WinError 2] O sistema n\u00c3\u00a3o pode encontrar o arquivo especificado: 'C:\\\\BRASILEIRAO\\\\work\\\\integration-main-20260912\\\\e2e-final-sha\\\\inbox\\\\missing'",
+        "error_type": "FileNotFoundError",
+        "rejected": true
+      },
+      "missing_required": {
+        "error": "CONTRACT_INVALID: unexpected or missing fields",
+        "error_type": "ValueError",
+        "rejected": true
+      },
+      "revocation": {
+        "hidden": true
+      },
+      "schema": {
+        "error": "CONTRACT_INVALID: version/profile",
+        "error_type": "ValueError",
+        "rejected": true
+      },
+      "unapproved": {
+        "error": "NOT_AUTHORIZED",
+        "error_type": "PermissionError",
+        "rejected": true
+      }
+    },
+    "offline_recovery": true,
+    "producer_sha": "abdd965c98c228d73ae416944eb7531bed9ab197",
+    "publication_id": "32594577d32ecc79e6d64d8ee85a98ceb449078a27ae0829e49673237d610e36",
+    "source_sha256": "206898ed8b303455ce1e02e5dcf22c6edf873585fc6a43d438609cfd456c0b66",
+    "source_unchanged": true,
+    "status": "PASS"
+  },
+  "predict_cli": {
+    "status": "PASS",
+    "classification": "SYNTHETIC_NOT_ECONOMIC",
+    "training_rows": 240,
+    "predictions_persisted": 1,
+    "probability_sum": 1.0,
+    "unknown_team_rejected": true
+  }
+}

@@ -13,7 +13,7 @@ estados científicos históricos nem altera os demais domínios.
   Importação/reimportação pela CLI, consulta/evidência, interface web e archive restore
   sem raízes do produtor demonstrados. Um relato parcial, sem modelo necessário.
 - Bundle 1.0.0 ainda depende do candidato canônico Ecosystem
-  `a9f6594c840482419d6c310f373813e0e71f17d0`, fora desta main. O pin no workflow Stocks
+  `a9f6594c840482419d6c310f373813e0e71f17d0`, atualmente ancestral desta main. O pin no workflow Stocks
   torna essa dependência explícita. Não declarar os contratos Snapshot e Bundle equivalentes.
   A admissão do Bundle novo requer aprovação administrativa específica; sem ela o CAIN
   recusou com NOT_AUTHORIZED. Fontes B3 são referências, sem preços copiados/licença inferida.

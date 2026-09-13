@@ -1,3 +1,5 @@
+> **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
+
 # Session handoff
 
 <!-- DOC-SYNC-20260912 -->

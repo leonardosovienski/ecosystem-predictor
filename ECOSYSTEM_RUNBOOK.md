@@ -1,3 +1,5 @@
+> **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
+
 # Ecossistema implementado — 11/09/2026
 
 Os sete repositórios permanecem independentes. Core fornece a biblioteca científica; Ops executa jobs locais; Crypto, Stocks e Brasileirão mantêm seus próprios dados e decisões; Ecosystem oferece diagnóstico opcional; CAIN recebe cópias de evidências admitidas. Não existe banco central nem obrigação de iniciar todos os projetos juntos.
