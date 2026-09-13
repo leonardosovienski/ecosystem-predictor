@@ -1,13 +1,15 @@
 # predictor_core — Blueprint & Contrato da Plataforma
 
+> Errata de navegação, 13/09/2026: os links abaixo apontam agora ao repositório independente do core. A versão e o vendoring citados no aviso original são históricos; não descrevem o runtime atual.
+
 > **⚠️ HISTÓRICO / SUPERSEDED (marcado em 2026-07-17, Onda 5 da reintegração
 > do ecossistema).** Este documento descreve a PROPOSTA original do core,
 > escrita quando ele ainda não existia ("Status: proposta (design). Não
 > implementado."). O core foi implementado desde então e está em produção na
 > versão `1.3.1-ga-20260716`, consumido por 8 domínios via vendoring
 > (`sync_core.py`). A fonte de verdade atual sobre o que o core realmente é e
-> faz é **[`predictor_core/README.md`](predictor_core/README.md)** e
-> **[`predictor_core/CHANGELOG.md`](predictor_core/CHANGELOG.md)** — não este
+> faz é **[`README atual do core`](https://github.com/leonardosovienski/core-predictor/blob/main/README.md)** e
+> **[`CHANGELOG atual do core`](https://github.com/leonardosovienski/core-predictor/blob/main/CHANGELOG.md)** — não este
 > arquivo. O conteúdo abaixo é preservado como registro histórico da decisão
 > original (o "porquê" de várias escolhas de design ainda é válido), não como
 > descrição do estado atual do código. Onde este documento e o código

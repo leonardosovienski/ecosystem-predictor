@@ -1,18 +1,75 @@
 {
   "schema_version": "architecture-registry/1",
-  "effective_at": "2026-09-11",
+  "effective_at": "2026-09-13",
   "authority": "User requested implementation of the complete seven-project architecture review",
   "topology": "polyrepo",
   "shared_database": false,
   "scientific_status_authority": "each original domain and its dated evidence",
   "projects": [
-    {"repository": "cripto-predictor", "role": "crypto research domain", "packages": [".", "packages/research-export"], "requires_cain": false},
-    {"repository": "stocks-predictor", "role": "equity research domain", "packages": ["."], "requires_cain": false},
-    {"repository": "brasileirao-predictor", "role": "football research domain", "packages": ["."], "requires_cain": false},
-    {"repository": "core-predictor", "role": "independent scientific library", "packages": ["."], "requires_domains": false},
-    {"repository": "predictor-ops", "role": "generic runner with optional economic policy", "packages": ["."], "requires_domains": false},
-    {"repository": "ecosystem-predictor", "role": "optional registry and separately distributed transport contract", "packages": [".", "packages/research-snapshot"], "registry_required_by_domains": false},
-    {"repository": "cain", "role": "independent local research assistant", "packages": ["."], "requires_domains": false, "transport": "ResearchSnapshotV1"}
+    {
+      "repository": "cripto-predictor",
+      "role": "crypto research domain",
+      "packages": [
+        ".",
+        "packages/research-export"
+      ],
+      "requires_cain": false
+    },
+    {
+      "repository": "stocks-predictor",
+      "role": "equity research domain",
+      "packages": [
+        "."
+      ],
+      "requires_cain": false
+    },
+    {
+      "repository": "brasileirao-predictor",
+      "role": "football research domain",
+      "packages": [
+        "."
+      ],
+      "requires_cain": false
+    },
+    {
+      "repository": "core-predictor",
+      "role": "independent scientific library",
+      "packages": [
+        "."
+      ],
+      "requires_domains": false
+    },
+    {
+      "repository": "predictor-ops",
+      "role": "generic runner with optional economic policy",
+      "packages": [
+        "."
+      ],
+      "requires_domains": false
+    },
+    {
+      "repository": "ecosystem-predictor",
+      "role": "optional registry and separately distributed transport contracts",
+      "packages": [
+        ".",
+        "packages/research-snapshot",
+        "packages/research-bundle"
+      ],
+      "registry_required_by_domains": false
+    },
+    {
+      "repository": "cain",
+      "role": "independent local research assistant",
+      "packages": [
+        "."
+      ],
+      "requires_domains": false,
+      "transport": "ResearchSnapshotV1",
+      "transports": [
+        "ResearchSnapshotV1",
+        "ResearchBundleV1"
+      ]
+    }
   ],
   "compatibility_authority": "exact candidate sources, wheel hashes and executable receipts; main branch observations alone are insufficient",
   "capital_permission": false

@@ -4,19 +4,19 @@
 
 Os sete repositórios permanecem independentes. Core fornece a biblioteca científica; Ops executa jobs locais; Crypto, Stocks e Brasileirão mantêm seus próprios dados e decisões; Ecosystem oferece diagnóstico opcional; CAIN recebe cópias de evidências admitidas. Não existe banco central nem obrigação de iniciar todos os projetos juntos.
 
-A combinação histórica de releases está em [released_architecture.json](registries/released_architecture.json), com URLs, versões, commits e hashes. O inventário de sete projetos/nove distribuições está em [architecture_registry.json](registries/architecture_registry.json). O manifesto de candidatos guarda os commits efetivamente testados; não acompanha `main` silenciosamente.
+As coordenadas de releases registradas estão em [released_architecture.json](registries/released_architecture.json), com URLs, versões, commits e hashes. O inventário de sete projetos/dez pacotes independentes está em [architecture_registry.json](registries/architecture_registry.json). O manifesto de candidatos guarda os commits efetivamente testados; não acompanha `main` silenciosamente.
 
 | Projeto | Versão publicada | Papel e entrada |
 |---|---|---|
 | Core | 3.2.1 | Imports explícitos em `predictor_core.contracts.scientific` e `predictor_core.measurement`; instalação mínima independente |
-| Ops | 4.2.0 | `predictor-ops --help`; schema 3 genérico, execução econômica exige política e risco explícitos |
+| Ops | 4.2.1 | `predictor-ops --help`; schema 3 genérico, execução econômica exige política e risco explícitos |
 | Crypto | 1.1.0 | `cripto-predictor status`; modos separados de ingestão, análise, histórico e migração |
 | Stocks | 0.2.0 | `python -m stocks_predictor --help`; `simulate-selected` conecta seleção explícita ao simulador |
 | Brasileirão | 0.2.0 | `brasileirao-predict --help`; previsão formal identificada, shadow externo ao checkout |
 | Ecosystem | 0.2.0 | `Registry.discover().diagnostic_snapshot()` preserva estados nativos e identifica erros |
 | CAIN | 0.4.5 | `cain research --help`; importação, consulta, referências, histórico e backup sem modelo obrigatório |
 
-O contrato `predictor-research-snapshot` 1.0.1 e o exportador `crypto-research-export` 1.0.1 são wheels separados. Na combinação histórica de releases, o CAIN conservava seu leitor 1.0.0. A instalação principal atual usa CAIN 0.4.7, Snapshot 1.0.1 e Bundle 1.0.0, conforme a [integração Stocks](STOCKS_INTEGRATION_20260912.md). A tabela de releases acima não identifica o wheel operacional instalado.
+O contrato `predictor-research-snapshot` 1.0.1 e o exportador `crypto-research-export` 1.0.1 são wheels separados. Na combinação histórica de releases, o CAIN conservava seu leitor 1.0.0. Em 13/09/2026, a instalação principal `C:/CAIN/.venv` foi conferida com CAIN 0.4.9, Snapshot 1.0.1 e Bundle 1.0.0; o checkout CAIN observado foi `54262fee80ef8168b77e0f8e8eadd405795a91f4`. Essa conferência de identidade não transfere o aceite da [integração Stocks](STOCKS_INTEGRATION_20260912.md), cuja combinação histórica CAIN 0.4.7 permanece preservada. A tabela de releases acima não identifica o wheel operacional instalado.
 
 ## Instalação e diagnóstico
 
@@ -55,3 +55,5 @@ As configurações e bancos reais permanecem nas raízes dos proprietários. `st
 Antes de compartilhar um runtime root com Ops 4.2, parar runners antigos. Não misturar implementações de lease nem apagar tentativas para permitir retry. Uma tentativa econômica de efeito incerto permanece bloqueada. Rollback reinstala a versão anterior em ambiente separado, preservando bancos, publicações, IDs e recibos; não refaz resultado histórico.
 
 Os gates são de engenharia. Coortes futuras, atestados de poder científico, observação natural de agendamentos e validação econômica continuam sob os protocolos originais. As releases não transformam `NO_GO`, `UNKNOWN` ou ausência de hipótese em autorização de operação.
+
+Para reconferir a versão instalada, use `C:/CAIN/.venv/Scripts/python.exe -I -c "from importlib.metadata import version; print(version('cain-research'))"`. A tabela de releases e a instalação local são registros distintos. Dez pacotes no inventário não significa dez releases publicadas.

@@ -412,3 +412,7 @@ terem sido apagados. O bloqueio de segurança (rotação de credencial) é
 honesto e permanece visível no topo de 4 documentos diferentes — não é uma
 falha da documentação, é o registro correto de algo que o código local
 não pode encerrar sozinho.
+
+## Errata de navegação — 13/09/2026
+
+O exemplo literal `tools/HANDOFF.md` na seção Links registra a organização daquela rodada e não é um destino corrente. Para continuidade atual, use [HANDOFF.md](HANDOFF.md) e [CURRENT_STATE.md](CURRENT_STATE.md). O relato histórico acima permanece preservado.

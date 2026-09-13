@@ -24,7 +24,7 @@ A arquitetura atual, os pacotes publicados e as instruções de uso estão em
 [ECOSYSTEM_RUNBOOK.md](ECOSYSTEM_RUNBOOK.md) e
 [released_architecture.json](registries/released_architecture.json).
 Os snapshots mecânicos/científicos de seis projetos de 01–06/09 são históricos;
-a topologia atual contém sete repositórios e nove distribuições independentes.
+a topologia atual contém sete repositórios e dez pacotes independentes.
 
 Pacote mínimo de contratos e descoberta de plugins do ecossistema PREDICTORS.
 

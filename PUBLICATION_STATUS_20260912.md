@@ -1,5 +1,7 @@
 # Continuidade atual — Ecosystem em main
 
+> **Reconciliação em 13/09/2026:** inventário de dez pacotes, gate contra metadados reais, versões observadas e erratas de navegação corrigidos. Consulte a seção de 13/09 no [HANDOFF](HANDOFF.md) e o [runbook atual](ECOSYSTEM_RUNBOOK.md). Os relatos e combinações anteriores abaixo continuam datados.
+
 > **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
 
 O checkout canônico deste notebook é `C:\CAIN\contrato`, na branch `main`. As correções de compatibilidade estão incorporadas à main do Ecosystem. Leia [a combinação Crypto e seus recibos de CI](CRYPTO_INTEGRATION_20260912.md), [CURRENT_STATE](CURRENT_STATE.md) e os registros correntes. O histórico abaixo é uma etapa anterior, não uma indicação de branch de trabalho atual ou bloqueio vigente da combinação testada.

@@ -123,6 +123,8 @@ jobs:
         with:
           python-version: "3.13"
       - run: python scripts/check_architecture_manifest.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   research-transport:
     name: Standalone exporter and snapshot contract

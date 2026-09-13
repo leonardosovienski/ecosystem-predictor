@@ -38,3 +38,9 @@ snapshot histórico, não uma fonte corrente.
 ## Implementação arquitetural local — 2026-09-11
 
 As alterações candidatas, seus limites, verificações e rollback estão em [ARCHITECTURE_IMPLEMENTATION.md](ARCHITECTURE_IMPLEMENTATION.md). Esta implementação local não publica releases, não atualiza automaticamente os consumidores e não altera os vereditos científicos históricos.
+
+## Reconciliação de inventário e documentação — 13/09/2026
+
+O inventário corrente inclui dez pacotes em sete repositórios, incluindo ResearchBundle. O gate compara os caminhos declarados com metadados reais da fonte local e dos candidatos remotos imutáveis. O runbook distingue Ops 4.2.1 publicado, CAIN 0.4.9 observado localmente e combinações históricas de integração.
+
+As integrações documentais de Brasileirão e Stocks com CAIN já existem, conforme os recibos próprios ligados acima. A rodada do core no PR29 testou outra combinação e um percurso sintético adicional de Crypto; sua lacuna não deve ser descrita como ausência geral das integrações BR/Stocks. Qualquer gate adicional precisa de requisito contratual e análise de impacto explícitos; evidência histórica não certifica outro SHA automaticamente.
