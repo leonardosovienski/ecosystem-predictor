@@ -140,6 +140,7 @@ jobs:
       - name: Build independent wheels
         run: |
           uv build --directory packages/research-snapshot --out-dir /tmp/transport-wheels
+          uv build --directory packages/research-bundle --out-dir /tmp/transport-wheels
           uv build --directory /tmp/crypto-export-source/packages/research-export --out-dir /tmp/transport-wheels
           uv venv /tmp/transport --python 3.13 --seed
           /tmp/transport/bin/pip install /tmp/transport-wheels/*.whl pytest
