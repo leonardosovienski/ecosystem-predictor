@@ -1,3 +1,13 @@
+# Continuidade atual da integração Crypto
+
+As correções de compatibilidade estão incorporadas à main do Ecosystem. Leia [a combinação Crypto e seus recibos de CI](CRYPTO_INTEGRATION_20260912.md), [CURRENT_STATE](CURRENT_STATE.md) e os registros correntes. O histórico abaixo é uma etapa anterior, não uma indicação de branch de trabalho atual ou bloqueio vigente da combinação testada.
+
+Para conferir publicação após novos commits: `git status --short`, `git rev-parse HEAD` e `git ls-remote origin refs/heads/main`. SHA observado, SHA certificado, release e instalação operacional são identidades distintas. A entrega Stocks mantém sua [continuidade própria](STOCKS_INTEGRATION_20260912.md).
+
+---
+
+## Registro histórico anterior — superado para esta integração
+
 # Estado de publicação e continuidade — Ecosystem
 
 Conferência documental de 12/09/2026. Este registro complementa os protocolos científicos e substitui apenas afirmações anteriores de que o candidato ainda não teve commit/push.

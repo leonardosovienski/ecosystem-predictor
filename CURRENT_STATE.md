@@ -1,9 +1,11 @@
+> **Crypto — integração atual:** [combinação, CI e limites](CRYPTO_INTEGRATION_20260912.md). Os controles sintéticos de engenharia não reemitem os vereditos científicos das tabelas históricas abaixo.
+
 > **Stocks — atualização de software:** [integração observada em 12/09](STOCKS_INTEGRATION_20260912.md). A linha histórica H1–H19 abaixo não define a prontidão atual do runtime. Estados científicos não foram recertificados.
 
 # Estado canônico atual
 
 <!-- DOC-SYNC-20260912 -->
-> **Estado de publicação em 12/09/2026:** leia [a continuidade atual](PUBLICATION_STATUS_20260912.md). Branch `feature/research-bundle-v1`. O código deste projeto foi publicado na branch indicada. O candidato CAIN Supply permanece sem aprovação de estabilização. Afirmações anteriores de “sem push” descrevem a etapa histórica anterior à autorização.
+> **Continuidade de publicação:** [estado e evidências atuais](PUBLICATION_STATUS_20260912.md). A combinação Crypto/Ecosystem/CAIN foi integrada e validada em main. As referências anteriores à branch candidata e à falha Linux são históricas; não definem o resultado desta combinação. Estados científicos e releases mantêm suas fontes próprias.
 <!-- /DOC-SYNC-20260912 -->
 
 

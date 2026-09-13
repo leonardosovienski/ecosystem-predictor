@@ -86,7 +86,7 @@
       "evidence_state": "VERIFIED_WITH_VERSION_CAVEAT",
       "integration_state": "CORE_3_2_1_OPS_4_2_RESEARCH_ONLY",
       "ci_state": "PASS",
-      "remote_main_sha": "2d53d4a79112642837eb0cff2f4942c0af0482c0",
+      "remote_main_sha": "4c4d97ec9bfff185df089a6edb6da9ccd71f306f",
       "open_blockers": [
         "CR-01"
       ],
@@ -99,7 +99,7 @@
         "reopen HMM/LLM/trend",
         "change H6 without new legitimate evidence"
       ],
-      "source_of_truth": "cripto-predictor CR_RESEARCH_FREEZE.md and main; software metadata reconciled 2026-09-12 against published source; historical scientific fields not recertified",
+      "source_of_truth": "cripto-predictor CR_RESEARCH_FREEZE.md and main; software metadata reconciled 2026-09-12 against published source; historical scientific fields not recertified; current software integration and exact CI sources: CRYPTO_INTEGRATION_20260912.md",
       "software_verified_at": "2026-09-12"
     },
     {

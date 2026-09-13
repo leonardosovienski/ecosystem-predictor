@@ -1,3 +1,5 @@
+> Resultado e fonte atuais: [integração Crypto](../CRYPTO_INTEGRATION_20260912.md). A contagem de 68 testes abaixo corresponde à rodada inicial; a rodada posterior que acrescentou verificações de evidência teve 76 testes aprovados. Consulte a CI do SHA específico para novas publicações.
+
 # Verificação de uma combinação candidata de wheels
 
 O verificador original exige proveniência VCS para consumidores candidatos e usa
