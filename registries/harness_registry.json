@@ -115,6 +115,20 @@
       "evidence_sha256": "141b11fd863a5fcd2f2d55ae2c60c2af66df90a13b81c3cef6f23c15ef4a6033",
       "scope": "Synthetic judge power controls only; no live trial, economic verdict or capital authorization",
       "basis": "Official installed Crypto harness with fixed edge/noise seeds and canonical Core; original domain attestation files unchanged"
+    },
+    {
+      "repo": "brasileirao-predictor",
+      "harness_version": "pipeline-power/2",
+      "reported_core_version": "3.2.1",
+      "core_code_sha": "UNKNOWN",
+      "domain_code_version": "package:3.2.1;git:18d7ce212f7c659356019e72d21e8ee7f86fd989",
+      "executed_at": "2026-09-12T23:50:42Z",
+      "expires_at": "2026-09-19T23:50:42Z",
+      "status": "RECORDED_SOURCE_NOT_RECERTIFIED",
+      "reissue_required": false,
+      "metric": "rps",
+      "pipeline_fingerprint": "3bbf3be2588d8440fe391a83743a2ef44176e01d5f1e04c2641a9e2252c9ca58",
+      "basis": "Observed existing main/data/trials.harness_attestation.json during Stocks integration drift check, 2026-09-13 UTC; historical entry retained. No domain code or evidence modified; no recertification or capital permission."
     }
   ],
   "overall_alignment": "MIXED_BY_DECISION",
