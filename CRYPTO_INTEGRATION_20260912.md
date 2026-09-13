@@ -1,3 +1,5 @@
+> **Atualização posterior do Ops:** as versões e instalações abaixo registram a combinação daquela data. Ops 4.2.1 foi posteriormente publicado e instalado nos ambientes locais; consulte [a integração de 13/09/2026](OPS_INTEGRATION_20260913.md).
+
 # Crypto: integração e continuidade — 12/09/2026
 
 O Crypto foi consolidado em main. Última fonte observada: `4c4d97ec9bfff185df089a6edb6da9ccd71f306f`. Runtime 1.1.0, exportador 1.0.1, Core 3.2.1 e Ops 4.2.0. A atualização documental posterior ao código auditado 9db8e93 tem CI própria:

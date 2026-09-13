@@ -1,3 +1,5 @@
+> **Ops — integração e implantação local conferidas:** versão 4.2.1 instalada nos ambientes de Cripto e Brasileirão; arquivos, recuperação e registros reconciliados. [Página do Ops no ecossistema](OPS_INTEGRATION_20260913.md). Agendamentos e capital não ativados.
+
 # Ecossistema — operação e combinações verificadas
 
 > **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.

@@ -1,3 +1,5 @@
+> **Atualização posterior do Ops:** as versões e instalações abaixo registram a combinação daquela data. Ops 4.2.1 foi posteriormente publicado e instalado nos ambientes locais; consulte [a integração de 13/09/2026](OPS_INTEGRATION_20260913.md).
+
 # Brasileirão — entrega técnica e integração documental
 
 Estado registrado em 12/09/2026 (America/Sao_Paulo). Atualização de documentação e representação do domínio; não altera a classificação científica nem autoriza capital.

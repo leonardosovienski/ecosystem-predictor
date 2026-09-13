@@ -38,14 +38,14 @@
       "evidence_state": "VERIFIED_FROM_MAIN_CHANGELOG_AND_CI",
       "integration_state": "CURRENT",
       "ci_state": "PASS",
-      "remote_main_sha": "ddd91444282569ae8282e7c96e0ec372ef4e5144",
+      "remote_main_sha": "d1aa309a6f899b237ec725e03b4ab7e3f82913c5",
       "open_blockers": [],
       "next_allowed_action": "minimal operational maintenance",
       "forbidden_actions": [
         "scientific gate decisions",
         "restore intentionally removed monitor"
       ],
-      "source_of_truth": "predictor-ops v4.2.1 release, source ddd91444282569ae8282e7c96e0ec372ef4e5144, CI 34733345409 and post-publication verification 34733366187; engineering only; operational installations not upgraded",
+      "source_of_truth": "predictor-ops v4.2.1 release, source ddd91444282569ae8282e7c96e0ec372ef4e5144, CI 34733345409 and post-publication verification 34733366187; engineering only; Ops 4.2.1 installed and verified locally in Crypto and Brasileirao on 2026-09-13; schedules and capital not activated; see OPS_INTEGRATION_20260913.md",
       "software_verified_at": "2026-09-13"
     },
     {

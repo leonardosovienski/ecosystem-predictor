@@ -1,3 +1,5 @@
+> **Ops — integração e implantação local conferidas:** versão 4.2.1 instalada nos ambientes de Cripto e Brasileirão; arquivos, recuperação e registros reconciliados. [Página do Ops no ecossistema](OPS_INTEGRATION_20260913.md). Agendamentos e capital não ativados.
+
 # Continuidade atual — Ecosystem em main
 
 > **Reconciliação em 13/09/2026:** inventário de dez pacotes, gate contra metadados reais, versões observadas e erratas de navegação corrigidos. Consulte a seção de 13/09 no [HANDOFF](HANDOFF.md) e o [runbook atual](ECOSYSTEM_RUNBOOK.md). Os relatos e combinações anteriores abaixo continuam datados.

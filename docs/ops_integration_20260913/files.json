@@ -1,0 +1,62 @@
+[
+  {
+    "path": "C:\\PREDICTORS\\predictor-ops\\docs\\DEPLOYMENT_20260913.md",
+    "bytes": 4693,
+    "sha256": "1f09c0426ba4529b47f64e3cb0c6e2d1542e75671234cab919046895915e5717"
+  },
+  {
+    "path": "C:\\PREDICTORS\\predictor-ops\\docs\\stabilization-20260912\\REPORT.md",
+    "bytes": 18058,
+    "sha256": "7283d085d5299e6adb05d84188210b0211cac4cebc987b612903dcfcb712c474"
+  },
+  {
+    "path": "C:\\PREDICTORS\\predictor-ops\\docs\\stabilization-20260912\\git-cleanup.json",
+    "bytes": 4816,
+    "sha256": "c50e084a282c88d8957cf18c6227c9b05ccf07249056e0e01daa0dc5efe69ba0"
+  },
+  {
+    "path": "C:\\PREDICTORS\\work\\ops-final-20260912\\ops-before.bundle",
+    "bytes": 390194,
+    "sha256": "54b654df24ab2d80461ecb75a8e67d7a8cc2ed739ee5fc4d55e01146506dad29"
+  },
+  {
+    "path": "C:\\PREDICTORS\\work\\ops-final-20260912\\ops-pre-cleanup.bundle",
+    "bytes": 414521,
+    "sha256": "d9ad942062704a80a59a27f44b0b2815513454e47731298e5502674bd82b3b3c"
+  },
+  {
+    "path": "C:\\CRIPTO\\operacao\\relatorios\\OPS_DEPLOYMENT_20260913.md",
+    "bytes": 717,
+    "sha256": "5d12424aa9ebc6f3f49531c3f4fdf46015f5a9b3bd4b120642fe4c7d83dab5fe"
+  },
+  {
+    "path": "C:\\CRIPTO\\work\\ops-deploy-20260913\\ops420-before.zip",
+    "bytes": 50160,
+    "sha256": "e518625344997a45854fe60f65f599b0ef05bc9bf32b7db90be63ec21da8111b"
+  },
+  {
+    "path": "C:\\CRIPTO\\work\\ops-deploy-20260913\\predictor_ops-4.2.1-py3-none-any.whl",
+    "bytes": 26093,
+    "sha256": "da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e"
+  },
+  {
+    "path": "C:\\CRIPTO\\work\\ops-deploy-20260913\\consumer-validation.log",
+    "bytes": 979,
+    "sha256": "17beb29f02111ea8c73de43b73b9fe9d7fed9e2c4b5b5c709334b54a69dd0409"
+  },
+  {
+    "path": "C:\\BRASILEIRAO\\AUDITORIA\\OPS_DEPLOYMENT_20260913.md",
+    "bytes": 750,
+    "sha256": "c78e7d5d4b9f013e52f69d5d6ad5ba2577ab6b20056a3065820d59bce92e8097"
+  },
+  {
+    "path": "C:\\BRASILEIRAO\\work\\ops-deploy-20260913\\consumer-validation.log",
+    "bytes": 247,
+    "sha256": "07f411e27ecf5b551d763036ac01280a5d98919d790a149d7f8f6fb92415de8a"
+  },
+  {
+    "path": "C:\\BRASILEIRAO\\work\\ops-deploy-20260913\\install.log",
+    "bytes": 1742,
+    "sha256": "2fc6b3bb9be4fde67ce842ccb82a003ee9e2b3fb84b065d338d0c916a55a9aa1"
+  }
+]
