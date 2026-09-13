@@ -5,7 +5,14 @@
 <!-- /DOC-SYNC-20260912 -->
 
 
-## Candidato local de intercâmbio ampliado
+## Intercâmbio ampliado em main
+
+ResearchBundleV1 1.0.0 e ResearchSnapshotV1 (distribuição 1.0.1) estão na main.
+A cadeia Stocks foi validada também na instalação principal do CAIN; consulte
+[STOCKS_INTEGRATION_20260912.md](STOCKS_INTEGRATION_20260912.md) para os SHAs, hashes,
+CI e acervos de consulta. Checkout principal local: `C:/CAIN/contrato`, branch `main`.
+
+### Histórico da primeira implementação do candidato
 
 [ResearchBundleV1](packages/research-bundle/README.md) é um pacote aditivo independente.
 SnapshotV1 permanece intacto. 57 testes novos do contrato e 60 existentes passaram
@@ -18,7 +25,7 @@ Versão **0.2.0** publicada: [release e artefatos](https://github.com/leonardoso
 
 O handoff canônico deste repositório é [ECOSYSTEM_HANDOFF.md](ECOSYSTEM_HANDOFF.md).
 
-Estado vigente: [CURRENT_STATE.md](CURRENT_STATE.md). Em 2026-09-03, Core 3.1.0 e
+Estado vigente: [CURRENT_STATE.md](CURRENT_STATE.md). Registro histórico: em 2026-09-03, Core 3.1.0 e
 Ops 4.0.0 estão publicados; Cripto e Stocks estão congelados; somente o EXP-001 do
 Brasileirão permanece cientificamente aberto. `ECOSYSTEM_MECHANICAL_STATE.md` é um
 snapshot histórico, não uma fonte corrente.

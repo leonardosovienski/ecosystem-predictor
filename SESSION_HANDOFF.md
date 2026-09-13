@@ -5,7 +5,14 @@
 <!-- /DOC-SYNC-20260912 -->
 
 
-## Current State
+## Current operational handoff
+
+The canonical local checkout is `C:/CAIN/contrato` on `main`. See
+[publication status](PUBLICATION_STATUS_20260912.md) and the completed
+[Stocks primary integration](STOCKS_INTEGRATION_20260912.md). Existing branches and
+worktrees are preserved; do not copy their older documents over main.
+
+## Historical state recorded on 2026-09-06
 
 Technical discovery is closed. Commercial discovery is starting at B0. Core **3.2.0**
 and Ops **4.1.0** are ready internal foundations, not products. Ecosystem is governance.

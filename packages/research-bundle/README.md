@@ -8,7 +8,10 @@
 Standalone `predictor-research-bundle` 1.0.0, Python >=3.11, stdlib plus the existing
 `predictor-research-snapshot>=1.0.0,<2` canonical serializer. SnapshotV1 remains byte-compatible;
 its files and golden expectations are unchanged. The Ecosystem main package and domain runtimes
-are not dependencies. This candidate is local, not a published package release.
+are not dependencies. The contract source is integrated in Ecosystem main. Its CI wheel
+is installed in the validated primary CAIN Stocks chain; see
+[exact provenance and acceptance](../../STOCKS_INTEGRATION_20260912.md). This does not
+claim a new registry release or equivalence with ResearchSnapshotV1.
 
 `research_bundle.loads(raw_bytes)` strictly parses UTF-8; `validate(value)` checks the full
 contract; `seal(body)` computes bundle_id; `canonical(value)` is imported unchanged from
