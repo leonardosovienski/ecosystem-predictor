@@ -1,4 +1,9 @@
-# Pendências abertas canônicas
+# Pendências — registro histórico e encaminhamento atual
+
+Os bloqueios técnicos de Bundle fora da main e instalação principal CAIN não
+validada foram encerrados no [aceite Stocks](STOCKS_INTEGRATION_20260912.md).
+A lista datada abaixo conserva os itens e critérios daquela revisão; não foi
+reavaliada como pesquisa científica nesta manutenção documental.
 
 A arquitetura vigente está em [ECOSYSTEM_RUNBOOK.md](ECOSYSTEM_RUNBOOK.md). As tabelas científicas e pendências datadas de 06/09 abaixo são históricas; o estado científico vigente pertence ao respectivo domínio. A entrega de engenharia de 11/09 não reemite esses vereditos.
 

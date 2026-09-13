@@ -1,10 +1,14 @@
-> **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
+# Continuidade atual — Ecosystem em main
 
-# Continuidade atual do ecossistema
+> **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
 
 O checkout canônico deste notebook é `C:\CAIN\contrato`, na branch `main`. As correções de compatibilidade estão incorporadas à main do Ecosystem. Leia [a combinação Crypto e seus recibos de CI](CRYPTO_INTEGRATION_20260912.md), [CURRENT_STATE](CURRENT_STATE.md) e os registros correntes. O histórico abaixo é uma etapa anterior, não uma indicação de branch de trabalho atual ou bloqueio vigente da combinação testada.
 
-Para conferir publicação após novos commits: `git status --short`, `git rev-parse HEAD` e `git ls-remote origin refs/heads/main`. SHA observado, SHA certificado, release e instalação operacional são identidades distintas. A entrega Stocks mantém sua [continuidade própria](STOCKS_INTEGRATION_20260912.md).
+Para conferir publicação após novos commits: `git status --short`, `git rev-parse HEAD` e `git ls-remote origin refs/heads/main`. SHA observado, SHA certificado, release e instalação operacional são identidades distintas. A entrega Stocks mantém sua [continuidade própria](STOCKS_INTEGRATION_20260912.md), agora incluindo instalação principal e restauração offline validadas.
+
+Checkout canônico no computador: `C:/CAIN/contrato`, branch `main`, alinhado a `origin/main`. Worktrees auxiliares e branches históricas foram preservados; eles não definem a pasta principal. O fechamento executável Stocks usou Ecosystem `dda782761c430af654b59208d3e41faf6ee7fe28`; os commits posteriores de Markdown atualizam a navegação, sem alterar os contratos ou reemitir evidências. Esta atualização documental parte de `73111a1` e não representa nova release.
+
+Recibos locais da organização documental: `C:/CAIN/work/ecosystem-md-main-20260912`. Backup dos Markdown anteriores, inventário de hashes e conferência local/remota ficam nessa pasta.
 
 ---
 

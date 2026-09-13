@@ -2,7 +2,7 @@
 
 > **Crypto — integração atual:** [combinação, CI e limites](CRYPTO_INTEGRATION_20260912.md). Os controles sintéticos de engenharia não reemitem os vereditos científicos das tabelas históricas abaixo.
 
-> **Stocks — atualização de software:** [integração observada em 12/09](STOCKS_INTEGRATION_20260912.md). A linha histórica H1–H19 abaixo não define a prontidão atual do runtime. Estados científicos não foram recertificados.
+> **Stocks — integração principal validada:** [revisões, instalação, CI e recuperação](STOCKS_INTEGRATION_20260912.md). Snapshot e Bundle estão integrados; CAIN principal atualizado. As tabelas H1–H19 preservam seu contexto histórico e não recertificam ciência ou capital.
 
 # ecosystem-predictor
 
@@ -51,11 +51,12 @@ uv run python scripts/check_ecosystem_drift.py --offline-check   # só invariant
 `check_ecosystem_drift.py` responde à pergunta que este repositório existe para
 responder: **o que os registries afirmam ainda é verdade?** Falha quando versão, pin
 ou atestado divergem do `main` real; SHA de `main` movido vira apenas aviso, porque
-muda a cada merge legítimo. Roda no CI a cada push e **diariamente** — o drift não
-precisa de commit aqui para acontecer, basta outro repositório se mover. Sem rede,
-use `--from-clones /caminho` para conferir a partir de clones locais.
+muda a cada merge legítimo. A CI executa invariantes offline e verificações dos
+manifestos pinados em pushes, PRs e na agenda diária. A comparação com os repositórios
+atuais exige executar explicitamente o comando online acima; um gate offline verde
+não a substitui. Sem rede, use `--from-clones /caminho` para conferir clones locais.
 
-O último comando deve rodar em ambiente com `cripto-predictor`,
+O comando `check_real_plugin_integration.py` deve rodar em ambiente com `cripto-predictor`,
 `brasileirao-predictor` e `stocks-predictor` instalados simultaneamente. Ele verifica
 que os três adapters são carregados, têm identidade distinta e não apresentam colisão
 de namespace.

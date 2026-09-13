@@ -1,10 +1,10 @@
-> **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
+# Ecossistema — operação e combinações verificadas
 
-# Ecossistema implementado — 11/09/2026
+> **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
 
 Os sete repositórios permanecem independentes. Core fornece a biblioteca científica; Ops executa jobs locais; Crypto, Stocks e Brasileirão mantêm seus próprios dados e decisões; Ecosystem oferece diagnóstico opcional; CAIN recebe cópias de evidências admitidas. Não existe banco central nem obrigação de iniciar todos os projetos juntos.
 
-A combinação publicada está em [released_architecture.json](registries/released_architecture.json), com URLs, versões, commits e hashes. O inventário de sete projetos/nove distribuições está em [architecture_registry.json](registries/architecture_registry.json). O manifesto de candidatos guarda os commits efetivamente testados; não acompanha `main` silenciosamente.
+A combinação histórica de releases está em [released_architecture.json](registries/released_architecture.json), com URLs, versões, commits e hashes. O inventário de sete projetos/nove distribuições está em [architecture_registry.json](registries/architecture_registry.json). O manifesto de candidatos guarda os commits efetivamente testados; não acompanha `main` silenciosamente.
 
 | Projeto | Versão publicada | Papel e entrada |
 |---|---|---|
@@ -16,7 +16,7 @@ A combinação publicada está em [released_architecture.json](registries/releas
 | Ecosystem | 0.2.0 | `Registry.discover().diagnostic_snapshot()` preserva estados nativos e identifica erros |
 | CAIN | 0.4.5 | `cain research --help`; importação, consulta, referências, histórico e backup sem modelo obrigatório |
 
-O contrato `predictor-research-snapshot` 1.0.1 e o exportador `crypto-research-export` 1.0.1 são wheels separados. O CAIN conserva seu leitor 1.0.0: a compatibilidade ResearchSnapshotV1 foi verificada por publicação, importação, repetição, consulta e restauração sem origem disponível.
+O contrato `predictor-research-snapshot` 1.0.1 e o exportador `crypto-research-export` 1.0.1 são wheels separados. Na combinação histórica de releases, o CAIN conservava seu leitor 1.0.0. A instalação principal atual usa CAIN 0.4.7, Snapshot 1.0.1 e Bundle 1.0.0, conforme a [integração Stocks](STOCKS_INTEGRATION_20260912.md). A tabela de releases acima não identifica o wheel operacional instalado.
 
 ## Instalação e diagnóstico
 
@@ -39,6 +39,14 @@ O instalador verifica os hashes no download e o checker verifica a identidade in
 3. O CAIN recebe um `import_root` e grants para usuário, coleção, produtor, fontes e política. `cain research --policy POLICY --db DB --collection COLLECTION import PUBLICATION.json` usa caminho relativo à raiz admitida.
 4. `query --source-id ID --status STATUS` filtra registros; `evidence REFERENCE` abre o trecho recebido; `receipts`, `verify` e `backup DESTINATION` oferecem rastreabilidade. Consulta de evidência recebida independe de modelo e de predictor instalado.
 5. Revogar grants também restringe o histórico derivado. Repetir a importação não duplica revisão. Backup/restore usa destino novo; arquivos e bancos não são uma transação distribuída.
+
+## Consulta Stocks na instalação principal
+
+Abra `C:/CAIN/ABRIR_CAIN.cmd` (porta 8877), usuário `leo`, projeto Geral.
+Em Pesquisa, use `stocks-main-snapshot` e **Consultar acervo**, ou
+`stocks-main-bundle` e **Consultar metadados Bundle**. São evidências admitidas,
+com referências e limitações preservadas; a geração desses acervos está negada.
+Não reimporte ou altere a política apenas para consultar o que já foi admitido.
 
 ## Operação e recuperação
 
