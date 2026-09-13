@@ -16,6 +16,13 @@ de estado e Bundle de metadados/referências para admissão no CAIN. O teste de
 plugins é executado em Linux; não instalar o runtime Stocks no Windows desta
 estação. Dados, preços e backtests não são centralizados no Ecosystem.
 
+## Componentes e capacidades principais
+
+CLI, banco gerido, ingestão COTAHIST por hash, inspeção/replay e backup/restauração
+são descritos em `STOCKS_CURRENT_STATE.md`. H21/H22 e protótipos de pesquisa
+permanecem separados do runtime. H21 é pesquisa histórica condicional, não
+lucro pessoal/futuro certificado. As entradas e limites pertencem ao domínio.
+
 ## Fontes e integração comprovada
 
 [Repositório e documentação oficial](https://github.com/leonardosovienski/stocks-predictor)

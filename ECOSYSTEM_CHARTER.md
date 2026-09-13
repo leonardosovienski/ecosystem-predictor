@@ -22,13 +22,13 @@ cada projeto conserva autoridade sobre seu funcionamento e seus resultados.
 | `ecosystem-predictor` | contratos, descoberta opcional, registros de integração e decision log | não |
 | `core-predictor` | primitivas científicas, temporais, métricas e testes prequential compartilhados | não |
 | `predictor-ops` | execução operacional, idempotência, observabilidade, reconciliação, segurança operacional e controles de runtime | não |
-| `cripto-predictor` | ativo de pesquisa congelado e casos científicos | não; pesquisa congelada |
-| `brasileirao-predictor` | laboratório científico ativo somente para EXP-001 e portfólio público | não; não é produto |
-| `stocks-predictor` | ativo de pesquisa congelado e caso de falsificação quantitativa | não; pesquisa e RJ congelados |
+| `cripto-predictor` | domínio de pesquisa em criptoativos | não há lucro validado implicado |
+| `brasileirao-predictor` | domínio de pesquisa de futebol; protocolos e gates próprios | não; não é produto |
+| `stocks-predictor` | domínio de pesquisa quantitativa de ações | não há lucro validado implicado |
 | `cain` | assistente independente; recebe e consulta evidências admitidas via Snapshot/Bundle, com acesso explícito | não há validação comercial implicada |
 
 A composição acima reflete a arquitetura já implementada e a organização solicitada.
-Os papéis científicos dos domínios preservam o contexto das decisões anteriores;
+Os papéis acima descrevem responsabilidades duráveis, sem resumir todas as famílias científicas;
 o estado vigente é definido por suas [fontes responsáveis](CURRENT_STATE.md#projetos-e-reprodução).
 
 ### Repositórios históricos ou fora do escopo canônico atual
@@ -40,9 +40,10 @@ Nada neste charter apaga o histórico científico desses projetos.
 ## 2. Objetivo global
 
 Historicamente, os três predictors econômicos buscaram recomendações baseadas em
-informação disponível no momento da decisão. Em 2026-09-03, Cripto e Stocks estão
-congelados; apenas a pergunta EXP-001 do Brasileirão continua aberta. Nenhum deles é
-um produto comercial e nenhum está autorizado a buscar novo alpha fora desse escopo.
+informação disponível no momento da decisão. A decisão histórica de 03/09/2026 congelou famílias de Cripto e Stocks e
+manteve EXP-001 aberto no Brasileirão. Esse recorte não descreve toda a pesquisa
+posterior. Protocolos, decisões e fontes atuais dos domínios delimitam cada linha;
+este documento não concede autorização de coleta, execução ou capital.
 
 Como referência de objetivo, sem afirmar execução operacional vigente, o fluxo é:
 

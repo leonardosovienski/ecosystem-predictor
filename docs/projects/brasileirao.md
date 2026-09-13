@@ -16,6 +16,13 @@ documentais admitidas podem ser exportadas em Snapshot/Bundle para CAIN, preserv
 claims, revisão, hashes e relógios científicos. Configuração, Sports/Market DB e
 runtime root permanecem sob o domínio; não há banco compartilhado do Ecosystem.
 
+## Componentes e capacidades principais
+
+O projeto contém entradas Python, kernel/shadow e o componente .NET
+`dotnet/LineupWorker/LineupWorker.csproj`. Consulte o manifest Python e o projeto
+.NET na fonte oficial. O adapter mínimo não expõe todas essas capacidades;
+presença do worker não demonstra serviço ativo nem permissão para executar capital.
+
 ## Fontes e integração comprovada
 
 [Repositório e documentação oficial](https://github.com/leonardosovienski/brasileirao-predictor)

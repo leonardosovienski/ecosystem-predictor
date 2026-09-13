@@ -1,4 +1,4 @@
-"""Plugin discovery and the registry the gateway dispatches through.
+"""Optional in-memory plugin discovery and diagnostics.
 
 Canonical entry-point group: ``predictor.plugins``. The current Cripto,
 Brasileirão and Stocks distributions all publish their adapters through this
@@ -47,11 +47,11 @@ class PluginRecord:
 
 @dataclass
 class Registry:
-    """In-memory plugin registry, populated once at gateway startup.
+    """In-memory plugin registry, populated explicitly by its caller.
 
     Fail-closed by construction: a domain that is not in ``self.records``,
-    or whose record has ``loaded is False``, is treated by the gateway as
-    unavailable (503), never silently skipped or defaulted to a stub.
+    or whose record has ``loaded is False``, is unavailable, never silently replaced with a successful stub.
+    This library does not implement an HTTP gateway.
     """
 
     records: dict[str, PluginRecord] = field(default_factory=dict)
@@ -133,8 +133,8 @@ class Registry:
             target = ep.load()
             instance = target() if isinstance(target, type) else target
         except Exception as exc:  # noqa: BLE001 - a broken plugin must not take down the gateway
-            logger.error("plugin %r failed to load: %s", ep.name, exc)
-            self.records[ep.name] = PluginRecord(name=ep.name, entry_point=ep, error=str(exc))
+            logger.error("plugin %r failed to load (%s)", ep.name, type(exc).__name__)
+            self.records[ep.name] = PluginRecord(name=ep.name, entry_point=ep, error=type(exc).__name__)
             return
 
         # callable(), not hasattr(): a plugin could still declare
@@ -180,7 +180,7 @@ class Registry:
                 snapshot[name] = HealthReport.model_validate(payload)
             except Exception as exc:  # noqa: BLE001
                 snapshot[name] = HealthReport(
-                    domain=name, status=OperationalStatus.FAILED, details={"error": str(exc)}
+                    domain=name, status=OperationalStatus.FAILED, details={"error": type(exc).__name__}
                 )
         return snapshot
 
@@ -195,5 +195,5 @@ class Registry:
                 payload = raw.model_dump(mode="python") if hasattr(raw, "model_dump") else raw
                 snapshot[name] = CapabilityManifest.model_validate(payload)
             except Exception as exc:  # noqa: BLE001
-                snapshot[name] = CapabilityManifest(domain=name, extra={"error": str(exc)})
+                snapshot[name] = CapabilityManifest(domain=name, extra={"error": type(exc).__name__})
         return snapshot

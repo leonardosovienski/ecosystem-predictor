@@ -17,6 +17,14 @@ Produz registros recebidos, consultas e recibos com proveniência. Revogação
 restringe conteúdo derivado; reimportação é idempotente. Não requer predictor
 instalado nem dependência direta do Core para consultar evidências recebidas.
 
+## Componentes e capacidades principais
+
+O assistente também oferece conversa, preferências e memória de contexto,
+projetos/documentos e workflows retomáveis. Há superfícies API, CLI, web e MCP;
+consulte README e `pyproject.toml` oficiais. Elas não são funcionalmente
+equivalentes: MCP oferece pesquisa com escopo fixo. A instalação e a main podem
+avançar separadamente; código local não publicado não é combinação homologada.
+
 ## Fontes e integração comprovada
 
 [Repositório e documentação oficial](https://github.com/leonardosovienski/cain)

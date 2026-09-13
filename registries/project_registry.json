@@ -140,7 +140,7 @@
       "predictive_state": "NOT_APPLICABLE",
       "operational_state": "CANONICAL_REGISTRY",
       "commercial_state": "NOT_A_PRODUCT",
-      "current_version": "0.1.0",
+      "current_version": "0.2.0",
       "evidence_state": "CURRENT",
       "integration_state": "REGISTRY_ONLY",
       "ci_state": "PASS",
@@ -156,7 +156,26 @@
         "dashboard",
         "audit service implementation"
       ],
-      "source_of_truth": "CURRENT_STATE.md and registries/"
+      "source_of_truth": "CURRENT_STATE.md and registries/",
+      "software_verified_at": "2026-09-13"
     }
-  ]
+  ],
+  "scope": {
+    "kind": "LEGACY_SIX_PROJECT_INTEGRATION_OBSERVATIONS",
+    "complete_current_inventory": false,
+    "current_inventory": "registries/architecture_registry.json",
+    "historical_fields": [
+      "role",
+      "maintenance_state",
+      "research_state",
+      "scientific_state",
+      "predictive_state",
+      "operational_state",
+      "commercial_state",
+      "next_allowed_action",
+      "forbidden_actions",
+      "open_blockers"
+    ],
+    "interpretation": "Software fields are dated observations; all other fields retain their original scope and do not authorize current actions. No installation or scientific recertification is implied."
+  }
 }

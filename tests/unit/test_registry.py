@@ -62,7 +62,7 @@ def test_constructor_error_does_not_crash_discovery(monkeypatch):
     record = registry.get("constructor-broken")
     assert record is not None
     assert not record.loaded
-    assert "constructor unavailable" in record.error
+    assert record.error == "RuntimeError"
 
 
 def test_health_snapshot_reports_failed_for_unloaded_plugin(monkeypatch):

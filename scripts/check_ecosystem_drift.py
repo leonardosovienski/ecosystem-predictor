@@ -19,7 +19,7 @@ import base64
 import hashlib
 import json
 import tomllib
-from datetime import UTC, date, datetime
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
@@ -189,12 +189,30 @@ def check_recorded_evidence(item: dict[str, Any], root: Path = ROOT) -> list[str
     return []
 
 
+def check_expiry(item: dict[str, Any], now: datetime) -> list[str]:
+    """ALIGNED requires a timezone-aware expiry strictly after the observation."""
+    if item["status"] != "ALIGNED":
+        return []
+    try:
+        expires = datetime.fromisoformat(item["expires_at"].replace("Z", "+00:00"))
+        if expires.tzinfo is None:
+            raise ValueError("timezone required")
+    except (ValueError, TypeError, KeyError, AttributeError):
+        return [f"{item['repo']}: ALIGNED sem expires_at válido com timezone"]
+    if expires <= now:
+        return [f"{item['repo']}: atestado venceu em {item['expires_at']} e segue ALIGNED"]
+    return []
+
+
 def check_offline() -> list[str]:
     """Invariantes que não dependem de rede — coerência interna dos registries."""
     problems: list[str] = []
     harness = _load("harness_registry.json")
     projects = {item["project_id"]: item for item in _load("project_registry.json")["projects"]}
     entries = harness["harnesses"]
+    own_version = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]["version"]
+    if projects.get("ecosystem-predictor", {}).get("current_version", own_version) != own_version:
+        problems.append("ecosystem-predictor: registry version differs from local manifest")
 
     # 1. Atestado invalidado nunca pode dizer que não precisa reemitir.
     #    O registro do stocks dizia exatamente isso, com a justificativa
@@ -216,14 +234,9 @@ def check_offline() -> list[str]:
         problems.append(f"release corrente {released} não é certificada por nenhum harness ALIGNED")
 
     # 3. Atestado vencido não pode continuar ALIGNED.
-    today = datetime.now(UTC).date()
+    now = datetime.now(UTC)
     for item in entries:
-        expires = item.get("expires_at")
-        if not isinstance(expires, str) or expires == "UNKNOWN":
-            continue
-        when = date.fromisoformat(expires[:10])
-        if when < today and item["status"] == "ALIGNED":
-            problems.append(f"{item['repo']}: atestado venceu em {expires} e segue ALIGNED")
+        problems.extend(check_expiry(item, now))
 
     # 4. Todo bloqueador citado por um projeto existe em PENDENCIAS_ABERTAS.md.
     pendencias = (ROOT / "PENDENCIAS_ABERTAS.md").read_text(encoding="utf-8")

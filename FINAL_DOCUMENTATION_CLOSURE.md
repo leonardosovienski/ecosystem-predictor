@@ -319,7 +319,7 @@ referenciado a partir dos novos documentos.
 ## Links
 
 Todos os links relativos usados (`[README.md](README.md)`,
-`[tools/HANDOFF.md](tools/HANDOFF.md)`, etc.) apontam para arquivos
+`[tools/HANDOFF.md](HANDOFF.md)`, etc.) apontam para arquivos
 confirmados existentes nesta rodada.
 
 ## Comandos

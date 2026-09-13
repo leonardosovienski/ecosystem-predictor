@@ -31,7 +31,8 @@ sejam interpretados como estado presente.
 - **Registros vigentes por escopo:** `architecture_registry.json` define a
   topologia; `released_architecture.json` identifica releases registradas;
   `compatibility_candidate.json` fixa a combinação de teste. Todos em `registries/`.
-  `project_registry.json` combina observações de engenharia com campos científicos
+  `project_registry.json` é explicitamente limitado a seis projetos legados; não é
+  inventário atual completo. Combina observações datadas de engenharia com campos científicos
   históricos: estes não passam a atuais por atualizar uma versão de software.
   `decision_log.json` preserva decisões datadas; claims, harnesses, economia e
   backup têm autoridade limitada à própria evidência, data e objeto.

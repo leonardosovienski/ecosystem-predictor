@@ -9,6 +9,9 @@ def load(name: str) -> dict:
 
 
 def test_project_registry_has_exactly_six_canonical_projects() -> None:
+    scope = load("project_registry.json")["scope"]
+    assert scope["complete_current_inventory"] is False
+    assert scope["current_inventory"] == "registries/architecture_registry.json"
     projects = load("project_registry.json")["projects"]
     assert {item["project_id"] for item in projects} == {
         "ecosystem-predictor",
@@ -119,7 +122,7 @@ def test_harness_alignment_does_not_equate_core_versions() -> None:
     statuses = {
         (item["repo"], item["reported_core_version"]): item["status"] for item in registry["harnesses"]
     }
-    assert statuses[("brasileirao-predictor", "3.2.0")] == "ALIGNED"
+    assert statuses[("brasileirao-predictor", "3.2.0")] == "EXPIRED"
     assert statuses[("cripto-predictor", "3.0.0")] == "COMPATIBLE_BUT_OLDER"
     assert statuses[("stocks-predictor", "3.1.0")] == "INVALIDATED_BY_CORE_BUMP"
     assert registry["overall_alignment"] == "MIXED_BY_DECISION"

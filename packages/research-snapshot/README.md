@@ -1,7 +1,7 @@
 # ResearchSnapshotV1 · local evidence interchange
 
 Canonical implementation: `src/research_snapshot/__init__.py`. Packaged profile:
-`research_snapshot/contract.json`. Version 1.0.0, Python >=3.11, standard library only.
+`research_snapshot/contract.json`. Distribution 1.0.1; contract ResearchSnapshotV1, profile local-evidence/1. Python >=3.11, standard library only.
 This package has no dependency on Cain, Core, Ops, plugins or scientific services.
 
 Build with `python -m build --wheel`. Install its wheel in producer and consumer

@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: python -m pip install ./packages/research-snapshot ./packages/research-bundle pytest
-      - run: python -m pytest packages/research-bundle/tests -q
+      - run: python -m pytest packages/research-snapshot/tests packages/research-bundle/tests -q
       - run: python -I -c "import research_bundle; from importlib.resources import files; assert files('research_bundle').joinpath('contract.json').read_bytes()"
       - run: python -m pip wheel --no-deps --wheel-dir bundle-dist ./packages/research-bundle
       - uses: actions/upload-artifact@v4
@@ -56,8 +56,14 @@ jobs:
       - run: uv run ruff check src tests scripts
       - run: uv run ruff format --check src tests scripts
       - run: uv run pyright
-      - run: uv run coverage run -m pytest -q
-      - run: uv run coverage report --fail-under=0
+      - run: uv pip install --python .venv/bin/python --no-deps ./packages/research-snapshot ./packages/research-bundle
+      - run: uv run --no-sync coverage run -m pytest tests packages/research-snapshot/tests packages/research-bundle/tests -q
+      - run: uv run --no-sync coverage report --fail-under=75
+      - name: Current project representation
+        if: matrix.python == '3.13'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: uv run python scripts/check_current_representation.py
       - name: Historical six-repository facts remain internally consistent
         if: matrix.python == '3.13'
         run: uv run python scripts/sync_canonical_ecosystem_facts.py --offline-check

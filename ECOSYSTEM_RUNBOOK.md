@@ -99,7 +99,29 @@ publicadas; sem ambos, a verificação usa o candidato fixado. Não execute o ch
 num ambiente parcial nem troque pins para obter aprovação.
 
 Os testes independentes de Bundle são `python -m pytest packages/research-bundle/tests -q`
-após instalar os dois contratos em ambiente separado. Os testes de Snapshot também
-estão em `tests/`; não existe `packages/research-snapshot/tests`. A
+após instalar os dois contratos em ambiente separado. Os testes dedicados de Snapshot ficam em
+`packages/research-snapshot/tests`, incluindo publicação imutável e validação. A
 [CI existente](.github/workflows/ci.yml) cobre qualidade, contratos, inventário,
 plugins, wheels e transporte. CI offline não prova o remoto, ciência ou capital.
+
+## Representação atual e regressões de fidelidade
+
+`python scripts/check_current_representation.py` observa uma main por projeto,
+verifica os caminhos documentados e os pacotes declarados na arquitetura. Seu
+`--offline` verifica somente estrutura local; não confirma fontes externas.
+`--output RESULTADO.json` preserva SHAs e horário observados. Presença de caminhos
+não garante completude semântica nem funcionamento; revisão humana complementa o gate.
+
+`project_registry.json` conserva seis observações legadas, com escopo explícito;
+não é um segundo inventário atual. Os campos científicos e ações antigas não
+autorizam trabalho. O inventário atual é `architecture_registry.json`.
+
+A expiração de ALIGNED usa o instante com timezone, incluindo igualdade. O
+atestado BR/Core 3.2.0 vencido foi marcado EXPIRED sem mudar seu recibo nem datas.
+Reemissão exige evidência do domínio. Outros atestados ALIGNED continuarão a
+expirar nas datas originais; não se prorrogam automaticamente para manter CI verde.
+
+A qualidade mede Ecosystem, Snapshot e Bundle com piso combinado de 75%.
+Reproduza com os três pacotes instalados em ambiente separado e `coverage run -m
+pytest tests packages/research-snapshot/tests packages/research-bundle/tests -q`.
+O teste de publicação cobre idempotência, conflito sem sobrescrita e falha de hard link.

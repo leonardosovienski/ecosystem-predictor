@@ -11,9 +11,11 @@
       "domain_code_version": "package:3.2.0;git:61f72e7b1d0abb35fcbcb96561ab10ad31f13525",
       "executed_at": "2026-09-06T16:42:06Z",
       "expires_at": "2026-09-13T16:42:06Z",
-      "status": "ALIGNED",
-      "reissue_required": false,
-      "basis": "Reissued 2026-09-06 against Core 3.2.0 with a clean tree: code_version carries no ';dirty'"
+      "status": "EXPIRED",
+      "reissue_required": true,
+      "basis": "Reissued 2026-09-06 against Core 3.2.0 with a clean tree: code_version carries no ';dirty'",
+      "status_at_execution": "ALIGNED",
+      "status_observed_at": "2026-09-13T16:55:54Z"
     },
     {
       "repo": "cripto-predictor",

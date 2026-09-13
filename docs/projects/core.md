@@ -16,6 +16,13 @@ saem medidas e resultados dos controles definidos pela biblioteca. Não requer
 processos dos predictors, Ops ou CAIN. O Ecosystem verifica o wheel distribuído
 fora da fonte; CAIN consome evidência transportada, sem dependência direta do Core.
 
+## Componentes e capacidades principais
+
+Famílias públicas: `contracts`, `data`, `kernel`, `measurement` e `testing`.
+Incluem Trial Registry V2, ciclo de coleta, qualidade de fontes, replay e avaliação.
+A fachada `src/predictor_core/__init__.py` e `docs/TRIAL_REGISTRY_V2.md` no
+repositório oficial delimitam as APIs; disponibilidade não valida um experimento.
+
 ## Fontes e integração comprovada
 
 [Repositório e documentação oficial](https://github.com/leonardosovienski/core-predictor)

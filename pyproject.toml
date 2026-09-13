@@ -46,7 +46,7 @@ include = ["src/ecosystem"]
 typeCheckingMode = "basic"
 
 [tool.coverage.run]
-source = ["src/ecosystem"]
+source = ["ecosystem", "research_snapshot", "research_bundle"]
 branch = true
 
 [tool.coverage.report]

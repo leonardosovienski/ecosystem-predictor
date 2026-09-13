@@ -17,6 +17,12 @@ Cripto e Brasileirão são consumidores operacionais; os projetos permanecem
 independentes, com bancos e agendamentos próprios. Não compartilhar runtime root
 entre runners incompatíveis; tentativa de efeito incerto exige reconciliação.
 
+## Componentes e capacidades principais
+
+A configuração de jobs, proveniência instalada e limites do backend local estão
+em `docs/OPERATIONS_CONTRACT.md` do projeto. Observabilidade OTLP é opcional
+(`predictor-ops[otel]`); o runner genérico não cria agendamentos por si só.
+
 ## Fontes e integração comprovada
 
 [Repositório e documentação oficial](https://github.com/leonardosovienski/predictor-ops)

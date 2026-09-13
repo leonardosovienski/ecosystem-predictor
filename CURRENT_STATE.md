@@ -1,8 +1,9 @@
 # Estado canônico atual
 
-**Revisão documental:** 13/09/2026, sobre a baseline Ecosystem
-`9d34adf7054451e20170cc714a8db9d79ac6fd99`. A organização desta documentação não
-altera a combinação fixada nem reemite seus recibos.
+**Revisão:** 13/09/2026. A [reconciliação de fidelidade](docs/maintenance/fidelity-20260913.md)
+corrige representação, expiração e mensagens de erro, com regressões automatizadas.
+A combinação fixada e seus recibos permanecem preservados; fonte corrigida não
+significa nova release ou atualização automática de instalações.
 
 ## Estado e autoridade por assunto
 

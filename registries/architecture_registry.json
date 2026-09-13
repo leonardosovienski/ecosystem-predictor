@@ -13,7 +13,24 @@
         ".",
         "packages/research-export"
       ],
-      "requires_cain": false
+      "requires_cain": false,
+      "representation": {
+        "ecosystem_document": "docs/projects/cripto.md",
+        "source_paths": [
+          "README.md",
+          "pyproject.toml",
+          "packages/research-export/pyproject.toml",
+          "CR_RESEARCH_FREEZE.md"
+        ],
+        "capabilities": [
+          "DPL",
+          "Feature Store",
+          "LLM",
+          "offline research",
+          "Snapshot and optional Bundle export"
+        ],
+        "limit": "Component existence is not operational, scientific or capital authorization."
+      }
     },
     {
       "repository": "stocks-predictor",
@@ -21,7 +38,25 @@
       "packages": [
         "."
       ],
-      "requires_cain": false
+      "requires_cain": false,
+      "representation": {
+        "ecosystem_document": "docs/projects/stocks.md",
+        "source_paths": [
+          "README.md",
+          "pyproject.toml",
+          "stocks_predictor/ecosystem_plugin.py",
+          "STOCKS_CURRENT_STATE.md"
+        ],
+        "capabilities": [
+          "CLI",
+          "managed database",
+          "COTAHIST hash ingestion",
+          "replay",
+          "backup/restore",
+          "separate prototypes"
+        ],
+        "limit": "Component existence is not operational, scientific or capital authorization."
+      }
     },
     {
       "repository": "brasileirao-predictor",
@@ -29,7 +64,22 @@
       "packages": [
         "."
       ],
-      "requires_cain": false
+      "requires_cain": false,
+      "representation": {
+        "ecosystem_document": "docs/projects/brasileirao.md",
+        "source_paths": [
+          "README.md",
+          "pyproject.toml",
+          "dotnet/LineupWorker/LineupWorker.csproj"
+        ],
+        "capabilities": [
+          "Python entry points",
+          "kernel/shadow",
+          "LineupWorker",
+          "Snapshot/Bundle"
+        ],
+        "limit": "Component existence is not operational, scientific or capital authorization."
+      }
     },
     {
       "repository": "core-predictor",
@@ -37,7 +87,24 @@
       "packages": [
         "."
       ],
-      "requires_domains": false
+      "requires_domains": false,
+      "representation": {
+        "ecosystem_document": "docs/projects/core.md",
+        "source_paths": [
+          "README.md",
+          "pyproject.toml",
+          "src/predictor_core/__init__.py",
+          "docs/TRIAL_REGISTRY_V2.md"
+        ],
+        "capabilities": [
+          "contracts",
+          "data",
+          "kernel",
+          "measurement",
+          "testing"
+        ],
+        "limit": "Component existence is not operational, scientific or capital authorization."
+      }
     },
     {
       "repository": "predictor-ops",
@@ -45,7 +112,22 @@
       "packages": [
         "."
       ],
-      "requires_domains": false
+      "requires_domains": false,
+      "representation": {
+        "ecosystem_document": "docs/projects/ops.md",
+        "source_paths": [
+          "README.md",
+          "pyproject.toml",
+          "docs/OPERATIONS_CONTRACT.md"
+        ],
+        "capabilities": [
+          "local runner",
+          "jobs configuration",
+          "installation provenance",
+          "optional observability"
+        ],
+        "limit": "Component existence is not operational, scientific or capital authorization."
+      }
     },
     {
       "repository": "ecosystem-predictor",
@@ -55,7 +137,24 @@
         "packages/research-snapshot",
         "packages/research-bundle"
       ],
-      "registry_required_by_domains": false
+      "registry_required_by_domains": false,
+      "representation": {
+        "ecosystem_document": "README.md",
+        "source_paths": [
+          "README.md",
+          "pyproject.toml",
+          "src/ecosystem/registry/__init__.py",
+          "packages/research-snapshot/pyproject.toml",
+          "packages/research-bundle/pyproject.toml"
+        ],
+        "capabilities": [
+          "optional registry",
+          "contracts",
+          "transport",
+          "integration evidence"
+        ],
+        "limit": "Component existence is not operational, scientific or capital authorization."
+      }
     },
     {
       "repository": "cain",
@@ -68,7 +167,24 @@
       "transports": [
         "ResearchSnapshotV1",
         "ResearchBundleV1"
-      ]
+      ],
+      "representation": {
+        "ecosystem_document": "docs/projects/cain.md",
+        "source_paths": [
+          "README.md",
+          "pyproject.toml",
+          "src/cain/mcp.py",
+          "ESTADO_DO_PROJETO.md"
+        ],
+        "capabilities": [
+          "conversation/preferences/context",
+          "projects/documents",
+          "resumable workflows",
+          "API/CLI/web/MCP",
+          "Snapshot/Bundle admission"
+        ],
+        "limit": "Component existence is not operational, scientific or capital authorization."
+      }
     }
   ],
   "compatibility_authority": "exact candidate sources, wheel hashes and executable receipts; main branch observations alone are insufficient",
