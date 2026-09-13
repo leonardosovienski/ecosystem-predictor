@@ -113,9 +113,9 @@
       "commercial_state": "NOT_A_PRODUCT",
       "current_version": "0.2.0",
       "evidence_state": "VERIFIED",
-      "integration_state": "CORE_3_2_1_SNAPSHOT_VALIDATED_BUNDLE_CANDIDATE",
+      "integration_state": "CORE_3_2_1_SNAPSHOT_BUNDLE_CANONICAL_MAIN_VALIDATED",
       "ci_state": "PASS",
-      "remote_main_sha": "938f646b82eb999ee4513ccad13b0c93cac310f0",
+      "remote_main_sha": "3066321e599ee15dd0ace4167d2791545ce6eb95",
       "open_blockers": [
         "ST-01",
         "ST-02",
