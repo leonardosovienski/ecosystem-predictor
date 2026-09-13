@@ -1,3 +1,5 @@
+> **Ops 4.2.1 publicado:** registries reconciliados com a release validada e pins atuais de Crypto/Brasileirão. SHA256 do wheel: `da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e`. [Evidências](https://github.com/leonardosovienski/predictor-ops/blob/main/docs/stabilization-20260912/REPORT.md). Instalações operacionais e estados científicos não foram promovidos.
+
 > **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
 
 > **Crypto — integração atual:** [combinação, CI e limites](CRYPTO_INTEGRATION_20260912.md). Os controles sintéticos de engenharia não reemitem os vereditos científicos das tabelas históricas abaixo.

@@ -3,7 +3,7 @@
   "consumers": {
     "cripto-predictor": {
       "repository": "https://github.com/leonardosovienski/cripto-predictor",
-      "commit": "6ea0d2ccdcfc6a3858083acb6ded5cb39e178586",
+      "commit": "59f6cf80d4a95153efa159c8b6e0d7d5e7f540ff",
       "version": "1.1.0"
     },
     "stocks-predictor": {
@@ -13,7 +13,7 @@
     },
     "brasileirao-predictor": {
       "repository": "https://github.com/leonardosovienski/brasileirao-predictor",
-      "commit": "abdd965c98c228d73ae416944eb7531bed9ab197",
+      "commit": "0f69ba8a1da744eb4239b680fc0389f9dc631987",
       "version": "0.2.0"
     },
     "cain": {
@@ -29,9 +29,9 @@
       "hash": "sha256:10ef42f34ace8bb2df5f83ff7de2ceec79b035a25ea0a690e8942bd60d2fb4e3"
     },
     "predictor-ops": {
-      "version": "4.2.0",
-      "url": "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.0/predictor_ops-4.2.0-py3-none-any.whl",
-      "hash": "sha256:a6108ee1c6fe9c14752766a435109f9b6bcf98102ee178330512efbcac984000"
+      "version": "4.2.1",
+      "url": "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.1/predictor_ops-4.2.1-py3-none-any.whl",
+      "hash": "sha256:da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e"
     }
   },
   "capital_authorized": false,
