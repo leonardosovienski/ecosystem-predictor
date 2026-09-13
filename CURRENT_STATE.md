@@ -1,117 +1,45 @@
 # Estado canônico atual
 
-## Continuidade de engenharia — 13/09/2026
+**Revisão documental:** 13/09/2026, sobre a baseline Ecosystem
+`9d34adf7054451e20170cc714a8db9d79ac6fd99`. A organização desta documentação não
+altera a combinação fixada nem reemite seus recibos.
 
-Core main `9bf43efe92459a0b484cac00f51170b2c70d420f`, wheel oficial 3.2.1,
-e combinação fixada dos três predictors estão integrados no Ecosystem.
-O commit de integração `3cfb74bef126c421424c08cc774034b42cae5cd4` passou na
-[CI](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34765563374)
-e na [verificação de segurança](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34765563366).
+## Estado e autoridade por assunto
 
-| Assunto | Referência |
+| Dimensão | Fonte e interpretação |
 |---|---|
-| Core: fonte, wheel, CI e arquivos do PC | [Integração do Core](CORE_INTEGRATION_20260913.md) |
-| Topologia, instalação e reprodução | [Runbook](ECOSYSTEM_RUNBOOK.md) |
-| Ops e ambientes locais | [Integração do Ops](OPS_INTEGRATION_20260913.md) |
-| Percursos dos domínios | [Crypto](CRYPTO_INTEGRATION_20260912.md), [Brasileirão](BRASILEIRAO_INTEGRATION_20260912.md), [Stocks](STOCKS_INTEGRATION_20260912.md) |
-| Versões publicadas e combinação testada | [Releases](registries/released_architecture.json), [candidatos](registries/compatibility_candidate.json) |
-| Autoridade e registros históricos | [Índice documental](docs/HISTORICAL_DOCUMENT_INDEX.md) |
+| Código em `main` | Contratos, registry opcional, ResearchSnapshotV1 e ResearchBundleV1 incorporados. `git ls-remote origin refs/heads/main` informa a ponta publicada; cada SHA tem sua própria CI. |
+| Topologia | [architecture_registry.json](registries/architecture_registry.json): sete repositórios, três domínios predictors e dez pacotes independentes. [Charter](ECOSYSTEM_CHARTER.md) define os limites. |
+| Releases e artefatos | [released_architecture.json](registries/released_architecture.json): fontes, URLs e hashes das distribuições registradas. Não é inventário da instalação operacional nem consulta permanente de últimas releases. |
+| Combinação testada | [compatibility_candidate.json](registries/compatibility_candidate.json), [integração Core](CORE_INTEGRATION_20260913.md) e [recibo](docs/core_integration_20260913/receipt.json). Pins não acompanham `main` automaticamente. |
+| Instalação operacional | Autoridade do respectivo projeto; para CAIN, [estado oficial](https://github.com/leonardosovienski/cain/blob/main/ESTADO_DO_PROJETO.md). Os recibos de instalação deste repositório descrevem as revisões e datas que testaram. |
+| Ciência e economia | Protocolos e evidências dos domínios, acessíveis nas fichas abaixo. [harness_registry.json](registries/harness_registry.json) preserva atestados datados; não certifica versões posteriores. |
+| Operação e capital | Permissões pertencem aos domínios e à decisão humana explícita. Nenhuma autorização resulta desta organização ou de CI verde. |
 
-O checkout canônico é `C:/CAIN/contrato`, branch `main`. Fonte da release,
-main validada, combinação de teste e instalação operacional têm identidades
-próprias. As tabelas científicas datadas abaixo preservam o estado da época;
-não certificam versões posteriores nem autorizam capital.
+A integração Ecosystem `3cfb74bef126c421424c08cc774034b42cae5cd4` tem
+[CI](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34765563374)
+e [segurança](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34765563366)
+aprovadas. Essa evidência continua vinculada àquela revisão. A baseline documental
+acima também tem [CI própria](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34765919043).
 
-A arquitetura vigente está em [ECOSYSTEM_RUNBOOK.md](ECOSYSTEM_RUNBOOK.md). As tabelas científicas e pendências datadas de 06/09 abaixo são históricas; o estado científico vigente pertence ao respectivo domínio. A entrega de engenharia de 11/09 não reemite esses vereditos.
+## Projetos e reprodução
 
-## Entrega arquitetural publicada — 11/09/2026
+[Core](docs/projects/core.md) · [Ops](docs/projects/ops.md) ·
+[Cripto](docs/projects/cripto.md) · [Brasileirão](docs/projects/brasileirao.md) ·
+[Stocks](docs/projects/stocks.md) · [CAIN](docs/projects/cain.md).
 
-Versão **0.2.0** publicada: [release e artefatos](https://github.com/leonardosovienski/ecosystem-predictor/releases/tag/v0.2.0). [CI de engenharia aprovada](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34630167633) para a fonte `2e8be61d3d8b0cf10e1dfbcce8ff7acdef219327`. Consulte [ARCHITECTURE_IMPLEMENTATION.md](ARCHITECTURE_IMPLEMENTATION.md) para comportamento, migração e limites. Este registro atualiza a entrega de software; estados científicos e registros datados abaixo conservam sua autoridade e contexto histórico.
+Cada ficha delimita responsabilidades, interfaces e evidência de integração sem
+duplicar o manual do projeto. O [runbook](ECOSYSTEM_RUNBOOK.md) contém os comandos
+do Ecosystem. Checkout canônico neste PC: `C:/CAIN/contrato`, branch `main`.
 
-## Registro histórico de 06/09/2026
+## Manutenção e histórico
 
-**Data de referência das tabelas abaixo:** 2026-09-06. Sua declaração de autoridade
-pertence àquela revisão. Para a integração atual, use os links de abertura e os
-registros correntes; evidência executada prevalece sobre descrições históricas.
+Antes de atualizar um registro, confronte sua autoridade, revisão e contexto.
+Observe drift real, corrija apenas o escopo afetado e preserve pins e evidências
+até nova validação explícita. Não retome ações de auditorias antigas por inferência.
 
-## Projetos
-
-| Projeto | Papel | Manutenção | Pesquisa | Ciência | Operação | Comercial |
-|---|---|---|---|---|---|---|
-| ecosystem-predictor | governança e registros | ACTIVE_ON_STATE_CHANGE | FROZEN | NOT_APPLICABLE | CANONICAL_REGISTRY | NOT_A_PRODUCT |
-| core-predictor | motor científico interno | ACTIVE | CLOSED_P0 | READY | FOUNDATION_READY | NOT_A_PRODUCT |
-| predictor-ops | infraestrutura interna | ACTIVE | FROZEN | NOT_APPLICABLE | READY | NOT_A_PRODUCT |
-| brasileirao-predictor | laboratório científico e portfólio público | ACTIVE_MINIMAL | ACTIVE_EXP001_ONLY | OPEN | READY_WITH_DATA_GATES | NOT_A_PRODUCT |
-| cripto-predictor | ativo de pesquisa congelado e casos científicos | PASSIVE | FROZEN | CLOSED | PASSIVE_COLLECTION | NOT_A_PRODUCT |
-| stocks-predictor | caso de falsificação; H1–H16 congeladas, H17–H19 pré-registradas | ACTIVE_MINIMAL | FROZEN_H1_H16 + PREREGISTERED_H17_H19 | CLOSED_FOR_H1_H16 | MEASUREMENT_PENDING | NOT_A_PRODUCT |
-
-## Questões abertas
-
-- Brasileirão: `EXP001_HISTORICAL = NOT_VIABLE`. A investigação limitada não
-  comprovou cobertura comercial exata de 2024–2025 e o inventário de features
-  não encontrou timestamps suficientes para H−24h, H−6h e H−1h. A linha válida é
-  `EXP001_PROSPECTIVE = ACTIVE`; a decisão científica segue `UNKNOWN` até dados futuros.
-- Brasileirão: prediction store geral e prospective DB dedicados são
-  `MISSING_CONFIRMED` após a busca final; não serão reconstruídos retroativamente.
-- Cripto: o disparo natural do Task Scheduler ainda é `PENDING_OBSERVATION`; não é
-  blocker técnico nem científico.
-- Harnesses: Brasileirão certifica Core **3.2.0** (reemitido em 2026-09-06, sem
-  `;dirty`, expira 2026-09-13); Cripto certifica Core 3.0.0 e segue
-  `COMPATIBLE_BUT_OLDER` por decisão, não por esquecimento — subir exige emitir
-  atestado nos cinco pontos que atualizam veredito (CR-01).
-- Stocks: o atestado vigente foi emitido com Core 3.1.0 e o bump para 3.2.0, em
-  2026-09-06, **o invalidou**. Enquanto não for reemitido na máquina do operador,
-  com árvore limpa, a H18 não registra trial. É o único item com prazo do
-  ecossistema (ST-01).
-- Stocks: a **ordem** das rodadas H17/H18/H19 não está fixada. O N do DSR cresce a
-  cada tentativa, então escolher depois de ver resultado é p-hacking; a ordem precisa
-  ser decidida antes da primeira medição (ST-03).
-
-## Estado comercial
-
-`CLAIM_BIZ_001 = B0` e `COMMERCIAL_DISCOVERY_PHASE = STARTING`. A lista P3.0 tem
-dez contatos nominais públicos em ICP-1 e ICP-2, registrada em
-`registries/commercial_discovery.json`; isso inicia apenas a preparação operacional
-de V1, não valida dor, acesso, comprador ou disposição a pagar. `OUTREACH_001` foi
-preparado para Daniel Djonatha e está `READY_FOR_HUMAN_EXECUTION`; roteiro, captura
-de evidência e follow-up também estão registrados. Nenhuma abordagem foi enviada.
-Próxima evidência: envio pelo operador e primeira conversa qualificada real.
-
-`CLAIM_ECON_001 = E0`: preço, esforço de entrega, aquisição, margem, reutilização e
-retenção permanecem `UNKNOWN`. Receita e engagements pagos são zero. A oferta e os
-templates de medição estão em `registries/economics_registry.json`; não constituem
-evidência de mercado.
-
-## Próximas ações permitidas
-
-1. Manter coleta prospectiva do Brasileirão com o contrato em `canonical_contracts/exp001_prospective.json`.
-2. Não reabrir o EXP-001 histórico sem evidência nativa e timestamped dos dois lados PIT.
-3. Observar o próximo disparo natural do scheduler do Cripto sem reabrir pesquisa.
-4. Reemitir harnesses do Cripto contra Core 3.2.0 somente se a certificação atual for
-   exigida — e tratando como trabalho de código, não troca de pin (CR-01).
-6. Reemitir o atestado do Stocks contra Core 3.2.0 antes de qualquer rodada de
-   H17/H18/H19, e fixar a ordem das três antes da primeira medição.
-5. O operador revisar e enviar `OUTREACH_001`; depois registrar somente a interação humana real.
-
-## Ações proibidas
-
-Novo predictor; nova busca de alpha; reabrir fatores de Stocks, HMM/LLM/trend do
-Cripto, RJ ou hipóteses fechadas do Brasileirão; SaaS antes de demanda; dashboard;
-rebuild genérico de MLOps; abstração no Core sem segundo consumidor; nova auditoria
-ampla; execução do EXP-001 neste repositório.
-
-## Registros
-
-- `registries/project_registry.json`
-- `registries/evidence_registry.json`
-- `registries/decision_log.json`
-- `registries/backup_registry.json`
-- `registries/harness_registry.json`
-- `registries/economics_registry.json`
-- `PENDENCIAS_ABERTAS.md`
-- `docs/HISTORICAL_DOCUMENT_INDEX.md`
-- `SESSION_HANDOFF.md`
-
-`TECHNICAL_DISCOVERY_PHASE = CLOSED` e `COMMERCIAL_DISCOVERY_PHASE = STARTING`.
-Este repositório só muda diante de mudança
-real de estado, versão, evidência, incidente ou decisão.
+As tabelas e ações de 06/09 foram separadas em
+[registro histórico](docs/archive/current-state-20260906.md). O
+[índice documental](docs/HISTORICAL_DOCUMENT_INDEX.md) classifica registros,
+procedimentos e auditorias. O [registro desta organização](docs/maintenance/organization-20260913.md)
+contém baseline, classificação de branches, recuperação e validação.

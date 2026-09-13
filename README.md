@@ -1,77 +1,49 @@
 # ecosystem-predictor
 
-**Continuidade de engenharia:** [estado e navegação atuais](CURRENT_STATE.md),
-[integração do Core](CORE_INTEGRATION_20260913.md) e
-[índice documental](docs/HISTORICAL_DOCUMENT_INDEX.md). Core 3.2.1 em main
-`9bf43ef`; a integração Ecosystem `3cfb74b` tem CI e segurança aprovadas.
-As seções datadas abaixo conservam a identidade da execução original.
+Contratos compartilhados, descoberta opcional de plugins e referências de integração
+do ecossistema PREDICTORS. O Ecosystem explica quem faz o quê, como os projetos se
+conectam, qual combinação foi validada e onde estão as fontes. Cada projeto mantém
+autoridade sobre seu funcionamento e seus resultados.
 
-## Entrega arquitetural publicada — 11/09/2026
+## Mapa de leitura
 
-Versão **0.2.0** publicada: [release e artefatos](https://github.com/leonardosovienski/ecosystem-predictor/releases/tag/v0.2.0). [CI de engenharia aprovada](https://github.com/leonardosovienski/ecosystem-predictor/actions/runs/34630167633) para a fonte `2e8be61d3d8b0cf10e1dfbcce8ff7acdef219327`. Consulte [ARCHITECTURE_IMPLEMENTATION.md](ARCHITECTURE_IMPLEMENTATION.md) para comportamento, migração e limites. Este registro atualiza a entrega de software; estados científicos e registros datados abaixo conservam sua autoridade e contexto histórico.
+| Necessidade | Fonte canônica |
+|---|---|
+| Estado de engenharia, combinação testada e limites | [CURRENT_STATE](CURRENT_STATE.md) |
+| Composição, responsabilidades e autoridade | [Charter](ECOSYSTEM_CHARTER.md) |
+| Instalação, diagnóstico e reprodução | [Runbook](ECOSYSTEM_RUNBOOK.md) |
+| Capacidades e interfaces dos projetos | [Core](docs/projects/core.md), [Ops](docs/projects/ops.md), [Cripto](docs/projects/cripto.md), [Brasileirão](docs/projects/brasileirao.md), [Stocks](docs/projects/stocks.md), [CAIN](docs/projects/cain.md) |
+| Registros, evidências, decisões e histórico | [Índice documental](docs/HISTORICAL_DOCUMENT_INDEX.md) |
 
-> **Fonte de verdade:** [`CURRENT_STATE.md`](CURRENT_STATE.md) e `registries/`.
-> Documentos FINAL/CLOSURE/AUDIT antigos são históricos e não definem o estado atual.
+## O que este repositório entrega
 
-A arquitetura atual, os pacotes publicados e as instruções de uso estão em
-[ECOSYSTEM_RUNBOOK.md](ECOSYSTEM_RUNBOOK.md) e
-[released_architecture.json](registries/released_architecture.json).
-Os snapshots mecânicos/científicos de seis projetos de 01–06/09 são históricos;
-a topologia atual contém sete repositórios e dez pacotes independentes.
+- `ecosystem.contracts`: contratos de saúde, capacidades, estados e permissão de capital.
+- `ecosystem.registry`: descoberta fail-closed de entry points `predictor.plugins`,
+  preservando estados nativos dos domínios e erros de diagnóstico.
+- [research-snapshot](packages/research-snapshot/README.md) e
+  [research-bundle](packages/research-bundle/README.md): contratos de transporte
+  distribuídos separadamente, usados por produtores de evidências e pelo CAIN.
 
-Pacote mínimo de contratos e descoberta de plugins do ecossistema PREDICTORS.
+A topologia é polyrepo: sete repositórios, três domínios predictors e dez pacotes
+independentes, conforme o [inventário arquitetural](registries/architecture_registry.json).
+Não há banco central. O antigo gateway, storage e scheduler do agregador foram
+removidos; seu histórico não é instrução de implantação vigente.
 
-## Escopo canônico
+## Verificação mínima
 
-- `ecosystem.contracts`: modelos Pydantic compartilhados para saúde, capacidades,
-  status científico/econômico e permissão de capital.
-- `ecosystem.registry`: descoberta fail-closed de entry points do grupo
-  `predictor.plugins`.
+Em ambiente de desenvolvimento separado, com Python 3.13:
 
-O antigo gateway HTTP, Postgres, Redis, S3/MinIO, scheduler, migrações e telemetria
-foram removidos em 2026-08-31 porque não tinham consumidores reais confirmados. Sua
-reintrodução exige uma hipótese de uso nomeada, consumidor identificado e teste de
-integração correspondente.
-
-## Verificação
-
-```bash
+```sh
 uv sync --all-extras
 uv run pytest -q
-uv run python scripts/check_real_plugin_integration.py
-uv run python scripts/check_ecosystem_drift.py          # registries x seis repos reais
-uv run python scripts/check_ecosystem_drift.py --offline-check   # só invariantes, sem rede
+uv run python scripts/check_ecosystem_drift.py --offline-check
 ```
 
-`check_ecosystem_drift.py` responde à pergunta que este repositório existe para
-responder: **o que os registries afirmam ainda é verdade?** Falha quando versão, pin
-ou atestado divergem do `main` real; SHA de `main` movido vira apenas aviso, porque
-muda a cada merge legítimo. A CI executa invariantes offline e verificações dos
-manifestos pinados em pushes, PRs e na agenda diária. A comparação com os repositórios
-atuais exige executar explicitamente o comando online acima; um gate offline verde
-não a substitui. Sem rede, use `--from-clones /caminho` para conferir clones locais.
+O modo offline verifica invariantes internas. A comparação com o remoto, o
+inventário de pacotes e a instalação conjunta dos três plugins têm requisitos
+próprios: veja [verificações no runbook](ECOSYSTEM_RUNBOOK.md#verificações-do-ecosystem).
+Plugins devem publicar namespaces próprios; pacotes genéricos como `src`, `scripts`,
+`app` ou `plugin` não podem colidir no ambiente compartilhado.
 
-O comando `check_real_plugin_integration.py` deve rodar em ambiente com `cripto-predictor`,
-`brasileirao-predictor` e `stocks-predictor` instalados simultaneamente. Ele verifica
-que os três adapters são carregados, têm identidade distinta e não apresentam colisão
-de namespace.
-
-## Regra de packaging
-
-Plugins devem usar pacotes top-level próprios. Nomes genéricos como `src`, `scripts`,
-`app` ou `plugin` não podem ser publicados como packages Python compartilhados.
-
-## Fronteira econômica
-
-Este pacote não produz previsões, não executa operações e não autoriza capital. Ele
-transporta contratos e evidencia o estado informado pelos domínios.
-
-Os gates econômicos permanecem domain-owned: futebol e cripto estão integrados em
-shadow (cripto opt-in), enquanto ações possui apenas a primitiva ainda não conectada
-ao backtest congelado. O agregador não transforma nenhum desses estados em permissão
-de capital.
-
-
-## Implementação arquitetural local — 2026-09-11
-
-As alterações candidatas, seus limites, verificações e rollback estão em [ARCHITECTURE_IMPLEMENTATION.md](ARCHITECTURE_IMPLEMENTATION.md). Esta implementação local não publica releases, não atualiza automaticamente os consumidores e não altera os vereditos científicos históricos.
+Este pacote não produz previsões, executa trades ou autoriza capital. Testes de
+engenharia e transporte não substituem os protocolos científicos dos domínios.

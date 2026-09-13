@@ -1,28 +1,21 @@
 # Ecossistema — operação e combinações verificadas
 
-**Continuidade de engenharia:** [estado e navegação atuais](CURRENT_STATE.md),
-[integração do Core](CORE_INTEGRATION_20260913.md) e
-[índice documental](docs/HISTORICAL_DOCUMENT_INDEX.md). Core 3.2.1 em main
-`9bf43ef`; a integração Ecosystem `3cfb74b` tem CI e segurança aprovadas.
-As seções datadas abaixo conservam a identidade da execução original.
+[Estado atual](CURRENT_STATE.md) · [Charter](ECOSYSTEM_CHARTER.md) ·
+[Autoridade e histórico](docs/HISTORICAL_DOCUMENT_INDEX.md).
 
-> **Brasileirão — entrega consolidada em main:** [versões, integração CAIN, CI, backups e reprodução](BRASILEIRAO_INTEGRATION_20260912.md). A aprovação é técnica/documental; ciência, produção e capital conservam seus gates próprios.
+Este runbook reúne procedimentos do Ecosystem. Manuais internos e instalações
+dos projetos permanecem sob as fontes indicadas nas fichas.
 
 Os sete repositórios permanecem independentes. Core fornece a biblioteca científica; Ops executa jobs locais; Crypto, Stocks e Brasileirão mantêm seus próprios dados e decisões; Ecosystem oferece diagnóstico opcional; CAIN recebe cópias de evidências admitidas. Não existe banco central nem obrigação de iniciar todos os projetos juntos.
 
 As coordenadas de releases registradas estão em [released_architecture.json](registries/released_architecture.json), com URLs, versões, commits e hashes. O inventário de sete projetos/dez pacotes independentes está em [architecture_registry.json](registries/architecture_registry.json). O manifesto de candidatos guarda os commits efetivamente testados; não acompanha `main` silenciosamente.
 
-| Projeto | Versão publicada | Papel e entrada |
-|---|---|---|
-| Core | 3.2.1 | Imports explícitos em `predictor_core.contracts.scientific` e `predictor_core.measurement`; instalação mínima independente |
-| Ops | 4.2.1 | `predictor-ops --help`; schema 3 genérico, execução econômica exige política e risco explícitos |
-| Crypto | 1.1.0 | `cripto-predictor status`; modos separados de ingestão, análise, histórico e migração |
-| Stocks | 0.2.0 | `python -m stocks_predictor --help`; `simulate-selected` conecta seleção explícita ao simulador |
-| Brasileirão | 0.2.0 | `brasileirao-predict --help`; previsão formal identificada, shadow externo ao checkout |
-| Ecosystem | 0.2.0 | `Registry.discover().diagnostic_snapshot()` preserva estados nativos e identifica erros |
-| CAIN | 0.4.5 | `cain research --help`; importação, consulta, referências, histórico e backup sem modelo obrigatório |
-
-O contrato `predictor-research-snapshot` 1.0.1 e o exportador `crypto-research-export` 1.0.1 são wheels separados. Na combinação histórica de releases, o CAIN conservava seu leitor 1.0.0. Em 13/09/2026, a instalação principal `C:/CAIN/.venv` foi conferida com CAIN 0.4.9, Snapshot 1.0.1 e Bundle 1.0.0; o checkout CAIN observado foi `54262fee80ef8168b77e0f8e8eadd405795a91f4`. Essa conferência de identidade não transfere o aceite da [integração Stocks](STOCKS_INTEGRATION_20260912.md), cuja combinação histórica CAIN 0.4.7 permanece preservada. A tabela de releases acima não identifica o wheel operacional instalado.
+As fichas [Core](docs/projects/core.md), [Ops](docs/projects/ops.md),
+[Cripto](docs/projects/cripto.md), [Stocks](docs/projects/stocks.md),
+[Brasileirão](docs/projects/brasileirao.md) e [CAIN](docs/projects/cain.md)
+descrevem interfaces e evidências. Versões/SHAs/hashes devem ser lidos nos manifestos
+acima, sem uma segunda tabela manual de versões. Release, combinação candidata e
+instalação operacional são identidades distintas.
 
 ## Instalação e diagnóstico
 
@@ -46,7 +39,7 @@ O instalador verifica os hashes no download e o checker verifica a identidade in
 4. `query --source-id ID --status STATUS` filtra registros; `evidence REFERENCE` abre o trecho recebido; `receipts`, `verify` e `backup DESTINATION` oferecem rastreabilidade. Consulta de evidência recebida independe de modelo e de predictor instalado.
 5. Revogar grants também restringe o histórico derivado. Repetir a importação não duplica revisão. Backup/restore usa destino novo; arquivos e bancos não são uma transação distribuída.
 
-## Consulta Stocks na instalação principal
+## Consulta Stocks — procedimento da instalação validada em 12/09/2026
 
 Abra `C:/CAIN/ABRIR_CAIN.cmd` (porta 8877), usuário `leo`, projeto Geral.
 Em Pesquisa, use `stocks-main-snapshot` e **Consultar acervo**, ou
@@ -62,7 +55,11 @@ Antes de compartilhar um runtime root com Ops 4.2, parar runners antigos. Não m
 
 Os gates são de engenharia. Coortes futuras, atestados de poder científico, observação natural de agendamentos e validação econômica continuam sob os protocolos originais. As releases não transformam `NO_GO`, `UNKNOWN` ou ausência de hipótese em autorização de operação.
 
-Para reconferir a versão instalada, use `C:/CAIN/.venv/Scripts/python.exe -I -c "from importlib.metadata import version; print(version('cain-research'))"`. A tabela de releases e a instalação local são registros distintos. Dez pacotes no inventário não significa dez releases publicadas.
+A versão operacional atual pertence ao [estado do CAIN](https://github.com/leonardosovienski/cain/blob/main/ESTADO_DO_PROJETO.md).
+Para reconferir apenas a identidade instalada neste PC, use
+`C:/CAIN/.venv/Scripts/python.exe -I -c "from importlib.metadata import version; print(version('cain-research'))"`.
+Essa leitura não revalida uma combinação. Dez pacotes no inventário não significa
+dez releases publicadas.
 
 ## Combinação validada com a main final do Core
 
@@ -76,3 +73,33 @@ Para reproduzir os três plugins em Linux, use os comandos de instalação acima
 sem `--released` e execute o checker sem `RELEASED_WHEELS`. A CI também executa
 o verificador funcional do core instalado fora dos checkouts, obtido do SHA
 fixado no recibo. Relatório: [Core](CORE_INTEGRATION_20260913.md).
+
+## Verificações do Ecosystem
+
+Em ambiente separado, após `uv sync --all-extras`:
+
+```sh
+uv run pytest -q
+uv run python scripts/sync_canonical_ecosystem_facts.py --offline-check
+uv run python scripts/check_ecosystem_drift.py --offline-check
+uv run python scripts/check_ecosystem_drift.py
+uv run python scripts/check_architecture_manifest.py
+```
+
+O primeiro reconciliador preserva o snapshot histórico de seis repositórios.
+O drift compara registries, versões, pins e atestados dos seis repositórios que
+seu código cobre; CAIN é coberto pelo manifesto arquitetural de sete projetos.
+Avanço de main é aviso, não aceite de nova combinação. Sem rede, `--from-clones`
+usa `origin/main` dos clones disponíveis; confirme sua atualização separadamente.
+
+`check_real_plugin_integration.py` exige os três predictors instalados juntos com
+a proveniência do manifesto. Use Linux e o ambiente descartável descrito acima.
+`--released` no instalador e `RELEASED_WHEELS=1` no checker selecionam distribuições
+publicadas; sem ambos, a verificação usa o candidato fixado. Não execute o checker
+num ambiente parcial nem troque pins para obter aprovação.
+
+Os testes independentes de Bundle são `python -m pytest packages/research-bundle/tests -q`
+após instalar os dois contratos em ambiente separado. Os testes de Snapshot também
+estão em `tests/`; não existe `packages/research-snapshot/tests`. A
+[CI existente](.github/workflows/ci.yml) cobre qualidade, contratos, inventário,
+plugins, wheels e transporte. CI offline não prova o remoto, ciência ou capital.

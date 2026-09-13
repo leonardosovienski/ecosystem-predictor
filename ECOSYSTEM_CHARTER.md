@@ -1,27 +1,39 @@
 # PREDICTORS — Charter canônico do ecossistema
 
 **Status:** decisão humana canônica  
-**Vigência:** 2026-08-23  
+**Origem:** 2026-08-23; topologia reconciliada em 2026-09-13
+
 **Autoridade:** este documento define a composição, os papéis e o objetivo atual do ecossistema. Inventários mecânicos, READMEs, HANDOFFs e documentos históricos não podem alterar esta decisão por inferência.
 
 ## 1. Composição canônica atual
 
-O PREDICTORS é composto por **seis repositórios canônicos**:
+O PREDICTORS é composto por **sete repositórios canônicos**, conforme a arquitetura
+implementada em [architecture_registry.json](registries/architecture_registry.json).
+A revisão de seis repositórios permanece no histórico Git; os snapshots mecânicos
+de seis projetos continuam históricos e não serão regenerados como se cobrissem CAIN.
+Os dez pacotes independentes registrados incluem os contratos Snapshot/Bundle no
+Ecosystem e o exportador no Cripto. Pacotes não são novos domínios predictors.
+
+O Ecosystem explica responsabilidades, conexões, combinação validada e fontes;
+cada projeto conserva autoridade sobre seu funcionamento e seus resultados.
 
 | Repositório | Papel canônico | Deve gerar lucro diretamente? |
 |---|---|---|
-| `ecosystem-predictor` | governança interna, estado/evidência canônicos e decision log | não |
+| `ecosystem-predictor` | contratos, descoberta opcional, registros de integração e decision log | não |
 | `core-predictor` | primitivas científicas, temporais, métricas e testes prequential compartilhados | não |
 | `predictor-ops` | execução operacional, idempotência, observabilidade, reconciliação, segurança operacional e controles de runtime | não |
 | `cripto-predictor` | ativo de pesquisa congelado e casos científicos | não; pesquisa congelada |
 | `brasileirao-predictor` | laboratório científico ativo somente para EXP-001 e portfólio público | não; não é produto |
 | `stocks-predictor` | ativo de pesquisa congelado e caso de falsificação quantitativa | não; pesquisa e RJ congelados |
+| `cain` | assistente independente; recebe e consulta evidências admitidas via Snapshot/Bundle, com acesso explícito | não há validação comercial implicada |
 
-A composição acima é uma **decisão humana**, não um resultado do coletor mecânico.
+A composição acima reflete a arquitetura já implementada e a organização solicitada.
+Os papéis científicos dos domínios preservam o contexto das decisões anteriores;
+o estado vigente é definido por suas [fontes responsáveis](CURRENT_STATE.md#projetos-e-reprodução).
 
 ### Repositórios históricos ou fora do escopo canônico atual
 
-`cs-predictor`, `f1-predictor`, `lol-predictor`, `wc-predictor`, `nba-predictor` e outros repositórios preservados podem continuar existindo como histórico, evidência, referência técnica ou pesquisa encerrada. Eles **não fazem parte dos seis projetos canônicos atuais** e não devem reaparecer no escopo corrente apenas porque um documento antigo, script ou snapshot ainda os enumera.
+`cs-predictor`, `f1-predictor`, `lol-predictor`, `wc-predictor`, `nba-predictor` e outros repositórios preservados podem continuar existindo como histórico, evidência, referência técnica ou pesquisa encerrada. Eles **não fazem parte dos sete repositórios canônicos atuais** e não devem reaparecer no escopo corrente apenas porque um documento antigo, script ou snapshot ainda os enumera.
 
 Nada neste charter apaga o histórico científico desses projetos.
 
@@ -32,7 +44,7 @@ informação disponível no momento da decisão. Em 2026-09-03, Cripto e Stocks 
 congelados; apenas a pergunta EXP-001 do Brasileirão continua aberta. Nenhum deles é
 um produto comercial e nenhum está autorizado a buscar novo alpha fora desse escopo.
 
-No estágio atual, o fluxo operacional esperado é:
+Como referência de objetivo, sem afirmar execução operacional vigente, o fluxo é:
 
 ```text
 dados disponíveis no instante t
@@ -118,6 +130,10 @@ O Ops executa e audita workloads; não deve decidir se uma hipótese é cientifi
 
 O Ecosystem governa e agrega; não deve inventar previsão nem reclassificar ciência local sem evidência.
 
+O CAIN recebe cópias admitidas, conserva proveniência, referências e limites de
+acesso. Não escreve nas fontes científicas, não depende diretamente do Core e não
+concede capital. Revogação e permissão de geração pertencem aos seus contratos de acesso.
+
 ## 6. Regra de autoridade e conflito
 
 Quando fontes discordarem, a precedência é:
@@ -132,7 +148,7 @@ Um README não transforma claim em fato. Um snapshot mecânico não altera o esc
 
 ## 7. Política de inconsistências
 
-Qualquer divergência entre os seis repositórios deve ser classificada antes de ser corrigida:
+Qualquer divergência entre os repositórios deve ser classificada antes de ser corrigida:
 
 - `CONTRADICTION`: duas fontes correntes incompatíveis;
 - `STALE`: fonte antiga ainda não incorporou uma decisão posterior;
