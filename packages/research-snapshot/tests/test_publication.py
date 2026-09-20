@@ -1,7 +1,6 @@
 import copy
 
 import pytest
-
 from research_snapshot import canonical, confined, digest, loads, seal, validate
 from research_snapshot.publication import publish
 
