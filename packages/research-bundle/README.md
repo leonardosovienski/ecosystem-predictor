@@ -5,8 +5,8 @@
 <!-- /DOC-SYNC-20260912 -->
 
 
-Standalone `predictor-research-bundle` 1.0.0, Python >=3.11, stdlib plus the existing
-`predictor-research-snapshot>=1.0.0,<2` canonical serializer. SnapshotV1 remains byte-compatible;
+Candidate `predictor-research-bundle` 1.0.1rc1, Python >=3.11, stdlib plus the pinned
+`predictor-research-snapshot==1.0.2rc1` canonical serializer. SnapshotV1 remains byte-compatible;
 its files and golden expectations are unchanged. The Ecosystem main package and domain runtimes
 are not dependencies. The contract source is integrated in Ecosystem main. Its CI wheel
 is installed in the validated primary CAIN Stocks chain; see
