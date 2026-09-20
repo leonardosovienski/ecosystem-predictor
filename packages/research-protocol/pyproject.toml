@@ -4,10 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "predictor-research-protocol"
-version = "1.0.0"
+version = "1.0.1rc1"
 description = "Authenticated bounded CAIN to predictor research protocol"
 requires-python = ">=3.11"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
