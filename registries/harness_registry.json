@@ -1,7 +1,7 @@
 {
   "schema_version": "harness-registry/1.0",
   "current_released_core_version": "3.2.1",
-  "last_verified_at": "2026-09-06",
+  "last_verified_at": "2026-09-20",
   "harnesses": [
     {
       "repo": "brasileirao-predictor",
@@ -75,14 +75,14 @@
       "domain_code_version": "package:3.2.1;git:22219e3db8130bfe81abe95b38ecfbc3cacdb5f9",
       "executed_at": "2026-09-12T23:26:37Z",
       "expires_at": "2026-09-19T23:26:37Z",
-      "status": "ALIGNED",
-      "reissue_required": false,
+      "status": "EXPIRED",
+      "reissue_required": true,
       "metric": "psr",
       "pipeline_fingerprint": "36985cab78faaab7e84b3bf4e7a2369577c9977b616dbc4d4cd11b12799df4f9",
       "evidence_path": "docs/engineering_controls/20260912/synthetic-control-trials.harness_attestation.json",
       "evidence_sha256": "6e3018ed635fb64dee9dfb621bae811b553012a63cf107b09c66f6d2868cde7b",
       "scope": "Synthetic judge power controls only; no live trial, economic verdict or capital authorization",
-      "basis": "Official installed Crypto harness with fixed edge/noise seeds and canonical Core; original domain attestation files unchanged"
+      "basis": "Official installed Crypto harness with fixed edge/noise seeds and canonical Core; expired at the recorded boundary and requires genuine reissue; original evidence unchanged"
     },
     {
       "repo": "cripto-predictor",
@@ -109,14 +109,14 @@
       "domain_code_version": "package:3.2.1;git:22219e3db8130bfe81abe95b38ecfbc3cacdb5f9",
       "executed_at": "2026-09-12T23:26:16Z",
       "expires_at": "2026-09-19T23:26:16Z",
-      "status": "ALIGNED",
-      "reissue_required": false,
+      "status": "EXPIRED",
+      "reissue_required": true,
       "metric": "spearman_ic",
       "pipeline_fingerprint": "69a096c9d86b9fcdc49cad22d43e76a675554b494a7969fbe222065a014c59db",
       "evidence_path": "docs/engineering_controls/20260912/synthetic-control-trials.phase1_harness_attestation.json",
       "evidence_sha256": "141b11fd863a5fcd2f2d55ae2c60c2af66df90a13b81c3cef6f23c15ef4a6033",
       "scope": "Synthetic judge power controls only; no live trial, economic verdict or capital authorization",
-      "basis": "Official installed Crypto harness with fixed edge/noise seeds and canonical Core; original domain attestation files unchanged"
+      "basis": "Official installed Crypto harness with fixed edge/noise seeds and canonical Core; expired at the recorded boundary and requires genuine reissue; original evidence unchanged"
     },
     {
       "repo": "brasileirao-predictor",

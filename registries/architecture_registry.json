@@ -135,7 +135,8 @@
       "packages": [
         ".",
         "packages/research-snapshot",
-        "packages/research-bundle"
+        "packages/research-bundle",
+        "packages/research-protocol"
       ],
       "registry_required_by_domains": false,
       "representation": {
@@ -143,9 +144,10 @@
         "source_paths": [
           "README.md",
           "pyproject.toml",
-          "src/ecosystem/registry/__init__.py",
-          "packages/research-snapshot/pyproject.toml",
-          "packages/research-bundle/pyproject.toml"
+        "src/ecosystem/registry/__init__.py",
+        "packages/research-snapshot/pyproject.toml",
+        "packages/research-bundle/pyproject.toml",
+        "packages/research-protocol/pyproject.toml"
         ],
         "capabilities": [
           "optional registry",

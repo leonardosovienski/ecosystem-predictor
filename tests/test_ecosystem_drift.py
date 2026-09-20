@@ -166,5 +166,7 @@ def test_agreeing_pins_do_not_fire(monkeypatch: pytest.MonkeyPatch) -> None:
     assert not [p for p in problems if "pin de" in p]
 
 
-def test_the_real_registries_pass_their_own_offline_invariants() -> None:
-    assert drift.check_offline() == []
+def test_real_registry_exposes_missing_current_harness_instead_of_stale_alignment() -> None:
+    assert drift.check_offline() == [
+        "nenhum harness ALIGNED: o ecossistema não tem certificação corrente"
+    ]
