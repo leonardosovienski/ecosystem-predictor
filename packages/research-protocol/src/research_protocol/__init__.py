@@ -15,6 +15,8 @@ import unicodedata
 from collections.abc import Callable
 from datetime import datetime
 
+from .key_store import HmacKeyStore
+
 TASK_VERSION = "ResearchTaskV1"
 RESULT_VERSION = "ResearchResultV1"
 ENVELOPE_VERSION = "AuthenticatedEnvelopeV1"
@@ -610,6 +612,7 @@ def verify_result(envelope, key_resolver: Callable[[str, str], bytes | None]):
 __all__ = [
     "AUTHENTICATION_METHOD",
     "ENVELOPE_VERSION",
+    "HmacKeyStore",
     "RESULT_VERSION",
     "TASK_VERSION",
     "canonical",
