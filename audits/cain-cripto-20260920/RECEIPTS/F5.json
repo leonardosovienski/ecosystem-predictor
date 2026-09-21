@@ -1,0 +1,86 @@
+{
+  "phase": "F5_DURABLE_SYNCHRONIZATION",
+  "repo_shas": {
+    "CAIN": "80b5f96aa45185933edf2aed0056c85b7a98544d",
+    "CRIPTO": "ee939487ebde8ae368a566df135848e17a897613",
+    "ECOSYSTEM": "3a876339e7989ceab4699db226a88f88ac253728"
+  },
+  "installed_artifacts": {
+    "environment": "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\f5-stack-venv",
+    "python": "3.13.14",
+    "artifact_set_sha256": "2f1069817319dab6c5e0c7d613ae7b39ebb75959bdb96d3689b979e2462af745",
+    "record_integrity": "392 checked; zero mismatches"
+  },
+  "published_artifacts": {"integration_artifacts_published": false},
+  "runtime_identity": "Disposable installed-wheel QA runtime",
+  "data_identity": "Disposable task/admission/result SQLite stores; integrity_check=ok",
+  "commands_or_tests": [
+    "23 focused source tests PASS",
+    "Ruff changed files PASS",
+    "Installed-wheel crash/restart/redelivery E2E PASS",
+    "uv dependency check PASS",
+    "392 RECORD hashes PASS"
+  ],
+  "mutations": {
+    "canonical_source": false,
+    "canonical_database": false,
+    "canonical_configuration": false,
+    "canonical_integration_install": false,
+    "integration_branches_committed": true,
+    "published": false,
+    "real_capital": false
+  },
+  "claims": [
+    {
+      "claim_id": "F5-CLAIM-001",
+      "claim": "Task admission and result inbox have exactly-once logical persistence effects under the tested crash-before-ack windows.",
+      "evidence_strength": "CONFIRMED",
+      "repo": "CAIN_CRIPTO",
+      "source_sha": "80b5f96aa45185933edf2aed0056c85b7a98544d+ee939487ebde8ae368a566df135848e17a897613",
+      "installed_version": "candidate wheels",
+      "runtime_identity": "Python 3.13.14 disposable QA",
+      "artifact_identity": "2f1069817319dab6c5e0c7d613ae7b39ebb75959bdb96d3689b979e2462af745",
+      "test_or_command": "installed-wheel crash/restart/redelivery E2E",
+      "timestamp": "2026-09-19T23:59:30-03:00",
+      "result": "PASS"
+    },
+    {
+      "claim_id": "F5-CLAIM-002",
+      "claim": "Exactly-once logical domain experiment execution is not established.",
+      "evidence_strength": "NOT_VERIFIED",
+      "repo": "CRIPTO_OPS",
+      "source_sha": null,
+      "installed_version": null,
+      "runtime_identity": null,
+      "artifact_identity": null,
+      "test_or_command": "No F6 scheduler/domain execution exists in the candidate",
+      "timestamp": "2026-09-19T23:59:30-03:00",
+      "result": "NOT_VERIFIED"
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F5-P1-001",
+      "severity": "P1",
+      "evidence_strength": "NOT_VERIFIED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CRIPTO", "OPS"],
+      "description": "Atomic/recoverable experiment effect plus dedupe has not been implemented or crash-tested.",
+      "evidence": "F5 exercises message persistence only; no handler is scheduled.",
+      "recommended_action": "Reuse CRIPTO and OPS execution primitives in F6 and prove effect/dedupe or an operation journal before widening the claim.",
+      "status": "OPEN"
+    }
+  ],
+  "evidence": ["STACK_MANIFEST.json", "VALIDATION_REPORT.md", "f4-e2e-run.py", "f4-integrity.py"],
+  "rollback": "Revert isolated F5 commits or discard integration worktrees; disposable state is independent of scientific history.",
+  "blockers": ["Domain execution crash safety remains for F6/F8.", "Candidate artifacts remain local and unpublished."],
+  "exit_criteria": {
+    "at_least_once_delivery": "PASS",
+    "durable_message_deduplication": "PASS",
+    "crash_before_ack_recovery": "PASS",
+    "retry_dead_letter": "PASS",
+    "reconciliation": "PASS",
+    "domain_exactly_once_not_overclaimed": "PASS"
+  },
+  "advance": "YES"
+}

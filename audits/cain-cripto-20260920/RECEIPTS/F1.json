@@ -1,0 +1,111 @@
+{
+  "phase": "F1_BASELINE_AND_RESPONSIBILITY",
+  "repo_shas": {
+    "CAIN_target": "6f9d254776b2a3c251f6cce14529087c57ebbeae",
+    "CRIPTO_target": "1b2bee85f552667ed74a17e5da3526b62541d2d2",
+    "CORE_release_source": "7bb212cfa06333886e11e849b209c5aab801c04b",
+    "CORE_remote_main": "9bf43efe92459a0b484cac00f51170b2c70d420f",
+    "OPS_release_source": "ddd91444282569ae8282e7c96e0ec372ef4e5144",
+    "OPS_remote_main": "b19e69527c0fda5cb1f96281d3a984fea1431768",
+    "ECOSYSTEM": "c51d9e63e8441e15b2d045ea4d6a7c67f4ebbdfd"
+  },
+  "installed_artifacts": {
+    "environment": "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\f1-stack-venv",
+    "python": "3.13.14",
+    "artifact_set_sha256": "d06cced0c218f3cbfc5f1a23c647794a5cdc6471f56f9dc38f95863d319b1864",
+    "record_integrity": "380 hashed entries checked; zero mismatches"
+  },
+  "published_artifacts": {
+    "CORE_3.2.1": "10ef42f34ace8bb2df5f83ff7de2ceec79b035a25ea0a690e8942bd60d2fb4e3",
+    "OPS_4.2.1": "da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e",
+    "Snapshot_1.0.1": "ad42126d8c13fa3e0754805ddf0ebb5a3ecba33cf7bccf959977e4be53c0a8e0",
+    "Exporter_1.0.1": "f5b9f254e1058895e4b25fe978d3f82b5248e52a008fa26bc814adde2c1cd86b",
+    "Bundle_1.0.0": "NOT_PUBLISHED_AS_RELEASE_ASSET"
+  },
+  "runtime_identity": "Disposable CPython 3.13.14 only; canonical runtimes unchanged",
+  "data_identity": "No canonical data opened for mutation; F0 data hashes remain the comparison baseline",
+  "commands_or_tests": [
+    "Official release asset download with SHA-256 verification",
+    "CAIN 6f9d254 wheel build",
+    "CRIPTO 1b2bee85 wheel build",
+    "uv install of seven pinned wheels into disposable venv",
+    "pip check: PASS",
+    "installed imports and predictor.plugins discovery: PASS",
+    "wheel RECORD validation: PASS, 380 entries, zero mismatches",
+    "CRIPTO target subset: 41 passed",
+    "CAIN target outbound subset: 123 passed, 1 skipped"
+  ],
+  "mutations": {
+    "canonical_source": false,
+    "canonical_runtime": false,
+    "canonical_database": false,
+    "canonical_configuration": false,
+    "published_artifacts": false,
+    "disposable_workspace_only": true,
+    "report_artifacts": true
+  },
+  "claims": [
+    {
+      "claim_id": "F1-CLAIM-001",
+      "claim": "The target dependency closure has an explicit, installable QA artifact set on Python 3.13.14.",
+      "evidence_strength": "CONFIRMED",
+      "test_or_command": "uv install, pip check, imports, plugin discovery and RECORD validation",
+      "result": "PASS"
+    },
+    {
+      "claim_id": "F1-CLAIM-002",
+      "claim": "The CRIPTO 1b2bee85 source materialization matches all 29 blobs changed from clean bd4ff602 to target tree 85c57b2a.",
+      "evidence_strength": "STATICALLY_CONFIRMED",
+      "test_or_command": "official compare patch plus Git blob hash comparison",
+      "result": "29/29 matched"
+    },
+    {
+      "claim_id": "F1-CLAIM-003",
+      "claim": "F1 pinning does not mean the canonical installed/runtime stack is aligned.",
+      "evidence_strength": "CONFIRMED",
+      "test_or_command": "F0 canonical inventory compared with disposable F1 stack",
+      "result": "Canonical drift remains open"
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F1-P1-001",
+      "severity": "P1",
+      "evidence_strength": "CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["ECOSYSTEM", "predictor-research-bundle"],
+      "description": "Bundle 1.0.0 is pinned and tested from a local provenance-bearing wheel but has no observed release asset.",
+      "recommended_action": "Publish or formally attest the exact pinned Bundle wheel before final readiness.",
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F1-P1-002",
+      "severity": "P1",
+      "evidence_strength": "CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CAIN", "CRIPTO", "CORE", "OPS", "ECOSYSTEM"],
+      "description": "The exact pinned stack exists only in the disposable QA environment, not in canonical installed/runtime state.",
+      "recommended_action": "Keep later validation on the pinned QA artifacts and install canonically only after all mandatory gates pass and an authorized release plan exists.",
+      "status": "OPEN"
+    }
+  ],
+  "evidence": [
+    "ARCHITECTURE_BASELINE.json",
+    "STACK_MANIFEST.json",
+    "RESPONSIBILITY_AND_COMPATIBILITY.md",
+    "F1_ARTIFACT_PINNING_ADDENDUM.md"
+  ],
+  "rollback": "Delete the disposable target copies, artifact directory and f1-stack-venv; no canonical rollback is required.",
+  "blockers": [
+    "Final readiness remains blocked by missing bidirectional contracts/authentication and canonical drift; these are later-phase work, not unmet F1 exit criteria."
+  ],
+  "exit_criteria": {
+    "baseline_explicit": "PASS",
+    "dependency_closure_explicit": "PASS",
+    "responsibility_matrix_explicit": "PASS",
+    "target_artifact_set_pinned": "PASS",
+    "artifact_set_installable": "PASS",
+    "gaps_preserved_without_inference": "PASS"
+  },
+  "advance": "YES"
+}

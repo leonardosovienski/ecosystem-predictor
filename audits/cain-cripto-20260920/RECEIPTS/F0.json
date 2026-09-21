@@ -1,0 +1,440 @@
+{
+  "phase": "F0_FORENSICS",
+  "objective": "Discover and prove the current CAIN-CRIPTO target-stack state without canonical mutation, reusing existing contracts before proposing additions.",
+  "observed_at": "2026-09-19T21:20:23.907305Z",
+  "repo_shas": {
+    "local": {
+      "CAIN": {
+        "path": "C:\\CAIN\\projeto",
+        "head": "24f784c5dde1fa66c262ad5899f4fd8d02526adf",
+        "branch": null,
+        "state": "DETACHED_DIRTY",
+        "remote_main": "6f9d254776b2a3c251f6cce14529087c57ebbeae"
+      },
+      "CRIPTO": {
+        "path": "C:\\CRIPTO\\pesquisa-20260909",
+        "head": "bd4ff602a52e6669b71332b0276c12497f02001e",
+        "branch": "main",
+        "state": "CLEAN_BEHIND_REMOTE_MAIN_3",
+        "remote_main": "1b2bee85f552667ed74a17e5da3526b62541d2d2"
+      },
+      "ECOSYSTEM": {
+        "path": "C:\\CAIN\\contrato",
+        "head": "c51d9e63e8441e15b2d045ea4d6a7c67f4ebbdfd",
+        "branch": "main",
+        "state": "CLEAN_ALIGNED_WITH_REMOTE_MAIN",
+        "remote_main": "c51d9e63e8441e15b2d045ea4d6a7c67f4ebbdfd"
+      }
+    },
+    "remote_main": {
+      "CORE": "9bf43efe92459a0b484cac00f51170b2c70d420f",
+      "OPS": "b19e69527c0fda5cb1f96281d3a984fea1431768",
+      "CAIN": "6f9d254776b2a3c251f6cce14529087c57ebbeae",
+      "CRIPTO": "1b2bee85f552667ed74a17e5da3526b62541d2d2",
+      "ECOSYSTEM": "c51d9e63e8441e15b2d045ea4d6a7c67f4ebbdfd",
+      "STOCKS": "a337075da46d1cd2e10599fa90776f2aa1fbf406",
+      "BRASILEIRAO": "a51a68dd5d23734d6ac882cbcf95bc4d5c15b7a6"
+    }
+  },
+  "installed_artifacts": {
+    "CAIN": {
+      "python": "3.12.14",
+      "cain_research": {
+        "version": "0.4.12",
+        "wheel_sha256": "d32089be517207ea04f405924b0394391aed68febdd58f71f8ed6788b753a520",
+        "installed_tree_sha256": "4a167500468445c490be8b118e0d943c4f0ec503852834ca450348f47641b424",
+        "source_commit_from_install_receipt": "dfabf6dab05df1662e9882ebe1091236daa14724"
+      },
+      "predictor_research_snapshot": {
+        "version": "1.0.1",
+        "wheel_sha256": "5e62cdf6ea7790a9e4beb0b3dd874a9a40c54cbd97e69e5a8408e88f8f22ec1a",
+        "installed_tree_sha256": "ca37e10043b953829642fbc91f26da3b4f9ba5c88197936ba3c0c3d5bf5b3a1c"
+      },
+      "predictor_research_bundle": {
+        "version": "1.0.0",
+        "wheel_sha256": "7c5792e6573d55af92fd9b50cd9a2c357052b7673a61eef8abdaeaeef401ebee",
+        "installed_tree_sha256": "9e8dc5138ee166b2853746f35757e72a36946d6d23d7bcbdc3b214b9cb61326f"
+      },
+      "predictor_core": "NOT_INSTALLED",
+      "predictor_ops": "NOT_INSTALLED"
+    },
+    "CRIPTO": {
+      "python": "3.13.14",
+      "cripto_predictor": {
+        "version": "1.1.0",
+        "install_kind": "EDITABLE",
+        "source_path": "C:\\CRIPTO\\pesquisa-20260909",
+        "installed_tree_sha256": "fc64d23be7cb58542be86b1015be20600a71fd02e71aadce18bee043b017a4ad"
+      },
+      "predictor_core": {
+        "version": "3.2.1",
+        "install_kind": "WHEEL",
+        "installed_tree_sha256": "c01b176f28bd2d0166f23a970f5149ad26a743766cdaceeac915c9d882f7c7dc",
+        "record_verification": "VALIDATED",
+        "published_wheel_equivalence": "NOT_VERIFIED"
+      },
+      "predictor_ops": {
+        "version": "4.2.1",
+        "install_kind": "WHEEL",
+        "wheel_sha256": "da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e",
+        "installed_tree_sha256": "28d0a09cc3a34d81a0aeeb33f63246967a11b238e995f9a90050d9bc1a72a8f6",
+        "record_verification": "VALIDATED"
+      },
+      "predictor_research_snapshot": {
+        "version": "1.0.0",
+        "install_kind": "EDITABLE",
+        "source_path": "C:\\CAIN\\contrato\\packages\\research-snapshot"
+      },
+      "predictor_research_bundle": "NOT_INSTALLED",
+      "crypto_research_export": {
+        "version": "1.0.0",
+        "install_kind": "EDITABLE",
+        "source_path": "C:\\CRIPTO\\pesquisa-20260909\\packages\\research-export"
+      }
+    }
+  },
+  "published_artifacts": {
+    "source": "GitHub releases API queried live during F0",
+    "CAIN": {
+      "tag": "v0.4.5",
+      "source_commit": "37cdc604d4c3bbb66684c018c76a4ea38713ee2a",
+      "cain_research_wheel_sha256": "89f23665ac6d86fc08135aae6ad4dcef14bde326cffcf9c165e5fe27878fcbc9"
+    },
+    "CRIPTO": {
+      "tag": "v1.1.0",
+      "source_commit": "6ea0d2ccdcfc6a3858083acb6ded5cb39e178586",
+      "cripto_predictor_wheel_sha256": "41e48e0dd74cb28d5367257495a3fd51048a5c66e594d1d50cf5e854c74a82fe",
+      "crypto_research_export_wheel_sha256": "f5b9f254e1058895e4b25fe978d3f82b5248e52a008fa26bc814adde2c1cd86b"
+    },
+    "CORE": {
+      "tag": "v3.2.1",
+      "source_commit": "7bb212cfa06333886e11e849b209c5aab801c04b",
+      "wheel_sha256": "10ef42f34ace8bb2df5f83ff7de2ceec79b035a25ea0a690e8942bd60d2fb4e3"
+    },
+    "OPS": {
+      "tag": "v4.2.1",
+      "source_commit": "ddd91444282569ae8282e7c96e0ec372ef4e5144",
+      "wheel_sha256": "da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e"
+    },
+    "ECOSYSTEM": {
+      "tag": "v0.2.0",
+      "source_commit": "2e8be61d3d8b0cf10e1dfbcce8ff7acdef219327",
+      "wheel_sha256": "c0925a6039cb31a0446cbb2b15e4d505b6a7a8abb76ed7c24df2fb4073cafb62",
+      "snapshot_1_0_1_wheel_sha256": "ad42126d8c13fa3e0754805ddf0ebb5a3ecba33cf7bccf959977e4be53c0a8e0"
+    }
+  },
+  "runtime_identity": {
+    "CAIN_API": {
+      "endpoint": "http://127.0.0.1:8877/health",
+      "status": "ok",
+      "version": "0.4.12",
+      "provider": "ollama",
+      "model": "qwen3.5:4b",
+      "search_mode": "hybrid",
+      "identity_status": "provisional",
+      "process_executable": "C:\\CAIN\\runtime\\python\\python.exe",
+      "process_executable_sha256": "372c2eae555b344520bf147be0096e009069aeca4e7f78d6aecea6d53158056a",
+      "source_sha": "NOT_EXPOSED_BY_RUNTIME"
+    },
+    "OLLAMA": {
+      "endpoint": "http://127.0.0.1:11434/api/version",
+      "version": "0.34.0",
+      "executable_sha256": "1f9b38e594a3e1cffdf606a507ac8660626c0985ee0782dd6b49309153d38080"
+    },
+    "CRIPTO": {
+      "active_project_processes": 0,
+      "scheduler_state_directory_files": 0,
+      "capital_permission": false
+    }
+  },
+  "data_identity": {
+    "CAIN_research_db": {
+      "sha256": "b0c097fa5be057d5e9568d9faab83456c8d7d22c5163a838b9af58c57eb847aa",
+      "journal_mode": "delete",
+      "integrity_check": "ok",
+      "publications": 76,
+      "records": 210,
+      "research_bundles": 1,
+      "research_bundle_entities": 2,
+      "conflicts": 0
+    },
+    "CAIN_workspace_db": {
+      "sha256": "050e769480d397576c52523db8f77b3b41c1b9d53697df0614888984dfa8a5ad",
+      "integrity_check": "ok",
+      "project_documents": 152,
+      "run_receipts": 45,
+      "ui_turns": 112
+    },
+    "CAIN_embeddings_db": {
+      "sha256": "00e3fbbf5cb652a314a86239053623a09dc1ffd64cf97e6d478933cf9fa49f8b",
+      "integrity_check": "ok",
+      "embedding_cache": 4
+    },
+    "CAIN_knowledge_tree": {
+      "file_count": 152,
+      "bytes": 820981,
+      "tree_sha256": "a3530297e534adfb3567d4531953b27f425225a98a5ffa50c5816a11d03cb712"
+    },
+    "CRIPTO_feature_store": {
+      "sha256": "bc39d5ad3b6f3a173981e22e3514b401484a55a2bb10078f1090f569413700a6",
+      "journal_mode": "wal",
+      "wal_bytes": 0,
+      "integrity_check": "ok",
+      "raw_market_data": 200,
+      "raw_signals": 200,
+      "features_aligned": 1230,
+      "predictions": 3,
+      "predictions_archive": 5
+    },
+    "CRIPTO_api_guard": {
+      "sha256": "f7a8526d3ba5d3c13d642cf80580d6e77985b5f6b98be972778aaa6630a5892e",
+      "integrity_check": "ok",
+      "rows": 9
+    },
+    "CRIPTO_to_CAIN_publications": {
+      "file_count": 5,
+      "bytes": 117387,
+      "tree_sha256": "525743804931f7a4251b43601b510a538ac6dd1b931372c88e4b6f3c8991fa64"
+    }
+  },
+  "control_plane_state": {
+    "architecture_registry_sha256": "5ec697012a160a17945630cd1a1de08ce8a0e4d335e22a47c3dd8d3e7f07a418",
+    "released_architecture_sha256": "084896588a0790373275c99140571093ff94401af2e0142c58034686e53caa30",
+    "architecture_manifest_check": "PASS: seven repositories, 10 packages and immutable remote sources verified",
+    "current_representation_check": "PASS_FOR_PATH_AND_PACKAGE_PRESENCE_ONLY",
+    "drift_check": "ECOSYSTEM_NO_DRIFT_WITH_SHA_WARNINGS",
+    "sha_warnings": [
+      "predictor-ops registry d1aa309a6f89 vs main b19e69527c0f",
+      "cripto-predictor registry 4c4d97ec9bff vs main 1b2bee85f552",
+      "stocks-predictor registry 3066321e599e vs main a337075da46d",
+      "brasileirao-predictor registry abdd965c98c2 vs main a51a68dd5d23"
+    ]
+  },
+  "dependency_closure": {
+    "target": ["CAIN", "CRIPTO", "CORE", "OPS", "ECOSYSTEM", "predictor-research-snapshot", "predictor-research-bundle", "crypto-research-export"],
+    "not_in_target_dependency_closure": ["STOCKS", "BRASILEIRAO"],
+    "basis": "CAIN consumes Snapshot/Bundle; CRIPTO depends on CORE/OPS and exports Snapshot/Bundle; ECOSYSTEM owns registry and transport contracts."
+  },
+  "ownership_observed": {
+    "CORE": ["scientific contracts", "TrialRegistry and TrialRegistryV2", "measurement", "bootstrap", "replay", "temporal primitives"],
+    "OPS": ["validated job configuration", "runner", "heartbeat", "local leases/locks", "timeout", "process-tree control", "runtime provenance", "operational idempotency records"],
+    "CRIPTO": ["domain ingestion", "features", "domain experiments", "backtests", "cost/economic logic", "allowlisted local job names", "Snapshot/Bundle exporter"],
+    "CAIN": ["research archive", "grants/scopes", "retrieval", "historian", "local reasoning workflows", "Snapshot/Bundle ingestion and CAS"],
+    "ECOSYSTEM": ["registry", "compatibility", "Snapshot/Bundle contracts", "release evidence", "drift checks"]
+  },
+  "security_and_policy_observed": {
+    "cain_receiver_policy_sha256": "d6e5a2ad62bf43920f8b8d012bb8c31c3f56e90181079ddc825ee2421ba44ad5",
+    "cain_receiver_policy_version": 3,
+    "crypto_snapshot_grant": "OBSERVED",
+    "crypto_bundle_grant": "ABSENT",
+    "publisher_identity_mechanism": "self-declared origin string plus receiver policy and trusted path",
+    "publisher_authenticity": "NOT_PROVEN",
+    "publication_root_acl": "Authenticated Users have Modify; ACL inheritance is enabled",
+    "cain_egress": "Research generation and streaming enforce loopback-only Ollama URLs; current runtime uses 127.0.0.1",
+    "remote_llm_egress_for_target_research": "DENIED_BY_CODE_PATH_OBSERVED",
+    "admission_policy_owner": "NOT_APPLICABLE_YET_NO_INBOUND_RESEARCH_TASK_PATH",
+    "resource_controls_for_research_task": "ABSENT",
+    "capital_permission": false
+  },
+  "commands_or_tests": [
+    {"command": "Git status/rev-parse/ls-remote across CAIN, CRIPTO, ECOSYSTEM, CORE and OPS", "result": "PASS"},
+    {"command": "GitHub latest releases API for target repositories", "result": "PASS"},
+    {"command": "SQLite URI mode=ro plus PRAGMA query_only/integrity_check", "result": "PASS"},
+    {"command": "ECOSYSTEM check_architecture_manifest.py", "result": "PASS"},
+    {"command": "ECOSYSTEM check_current_representation.py", "result": "PASS_WITH_DOCUMENTED_LIMIT"},
+    {"command": "ECOSYSTEM check_ecosystem_drift.py", "result": "PASS_WITH_SHA_WARNINGS"},
+    {"command": "Snapshot/Bundle contract package tests in disposable copy", "result": "72 passed"},
+    {"command": "CRIPTO research exporter tests in disposable copy", "result": "23 passed"},
+    {"command": "CAIN Snapshot L0 focused tests in disposable copy", "result": "52 passed, 1 skipped (Windows symlink privilege)"},
+    {"command": "CAIN Bundle focused tests in disposable copy", "result": "34 passed, 1 skipped"},
+    {"command": "CAIN Bundle remediation tests in disposable copy", "result": "21 passed"},
+    {"command": "CAIN research failure/root tests in disposable copy", "result": "15 passed"},
+    {"command": "predictor-ops installed provenance strict verification", "result": "PASS: VALIDATED wheel, 22 verified files"},
+    {"command": "HTTP GET CAIN /health and Ollama /api/version", "result": "PASS_READ_ONLY"}
+  ],
+  "mutations": [
+    {
+      "scope": "DISPOSABLE_ONLY",
+      "paths": [
+        "C:\\CRIPTO\\work\\cain-cripto-integration-20260919",
+        "C:\\CRIPTO\\operacao\\relatorios\\cain-cripto-integration-20260919"
+      ],
+      "description": "Read-only source copies, shallow CORE/OPS clones, temporary QA venv, test temporary directories and F0 evidence."
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "F0-CLAIM-001",
+      "claim": "The current target stack is not represented by one aligned source/install/runtime/artifact identity.",
+      "evidence_strength": "CONFIRMED",
+      "repo": "CROSS_PROJECT",
+      "source_sha": "MULTIPLE",
+      "installed_version": "MULTIPLE",
+      "runtime_identity": "CAIN 0.4.12 provisional; CRIPTO inactive",
+      "artifact_identity": "MULTIPLE",
+      "test_or_command": "Git, importlib.metadata, direct_url.json, live health and release API inventory",
+      "timestamp": "2026-09-19T21:20:23.907305Z",
+      "result": "DRIFT_CONFIRMED"
+    },
+    {
+      "claim_id": "F0-CLAIM-002",
+      "claim": "A bounded CRIPTO to CAIN Snapshot/Bundle transport and CAIN archive/CAS implementation already exists and must be reused.",
+      "evidence_strength": "CONFIRMED",
+      "repo": "CRIPTO+CAIN+ECOSYSTEM",
+      "source_sha": "CRIPTO bd4ff602; CAIN working tree at 24f784c5; ECOSYSTEM c51d9e63",
+      "installed_version": "Snapshot 1.0.0/1.0.1; Bundle 1.0.0 on CAIN",
+      "runtime_identity": "NOT_REQUIRED_FOR_COPY_TESTS",
+      "artifact_identity": "Source copies with explicit PYTHONPATH",
+      "test_or_command": "72 contract + 23 exporter + 52 L0 + 34 Bundle + 21 remediation + 15 failure/root passes",
+      "timestamp": "2026-09-19T21:20:23.907305Z",
+      "result": "EXISTING_OUTBOUND_CAPABILITY_CONFIRMED_WITH_LIMITS"
+    },
+    {
+      "claim_id": "F0-CLAIM-003",
+      "claim": "No ResearchTask, ResearchResult, task/result outbox/inbox, admission receipt or readmission implementation exists in the inspected target source surfaces.",
+      "evidence_strength": "STATICALLY_CONFIRMED",
+      "repo": "CAIN+CRIPTO+ECOSYSTEM",
+      "source_sha": "working trees inventoried above",
+      "installed_version": "NOT_APPLICABLE",
+      "runtime_identity": "NOT_PROBED_FOR_NONEXISTENT_API",
+      "artifact_identity": "NOT_APPLICABLE",
+      "test_or_command": "Exact static search of src/packages/tests for ResearchTask, ResearchResult, outbox/inbox and admission identifiers",
+      "timestamp": "2026-09-19T21:20:23.907305Z",
+      "result": "GAP_CONFIRMED"
+    },
+    {
+      "claim_id": "F0-CLAIM-004",
+      "claim": "The current CRIPTO-to-CAIN publisher identity is not cryptographically or OS-identity authenticated.",
+      "evidence_strength": "CONFIRMED",
+      "repo": "CAIN+CRIPTO",
+      "source_sha": "CAIN working tree at 24f784c5; CRIPTO bd4ff602",
+      "installed_version": "Snapshot path active",
+      "runtime_identity": "CAIN identity_status provisional",
+      "artifact_identity": "publisher=crypto-local is payload data",
+      "test_or_command": "Policy/source inspection plus Get-Acl on C:\\CRIPTO\\cain-l0\\publications",
+      "timestamp": "2026-09-19T21:20:23.907305Z",
+      "result": "AUTHENTICITY_NOT_PROVEN"
+    },
+    {
+      "claim_id": "F0-CLAIM-005",
+      "claim": "Current canonical SQLite files inspected read-only pass integrity_check and their record counts/hashes were captured.",
+      "evidence_strength": "OBSERVED",
+      "repo": "CAIN+CRIPTO",
+      "source_sha": "NOT_APPLICABLE",
+      "installed_version": "NOT_APPLICABLE",
+      "runtime_identity": "live filesystem observation",
+      "artifact_identity": "sha256 values in data_identity",
+      "test_or_command": "SQLite mode=ro/query_only/integrity_check and SHA-256",
+      "timestamp": "2026-09-19T21:20:23.907305Z",
+      "result": "PASS_AT_OBSERVATION_TIME"
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F0-P1-001",
+      "severity": "P1",
+      "evidence_strength": "CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CAIN", "CRIPTO"],
+      "description": "Publisher authenticity is not proven. The envelope publisher is self-declared and the import root grants Modify to Authenticated Users.",
+      "evidence": ["research-policy version 3", "Snapshot/Bundle origin.publisher fields", "Windows ACL observation"],
+      "recommended_action": "Reuse receiver grants but add a minimal authenticated publisher boundary and fail-closed forged/unknown/revoked/wrong-scope tests.",
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F0-P1-002",
+      "severity": "P1",
+      "evidence_strength": "STATICALLY_CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CAIN", "CRIPTO", "ECOSYSTEM"],
+      "description": "The CAIN-to-CRIPTO proposal path and correlated ResearchResult return path do not exist.",
+      "evidence": ["No ResearchTask/ResearchResult/outbox/inbox/admission implementation in target sources"],
+      "recommended_action": "After F1/F2, design the smallest contracts and durable transport that reuse canonicalization, policy and runner primitives.",
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F0-P1-003",
+      "severity": "P1",
+      "evidence_strength": "CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CAIN", "CRIPTO", "CORE", "OPS", "ECOSYSTEM"],
+      "description": "Source, installed, runtime and published artifact identities are materially divergent; no exact tested target stack is pinned.",
+      "evidence": ["CAIN detached dirty", "CRIPTO behind remote main and editable", "contract/exporter version mismatches", "CAIN runtime lacks source SHA", "CORE published-wheel equivalence not verified"],
+      "recommended_action": "F1 must pin exact source/artifact/runtime identities without overwriting local work and test the pinned artifacts, not rebuild substitutes.",
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F0-P1-004",
+      "severity": "P1",
+      "evidence_strength": "CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CAIN", "CRIPTO", "ECOSYSTEM"],
+      "description": "CRIPTO has no Bundle grant in the active CAIN policy and its installed Snapshot/exporter are older editable versions than the receiver/published artifacts.",
+      "evidence": ["Active research-policy", "importlib.metadata", "GitHub release assets"],
+      "recommended_action": "Choose and pin one compatible transport combination in F1; do not silently reinterpret the existing Snapshot history.",
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F0-P1-005",
+      "severity": "P1",
+      "evidence_strength": "OBSERVED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["ECOSYSTEM", "CRIPTO", "OPS"],
+      "description": "The control plane reports NO_DRIFT at version/path level while warning that recorded source SHAs lag current mains; that check is insufficient for an exact target-stack pin.",
+      "evidence": ["check_ecosystem_drift.py output", "check_current_representation.py output"],
+      "recommended_action": "Add an explicit stack manifest for this integration and keep general ecosystem health separate from exact target-stack readiness.",
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F0-P1-006",
+      "severity": "P1",
+      "evidence_strength": "STATICALLY_CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CRIPTO", "OPS"],
+      "description": "Existing OPS operational idempotency records and CRIPTO domain idempotency keys are not evidence of atomic task admission/effect/dedupe or the required crash windows.",
+      "evidence": ["predictor_ops.runner source", "CRIPTO contracts.py", "absence of task inbox/outbox"],
+      "recommended_action": "Reuse the primitives but prove atomic logical effect or a recoverable journal before any exactly-once claim.",
+      "status": "OPEN"
+    }
+  ],
+  "evidence": [
+    "C:\\CRIPTO\\operacao\\relatorios\\cain-cripto-integration-20260919\\PHASE_F0_DECLARATION.md",
+    "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\cain-current-working-tree",
+    "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\crypto-current-working-tree",
+    "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\ecosystem-current-working-tree",
+    "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\remote-core-main",
+    "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\remote-ops-main"
+  ],
+  "rollback": {
+    "canonical_state": "No rollback required; canonical source, databases, config, runtime, branches and published artifacts were not mutated.",
+    "disposable_state": "The audit work and report directories can be archived or removed later only with explicit authorization."
+  },
+  "blockers": [
+    {
+      "cause": "No aligned exact target stack exists yet.",
+      "impact": "F2-F10 evidence cannot be transferred across the observed source/install/runtime variants.",
+      "already_proved": "Existing outbound contracts/export/ingest behavior in disposable source copies.",
+      "not_proved": "Installed-artifact E2E, bidirectional transport, publisher authenticity, admission, crash safety, semantic correctness and cross-project CI.",
+      "minimum_unblock": "Complete F1 pinning and responsibility/compatibility closure without modifying canonical data."
+    }
+  ],
+  "exit_criteria": {
+    "real_repositories_and_shas_discovered": "YES",
+    "state_dimensions_separated": "YES",
+    "existing_snapshot_bundle_export_ingest_revalidated": "YES_WITH_TEST_SCOPE_LIMIT",
+    "ownership_mapped": "YES_FOR_TARGET_CAPABILITIES",
+    "publisher_identities_and_grants_scopes_mapped": "YES",
+    "dependency_closure_mapped": "YES",
+    "policy_ownership_mapped": "YES_EXISTING_RECEIVER_ONLY; INBOUND_TASK_POLICY_ABSENT",
+    "resource_controls_mapped": "YES_EXISTING_COMPONENT_CONTROLS; RESEARCH_TASK_CONTROLS_ABSENT",
+    "egress_policy_mapped": "YES_CURRENT_TARGET_RESEARCH_IS_LOOPBACK_ONLY",
+    "gaps_and_findings_recorded": "YES",
+    "canonical_mutation": "NO"
+  },
+  "advance": "YES",
+  "advance_to": "F1_BASELINE_AND_RESPONSIBILITY",
+  "target_stack_ready": "INCONCLUSIVE",
+  "global_ecosystem_health": "DEGRADED",
+  "economic_evaluation_in_scope": "NO",
+  "economic_promotion_allowed": "NO"
+}

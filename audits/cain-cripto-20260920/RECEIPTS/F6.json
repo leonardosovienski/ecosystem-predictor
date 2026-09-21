@@ -1,0 +1,25 @@
+{
+  "phase": "F6_E2E_SHADOW",
+  "objective": "Close the real CAIN to CRIPTO to CORE and OPS to CRIPTO to CAIN loop without capital.",
+  "preconditions": ["F5 durable delivery PASS", "ACCEPTED admission", "immutable references"],
+  "allowed_mutations": ["candidate source/tests", "disposable QA data"],
+  "test_plan": ["real handler", "CORE trial", "OPS run", "costed result", "restart"],
+  "repo_shas": {"CAIN":"5fe340a41809ddbe3f0dc795c7d9eb258014eaa6","CRIPTO":"002ed71d36c631955072c1f52a0dd00097a78b30","ECOSYSTEM":"869f4d1d22191d4a62f51fe94e72b323fed8e7fc"},
+  "installed_artifacts": {"artifact_set_sha256":"4e8aae6f4b1068e9b9365afed2dbece3bbe698cb80412b969634847beef5cd47","cleanroom":"fresh worktrees and venv"},
+  "published_artifacts": {"CORE":"3.2.1","OPS":"4.2.1","candidates_published":false},
+  "runtime_identity": "Python 3.13.14 installed-wheel cleanroom",
+  "data_identity": "empty QA DBs and operator immutable fixture CAS",
+  "commands_or_tests": ["test_research_execution.py","test_research_recovery.py","69 installed-wheel tests"],
+  "mutations": ["attempt journal", "immutable materialization receipt", "result provenance identities"],
+  "failure_fix_pass": [
+    {"initial_failure":"handler/materializer absent","root_cause":"admission metadata not bound to local execution","patch":"allowlisted adapter, CAS materializer and journal","retest":"PASS"},
+    {"initial_failure":"attempt identity missing","root_cause":"logical experiment conflated with physical attempt","patch":"separate attempt_id and ops_run_id","retest":"PASS"}
+  ],
+  "claims": [{"claim_id":"F6-C1","claim":"The real shadow loop uses exact admitted bytes, CORE and OPS and returns an authenticated costed result.","evidence_strength":"CONFIRMED","repo":"CRIPTO","source_sha":"002ed71d36c631955072c1f52a0dd00097a78b30","installed_version":"1.1.1rc4","runtime_identity":"installed-wheel cleanroom","artifact_identity":"1e83050243436623f45ca168ebcc7308699d44135c0de3b37e29c48a95e4ac5c","test_or_command":"real admitted execution test","timestamp":"2026-09-20T12:00:00-03:00","result":"PASS"}],
+  "findings": [{"finding_id":"F6-P1-001","severity":"P1","evidence_strength":"CONFIRMED","blocking_scope":"TARGET_STACK","affected_components":["CRIPTO","CORE","OPS"],"description":"Execution adapter gap","evidence":"archived blocked receipt then E2E tests","recommended_action":"retain regressions","status":"CLOSED"},{"finding_id":"F6-P1-002","severity":"P1","evidence_strength":"CONFIRMED","blocking_scope":"TARGET_STACK","affected_components":["CRIPTO","ECOSYSTEM"],"description":"Immutable materializer gap","evidence":"materialization receipt tests","recommended_action":"retain hash/path controls","status":"CLOSED"}],
+  "evidence": ["ARCHIVE/pre-compliance-reaudit-20260920/F6.json","tests/test_research_execution.py","STACK_MANIFEST.json"],
+  "rollback": "Candidate commits revert independently; QA artifacts are isolated; scientific history is append-only.",
+  "blockers": [],
+  "exit_criteria": {"handler_real":"PASS","admitted_refs_equal_executed_refs":"PASS","core_ops_real":"PASS","loop_returns_to_cain":"PASS","capital_disabled":"PASS"},
+  "advance": "YES"
+}

@@ -1,0 +1,142 @@
+{
+  "phase": "F3_RESEARCH_TASK_AND_ADMISSION",
+  "repo_shas": {
+    "ECOSYSTEM": "7e46e27c87b4fbce7f18f2d55a4b52a8da55b529",
+    "CAIN": "7817c3a16cb2f2951ad16fd34207f048e51d0cd5",
+    "CRIPTO": "80db25cbd21ea1a2208fa66e986a63d9b3437690",
+    "ECOSYSTEM_base": "c51d9e63e8441e15b2d045ea4d6a7c67f4ebbdfd",
+    "CAIN_base": "6f9d254776b2a3c251f6cce14529087c57ebbeae",
+    "CRIPTO_base": "1b2bee85f552667ed74a17e5da3526b62541d2d2"
+  },
+  "installed_artifacts": {
+    "environment": "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\f3-final-venv",
+    "python": "3.13.14",
+    "artifact_set_sha256": "c1ad96be99ce9bb59a8ebc93555565e6bc5106132b6bdccd0b356a14a16d1ace",
+    "CAIN": "5fc83a4c5f31d85f5f2d63e552a4c348196c1512ff017433e50624f497ac93f2",
+    "CRIPTO": "4731dac64e583f3789a96135d5df163c32f19d781ad8533632652da49892deb4",
+    "research_protocol": "f0859b6b2eb733189a1acb8de59516cb31a190fb2e67bc28feb80a077edf2be0",
+    "record_integrity": "390 hashed entries checked; zero mismatches"
+  },
+  "published_artifacts": {
+    "integration_artifacts": "NOT_PUBLISHED",
+    "canonical_install": "NOT_CHANGED"
+  },
+  "runtime_identity": "Disposable CPython 3.13.14 installed-wheel stack",
+  "data_identity": "Disposable outbox/admission SQLite databases only; canonical F0 hashes preserved",
+  "commands_or_tests": [
+    "Research protocol: 13 passed",
+    "CAIN task outbox: 3 passed",
+    "CRIPTO admission: 10 passed",
+    "Ruff: PASS",
+    "Fresh eight-wheel install and pip check: PASS",
+    "Installed wheel RECORD verification: 390 entries, zero mismatches",
+    "Installed-wheel proposal/admission/redelivery/revalidation E2E: PASS"
+  ],
+  "mutations": {
+    "integration_branches": true,
+    "canonical_working_trees": false,
+    "canonical_databases": false,
+    "canonical_runtime": false,
+    "published_artifacts": false,
+    "capital": false
+  },
+  "claims": [
+    {
+      "claim_id": "F3-CLAIM-001",
+      "claim": "CAIN can persist only a typed, bounded ResearchTaskV1 proposal and cannot select CRIPTO admission policy.",
+      "evidence_strength": "CONFIRMED",
+      "repo": "CAIN and ECOSYSTEM",
+      "source_sha": "7817c3a / 7e46e27",
+      "installed_version": "cain-research 0.4.12; predictor-research-protocol 1.0.0",
+      "artifact_identity": "5fc83a4c / f0859b6b",
+      "test_or_command": "contract negative tests and durable outbox tests",
+      "timestamp": "2026-09-19",
+      "result": "PASS"
+    },
+    {
+      "claim_id": "F3-CLAIM-002",
+      "claim": "CRIPTO/operator exclusively owns admission policy, reference resolution, quotas, priority normalization and handler allowlisting.",
+      "evidence_strength": "CONFIRMED",
+      "repo": "CRIPTO",
+      "source_sha": "80db25cbd21ea1a2208fa66e986a63d9b3437690",
+      "installed_version": "cripto-predictor 1.1.0 integration wheel",
+      "artifact_identity": "4731dac6",
+      "test_or_command": "admission unit and installed-wheel E2E",
+      "timestamp": "2026-09-19",
+      "result": "PASS"
+    },
+    {
+      "claim_id": "F3-CLAIM-003",
+      "claim": "Task publisher authenticity is cryptographically checked in QA with HMAC-SHA256 and wrong/unknown/revoked identities fail closed.",
+      "evidence_strength": "CONFIRMED",
+      "repo": "ECOSYSTEM and CRIPTO",
+      "source_sha": "7e46e27 / 80db25c",
+      "installed_version": "AuthenticatedEnvelopeV1",
+      "artifact_identity": "f0859b6b / 4731dac6",
+      "test_or_command": "forged, unknown, revoked and wrong-scope cases",
+      "timestamp": "2026-09-19",
+      "result": "PASS_IN_QA_ONLY"
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F3-P1-001",
+      "severity": "P1",
+      "evidence_strength": "CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["ECOSYSTEM", "CAIN", "CRIPTO"],
+      "description": "F3 commits and artifacts are local integration candidates, not published or installed canonically.",
+      "evidence": "Dedicated clean branches and disposable wheel environment.",
+      "recommended_action": "Complete later gates before any reviewed merge/release/install decision.",
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F3-P1-002",
+      "severity": "P1",
+      "evidence_strength": "NOT_VERIFIED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CAIN", "CRIPTO", "OPS"],
+      "description": "Production HMAC key generation, ACL, rotation, revocation and recovery are not deployed or attested.",
+      "evidence": "QA injects non-secret fixture bytes outside envelopes/policies/databases.",
+      "recommended_action": "Add an OPS-owned protected key lifecycle and verify ACL/revocation/recovery before deployment.",
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F3-P1-003",
+      "severity": "P1",
+      "evidence_strength": "CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CRIPTO", "OPS"],
+      "description": "Accepted tasks are not scheduled or executed; pending quota release and runtime revalidation require F5 integration.",
+      "evidence": "F3 deliberately stops after revalidated admission.",
+      "recommended_action": "Implement result/execution journal and durable state transitions without granting CAIN scheduler control.",
+      "status": "OPEN"
+    }
+  ],
+  "evidence": [
+    "INTEGRATION_PROTOCOL.md",
+    "VALIDATION_REPORT.md",
+    "STACK_MANIFEST.json",
+    "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\f3-final-run"
+  ],
+  "rollback": "Delete disposable venv/artifacts/runs and remove the three unmerged integration branches/worktrees. No canonical data rollback is required.",
+  "blockers": [
+    "ResearchResult is absent.",
+    "Production key lifecycle is not verified.",
+    "No task execution or durable result synchronization exists yet."
+  ],
+  "exit_criteria": {
+    "typed_bounded_task": "PASS",
+    "cain_propose_only": "PASS",
+    "durable_task_outbox": "PASS",
+    "publisher_authentication_QA": "PASS",
+    "crypto_owned_policy": "PASS",
+    "immutable_reference_resolution": "PASS",
+    "priority_advisory": "PASS",
+    "quotas_and_limits": "PASS",
+    "revalidation": "PASS",
+    "negative_security_cases": "PASS",
+    "no_execution_or_capital": "PASS"
+  },
+  "advance": "YES"
+}

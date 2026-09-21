@@ -1,0 +1,148 @@
+{
+  "phase": "F4_RESEARCH_RESULT",
+  "repo_shas": {
+    "CAIN_integration": "151433daf2cbc2733ab60d21f0a60682fda2f95c",
+    "CAIN_base": "6f9d254776b2a3c251f6cce14529087c57ebbeae",
+    "CRIPTO_integration": "b2e3deef171fc82be5244e80bde0013cb2bc6412",
+    "CRIPTO_base": "1b2bee85f552667ed74a17e5da3526b62541d2d2",
+    "ECOSYSTEM_integration": "3a876339e7989ceab4699db226a88f88ac253728",
+    "ECOSYSTEM_base": "c51d9e63e8441e15b2d045ea4d6a7c67f4ebbdfd"
+  },
+  "installed_artifacts": {
+    "environment": "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\f4-stack-venv-31314",
+    "python": "3.13.14",
+    "artifact_set_sha256": "a310d7ea26ec8a11fce15b6e9d6f63878f50ad6b6884b7b4707bdc6af7f56eb0",
+    "record_integrity": "392 hashed entries checked; zero mismatches",
+    "dependency_check": "PASS"
+  },
+  "published_artifacts": {
+    "integration_artifacts_published": false,
+    "CAIN_candidate_sha256": "98d0ae240f78445411ebfe789fc6ef9cbdbffda88420fdd2a741ad65a0a11c09",
+    "CRIPTO_candidate_sha256": "c6105ccb9a3752851ef9fdcad1a0058c53a3d528a2b5e17034a2b1b61049581d",
+    "protocol_candidate_sha256": "083b2802e2014f35623e4707bc271d6d64fb193caac53bf5b3ca77b870daa3a0"
+  },
+  "runtime_identity": "Disposable installed-wheel QA runtime only; no integration branch was installed into a canonical runtime.",
+  "data_identity": "Four disposable SQLite databases under f4-e2e-state; each integrity_check=ok. No scientific or canonical data was used as result evidence.",
+  "commands_or_tests": [
+    "Research protocol suite: 23 passed",
+    "Focused CAIN/CRIPTO task, admission and result suite: 19 passed",
+    "CAIN full regression: 911 passed, 2 skipped",
+    "Ruff on changed files: PASS",
+    "Installed-wheel E2E: PASS",
+    "Installed RECORD verification: 392 checked, zero mismatches",
+    "Full CRIPTO suite attempt: BLOCKED at collection by absent optional scientific dependencies in the minimal QA environment"
+  ],
+  "mutations": {
+    "canonical_source": false,
+    "canonical_database": false,
+    "canonical_configuration": false,
+    "canonical_integration_install": false,
+    "canonical_runtime_byte_identity_after_uv_wrapper_probe": "NOT_VERIFIED; package names and versions re-observed equal to F0",
+    "integration_branches_committed": true,
+    "published_artifacts": false,
+    "real_capital": false
+  },
+  "claims": [
+    {
+      "claim_id": "F4-CLAIM-001",
+      "claim": "ResearchResultV1 preserves separate CORE, OPS and CRIPTO fact namespaces and separate envelope, operational, scientific and economic states.",
+      "evidence_strength": "CONFIRMED",
+      "repo": "ECOSYSTEM",
+      "source_sha": "3a876339e7989ceab4699db226a88f88ac253728",
+      "installed_version": "predictor-research-protocol 1.0.0 candidate",
+      "runtime_identity": "disposable Python 3.13.14",
+      "artifact_identity": "083b2802e2014f35623e4707bc271d6d64fb193caac53bf5b3ca77b870daa3a0",
+      "test_or_command": "23 protocol tests plus installed-wheel E2E",
+      "timestamp": "2026-09-19T23:59:00-03:00",
+      "result": "PASS"
+    },
+    {
+      "claim_id": "F4-CLAIM-002",
+      "claim": "CRIPTO only signs a result correlated to an accepted admission and its exact task, policy and frozen-reference identities.",
+      "evidence_strength": "CONFIRMED",
+      "repo": "CRIPTO",
+      "source_sha": "b2e3deef171fc82be5244e80bde0013cb2bc6412",
+      "installed_version": "cripto-predictor 1.1.0 candidate",
+      "runtime_identity": "disposable Python 3.13.14",
+      "artifact_identity": "c6105ccb9a3752851ef9fdcad1a0058c53a3d528a2b5e17034a2b1b61049581d",
+      "test_or_command": "focused result outbox tests and installed-wheel E2E",
+      "timestamp": "2026-09-19T23:59:00-03:00",
+      "result": "PASS"
+    },
+    {
+      "claim_id": "F4-CLAIM-003",
+      "claim": "CAIN authenticates, correlates and idempotently persists ResearchResult without promoting its scientific or economic state.",
+      "evidence_strength": "CONFIRMED",
+      "repo": "CAIN",
+      "source_sha": "151433daf2cbc2733ab60d21f0a60682fda2f95c",
+      "installed_version": "cain-research 0.4.12 candidate",
+      "runtime_identity": "disposable Python 3.13.14",
+      "artifact_identity": "98d0ae240f78445411ebfe789fc6ef9cbdbffda88420fdd2a741ad65a0a11c09",
+      "test_or_command": "focused result inbox tests, 911-test regression and installed-wheel E2E",
+      "timestamp": "2026-09-19T23:59:00-03:00",
+      "result": "PASS"
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F4-P1-001",
+      "severity": "P1",
+      "evidence_strength": "CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CAIN", "CRIPTO", "ECOSYSTEM"],
+      "description": "ResearchResult implementation and candidate artifacts are local, unmerged and unpublished.",
+      "evidence": "Three clean integration commits and candidate wheel hashes recorded above.",
+      "recommended_action": "Complete later gates, then publish/merge only with explicit authorization and release receipts.",
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F4-P1-002",
+      "severity": "P1",
+      "evidence_strength": "CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CAIN", "CRIPTO"],
+      "description": "F4 does not prove result delivery acknowledgements, retry transitions, reconciliation or crash-window safety.",
+      "evidence": "F4 result outbox remains PENDING after CAIN ingest by design; no F5 publisher state machine exists yet.",
+      "recommended_action": "Implement and fault-test the minimal F5 durable synchronization state machine.",
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F4-P1-003",
+      "severity": "P1",
+      "evidence_strength": "BLOCKED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CRIPTO"],
+      "description": "The full CRIPTO regression suite was not collected in the minimal F4 QA environment because optional scientific dependencies were absent.",
+      "evidence": "106 collection errors were dependency import errors; focused admission/result tests passed.",
+      "recommended_action": "Run the cross-project pinned CI environment with all declared test/science dependencies in F9.",
+      "status": "OPEN"
+    }
+  ],
+  "evidence": [
+    "STACK_MANIFEST.json",
+    "INTEGRATION_PROTOCOL.md",
+    "VALIDATION_REPORT.md",
+    "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\f4-e2e-run.py",
+    "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\f4-integrity.py"
+  ],
+  "rollback": "Integration changes are isolated commits on dedicated branches. Candidate wheels and disposable databases can be removed without altering canonical scientific data. No scientific rollback is implied.",
+  "blockers": [
+    "F5 durable synchronization and crash recovery are not implemented.",
+    "Production publisher-key lifecycle/ACL attestation remains open.",
+    "Integration artifacts are not published or installed canonically.",
+    "Full CRIPTO regression remains for F9."
+  ],
+  "exit_criteria": {
+    "minimal_result_contract": "PASS",
+    "authority_boundaries_preserved": "PASS",
+    "separate_state_taxonomies": "PASS",
+    "result_authenticity_in_qa": "PASS",
+    "task_admission_result_correlation": "PASS",
+    "durable_result_outbox_and_inbox": "PASS",
+    "idempotent_redelivery": "PASS",
+    "installed_candidate_artifacts_tested": "PASS",
+    "real_core_ops_execution_claimed": "NO",
+    "later_phase_blockers_preserved": "PASS"
+  },
+  "advance": "YES"
+}

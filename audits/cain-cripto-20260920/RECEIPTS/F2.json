@@ -1,0 +1,145 @@
+{
+  "phase": "F2_EXISTING_OUTBOUND_INTEGRATION",
+  "repo_shas": {
+    "CAIN_target": "6f9d254776b2a3c251f6cce14529087c57ebbeae",
+    "CRIPTO_target": "1b2bee85f552667ed74a17e5da3526b62541d2d2"
+  },
+  "installed_artifacts": {
+    "artifact_set_sha256": "d06cced0c218f3cbfc5f1a23c647794a5cdc6471f56f9dc38f95863d319b1864",
+    "python": "3.13.14",
+    "CAIN_wheel": "4ab94ea73cb3b9034fddb4aeacd1576d2ee087a21af10ad9feb49a94c3e53d5b",
+    "CRIPTO_wheel": "2f93541e37223cd91434320d263ef94b4d2769e9127e2b9574d037a1cd1045d0",
+    "Snapshot_wheel": "ad42126d8c13fa3e0754805ddf0ebb5a3ecba33cf7bccf959977e4be53c0a8e0",
+    "Exporter_wheel": "f5b9f254e1058895e4b25fe978d3f82b5248e52a008fa26bc814adde2c1cd86b"
+  },
+  "published_artifacts": {
+    "Snapshot_1.0.1": "VERIFIED_AND_TESTED",
+    "Exporter_1.0.1": "VERIFIED_AND_TESTED_FOR_SNAPSHOT_ONLY",
+    "Bundle_1.0.0": "NO_RELEASE_ASSET",
+    "Exporter_bundle_module": "ABSENT_FROM_OFFICIAL_WHEEL"
+  },
+  "runtime_identity": "Disposable pinned QA venv; no canonical process changed",
+  "data_identity": {
+    "temporary_db": "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\f2\\research.db",
+    "publication_sha256": "c47c2f618b7a020f679708594968d2c39d87e03397b1ebb246fb9c33ba4ceafa",
+    "publication_id": "cb6ea7ad3982d74c4a2d659a2c09e1d9fa9b9e0ab3806b4eafbed59bdf8e4551",
+    "canonical_hashes_unchanged": true
+  },
+  "commands_or_tests": [
+    "Official exporter created and validated ResearchSnapshotV1 from two SHA-pinned CRIPTO sources",
+    "CAIN import: admitted",
+    "CAIN redelivery: duplicate",
+    "Divergent same logical record: CONFLICT and atomic rollback",
+    "Unknown publisher: rejected",
+    "Cross-identity retrieval: zero records",
+    "Revoked grant retrieval: zero records",
+    "CAIN verify: 1 publication, 15 records, integrity verified",
+    "16 real-source hash/offset/evidence checks: PASS",
+    "Raw archive bytes equal publication bytes: PASS"
+  ],
+  "mutations": {
+    "canonical_source_final_state_changed": false,
+    "canonical_data_changed": false,
+    "canonical_runtime_changed": false,
+    "published_artifacts_changed": false,
+    "disposable_workspace": true,
+    "transient_accidental_untracked_file": "C:\\CRIPTO\\pesquisa-20260909\\0.30 created empty by cmd redirection and moved to disposable quarantine"
+  },
+  "claims": [
+    {
+      "claim_id": "F2-CLAIM-001",
+      "claim": "The existing Snapshot CRIPTO-to-CAIN path works on the pinned QA stack.",
+      "evidence_strength": "CONFIRMED",
+      "repo": "CRIPTO and CAIN",
+      "source_sha": "1b2bee85 / 6f9d254",
+      "installed_version": "crypto-research-export 1.0.1; ResearchSnapshot 1.0.1; CAIN 0.4.12",
+      "artifact_identity": "publication c47c2f61; artifact set d06cced0",
+      "test_or_command": "export, validate, import, verify, query",
+      "timestamp": "2026-09-19T22:22:28Z",
+      "result": "PASS"
+    },
+    {
+      "claim_id": "F2-CLAIM-002",
+      "claim": "Snapshot ingest has durable duplicate detection and conflict rollback in the tested SQLite receiver.",
+      "evidence_strength": "CONFIRMED",
+      "repo": "CAIN",
+      "source_sha": "6f9d254776b2a3c251f6cce14529087c57ebbeae",
+      "installed_version": "0.4.12 rebuilt artifact",
+      "artifact_identity": "research.db temporary",
+      "test_or_command": "admitted, duplicate, CONFLICT, verify and table counts",
+      "timestamp": "2026-09-19T22:24:38Z",
+      "result": "PASS"
+    },
+    {
+      "claim_id": "F2-CLAIM-003",
+      "claim": "Publisher authenticity is not proven merely by matching the declared publisher field to a grant.",
+      "evidence_strength": "STATICALLY_CONFIRMED",
+      "repo": "CAIN and CRIPTO",
+      "source_sha": "6f9d254 / 1b2bee85",
+      "installed_version": "pinned QA stack",
+      "artifact_identity": "Snapshot envelope and receiver policy",
+      "test_or_command": "code inspection plus ACL and forged publisher tests",
+      "timestamp": "2026-09-19",
+      "result": "AUTHORIZATION_PRESENT_AUTHENTICATION_ABSENT"
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F2-P1-001",
+      "severity": "P1",
+      "evidence_strength": "CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CRIPTO", "CAIN"],
+      "description": "The Snapshot publisher identity is self-declared; possession of an allowed string is not publisher authentication.",
+      "evidence": "Receiver authorized origin.publisher against grants; no signature or trusted writer identity binds bytes to the producer.",
+      "recommended_action": "Add the smallest threat-model-appropriate authenticated envelope and trusted-key/scope binding for new task/result messages.",
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F2-P1-002",
+      "severity": "P1",
+      "evidence_strength": "CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CRIPTO", "crypto-research-export", "ECOSYSTEM"],
+      "description": "The official exporter 1.0.1 wheel omits crypto_research_export.bundle although the pinned source tree contains it.",
+      "evidence": "Wheel member listing and ModuleNotFoundError on the installed official artifact.",
+      "recommended_action": "Repair packaging and publish/attest exact Bundle and exporter artifacts; do not substitute an unpinned local wheel silently.",
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F2-P1-003",
+      "severity": "P1",
+      "evidence_strength": "CONFIRMED",
+      "blocking_scope": "TARGET_STACK",
+      "affected_components": ["CRIPTO", "CAIN"],
+      "description": "ResearchSnapshotV1 is evidence transport, not a correlated ResearchResult envelope; required execution, dataset, metric, cost and result identities are absent.",
+      "evidence": "Observed top-level/origin/record/evidence field inventory.",
+      "recommended_action": "Reuse Snapshot/Bundle for evidence references but add a minimal domain-owned ResearchResult contract in F4.",
+      "status": "OPEN"
+    }
+  ],
+  "evidence": [
+    "PHASE_F2_DECLARATION.md",
+    "VALIDATION_REPORT.md",
+    "C:\\CRIPTO\\work\\cain-cripto-integration-20260919\\f2"
+  ],
+  "rollback": "Delete the F2 disposable directory. Canonical DB hashes already match F0; the accidental empty file was quarantined and the CRIPTO checkout is clean.",
+  "blockers": [
+    "Publisher authentication remains absent.",
+    "The official exporter artifact cannot exercise Bundle export.",
+    "No ResearchTask or ResearchResult exists yet."
+  ],
+  "exit_criteria": {
+    "real_export_validate_ingest_retrieve": "PASS",
+    "duplicate": "PASS",
+    "conflict_atomicity": "PASS",
+    "application_scope_and_revocation": "PASS",
+    "raw_preservation": "PASS",
+    "publisher_authenticity": "FAIL",
+    "bundle_official_artifact": "FAIL",
+    "gaps_explicit": "PASS",
+    "canonical_integrity": "PASS"
+  },
+  "advance": "YES",
+  "advance_rationale": "F2 proves the existing outbound Snapshot path and carries its authentication/Bundle gaps forward as blocking findings; it does not certify final readiness."
+}

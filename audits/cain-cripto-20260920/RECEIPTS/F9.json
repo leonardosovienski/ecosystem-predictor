@@ -1,0 +1,22 @@
+{
+  "phase": "F9_CROSS_PROJECT_CI",
+  "objective": "Reproduce exact pins from clean checkouts and artifacts.",
+  "preconditions": ["F8 PASS", "unique candidate versions"],
+  "allowed_mutations": ["CI workflow", "disposable worktrees/venv"],
+  "test_plan": ["fresh detached worktrees", "two wheel builds", "hash equality", "fresh venv", "installed E2E"],
+  "repo_shas": {"CAIN":"5fe340a41809ddbe3f0dc795c7d9eb258014eaa6","CRIPTO":"002ed71d36c631955072c1f52a0dd00097a78b30","ECOSYSTEM":"869f4d1d22191d4a62f51fe94e72b323fed8e7fc"},
+  "installed_artifacts": {"artifact_set_sha256":"4e8aae6f4b1068e9b9365afed2dbece3bbe698cb80412b969634847beef5cd47","pip_check":"PASS"},
+  "published_artifacts": {"CORE":"PINNED","OPS":"PINNED","candidates":"NOT_PUBLISHED"},
+  "runtime_identity": "Python 3.13.14 final-clean-venv",
+  "data_identity": "empty pytest temp and QA DBs",
+  "commands_or_tests": ["git worktree add --detach", "two SOURCE_DATE_EPOCH builds", "wheel byte comparison", "69 installed-wheel tests"],
+  "mutations": ["CI pins updated to final SHAs/versions/clean-checkout hashes"],
+  "failure_fix_pass": [{"initial_failure":"old cleanroom reused source trees","root_cause":"fresh venv did not prove fresh checkout","patch":"three detached worktrees plus new venv/DBs","retest":"PASS_69"},{"initial_failure":"canonical tree hashes differed from clean checkout","root_cause":"working-tree line ending/build state variance","patch":"manifest and CI use matching clean-checkout builds","retest":"PASS_TWO_BUILDS"},{"initial_failure":"first rc4 cleanroom retry failed before two temp writes","root_cause":"harness TEMP path exceeded the Win32 path limit","patch":"reran unchanged artifacts with a short empty TEMP root","retest":"PASS_69"}],
+  "claims": [{"claim_id":"F9-C1","claim":"Two clean-checkout builds are byte-identical and installed wheels pass cross-project tests.","evidence_strength":"CONFIRMED","repo":"ECOSYSTEM","source_sha":"869f4d1d22191d4a62f51fe94e72b323fed8e7fc","installed_version":"exact manifest set","runtime_identity":"fresh worktrees/venv","artifact_identity":"4e8aae6f4b1068e9b9365afed2dbece3bbe698cb80412b969634847beef5cd47","test_or_command":"wheel compare and 69 tests","timestamp":"2026-09-20T12:00:00-03:00","result":"PASS"}],
+  "findings": [{"finding_id":"F9-P1-REMOTE-CI","severity":"P1","evidence_strength":"CONFIRMED","blocking_scope":"NONE","affected_components":["CAIN","CRIPTO","ECOSYSTEM"],"description":"Hosted manual workflow has not been dispatched","evidence":"source commits pushed; GitHub CLI unavailable to dispatch workflow","recommended_action":"dispatch cain-crypto-integration.yml in GitHub Actions","status":"NOT_RUN_GITHUB_CLI_UNAVAILABLE"}],
+  "evidence": ["STACK_MANIFEST.json",".github/workflows/cain-crypto-integration.yml","final-clean-dist-a","final-clean-dist-b"],
+  "rollback": "CI commit reverts independently; no runtime/history mutation.",
+  "blockers": [],
+  "exit_criteria": {"exact_shas":"PASS","artifact_hashes":"PASS","reproducible":"PASS","fresh_worktrees":"PASS","fresh_venv":"PASS","installed_e2e":"PASS","hosted":"NOT_RUN_GITHUB_CLI_UNAVAILABLE_NON_TARGET"},
+  "advance": "YES"
+}

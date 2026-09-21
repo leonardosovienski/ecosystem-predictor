@@ -1,0 +1,22 @@
+{
+  "phase": "F7_SEMANTIC_VALIDATION",
+  "objective": "Prove authorized retrieval, cumulative memory, reasoning controls and egress.",
+  "preconditions": ["F6 real result", "authenticated result publisher"],
+  "allowed_mutations": ["candidate CAIN session/projection tables", "reserved oracle"],
+  "test_plan": ["A negative", "close session", "new session retrieves A and proposes B", "C contradicts A", "egress denial"],
+  "repo_shas": {"CAIN":"5fe340a41809ddbe3f0dc795c7d9eb258014eaa6","CRIPTO":"002ed71d36c631955072c1f52a0dd00097a78b30"},
+  "installed_artifacts": {"cain-research":"0.4.13rc4","artifact_set_sha256":"4e8aae6f4b1068e9b9365afed2dbece3bbe698cb80412b969634847beef5cd47"},
+  "published_artifacts": {"candidates_published":false},
+  "runtime_identity": "installed-wheel cleanroom",
+  "data_identity": "empty QA inbox preserving RAW/CANONICAL/DERIVED",
+  "commands_or_tests": ["cumulative authorized reasoning test","cross identity/scope/coincident ID test"],
+  "mutations": ["explicit sessions", "durable retrieval receipts", "authorized multidimensional result search"],
+  "failure_fix_pass": [{"initial_failure":"ResultInbox was outside sessions/retrieval","root_cause":"only direct lookups existed","patch":"session lifecycle, query adapter and source receipts","retest":"PASS A to B to C"}],
+  "claims": [{"claim_id":"F7-C1","claim":"A new session retrieves A, cites it in proposal B, then preserves contradictory A and C.","evidence_strength":"CONFIRMED","repo":"CAIN","source_sha":"5fe340a41809ddbe3f0dc795c7d9eb258014eaa6","installed_version":"0.4.13rc4","runtime_identity":"installed-wheel cleanroom","artifact_identity":"86059632077d345b643d1bc4ea9fa451a7e150ae41c1f16019e942152f9adae7","test_or_command":"cumulative authorized reasoning test","timestamp":"2026-09-20T12:00:00-03:00","result":"PASS"}],
+  "findings": [{"finding_id":"F7-P1-001","severity":"P1","evidence_strength":"CONFIRMED","blocking_scope":"TARGET_STACK","affected_components":["CAIN"],"description":"Result/session integration gap","evidence":"retrieval receipt tests","recommended_action":"retain authorization tests","status":"CLOSED"},{"finding_id":"F7-P1-002","severity":"P1","evidence_strength":"CONFIRMED","blocking_scope":"TARGET_STACK","affected_components":["CAIN"],"description":"Result egress gap","evidence":"provider/classification/redaction/revocation tests","recommended_action":"retain fail-closed egress","status":"CLOSED"}],
+  "evidence": ["ARCHIVE/pre-compliance-reaudit-20260920/F7.json","tests/test_research_result_inbox.py"],
+  "rollback": "Software rollback preserves immutable results; session schema is additive.",
+  "blockers": [],
+  "exit_criteria": {"oracle":"PASS","retrieval":"PASS","cumulative_memory":"PASS","scope_isolation":"PASS","egress":"PASS","remote_llm_semantics":"NOT_CLAIMED"},
+  "advance": "YES"
+}

@@ -1,0 +1,21 @@
+{
+  "phase": "F10_FINAL_AUDIT",
+  "objective": "Calculate gates only from exact-stack evidence.",
+  "preconditions": ["F0-F9 resolved", "zero open TARGET_STACK findings"],
+  "allowed_mutations": ["superseding reports/receipts"],
+  "test_plan": ["manifest equality", "mandatory check audit", "finding audit", "history integrity"],
+  "repo_shas": {"CAIN":"5fe340a41809ddbe3f0dc795c7d9eb258014eaa6","CRIPTO":"002ed71d36c631955072c1f52a0dd00097a78b30","ECOSYSTEM":"869f4d1d22191d4a62f51fe94e72b323fed8e7fc","CORE_RELEASE_SOURCE":"7bb212cfa06333886e11e849b209c5aab801c04b","OPS_RELEASE_SOURCE":"ddd91444282569ae8282e7c96e0ec372ef4e5144"},
+  "installed_artifacts": {"artifact_set_sha256":"4e8aae6f4b1068e9b9365afed2dbece3bbe698cb80412b969634847beef5cd47","cleanroom_tests":"PASS_69"},
+  "published_artifacts": "CORE/OPS only; candidates not published",
+  "runtime_identity": "fresh worktrees, Python 3.13.14, exact installed wheels",
+  "data_identity": "historical logical content PASS 4/4; remediation did not touch canonical data",
+  "commands_or_tests": ["CAIN 920 passed 2 skipped","CRIPTO 1580 passed 7 skipped","ECOSYSTEM 186 passed","Ruff all PASS","Pyright changed module PASS","cleanroom 69 PASS"],
+  "mutations": ["archived prior overclaim", "superseded F6-F10 receipts with fail-fix-pass evidence"],
+  "claims": [{"claim_id":"F10-C1","claim":"All mandatory target checks pass on the exact artifact set and no target blocker is open.","evidence_strength":"CONFIRMED","repo":"ECOSYSTEM","source_sha":"869f4d1d22191d4a62f51fe94e72b323fed8e7fc","installed_version":"manifest set","runtime_identity":"fresh cleanroom","artifact_identity":"4e8aae6f4b1068e9b9365afed2dbece3bbe698cb80412b969634847beef5cd47","test_or_command":"full suites/static/reproducibility/E2E","timestamp":"2026-09-20T12:00:00-03:00","result":"PASS"}],
+  "findings": [{"finding_id":"F9-P1-REMOTE-CI","severity":"P1","evidence_strength":"CONFIRMED","blocking_scope":"NONE","affected_components":["CAIN","CRIPTO","ECOSYSTEM"],"description":"Hosted manual CI not run because GitHub CLI is unavailable","evidence":"local exact equivalent PASS","recommended_action":"dispatch manually in GitHub Actions","status":"NOT_RUN_GITHUB_CLI_UNAVAILABLE"}],
+  "evidence": ["FINAL_STATE.json","STACK_MANIFEST.json","VALIDATION_REPORT.md","ARCHIVE/pre-compliance-reaudit-20260920"],
+  "rollback": "Prior report bytes archived; source commits small/independent; no scientific rollback.",
+  "blockers": [],
+  "exit_criteria": {"mandatory_checks":"PASS","open_target_findings":0,"manifest_match":"PASS","historical_integrity":"PASS","target_stack_ready":"YES","global_ecosystem_health":"DEGRADED"},
+  "advance": "YES"
+}

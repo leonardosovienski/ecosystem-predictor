@@ -1,0 +1,22 @@
+{
+  "phase": "F8_CHAOS_RECOVERY_SECURITY",
+  "objective": "Prove fail-closed security and recovery under applicable attacks/crashes.",
+  "preconditions": ["F6 and F7 PASS"],
+  "allowed_mutations": ["candidate controls/tests", "disposable fault state"],
+  "test_plan": ["key lifecycle/backup", "secret leakage", "duplicates/conflicts", "runner crash", "scope/ref/artifact attacks"],
+  "repo_shas": {"CAIN":"5fe340a41809ddbe3f0dc795c7d9eb258014eaa6","CRIPTO":"002ed71d36c631955072c1f52a0dd00097a78b30","ECOSYSTEM":"869f4d1d22191d4a62f51fe94e72b323fed8e7fc"},
+  "installed_artifacts": {"artifact_set_sha256":"4e8aae6f4b1068e9b9365afed2dbece3bbe698cb80412b969634847beef5cd47"},
+  "published_artifacts": {"candidates_published":false},
+  "runtime_identity": "Windows ACL installed-wheel cleanroom",
+  "data_identity": "disposable QA stores",
+  "commands_or_tests": ["test_key_store.py","execution/recovery/inbox chaos tests"],
+  "mutations": ["HMAC secret bytes moved from SQLite to ACL vault", "integrity-checked protected backup/restore"],
+  "failure_fix_pass": [{"initial_failure":"raw HMAC secret in SQLite","root_cause":"metadata and secret shared storage","patch":"metadata-only SQLite plus ACL vault; legacy schema fails closed","retest":"PASS no secret in DB/events/receipts/manifest"}],
+  "claims": [{"claim_id":"F8-C1","claim":"Keys rotate, revoke, back up and restore without secret bytes in SQLite or public evidence.","evidence_strength":"CONFIRMED","repo":"ECOSYSTEM","source_sha":"869f4d1d22191d4a62f51fe94e72b323fed8e7fc","installed_version":"1.0.3rc1","runtime_identity":"Windows ACL cleanroom","artifact_identity":"9aacfa87672d7fcf527146cd49a685daea87e310fbe615c99da5bde76ee75d79","test_or_command":"test_key_store.py","timestamp":"2026-09-20T12:00:00-03:00","result":"PASS"}],
+  "findings": [{"finding_id":"F8-P0-SECRET-SQLITE","severity":"P0","evidence_strength":"CONFIRMED","blocking_scope":"TARGET_STACK","affected_components":["CAIN","CRIPTO","ECOSYSTEM"],"description":"Raw publisher secret persisted in SQLite","evidence":"git history and failing audit","recommended_action":"keep legacy-schema denial test","status":"CLOSED"}],
+  "evidence": ["packages/research-protocol/tests/test_key_store.py","69 installed-wheel tests"],
+  "rollback": "Software rollback only; key backups and scientific history remain preserved.",
+  "blockers": [],
+  "exit_criteria": {"authenticity":"PASS","key_lifecycle":"PASS","secret_leakage":"PASS","crash_recovery":"PASS","scope_isolation":"PASS","tamper":"PASS"},
+  "advance": "YES"
+}

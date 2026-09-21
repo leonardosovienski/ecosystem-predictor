@@ -1,0 +1,125 @@
+{
+  "schema_version": "architecture-baseline/1",
+  "baseline_id": "cain-crypto-20260919-f0",
+  "captured_at": "2026-09-19T21:20:23.907305Z",
+  "authority_model": {
+    "CAIN": "PROPOSE_ONLY and owner of research memory/retrieval/reasoning",
+    "CRIPTO": "domain owner and intended admission-policy owner/result-envelope owner",
+    "CORE": "owner of shared scientific primitives it actually implements",
+    "OPS": "owner of execution facts and operational primitives it actually implements",
+    "ECOSYSTEM": "control plane for contracts, compatibility, releases, identities, artifacts and drift; not executor",
+    "capital_permission": false
+  },
+  "source_state": {
+    "CAIN_canonical_checkout": {
+      "path": "C:\\CAIN\\projeto",
+      "head": "24f784c5dde1fa66c262ad5899f4fd8d02526adf",
+      "branch": null,
+      "dirty": true,
+      "remote_main": "6f9d254776b2a3c251f6cce14529087c57ebbeae"
+    },
+    "CRIPTO_canonical_checkout": {
+      "path": "C:\\CRIPTO\\pesquisa-20260909",
+      "head": "bd4ff602a52e6669b71332b0276c12497f02001e",
+      "branch": "main",
+      "dirty": false,
+      "remote_main": "1b2bee85f552667ed74a17e5da3526b62541d2d2",
+      "behind_remote_commits": 3
+    },
+    "ECOSYSTEM_canonical_checkout": {
+      "path": "C:\\CAIN\\contrato",
+      "head": "c51d9e63e8441e15b2d045ea4d6a7c67f4ebbdfd",
+      "branch": "main",
+      "dirty": false,
+      "remote_main": "c51d9e63e8441e15b2d045ea4d6a7c67f4ebbdfd"
+    },
+    "CORE_remote_main": "9bf43efe92459a0b484cac00f51170b2c70d420f",
+    "OPS_remote_main": "b19e69527c0fda5cb1f96281d3a984fea1431768"
+  },
+  "installed_state": {
+    "CAIN_environment": {
+      "python": "3.12.14",
+      "cain_research": "0.4.12 wheel from source dfabf6dab05df1662e9882ebe1091236daa14724",
+      "snapshot": "1.0.1 wheel sha256 5e62cdf6ea7790a9e4beb0b3dd874a9a40c54cbd97e69e5a8408e88f8f22ec1a",
+      "bundle": "1.0.0 wheel sha256 7c5792e6573d55af92fd9b50cd9a2c357052b7673a61eef8abdaeaeef401ebee",
+      "core": "NOT_INSTALLED",
+      "ops": "NOT_INSTALLED"
+    },
+    "CRIPTO_environment": {
+      "python": "3.13.14",
+      "cripto_predictor": "1.1.0 editable from local HEAD bd4ff602a52e6669b71332b0276c12497f02001e",
+      "core": "3.2.1 verified installed wheel",
+      "ops": "4.2.1 verified installed wheel sha256 da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e",
+      "snapshot": "1.0.0 editable from ECOSYSTEM checkout",
+      "bundle": "NOT_INSTALLED",
+      "crypto_research_export": "1.0.0 editable from CRIPTO checkout"
+    }
+  },
+  "runtime_state": {
+    "CAIN": {
+      "status": "RUNNING",
+      "listen": "127.0.0.1:8877",
+      "reported_version": "0.4.12",
+      "reported_identity_status": "provisional",
+      "source_sha": "NOT_VERIFIED",
+      "provider": "ollama qwen3.5:4b on loopback"
+    },
+    "CRIPTO": {
+      "status": "NOT_RUNNING",
+      "scheduled_state_files": 0,
+      "capital_permission": false
+    }
+  },
+  "data_state": {
+    "CAIN": {
+      "research_db": "integrity ok; 76 publications; 210 records; 1 bundle; sha256 b0c097fa5be057d5e9568d9faab83456c8d7d22c5163a838b9af58c57eb847aa",
+      "workspace_db": "integrity ok; 152 project documents; 45 run receipts; sha256 050e769480d397576c52523db8f77b3b41c1b9d53697df0614888984dfa8a5ad",
+      "knowledge": "152 files; tree sha256 a3530297e534adfb3567d4531953b27f425225a98a5ffa50c5816a11d03cb712"
+    },
+    "CRIPTO": {
+      "feature_store": "integrity ok; WAL mode with zero-byte WAL; sha256 bc39d5ad3b6f3a173981e22e3514b401484a55a2bb10078f1090f569413700a6",
+      "api_guard": "integrity ok; 9 rows; sha256 f7a8526d3ba5d3c13d642cf80580d6e77985b5f6b98be972778aaa6630a5892e",
+      "outbound_publications": "5 files; tree sha256 525743804931f7a4251b43601b510a538ac6dd1b931372c88e4b6f3c8991fa64"
+    }
+  },
+  "scientific_state": {
+    "source": "Preserved domain records only; not recertified by this audit",
+    "economic_evaluation_in_scope": false,
+    "economic_promotion_allowed": false,
+    "capital_real_in_scope": false,
+    "rule": "Operational success never promotes scientific or economic state."
+  },
+  "control_plane_state": {
+    "registry": "ECOSYSTEM main c51d9e63e8441e15b2d045ea4d6a7c67f4ebbdfd",
+    "architecture_manifest": "PASS",
+    "current_representation": "PASS for documented paths/package presence only",
+    "drift": "NO_DRIFT at current checker semantics, with source-SHA warnings",
+    "exact_target_stack_pin": "NOT_YET_AVAILABLE"
+  },
+  "published_artifact_state": {
+    "CAIN": "latest release v0.4.5, not the installed 0.4.12",
+    "CRIPTO": "latest release v1.1.0, but canonical checkout/runtime install is editable and behind remote main",
+    "CORE": "v3.2.1 wheel published; installed RECORD valid; byte-equivalence to release wheel not verified in F0",
+    "OPS": "v4.2.1 published wheel exactly matches local wheel hash",
+    "ECOSYSTEM": "v0.2.0; published Snapshot 1.0.1 hash differs from active CAIN local Snapshot 1.0.1 wheel",
+    "Bundle": "1.0.0 local wheel found with provenance; no Bundle asset in latest ECOSYSTEM release"
+  },
+  "existing_bidirectional_state": {
+    "CRIPTO_to_CAIN": "EXISTS as Snapshot and optional Bundle export/ingest; tested in disposable copies; live publisher authenticity not proven",
+    "CAIN_to_CRIPTO": "ABSENT",
+    "ResearchResult_to_CAIN": "ABSENT",
+    "durable_task_result_sync": "ABSENT"
+  },
+  "dependency_closure": [
+    "CAIN",
+    "CRIPTO",
+    "CORE",
+    "OPS",
+    "ECOSYSTEM",
+    "predictor-research-snapshot",
+    "predictor-research-bundle",
+    "crypto-research-export"
+  ],
+  "excluded_from_target_closure": ["STOCKS", "BRASILEIRAO"],
+  "f0_receipt_sha256": "becdf6cd91b3c56164f4519561aa1854f64474d5771ed92a1a04ca2b5e35563f"
+}

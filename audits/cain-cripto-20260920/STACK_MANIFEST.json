@@ -1,0 +1,48 @@
+{
+  "schema_version": "stack-manifest/4",
+  "manifest_id": "cain-crypto-compliance-final-20260920",
+  "status": "EXACT_LOCAL_STACK_TESTED_REMOTE_PUBLICATION_NOT_AUTHORIZED",
+  "source_shas": {
+    "CAIN": "5fe340a41809ddbe3f0dc795c7d9eb258014eaa6",
+    "CRIPTO": "002ed71d36c631955072c1f52a0dd00097a78b30",
+    "ECOSYSTEM": "869f4d1d22191d4a62f51fe94e72b323fed8e7fc",
+    "CORE_RELEASE_SOURCE": "7bb212cfa06333886e11e849b209c5aab801c04b",
+    "OPS_RELEASE_SOURCE": "ddd91444282569ae8282e7c96e0ec372ef4e5144"
+  },
+  "python": "3.13.14",
+  "contracts": {
+    "snapshot": "ResearchSnapshotV1",
+    "bundle": "ResearchBundleV1",
+    "task": "ResearchTaskV1",
+    "result": "ResearchResultV1",
+    "envelope": "AuthenticatedEnvelopeV1/HMAC-SHA256-V1",
+    "key_store": "OperatorHmacKeyStoreV2",
+    "reference_materialization": "ReferenceMaterializationReceiptV1",
+    "egress": "CAINResultEgressPolicyV1"
+  },
+  "artifacts": [
+    {"distribution":"cain-research","version":"0.4.13rc4","sha256":"86059632077d345b643d1bc4ea9fa451a7e150ae41c1f16019e942152f9adae7","published":false,"installed_and_tested":true},
+    {"distribution":"cripto-predictor","version":"1.1.1rc4","sha256":"1e83050243436623f45ca168ebcc7308699d44135c0de3b37e29c48a95e4ac5c","published":false,"installed_and_tested":true},
+    {"distribution":"ecosystem-predictor","version":"0.2.0","sha256":"a918d8170d7b55a7fc65f552475e01158bbb3ad553581ac3b5d9cff5852ebc5c","published":false,"installed_and_tested":true},
+    {"distribution":"predictor-core","version":"3.2.1","sha256":"10ef42f34ace8bb2df5f83ff7de2ceec79b035a25ea0a690e8942bd60d2fb4e3","published":true,"installed_and_tested":true},
+    {"distribution":"predictor-ops","version":"4.2.1","sha256":"da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e","published":true,"installed_and_tested":true},
+    {"distribution":"predictor-research-bundle","version":"1.0.1rc1","sha256":"50ca64dc5525f7d9d0fb635f4bfb8669426439bcb7a26b7dd944c27944dfd683","published":false,"installed_and_tested":true},
+    {"distribution":"predictor-research-protocol","version":"1.0.3rc1","sha256":"9aacfa87672d7fcf527146cd49a685daea87e310fbe615c99da5bde76ee75d79","published":false,"installed_and_tested":true},
+    {"distribution":"predictor-research-snapshot","version":"1.0.2rc1","sha256":"040068d9c26f6c46a54259ca6b86ac7c1a1fc321e01720309f95831f5fefeec3","published":false,"installed_and_tested":true}
+  ],
+  "tested_artifact_set_sha256": "4e8aae6f4b1068e9b9365afed2dbece3bbe698cb80412b969634847beef5cd47",
+  "artifact_reproducibility": {
+    "candidate_wheels": "PASS_TWO_FRESH_WORKTREE_BUILDS",
+    "core_ops": "PINNED_PUBLISHED_BYTES",
+    "installed_requirements": "PASS_PIP_CHECK",
+    "cleanroom_tests": "PASS_69"
+  },
+  "canonical_install_mutated": false,
+  "remote_ci_executed": false,
+  "remote_ci_status": "NOT_RUN_GITHUB_CLI_UNAVAILABLE",
+  "notes": [
+    "Prior manifest archived before superseding update.",
+    "No candidate published or installed into canonical runtime.",
+    "Hashes are from clean Windows worktrees; canonical-tree build variance was rejected."
+  ]
+}
