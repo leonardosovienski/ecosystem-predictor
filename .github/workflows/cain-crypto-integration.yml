@@ -7,19 +7,19 @@ permissions:
   contents: read
 
 env:
-  CAIN_SHA: ad8217f9cd23d73a28a9f366509ca61274212fbd
-  CRIPTO_SHA: 0963bb2cde2210a4b7d0f25cadd1f708a4bb95fa
+  CAIN_SHA: 5fe340a41809ddbe3f0dc795c7d9eb258014eaa6
+  CRIPTO_SHA: cf421847b157d575e210164aaa97e2e218c10008
   CAIN_ROLLBACK_SHA: ad430505290cd4bf5e5ad4de6c2e5f15f956c221
   CRIPTO_ROLLBACK_SHA: ee31ccc5688971c4332a6129c6d76b1f1f75ffe1
   ECOSYSTEM_ROLLBACK_SHA: 5a77854bdb61ca149c05591a5579a5b58b03090b
   SOURCE_DATE_EPOCH: "1758240000"
   CORE_SHA256: 10ef42f34ace8bb2df5f83ff7de2ceec79b035a25ea0a690e8942bd60d2fb4e3
   OPS_SHA256: da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e
-  CAIN_WHEEL_SHA256: 177253c8bfd0183e7b6bc99a001e24be9df94954dac687d88580b7b2c710a10c
-  CRIPTO_WHEEL_SHA256: 45bb1b6e8c2dbef8ec388860ea24f27ffc09226bf867e2f1f3bf13201f825771
+  CAIN_WHEEL_SHA256: 86059632077d345b643d1bc4ea9fa451a7e150ae41c1f16019e942152f9adae7
+  CRIPTO_WHEEL_SHA256: a22d6c218e596afeec1183ac823b73fde5b93987f63bf5ad6214f9f813c0ef59
   ECOSYSTEM_WHEEL_SHA256: a918d8170d7b55a7fc65f552475e01158bbb3ad553581ac3b5d9cff5852ebc5c
   BUNDLE_WHEEL_SHA256: 50ca64dc5525f7d9d0fb635f4bfb8669426439bcb7a26b7dd944c27944dfd683
-  PROTOCOL_WHEEL_SHA256: 7fb8f53876f876866934b22e10a6f6571852f1e8d152dacbf1c25f2e7d825112
+  PROTOCOL_WHEEL_SHA256: 9c7d2f09cf6a8bd43bb23509b1db72632df3107cbe19b512b1178e13cb22f132
   SNAPSHOT_WHEEL_SHA256: 040068d9c26f6c46a54259ca6b86ac7c1a1fc321e01720309f95831f5fefeec3
 
 jobs:
@@ -90,11 +90,11 @@ jobs:
         shell: pwsh
         run: |
           $expected = @{
-            "cain_research-0.4.13rc3-py3-none-any.whl" = $env:CAIN_WHEEL_SHA256
-            "cripto_predictor-1.1.1rc2-py3-none-any.whl" = $env:CRIPTO_WHEEL_SHA256
+            "cain_research-0.4.13rc4-py3-none-any.whl" = $env:CAIN_WHEEL_SHA256
+            "cripto_predictor-1.1.1rc3-py3-none-any.whl" = $env:CRIPTO_WHEEL_SHA256
             "ecosystem_predictor-0.2.0-py3-none-any.whl" = $env:ECOSYSTEM_WHEEL_SHA256
             "predictor_research_bundle-1.0.1rc1-py3-none-any.whl" = $env:BUNDLE_WHEEL_SHA256
-            "predictor_research_protocol-1.0.2rc1-py3-none-any.whl" = $env:PROTOCOL_WHEEL_SHA256
+            "predictor_research_protocol-1.0.3rc1-py3-none-any.whl" = $env:PROTOCOL_WHEEL_SHA256
             "predictor_research_snapshot-1.0.2rc1-py3-none-any.whl" = $env:SNAPSHOT_WHEEL_SHA256
           }
           foreach ($item in $expected.GetEnumerator()) {
@@ -183,6 +183,7 @@ jobs:
           python -m pytest -q cain/tests
           python -m pytest -q crypto/tests
           python -m ruff check ecosystem cain crypto
+          python -m pyright crypto/GarimpoInvestimentos/research_execution.py
 
       - name: Emit exact stack receipt
         shell: pwsh
