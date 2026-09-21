@@ -86,13 +86,43 @@ def test_rotation_grace_revocation_backup_and_no_secret_leak(tmp_path):
     })
     assert old_secret.hex() not in public_evidence
     assert new_secret.hex() not in public_evidence
-    backup = store.backup(tmp_path / "backup" / "keys.sqlite")
-    assert len(backup["sha256"]) == 64
-    db = sqlite3.connect(backup["path"])
+    assert old_secret not in store.path.read_bytes()
+    assert new_secret not in store.path.read_bytes()
+    db = sqlite3.connect(store.path)
+    try:
+        assert "secret" not in {row[1] for row in db.execute("PRAGMA table_info(keys)")}
+    finally:
+        db.close()
+
+    backup = store.backup(tmp_path / "backup" / "keys")
+    assert len(backup["manifest_sha256"]) == 64
+    db = sqlite3.connect(tmp_path / "backup" / "keys" / "metadata.sqlite")
     try:
         assert db.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
     finally:
         db.close()
+    restored = HmacKeyStore.restore(backup["path"], tmp_path / "restored")
+    assert restored.resolve(IDENTITY, "key-1", SCOPE, at=T0 + timedelta(seconds=30)) == old_secret
+    assert restored.resolve(IDENTITY, "key-2", SCOPE, at=T0 + timedelta(seconds=41)) is None
+
+
+def test_secret_corruption_and_legacy_secret_database_fail_closed(tmp_path):
+    store = HmacKeyStore(tmp_path / "keys")
+    store.provision(IDENTITY, SCOPE, "key-1", secret=b"x" * 32, at=T0)
+    secret_file = next(store.vault.glob("*.key"))
+    secret_file.write_bytes(b"tampered")
+    with pytest.raises(PermissionError, match="integrity failure"):
+        store.signing_key(IDENTITY, SCOPE)
+
+    legacy = tmp_path / "legacy"
+    legacy.mkdir()
+    db = sqlite3.connect(legacy / "metadata.sqlite")
+    try:
+        db.execute("CREATE TABLE keys(key_id TEXT, secret BLOB)")
+    finally:
+        db.close()
+    with pytest.raises(RuntimeError, match="embeds secrets"):
+        HmacKeyStore(legacy)
 
 
 def test_rotation_is_atomic_and_wrong_identity_scope_fail_closed(tmp_path):

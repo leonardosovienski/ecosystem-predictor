@@ -326,6 +326,7 @@ def validate_result(result):
         {
             "identity",
             "ops_run_ids",
+            "attempt_ids",
             "operational_state",
             "started_at",
             "finished_at",
@@ -336,6 +337,7 @@ def validate_result(result):
     )
     _identity(ops["identity"], "OPS identity")
     _ids(ops["ops_run_ids"], "OPS run id")
+    _ids(ops["attempt_ids"], "execution attempt id")
     if ops["operational_state"] not in OPERATIONAL_STATES:
         raise ValueError("CONTRACT_INVALID: invalid operational_state")
     started = _timestamp(ops["started_at"], "started_at")
@@ -437,12 +439,29 @@ def validate_result(result):
     provenance = result["provenance"]
     _keys(
         provenance,
-        {"task_payload_hash", "admission_policy_hash", "resolved_references_hash", "crypto_source_sha"},
+        {
+            "task_payload_hash",
+            "admission_policy_hash",
+            "resolved_references_hash",
+            "crypto_source_sha",
+            "handler_identity",
+            "logical_experiment_hash",
+            "journal_identity",
+            "reference_materialization_receipt_hash",
+        },
         "result provenance",
     )
-    for field in ("task_payload_hash", "admission_policy_hash", "resolved_references_hash"):
+    for field in (
+        "task_payload_hash",
+        "admission_policy_hash",
+        "resolved_references_hash",
+        "logical_experiment_hash",
+        "journal_identity",
+        "reference_materialization_receipt_hash",
+    ):
         _string(provenance[field], field, pattern=_SHA256)
     _string(provenance["crypto_source_sha"], "crypto_source_sha", pattern=_SOURCE_SHA)
+    _string(provenance["handler_identity"], "handler_identity", pattern=_NAME)
     if ops["operational_state"] in {"FAILED", "SOURCE_UNAVAILABLE", "CONFIGURATION_ERROR"}:
         if core["scientific_state"] not in {"ACTIVE", "INCONCLUSIVE"}:
             raise ValueError("CONTRACT_INVALID: failed execution cannot promote scientific state")

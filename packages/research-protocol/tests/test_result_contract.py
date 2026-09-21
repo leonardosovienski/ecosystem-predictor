@@ -39,6 +39,7 @@ def result():
         "ops_facts": {
             "identity": identity("predictor-ops"),
             "ops_run_ids": ["OPS-RUN-001"],
+            "attempt_ids": ["ATTEMPT-001"],
             "operational_state": "SUCCEEDED",
             "started_at": "2026-09-19T23:00:00Z",
             "finished_at": "2026-09-19T23:02:00Z",
@@ -83,6 +84,10 @@ def result():
             "admission_policy_hash": SHA256,
             "resolved_references_hash": SHA256,
             "crypto_source_sha": SOURCE_SHA,
+            "handler_identity": "backtest-existing-hypothesis-v1",
+            "logical_experiment_hash": SHA256,
+            "journal_identity": SHA256,
+            "reference_materialization_receipt_hash": SHA256,
         },
     }
 
