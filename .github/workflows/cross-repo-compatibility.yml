@@ -1,0 +1,145 @@
+# Aposentado do push/PR por D-13 e D-15 (qualificação pré-treinamento, HYG-004).
+# Jobs de compatibilidade entre repositórios movidos sem alteração do ci.yml: eles
+# instalam pacotes do stack fora de lock (git+checkout, URL#sha256, pip), o que C4
+# não admite no CI de push/PR. Só roda por workflow_dispatch; fora do escopo de
+# HOSTED_CI. A integração entre repositórios volta a ser provada na Etapa B.
+name: Cross-repository compatibility (historical)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  real-plugin-integration:
+    name: Three real plugins installed together
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.1"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: uv venv /tmp/predictors-integration --python 3.13 --seed
+      - name: Install immutable candidate distributions
+        run: python scripts/install_compatibility_candidate.py --python /tmp/predictors-integration/bin/python
+      - name: Verify identities, hashes and domain isolation
+        env:
+          CRIPTO_ROOT: ${{ runner.temp }}/crypto-integration
+          COMPATIBILITY_RECEIPT: compatibility-receipt.json
+        run: /tmp/predictors-integration/bin/python scripts/check_real_plugin_integration.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: exact-plugin-compatibility
+          path: compatibility-receipt.json
+          if-no-files-found: error
+
+  research-transport:
+    name: Standalone exporter and snapshot contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Checkout exact exporter source
+        run: |
+          git clone https://github.com/leonardosovienski/cripto-predictor.git /tmp/crypto-export-source
+          git -C /tmp/crypto-export-source checkout $(python -c "import json; print(json.load(open('registries/compatibility_candidate.json'))['consumers']['cripto-predictor']['commit'])")
+      - name: Build independent wheels
+        run: |
+          uv build --directory packages/research-snapshot --out-dir /tmp/transport-wheels
+          uv build --directory packages/research-bundle --out-dir /tmp/transport-wheels
+          uv build --directory /tmp/crypto-export-source/packages/research-export --out-dir /tmp/transport-wheels
+          uv venv /tmp/transport --python 3.13 --seed
+          /tmp/transport/bin/pip install /tmp/transport-wheels/*.whl pytest
+      - name: Test publication and recovery without the Crypto runtime
+        run: |
+          cd /tmp
+          /tmp/transport/bin/python -I -m pytest -q /tmp/crypto-export-source/packages/research-export/tests
+          /tmp/transport/bin/python -I -c "import importlib.util; assert importlib.util.find_spec('GarimpoInvestimentos') is None"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: research-transport-distributions
+          path: /tmp/transport-wheels/*
+          if-no-files-found: error
+
+  released-wheel-integration:
+    name: Six published wheels with exact hashes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m venv /tmp/released-wheels
+      - run: python scripts/install_compatibility_candidate.py --released --python /tmp/released-wheels/bin/python
+      - name: Validate published plugin behavior and artifact identity
+        env:
+          CRIPTO_ROOT: ${{ runner.temp }}/crypto-released-integration
+          COMPATIBILITY_RECEIPT: released-wheel-receipt.json
+          RELEASED_WHEELS: "1"
+        run: /tmp/released-wheels/bin/python scripts/check_real_plugin_integration.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: released-wheel-compatibility
+          path: released-wheel-receipt.json
+          if-no-files-found: error
+
+  core-distribution:
+    name: Core official wheel functional integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read immutable core source
+        id: core
+        shell: python
+        run: |
+          import json, os, re
+          from pathlib import Path
+          receipt = json.loads(Path("docs/core_integration_20260913/receipt.json").read_text())
+          sha = receipt["source_commit"]
+          assert re.fullmatch(r"[0-9a-f]{40}", sha)
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write(f"sha={sha}\n")
+      - uses: actions/checkout@v4
+        with:
+          repository: leonardosovienski/core-predictor
+          ref: ${{ steps.core.outputs.sha }}
+          path: core-source
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Download, identify and exercise the distributed runtime outside source
+        shell: python
+        run: |
+          import hashlib, json, os, shutil, subprocess, sys, urllib.request
+          from pathlib import Path
+          from urllib.parse import urlparse
+          core = json.loads(Path("registries/compatibility_candidate.json").read_text())["shared"]["predictor-core"]
+          target = Path(os.environ["RUNNER_TEMP"]) / "core-validation"
+          target.mkdir()
+          wheel = target / Path(urlparse(core["url"]).path).name
+          with urllib.request.urlopen(core["url"]) as response:
+              wheel.write_bytes(response.read())
+          assert "sha256:" + hashlib.sha256(wheel.read_bytes()).hexdigest() == core["hash"]
+          subprocess.run([sys.executable, "-m", "venv", str(target / "venv")], check=True)
+          python = str(target / "venv/bin/python")
+          subprocess.run([python, "-m", "pip", "install", str(wheel)], check=True)
+          shutil.copyfile("core-source/tools/check_installed_wheel.py", target / "check.py")
+          result = subprocess.run([python, "-I", "check.py", "--wheel", str(wheel)], cwd=target,
+                                  text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+          (target / "result.log").write_text(result.stdout)
+          print(result.stdout)
+          result.check_returncode()
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: core-distribution-validation
+          path: ${{ runner.temp }}/core-validation/result.log
+          if-no-files-found: warn

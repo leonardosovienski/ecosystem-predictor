@@ -13,3 +13,6 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 research_snapshot = ["*.json"]
+
+[dependency-groups]
+dev = ["pytest>=8.4,<10"]

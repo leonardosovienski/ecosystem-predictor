@@ -24,6 +24,15 @@ dev = [
   "ruff>=0.12,<1",
 ]
 
+[dependency-groups]
+# Pacotes deste repositório exercitados pela suíte e pela cobertura da raiz,
+# instalados pelo lock (fonte local, não editável).
+dev = ["predictor-research-snapshot", "predictor-research-bundle"]
+
+[tool.uv.sources]
+predictor-research-snapshot = { path = "packages/research-snapshot" }
+predictor-research-bundle = { path = "packages/research-bundle" }
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/ecosystem"]
 
