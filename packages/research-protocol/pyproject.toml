@@ -4,12 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "predictor-research-protocol"
-version = "1.0.3rc1"
-description = "Authenticated bounded CAIN to predictor research protocol"
+version = "2.0.0rc1"
+description = "Bounded CAIN to predictor research protocol (V1 authenticated envelope; V2 domain-contract envelope)"
 requires-python = ">=3.11"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+"research_protocol.v2" = ["data/*.json"]
+
 [dependency-groups]
-dev = ["pytest>=8.4,<10"]
+dev = ["pytest>=8.4,<10", "jsonschema>=4.25,<5"]
