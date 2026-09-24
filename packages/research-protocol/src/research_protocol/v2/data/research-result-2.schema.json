@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "research-result/2",
+  "title": "ResearchResultV2",
+  "description": "Envelope domain -> CAIN. Structural rules only; research_protocol.v2.validate_result also checks the status against the domain's declared outcomes, exit_code, client_ref echo, the canonical form and sha256 of payload_canonical, the domain result fields and states against domains.json, and (with the task) domain/task correlation. See SPEC_V2.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "domain",
+    "task_id",
+    "request_id",
+    "research_id",
+    "hypothesis_id",
+    "outcome",
+    "client_ref",
+    "result",
+    "produced_at",
+    "adapter"
+  ],
+  "properties": {
+    "schema": {"const": "research-result/2"},
+    "domain": {"enum": ["brasileirao", "crypto", "stocks"]},
+    "task_id": {"type": "string", "pattern": "^(brasileirao|crypto|stocks):TASK-[0-9a-f]{32}$"},
+    "request_id": {"$ref": "#/$defs/qualified_id"},
+    "research_id": {"$ref": "#/$defs/qualified_id"},
+    "hypothesis_id": {"$ref": "#/$defs/qualified_id"},
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "exit_code", "reason"],
+      "properties": {
+        "status": {
+          "enum": [
+            "RESULT",
+            "DUPLICATE",
+            "REJECTED",
+            "CONFLICT",
+            "NOT_READY",
+            "OPS_FAILED_RETRYABLE",
+            "STATE_BUSY_RETRYABLE",
+            "STORAGE_FAILED_RETRYABLE",
+            "TEMPORAL_INTEGRITY_VIOLATION",
+            "RECONCILIATION_REQUIRED"
+          ]
+        },
+        "exit_code": {"enum": [0, 2, 3, 4, 5]},
+        "reason": {"type": ["string", "null"]}
+      }
+    },
+    "client_ref": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schema", "task_id"],
+          "properties": {
+            "schema": {"const": "research-client-ref/2"},
+            "task_id": {"type": "string", "pattern": "^(brasileirao|crypto|stocks):TASK-[0-9a-f]{32}$"}
+          }
+        }
+      ]
+    },
+    "result": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "result_id",
+            "experiment_id",
+            "admission_id",
+            "result_state",
+            "operational_state",
+            "scientific_state",
+            "economic_state",
+            "capital_permission",
+            "payload_schema",
+            "payload_sha256",
+            "payload_canonical"
+          ],
+          "properties": {
+            "result_id": {"$ref": "#/$defs/qualified_id"},
+            "experiment_id": {"$ref": "#/$defs/qualified_id"},
+            "admission_id": {"$ref": "#/$defs/qualified_id"},
+            "result_state": {"type": "string"},
+            "operational_state": {"type": "string"},
+            "scientific_state": {"type": "string"},
+            "economic_state": {"type": "string"},
+            "capital_permission": {"const": false},
+            "payload_schema": {
+              "enum": ["brasileirao-research-result/1", "crypto-research-result/1", "stocks-research-result/1"]
+            },
+            "payload_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "payload_canonical": {"type": "string"}
+          }
+        }
+      ]
+    },
+    "produced_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["distribution", "version", "module"],
+      "properties": {
+        "distribution": {"type": "string", "pattern": "^[\\x20-\\x7e]{1,200}$"},
+        "version": {"type": "string", "pattern": "^[\\x20-\\x7e]{1,200}$"},
+        "module": {"type": "string", "pattern": "^[\\x20-\\x7e]{1,200}$"}
+      }
+    }
+  },
+  "$defs": {
+    "qualified_id": {
+      "type": "string",
+      "pattern": "^(brasileirao|crypto|stocks):[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$"
+    }
+  }
+}

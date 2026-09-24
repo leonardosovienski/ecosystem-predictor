@@ -1,0 +1,866 @@
+{
+  "domains": {
+    "brasileirao": {
+      "adapter_api": {
+        "function": "brasileirao_predictor.research_runtime.runner.Circuit(state, policy, objects).submit_request(raw: bytes, *, source: str) -> outcome",
+        "reread": "Circuit(state).show(request_id) -> (exit_code, payload)",
+        "same_path_as_entrypoint": "Circuit.submit_file(path) = submit_request(path.read_bytes(), source=str(path)); main() usa submit_file"
+      },
+      "adapter_paths": [
+        "brasileirao_predictor/adapters/"
+      ],
+      "contract": {
+        "path": "qualification/brasileirao/DOMAIN_RESEARCH_CONTRACT.json",
+        "sha256": "e6f98ca28e50555f57c65adb030cc90ea9141249daebe44a333ca69970b1d824"
+      },
+      "economic_states": [
+        "WATCH",
+        "NO_EDGE",
+        "NOT_EVALUATED"
+      ],
+      "operational_states": [
+        "SUCCEEDED",
+        "FAILED",
+        "TIMEOUT",
+        "SKIPPED_ALREADY_SUCCEEDED"
+      ],
+      "outcome_exit_codes": {
+        "CONFLICT": 2,
+        "DUPLICATE": 0,
+        "NOT_READY": 3,
+        "OPS_FAILED_RETRYABLE": 3,
+        "RECONCILIATION_REQUIRED": 5,
+        "REJECTED": 2,
+        "RESULT": 0,
+        "TEMPORAL_INTEGRITY_VIOLATION": 4
+      },
+      "request_schema": {
+        "$defs": {
+          "br_id": {
+            "pattern": "^brasileirao:[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+            "type": "string"
+          },
+          "ref": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$",
+                "type": "string"
+              },
+              "version": {
+                "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "version"
+            ],
+            "type": "object"
+          },
+          "utc": {
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+            "type": "string"
+          }
+        },
+        "$id": "brasileirao-research-request/1",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "never_in_request": [
+          "comando",
+          "módulo",
+          "path",
+          "URL",
+          "SQL",
+          "handler",
+          "permissão de capital"
+        ],
+        "no_cain_envelope_or_transport": true,
+        "properties": {
+          "client_ref": {
+            "description": "JSON opaco ≤ 1024 bytes canônicos; fora do idempotency_key e do hash de conteúdo; devolvido sem alteração"
+          },
+          "competition": {
+            "enum": [
+              "Brasileirão Série A"
+            ]
+          },
+          "data_cutoff": {
+            "$ref": "#/$defs/utc"
+          },
+          "decision_lead_minutes": {
+            "maximum": 10080,
+            "minimum": 15,
+            "type": "integer"
+          },
+          "events": {
+            "additionalProperties": false,
+            "description": "kickoff_from < kickoff_to; fixtures (opcional) = event_ids com o kickoff esperado, conferido contra o dataset (divergência = KICKOFF_MISMATCH)",
+            "properties": {
+              "fixtures": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "event_id": {
+                      "minimum": 1,
+                      "type": "integer"
+                    },
+                    "kickoff_at": {
+                      "$ref": "#/$defs/utc"
+                    }
+                  },
+                  "required": [
+                    "event_id",
+                    "kickoff_at"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 400,
+                "minItems": 1,
+                "type": "array"
+              },
+              "kickoff_from": {
+                "$ref": "#/$defs/utc"
+              },
+              "kickoff_to": {
+                "$ref": "#/$defs/utc"
+              }
+            },
+            "required": [
+              "kickoff_from",
+              "kickoff_to"
+            ],
+            "type": "object"
+          },
+          "hypothesis_id": {
+            "$ref": "#/$defs/br_id"
+          },
+          "priority_hint": {
+            "enum": [
+              "LOW",
+              "NORMAL",
+              "HIGH"
+            ]
+          },
+          "references": {
+            "additionalProperties": false,
+            "properties": {
+              "baseline": {
+                "$ref": "#/$defs/ref"
+              },
+              "cost_model": {
+                "$ref": "#/$defs/ref"
+              },
+              "dataset": {
+                "$ref": "#/$defs/ref"
+              },
+              "features": {
+                "$ref": "#/$defs/ref"
+              },
+              "model": {
+                "$ref": "#/$defs/ref"
+              },
+              "odds": {
+                "$ref": "#/$defs/ref"
+              }
+            },
+            "required": [
+              "dataset",
+              "model",
+              "features",
+              "baseline",
+              "cost_model"
+            ],
+            "type": "object"
+          },
+          "request_id": {
+            "$ref": "#/$defs/br_id"
+          },
+          "request_type": {
+            "enum": [
+              "WALKFORWARD_FORECAST_EVALUATION"
+            ]
+          },
+          "research_id": {
+            "$ref": "#/$defs/br_id"
+          },
+          "schema_version": {
+            "const": "brasileirao-research-request/1"
+          },
+          "season": {
+            "maximum": 2100,
+            "minimum": 2000,
+            "type": "integer"
+          },
+          "target": {
+            "enum": [
+              "1X2",
+              "OU25"
+            ]
+          }
+        },
+        "required": [
+          "schema_version",
+          "request_id",
+          "request_type",
+          "research_id",
+          "hypothesis_id",
+          "competition",
+          "season",
+          "target",
+          "events",
+          "data_cutoff",
+          "decision_lead_minutes",
+          "references",
+          "priority_hint"
+        ],
+        "type": "object"
+      },
+      "request_schema_id": "brasileirao-research-request/1",
+      "result_required_fields": [
+        "admission_id",
+        "capital_permission",
+        "core_facts",
+        "domain_facts",
+        "economic_state",
+        "experiment_id",
+        "hypothesis_id",
+        "operational_state",
+        "ops_facts",
+        "produced_at",
+        "provenance",
+        "request_id",
+        "research_id",
+        "result_id",
+        "result_state",
+        "schema_version",
+        "scientific_state"
+      ],
+      "result_schema_id": "brasileirao-research-result/1",
+      "result_states": [
+        "WATCH_NO_CAPITAL",
+        "NO_EDGE",
+        "INCONCLUSIVE",
+        "REFUTED",
+        "CLOSED_INSUFFICIENT_SAMPLE",
+        "INCONCLUSIVE_DATA_QUALITY",
+        "FORECAST_ONLY",
+        "FAILED_OPERATIONAL"
+      ],
+      "scientific_states": [
+        "SUPPORTED",
+        "REFUTED",
+        "INCONCLUSIVE",
+        "INSUFFICIENT_SAMPLE",
+        "NOT_EVALUATED"
+      ]
+    },
+    "crypto": {
+      "adapter_api": {
+        "function": "GarimpoInvestimentos.research_runner.Circuit(state, policy, objects).submit_request(raw: bytes, *, source: str) -> outcome",
+        "reread": "Circuit(state).show(request_id) -> (exit_code, payload)",
+        "same_path_as_entrypoint": "Circuit.submit_file(path) = submit_request(path.read_bytes(), source=str(path)); main() usa submit_file"
+      },
+      "adapter_paths": [
+        "GarimpoInvestimentos/adapters/"
+      ],
+      "contract": {
+        "path": "qualification/crypto/DOMAIN_RESEARCH_CONTRACT.json",
+        "sha256": "0831fe3db2b7ca41a26ff7665f93c07b0edda3c937ac4ce83fe0e96720a9eb55"
+      },
+      "economic_states": [
+        "WATCH",
+        "NO_EDGE",
+        "NOT_EVALUATED"
+      ],
+      "operational_states": [
+        "SUCCEEDED",
+        "FAILED",
+        "TIMEOUT",
+        "SKIPPED_ALREADY_SUCCEEDED"
+      ],
+      "outcome_exit_codes": {
+        "CONFLICT": 2,
+        "DUPLICATE": 0,
+        "NOT_READY": 3,
+        "OPS_FAILED_RETRYABLE": 3,
+        "RECONCILIATION_REQUIRED": 5,
+        "REJECTED": 2,
+        "RESULT": 0,
+        "TEMPORAL_INTEGRITY_VIOLATION": 4
+      },
+      "request_schema": {
+        "$defs": {
+          "crypto_id": {
+            "pattern": "^crypto:[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+            "type": "string"
+          },
+          "ref": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$",
+                "type": "string"
+              },
+              "version": {
+                "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "version"
+            ],
+            "type": "object"
+          }
+        },
+        "$id": "crypto-research-request/1",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "never_in_request": [
+          "comando",
+          "módulo",
+          "path",
+          "URL",
+          "handler",
+          "permissão de capital"
+        ],
+        "no_cain_envelope_or_transport": true,
+        "properties": {
+          "client_ref": {
+            "description": "JSON opaco ≤ 1024 bytes canônicos; fora do idempotency_key e do hash de conteúdo; devolvido sem alteração"
+          },
+          "data_cutoff": {
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9:.]+Z$",
+            "type": "string"
+          },
+          "hypothesis_id": {
+            "$ref": "#/$defs/crypto_id"
+          },
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "fee_bps": {
+                "maximum": 1000,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "horizon_days": {
+                "maximum": 90,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "max_observations": {
+                "maximum": 5000,
+                "minimum": 4,
+                "type": "integer"
+              },
+              "placebo_seed": {
+                "maximum": 1000000,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "slippage_bps": {
+                "maximum": 1000,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "symbol": {
+                "pattern": "^[A-Z0-9]{2,20}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "symbol",
+              "horizon_days",
+              "max_observations",
+              "fee_bps",
+              "slippage_bps"
+            ],
+            "type": "object"
+          },
+          "priority_hint": {
+            "enum": [
+              "LOW",
+              "NORMAL",
+              "HIGH"
+            ]
+          },
+          "references": {
+            "additionalProperties": false,
+            "properties": {
+              "baseline": {
+                "$ref": "#/$defs/ref"
+              },
+              "cost_model": {
+                "$ref": "#/$defs/ref"
+              },
+              "dataset": {
+                "$ref": "#/$defs/ref"
+              },
+              "evidence": {
+                "$ref": "#/$defs/ref"
+              },
+              "protocol": {
+                "$ref": "#/$defs/ref"
+              }
+            },
+            "required": [
+              "protocol",
+              "dataset",
+              "baseline",
+              "cost_model",
+              "evidence"
+            ],
+            "type": "object"
+          },
+          "request_id": {
+            "$ref": "#/$defs/crypto_id"
+          },
+          "request_type": {
+            "enum": [
+              "BACKTEST_EXISTING_HYPOTHESIS"
+            ]
+          },
+          "research_id": {
+            "$ref": "#/$defs/crypto_id"
+          },
+          "schema_version": {
+            "const": "crypto-research-request/1"
+          }
+        },
+        "required": [
+          "schema_version",
+          "request_id",
+          "request_type",
+          "research_id",
+          "hypothesis_id",
+          "references",
+          "data_cutoff",
+          "parameters",
+          "priority_hint"
+        ],
+        "type": "object"
+      },
+      "request_schema_id": "crypto-research-request/1",
+      "result_required_fields": [
+        "admission_id",
+        "capital_permission",
+        "core_facts",
+        "domain_facts",
+        "economic_state",
+        "experiment_id",
+        "hypothesis_id",
+        "operational_state",
+        "ops_facts",
+        "produced_at",
+        "provenance",
+        "request_id",
+        "research_id",
+        "result_id",
+        "result_state",
+        "schema_version",
+        "scientific_state"
+      ],
+      "result_schema_id": "crypto-research-result/1",
+      "result_states": [
+        "WATCH_NO_CAPITAL",
+        "NO_EDGE",
+        "INCONCLUSIVE",
+        "REFUTED",
+        "CLOSED_INSUFFICIENT_SAMPLE",
+        "INCONCLUSIVE_DATA_QUALITY",
+        "FAILED_OPERATIONAL"
+      ],
+      "scientific_states": [
+        "SUPPORTED",
+        "REFUTED",
+        "INCONCLUSIVE",
+        "INSUFFICIENT_SAMPLE",
+        "NOT_EVALUATED"
+      ]
+    },
+    "stocks": {
+      "adapter_api": {
+        "function": "stocks_predictor.research_runner.Circuit(state, policy, objects).submit_request(raw: bytes, *, source: str) -> outcome",
+        "reread": "Circuit(state).show(request_id) -> (exit_code, payload)",
+        "same_path_as_entrypoint": "Circuit.submit_file(path) = submit_request(path.read_bytes(), source=str(path)); main() usa submit_file"
+      },
+      "adapter_paths": [
+        "stocks_predictor/adapters/"
+      ],
+      "contract": {
+        "path": "qualification/stocks/DOMAIN_RESEARCH_CONTRACT.json",
+        "sha256": "76fa8227dd83eb9a9e74697caa73e4d61c68d207f1df5f94135c76508192d66c"
+      },
+      "economic_states": [
+        "WATCH",
+        "NO_EDGE",
+        "NOT_EVALUATED"
+      ],
+      "operational_states": [
+        "SUCCEEDED",
+        "FAILED",
+        "TIMEOUT",
+        "SKIPPED_ALREADY_SUCCEEDED"
+      ],
+      "outcome_exit_codes": {
+        "CONFLICT": 2,
+        "DUPLICATE": 0,
+        "NOT_READY": 3,
+        "OPS_FAILED_RETRYABLE": 3,
+        "RECONCILIATION_REQUIRED": 5,
+        "REJECTED": 2,
+        "RESULT": 0,
+        "STATE_BUSY_RETRYABLE": 3,
+        "STORAGE_FAILED_RETRYABLE": 3,
+        "TEMPORAL_INTEGRITY_VIOLATION": 4
+      },
+      "request_schema": {
+        "$defs": {
+          "ref": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$",
+                "type": "string"
+              },
+              "version": {
+                "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "version"
+            ],
+            "type": "object"
+          },
+          "stocks_id": {
+            "pattern": "^stocks:[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+            "type": "string"
+          }
+        },
+        "$id": "stocks-research-request/1",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "covers": {
+          "alvo/horizonte": "parameters.target + universe.rebalance_every_sessions",
+          "as_of": "as_of",
+          "baseline": "references.baseline (EQUAL_WEIGHT_UNIVERSE)",
+          "custos": "references.cost_model + parameters.fee_bps/slippage_bps (têm de bater)",
+          "fatores/features": "references.features",
+          "identidade do universo": "references.universe (top_n, janela de liquidez, histórico mínimo, rebalance, identidade SECURITY_ID_ISSUER_CNPJ_DEDUP)",
+          "metadados PIT": "pit + as_of",
+          "ranking/modelo e protocolo de seleção": "references.model (quantil, take, selection_path, estatística, minimum_sample)",
+          "snapshot do dataset": "references.dataset (stocks-pit-panel/1 imutável, sha256)",
+          "trial": "hypothesis_id + research_id; trial_id atribuído pelo executor (stocks:TRIAL-…)"
+        },
+        "never_in_request": [
+          "comando",
+          "módulo",
+          "path",
+          "URL",
+          "SQL",
+          "handler",
+          "budget final",
+          "prioridade final",
+          "permissão de capital"
+        ],
+        "no_cain_envelope_or_transport": true,
+        "properties": {
+          "as_of": {
+            "description": "cutoff PIT; igual ao data_cutoff do snapshot do dataset admitido",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+            "type": "string"
+          },
+          "client_ref": {
+            "description": "JSON opaco ≤ 1024 bytes canônicos; fora do idempotency_key e do hash de conteúdo; devolvido sem alteração"
+          },
+          "hypothesis_id": {
+            "$ref": "#/$defs/stocks_id",
+            "description": "trial = (hypothesis_id, research_id, request); stocks:H<n> nunca é admitida"
+          },
+          "parameters": {
+            "oneOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "external_intelligence": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "families": {
+                        "items": {
+                          "enum": [
+                            "B3_LENDING",
+                            "CVM_VLMO",
+                            "CVM_BUYBACK",
+                            "CVM_CDA",
+                            "CVM_ENTREGA",
+                            "CVM_FCA_IDENTITY",
+                            "CVM_IPE_METADATA"
+                          ]
+                        },
+                        "type": "array",
+                        "uniqueItems": true
+                      },
+                      "mode": {
+                        "enum": [
+                          "NONE",
+                          "COLLECTION_ONLY",
+                          "TRIAL_CONSUMPTION"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "mode",
+                      "families"
+                    ],
+                    "type": "object"
+                  },
+                  "fee_bps": {
+                    "maximum": 1000,
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "max_securities": {
+                    "maximum": 5000,
+                    "minimum": 1,
+                    "type": "integer"
+                  },
+                  "negative_control": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "kind": {
+                        "enum": [
+                          "SHUFFLED_LABELS",
+                          "TEMPORAL_ABLATION",
+                          "FEATURE_ABLATION",
+                          "UNIVERSE_PERTURBATION"
+                        ]
+                      },
+                      "seed": {
+                        "maximum": 1000000,
+                        "minimum": 0,
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "seed"
+                    ],
+                    "type": "object"
+                  },
+                  "slippage_bps": {
+                    "maximum": 1000,
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "target": {
+                    "description": "alvo/horizonte: retorno até o próximo rebalance",
+                    "enum": [
+                      "NEXT_REBALANCE_RETURN"
+                    ]
+                  }
+                },
+                "required": [
+                  "target",
+                  "fee_bps",
+                  "slippage_bps",
+                  "max_securities",
+                  "external_intelligence"
+                ],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "collector": {
+                    "enum": [
+                      "cvm-vlmo",
+                      "cvm-buyback",
+                      "cvm-ipe",
+                      "cvm-fca-identity",
+                      "cvm-cda",
+                      "cvm-entrega"
+                    ]
+                  },
+                  "observed_at": {
+                    "type": "string"
+                  },
+                  "period": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "collector",
+                  "period",
+                  "observed_at"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "pit": {
+            "additionalProperties": false,
+            "properties": {
+              "availability_rule": {
+                "const": "AVAILABLE_AT_LE_DECISION_TIME"
+              },
+              "minimum_pit_class": {
+                "enum": [
+                  "PIT_STRICT",
+                  "PIT_RECONSTRUCTED"
+                ]
+              }
+            },
+            "required": [
+              "availability_rule",
+              "minimum_pit_class"
+            ],
+            "type": "object"
+          },
+          "priority_hint": {
+            "enum": [
+              "LOW",
+              "NORMAL",
+              "HIGH"
+            ]
+          },
+          "references": {
+            "description": "por request_type; cada uma resolve para (revision_id, sha256) no registry da policy",
+            "oneOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "baseline": {
+                    "$ref": "#/$defs/ref"
+                  },
+                  "cost_model": {
+                    "$ref": "#/$defs/ref"
+                  },
+                  "dataset": {
+                    "$ref": "#/$defs/ref"
+                  },
+                  "features": {
+                    "$ref": "#/$defs/ref"
+                  },
+                  "model": {
+                    "$ref": "#/$defs/ref"
+                  },
+                  "readiness": {
+                    "$ref": "#/$defs/ref"
+                  },
+                  "universe": {
+                    "$ref": "#/$defs/ref"
+                  }
+                },
+                "required": [
+                  "dataset",
+                  "universe",
+                  "features",
+                  "model",
+                  "baseline",
+                  "cost_model",
+                  "readiness"
+                ],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "readiness": {
+                    "$ref": "#/$defs/ref"
+                  },
+                  "source": {
+                    "$ref": "#/$defs/ref"
+                  }
+                },
+                "required": [
+                  "source",
+                  "readiness"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "request_id": {
+            "$ref": "#/$defs/stocks_id"
+          },
+          "request_type": {
+            "enum": [
+              "BACKTEST_PIT_FACTOR",
+              "COLLECT_EXTERNAL_INTELLIGENCE"
+            ]
+          },
+          "research_id": {
+            "$ref": "#/$defs/stocks_id"
+          },
+          "schema_version": {
+            "const": "stocks-research-request/1"
+          }
+        },
+        "required": [
+          "schema_version",
+          "request_id",
+          "request_type",
+          "research_id",
+          "hypothesis_id",
+          "references",
+          "as_of",
+          "pit",
+          "parameters",
+          "priority_hint"
+        ],
+        "type": "object"
+      },
+      "request_schema_id": "stocks-research-request/1",
+      "result_required_fields": [
+        "admission_id",
+        "as_of",
+        "capital_permission",
+        "core_facts",
+        "domain_facts",
+        "economic_state",
+        "experiment_id",
+        "hypothesis_id",
+        "operational_state",
+        "ops_facts",
+        "produced_at",
+        "provenance",
+        "request_id",
+        "request_type",
+        "research_id",
+        "result_id",
+        "result_state",
+        "schema_version",
+        "scientific_state",
+        "trial_eligible"
+      ],
+      "result_schema_id": "stocks-research-result/1",
+      "result_states": [
+        "WATCH_NO_CAPITAL",
+        "NO_EDGE",
+        "INCONCLUSIVE",
+        "REFUTED",
+        "NOT_READY",
+        "CLOSED_INSUFFICIENT_SAMPLE",
+        "INCONCLUSIVE_DATA_QUALITY",
+        "FAILED_OPERATIONAL",
+        "COLLECTION_RECORDED"
+      ],
+      "scientific_states": [
+        "SUPPORTED",
+        "REFUTED",
+        "INCONCLUSIVE",
+        "INSUFFICIENT_SAMPLE",
+        "NOT_EVALUATED"
+      ]
+    }
+  },
+  "schema": "research-protocol-v2-domains/1",
+  "source": {
+    "commit": "cb28674f21f416724ea33cf2f5db7e6f70962b0e",
+    "repository": "leonardosovienski/predictor-qualification"
+  }
+}
