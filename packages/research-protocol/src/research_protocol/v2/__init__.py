@@ -11,6 +11,8 @@ operational, scientific or economic states it carries.
   a string so that floats inside the domain result never pass through a second serialization.
 * Serialization is canonical JSON (sorted keys, no whitespace, UTF-8, no NaN/Infinity); a
   non-canonical input, an unknown field, an unknown version or an ambiguous ID is rejected.
+* One orchestration per domain (D-22): every ID of a task or result belongs to its ``domain``,
+  including the episode (``<domain>:episode-<n>``) that chains the domain's research cycles.
 """
 
 from __future__ import annotations
@@ -51,16 +53,22 @@ OUTCOME_CLASSES = MappingProxyType(
     }
 )
 RESULT_STATUSES = frozenset({"RESULT", "DUPLICATE"})
+# Statuses a domain may return before it has parsed or recorded the request, so without the
+# client_ref echo: a request refused before parsing (all domains) and a state database busy
+# during admission (stocks-predictor research_runner.submit_request).
+CLIENT_REF_OPTIONAL_STATUSES = frozenset({"REJECTED", "STATE_BUSY_RETRYABLE"})
 
 TASK_FIELDS = frozenset(
     {
         "based_on",
         "created_at",
         "domain",
+        "episode_id",
         "hypothesis_id",
         "payload",
         "payload_schema",
         "payload_sha256",
+        "previous_task_id",
         "producer",
         "proposal_id",
         "request_id",
@@ -74,6 +82,7 @@ RESULT_FIELDS = frozenset(
         "adapter",
         "client_ref",
         "domain",
+        "episode_id",
         "hypothesis_id",
         "outcome",
         "produced_at",
@@ -102,6 +111,7 @@ RESULT_BODY_FIELDS = frozenset(
 )
 ADAPTER_FIELDS = frozenset({"distribution", "module", "version"})
 _ID_TAIL = r"[A-Za-z0-9][A-Za-z0-9_.-]{0,127}"
+_EPISODE_TAIL = r"episode-([1-9][0-9]{0,11})"
 _UTC = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z\Z")
 _SHA256 = re.compile(r"[0-9a-f]{64}\Z")
 _CAIN_ID = re.compile(r"cain:" + _ID_TAIL + r"\Z")
@@ -231,13 +241,44 @@ def _exact_keys(value: Any, fields: frozenset[str], label: str) -> dict:
     return value
 
 
+def _episode(value: Any, domain: str, field: str) -> str:
+    _qualified(value, domain, field)
+    if not re.fullmatch(re.escape(domain) + ":" + _EPISODE_TAIL, value):
+        raise V2Error("EPISODE_INVALID", f"{field} must be {domain}:episode-<n> (n >= 1, no leading zeros)")
+    return value
+
+
+def episode_id_for(domain: str, number: int) -> str:
+    """The episode ID ``<domain>:episode-<n>`` (the CAIN's ``<domain>/episode-<n>``, C18 form)."""
+    _domain(domain)
+    if type(number) is not int or not 1 <= number < 10**12:
+        raise V2Error("EPISODE_INVALID", "episode number must be an integer in [1, 10**12)")
+    return f"{domain}:episode-{number}"
+
+
+def episode_number(episode_id: str) -> int:
+    """The per-domain sequence number of an episode ID (for ordering the domain's chain)."""
+    domain = episode_id.split(":", 1)[0] if isinstance(episode_id, str) else None
+    _domain(domain)
+    _episode(episode_id, domain, "episode_id")
+    return int(episode_id.rsplit("-", 1)[1])
+
+
 def request_content_hash(payload: dict) -> str:
     """sha256 of the canonical domain request without ``client_ref`` (the domains' content hash)."""
     return digest(canonical({key: value for key, value in payload.items() if key != "client_ref"}))
 
 
-def task_id_for(domain: str, request_id: str, payload_sha256: str) -> str:
-    material = canonical({"domain": domain, "payload_sha256": payload_sha256, "request_id": request_id})
+def task_id_for(domain: str, request_id: str, payload_sha256: str, *, episode_id: str) -> str:
+    """``<domain>:TASK-<32 hex>``: one task per (domain, episode, request content)."""
+    material = canonical(
+        {
+            "domain": domain,
+            "episode_id": episode_id,
+            "payload_sha256": payload_sha256,
+            "request_id": request_id,
+        }
+    )
     return f"{domain}:TASK-{digest(material)[:32]}"
 
 
@@ -250,11 +291,13 @@ def build_task(
     domain: str,
     request: dict,
     *,
+    episode_id: str,
     proposal_id: str,
     created_at: str,
     based_on: list[str] | tuple[str, ...] = (),
+    previous_task_id: str | None = None,
 ) -> dict:
-    """Wrap a domain request (without ``client_ref``) in a ResearchTaskV2."""
+    """Wrap a domain request (without ``client_ref``) in a ResearchTaskV2 of one domain episode."""
     entry = _domain(domain)
     if not isinstance(request, dict):
         raise V2Error("PAYLOAD_INVALID", "request must be an object")
@@ -262,13 +305,16 @@ def build_task(
         raise V2Error("CLIENT_REF_RESERVED", "client_ref is owned by the V2 envelope")
     payload = copy.deepcopy(request)
     request_id = _qualified(payload.get("request_id"), domain, "payload.request_id")
+    _episode(episode_id, domain, "episode_id")
     payload_sha256 = request_content_hash(payload)
-    task_id = task_id_for(domain, request_id, payload_sha256)
+    task_id = task_id_for(domain, request_id, payload_sha256, episode_id=episode_id)
     payload["client_ref"] = client_ref_for(task_id)
     task = {
         "schema": TASK_SCHEMA,
         "domain": domain,
         "task_id": task_id,
+        "episode_id": episode_id,
+        "previous_task_id": previous_task_id,
         "proposal_id": proposal_id,
         "based_on": list(based_on),
         "request_id": request_id,
@@ -299,6 +345,14 @@ def validate_task(task: Any) -> dict:
     if type(task["proposal_id"]) is not str or not _CAIN_ID.match(task["proposal_id"]):
         raise V2Error("ID_NOT_QUALIFIED", "proposal_id must be a cain: qualified ID")
     _utc(task["created_at"], "created_at")
+    _episode(task["episode_id"], domain, "episode_id")
+    previous = task["previous_task_id"]
+    if previous is not None:
+        if type(previous) is not str or not re.fullmatch(re.escape(domain) + r":TASK-[0-9a-f]{32}", previous):
+            _qualified(previous, domain, "previous_task_id")
+            raise V2Error("ID_NOT_QUALIFIED", "previous_task_id must be null or <domain>:TASK-<32 hex>")
+        if previous == task["task_id"]:
+            raise V2Error("CORRELATION_MISMATCH", "previous_task_id points to the task itself")
     based_on = task["based_on"]
     if not isinstance(based_on, list) or len(based_on) > MAX_BASED_ON:
         raise V2Error("SCHEMA_INVALID", "based_on must be a list of at most 64 IDs")
@@ -328,8 +382,12 @@ def validate_task(task: Any) -> dict:
         raise V2Error("SCHEMA_INVALID", "payload_sha256 must be lowercase sha256 hex")
     if request_content_hash(payload) != task["payload_sha256"]:
         raise V2Error("PAYLOAD_HASH_MISMATCH", "payload_sha256 does not match the payload")
-    if task["task_id"] != task_id_for(domain, task["request_id"], task["payload_sha256"]):
-        raise V2Error("TASK_ID_MISMATCH", "task_id is not derived from (domain, request_id, payload_sha256)")
+    if task["task_id"] != task_id_for(
+        domain, task["request_id"], task["payload_sha256"], episode_id=task["episode_id"]
+    ):
+        raise V2Error(
+            "TASK_ID_MISMATCH", "task_id is not derived from (domain, episode_id, request_id, payload_sha256)"
+        )
     return task
 
 
@@ -428,6 +486,7 @@ def build_result(task: dict, outcome: dict, *, adapter: dict, produced_at: str) 
         "schema": RESULT_SCHEMA,
         "domain": domain,
         "task_id": task["task_id"],
+        "episode_id": task["episode_id"],
         "request_id": task["request_id"],
         "research_id": task["research_id"],
         "hypothesis_id": task["hypothesis_id"],
@@ -460,6 +519,7 @@ def validate_result(result: Any, *, task: dict | None = None) -> dict:
     ):
         _qualified(result["task_id"], domain, "task_id")
         raise V2Error("ID_NOT_QUALIFIED", "task_id must be <domain>:TASK-<32 hex>")
+    _episode(result["episode_id"], domain, "episode_id")
     for field in ("request_id", "research_id", "hypothesis_id"):
         _qualified(result[field], domain, field)
     _utc(result["produced_at"], "produced_at")
@@ -479,9 +539,11 @@ def validate_result(result: Any, *, task: dict | None = None) -> dict:
         raise V2Error("SCHEMA_INVALID", "reason must be null or a string of at most 300 chars")
     expected_ref = client_ref_for(result["task_id"])
     if result["client_ref"] is None:
-        if status != "REJECTED":
+        if status not in CLIENT_REF_OPTIONAL_STATUSES:
             raise V2Error(
-                "CLIENT_REF_MISMATCH", "client_ref may be absent only when the request was rejected"
+                "CLIENT_REF_MISMATCH",
+                "client_ref may be absent only when the domain answered before reading the request"
+                f" ({', '.join(sorted(CLIENT_REF_OPTIONAL_STATUSES))})",
             )
     elif result["client_ref"] != expected_ref:
         raise V2Error("CLIENT_REF_MISMATCH", "client_ref does not echo the task")
@@ -524,7 +586,7 @@ def validate_result(result: Any, *, task: dict | None = None) -> dict:
             raise V2Error("DOMAIN_MISMATCH", f"{domain} result offered for a {task['domain']} task")
         if task["task_id"] != result["task_id"]:
             raise V2Error("TASK_MISMATCH", "result belongs to another task")
-        for field in ("request_id", "research_id", "hypothesis_id"):
+        for field in ("episode_id", "request_id", "research_id", "hypothesis_id"):
             if task[field] != result[field]:
                 raise V2Error("CORRELATION_MISMATCH", f"{field} differs from the task")
     return result
@@ -550,6 +612,7 @@ def domain_payload(result: dict) -> bytes | None:
 
 
 __all__ = [
+    "CLIENT_REF_OPTIONAL_STATUSES",
     "CLIENT_REF_SCHEMA",
     "DOMAINS",
     "MAX_REQUEST_BYTES",
@@ -571,6 +634,8 @@ __all__ = [
     "domain_payload",
     "dumps_result",
     "dumps_task",
+    "episode_id_for",
+    "episode_number",
     "loads_result",
     "loads_strict",
     "loads_task",
