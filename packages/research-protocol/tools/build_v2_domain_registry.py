@@ -41,7 +41,7 @@ _BASE_EXIT_CODES = {
 OUTCOME_EXIT_CODES = {
     # GarimpoInvestimentos/research_contract.py EXIT_CODES (cripto-predictor 1.2.0rc2)
     "crypto": dict(_BASE_EXIT_CODES),
-    # brasileirao_predictor/research_runtime/contract.py EXIT_CODES (brasileirao-predictor 0.3.0rc2)
+    # brasileirao_predictor/research_runtime/contract.py EXIT_CODES (brasileirao-predictor 0.3.0rc3)
     "brasileirao": dict(_BASE_EXIT_CODES),
     # stocks_predictor/research_contract.py EXIT_CODES (stocks-predictor 0.3.0rc2)
     "stocks": dict(_BASE_EXIT_CODES, STATE_BUSY_RETRYABLE=3, STORAGE_FAILED_RETRYABLE=3),

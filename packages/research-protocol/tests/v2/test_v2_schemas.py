@@ -30,7 +30,13 @@ def _reference(schema: dict):
 
 
 def test_packaged_schemas_are_valid_2020_12_and_accept_built_envelopes(domain):
-    task = v2.build_task(domain, REQUESTS[domain], proposal_id="cain:P", created_at="2026-09-24T10:00:00Z")
+    task = v2.build_task(
+        domain,
+        REQUESTS[domain],
+        episode_id=f"{domain}:episode-1",
+        proposal_id="cain:P",
+        created_at="2026-09-24T10:00:00Z",
+    )
     _reference(TASK_SCHEMA).validate(task)
     for status in ("RESULT", "REJECTED", "NOT_READY"):
         result = v2.build_result(
@@ -40,7 +46,13 @@ def test_packaged_schemas_are_valid_2020_12_and_accept_built_envelopes(domain):
 
 
 def test_packaged_schemas_reject_what_the_code_rejects(domain):
-    task = v2.build_task(domain, REQUESTS[domain], proposal_id="cain:P", created_at="2026-09-24T10:00:00Z")
+    task = v2.build_task(
+        domain,
+        REQUESTS[domain],
+        episode_id=f"{domain}:episode-1",
+        proposal_id="cain:P",
+        created_at="2026-09-24T10:00:00Z",
+    )
     for bad in (
         dict(task, extra=1),
         dict(task, schema="research-task/1"),
@@ -128,3 +140,29 @@ def test_integer_excludes_booleans():
         _schema.validate(True, {"type": "integer"})
     with pytest.raises(_schema.InstanceError):
         _schema.validate(1, {"enum": [True]})
+
+
+def test_packaged_schemas_reject_malformed_episode_fields(domain):
+    task = v2.build_task(
+        domain,
+        REQUESTS[domain],
+        episode_id=f"{domain}:episode-3",
+        previous_task_id=f"{domain}:TASK-" + "1" * 32,
+        proposal_id="cain:P",
+        created_at="2026-09-24T10:00:00Z",
+    )
+    _reference(TASK_SCHEMA).validate(task)
+    for bad in (
+        {k: v for k, v in task.items() if k != "episode_id"},
+        {k: v for k, v in task.items() if k != "previous_task_id"},
+        dict(task, episode_id=f"{domain}:episode-0"),
+        dict(task, episode_id=f"{domain}/episode-3"),
+        dict(task, previous_task_id=f"{domain}:REQ-1"),
+    ):
+        assert not _reference(TASK_SCHEMA).is_valid(bad)
+        with pytest.raises(v2.V2Error):
+            v2.validate_task(bad)
+    result = v2.build_result(task, outcome(domain, task), adapter=ADAPTER, produced_at="2026-09-24T10:00:01Z")
+    _reference(RESULT_SCHEMA).validate(result)
+    assert not _reference(RESULT_SCHEMA).is_valid({k: v for k, v in result.items() if k != "episode_id"})
+    assert not _reference(RESULT_SCHEMA).is_valid(dict(result, episode_id="episode-3"))

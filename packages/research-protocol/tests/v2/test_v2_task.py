@@ -15,7 +15,7 @@ NOW = "2026-09-24T10:00:00Z"
 
 
 def make(domain: str, **overrides) -> dict:
-    kwargs = {"proposal_id": "cain:PROP-0001", "created_at": NOW}
+    kwargs = {"episode_id": f"{domain}:episode-1", "proposal_id": "cain:PROP-0001", "created_at": NOW}
     kwargs.update(overrides)
     return v2.build_task(domain, copy.deepcopy(REQUESTS[domain]), **kwargs)
 
@@ -47,7 +47,9 @@ def test_task_id_is_deterministic_and_content_bound(domain):
     assert first["task_id"] == second["task_id"]
     changed = copy.deepcopy(REQUESTS[domain])
     changed["priority_hint"] = "LOW"
-    other = v2.build_task(domain, changed, proposal_id="cain:PROP-0001", created_at=NOW)
+    other = v2.build_task(
+        domain, changed, episode_id=f"{domain}:episode-1", proposal_id="cain:PROP-0001", created_at=NOW
+    )
     assert other["task_id"] != first["task_id"]
     assert (
         other["request_id"] == first["request_id"]
@@ -103,7 +105,9 @@ def test_unknown_domain_is_rejected():
         v2.validate_task(dict(task, domain="lol"))
     assert code(exc) == "DOMAIN_UNKNOWN"
     with pytest.raises(V2Error) as exc:
-        v2.build_task("lol", REQUESTS["crypto"], proposal_id="cain:P", created_at=NOW)
+        v2.build_task(
+            "lol", REQUESTS["crypto"], episode_id="lol:episode-1", proposal_id="cain:P", created_at=NOW
+        )
     assert code(exc) == "DOMAIN_UNKNOWN"
 
 
@@ -111,12 +115,12 @@ def test_payload_must_satisfy_the_contract_request_schema(domain):
     request = copy.deepcopy(REQUESTS[domain])
     request["priority_hint"] = "URGENT"
     with pytest.raises(V2Error) as exc:
-        v2.build_task(domain, request, proposal_id="cain:P", created_at=NOW)
+        v2.build_task(domain, request, episode_id=f"{domain}:episode-1", proposal_id="cain:P", created_at=NOW)
     assert code(exc) == "PAYLOAD_INVALID"
     request = copy.deepcopy(REQUESTS[domain])
     request["command"] = "rm -rf /"
     with pytest.raises(V2Error) as exc:
-        v2.build_task(domain, request, proposal_id="cain:P", created_at=NOW)
+        v2.build_task(domain, request, episode_id=f"{domain}:episode-1", proposal_id="cain:P", created_at=NOW)
     assert code(exc) == "PAYLOAD_INVALID"
 
 
@@ -126,7 +130,13 @@ def test_request_of_one_domain_cannot_be_sent_as_another():
             if source == target:
                 continue
             with pytest.raises(V2Error) as exc:
-                v2.build_task(target, REQUESTS[source], proposal_id="cain:P", created_at=NOW)
+                v2.build_task(
+                    target,
+                    REQUESTS[source],
+                    episode_id=f"{target}:episode-1",
+                    proposal_id="cain:P",
+                    created_at=NOW,
+                )
             assert code(exc) in {"DOMAIN_MISMATCH", "PAYLOAD_INVALID"}
 
 
@@ -135,7 +145,7 @@ def test_ambiguous_or_unqualified_ids_are_rejected(bad):
     request = copy.deepcopy(REQUESTS["crypto"])
     request["hypothesis_id"] = bad
     with pytest.raises(V2Error) as exc:
-        v2.build_task("crypto", request, proposal_id="cain:P", created_at=NOW)
+        v2.build_task("crypto", request, episode_id="crypto:episode-1", proposal_id="cain:P", created_at=NOW)
     assert code(exc) in {"ID_NOT_QUALIFIED", "PAYLOAD_INVALID"}
 
 
@@ -144,7 +154,9 @@ def test_same_local_id_in_three_domains_never_collides():
     for domain in REQUESTS:
         request = copy.deepcopy(REQUESTS[domain])
         request["hypothesis_id"] = f"{domain}:H9"
-        tasks[domain] = v2.build_task(domain, request, proposal_id="cain:P", created_at=NOW)
+        tasks[domain] = v2.build_task(
+            domain, request, episode_id=f"{domain}:episode-1", proposal_id="cain:P", created_at=NOW
+        )
     assert len({t["hypothesis_id"] for t in tasks.values()}) == 3
     assert len({t["task_id"] for t in tasks.values()}) == 3
 
@@ -178,7 +190,7 @@ def test_client_ref_belongs_to_the_envelope(domain):
     request = copy.deepcopy(REQUESTS[domain])
     request["client_ref"] = {"anything": 1}
     with pytest.raises(V2Error) as exc:
-        v2.build_task(domain, request, proposal_id="cain:P", created_at=NOW)
+        v2.build_task(domain, request, episode_id=f"{domain}:episode-1", proposal_id="cain:P", created_at=NOW)
     assert code(exc) == "CLIENT_REF_RESERVED"
 
 
@@ -223,8 +235,144 @@ def test_size_limit():
     request["events"]["fixtures"] = [
         {"event_id": i + 1, "kickoff_at": "2024-05-01T19:00:00Z"} for i in range(400)
     ]
-    task = v2.build_task("brasileirao", request, proposal_id="cain:P", created_at=NOW)
+    task = v2.build_task(
+        "brasileirao", request, episode_id="brasileirao:episode-1", proposal_id="cain:P", created_at=NOW
+    )
     assert len(v2.dumps_task(task)) < v2.MAX_TASK_BYTES
     with pytest.raises(V2Error) as exc:
         v2.loads_task(b" " * (v2.MAX_TASK_BYTES + 1))
     assert code(exc) == "SIZE_LIMIT"
+
+
+# --------------------------------------------------------------------------- episodes (D-22)
+@pytest.mark.parametrize(
+    "bad,expected",
+    [
+        ("{d}:episode-0", "EPISODE_INVALID"),
+        ("{d}:episode-01", "EPISODE_INVALID"),
+        ("{d}:EPISODE-1", "EPISODE_INVALID"),
+        ("{d}:episode-", "EPISODE_INVALID"),
+        ("{d}:episode-1-2", "EPISODE_INVALID"),
+        ("{d}:episode-1000000000000", "EPISODE_INVALID"),
+        ("{d}:TASK-1", "EPISODE_INVALID"),
+        ("episode-1", "ID_NOT_QUALIFIED"),
+        ("{d}/episode-1", "ID_NOT_QUALIFIED"),
+        ("{d}:episode-1\n", "ID_NOT_QUALIFIED"),
+        (1, "ID_NOT_QUALIFIED"),
+        (None, "ID_NOT_QUALIFIED"),
+    ],
+)
+def test_episode_id_is_a_domain_episode(domain, bad, expected):
+    value = bad.format(d=domain) if isinstance(bad, str) else bad
+    with pytest.raises(V2Error) as exc:
+        make(domain, episode_id=value)
+    assert code(exc) == expected
+    task = make(domain)
+    with pytest.raises(V2Error) as exc:
+        v2.validate_task(dict(task, episode_id=value))
+    assert code(exc) == expected
+
+
+def test_episode_of_another_domain_is_rejected(domain):
+    for other in REQUESTS:
+        if other != domain:
+            with pytest.raises(V2Error) as exc:
+                make(domain, episode_id=f"{other}:episode-1")
+            assert code(exc) == "DOMAIN_MISMATCH"
+
+
+def test_episode_is_mandatory():
+    with pytest.raises(TypeError):
+        v2.build_task("crypto", copy.deepcopy(REQUESTS["crypto"]), proposal_id="cain:P", created_at=NOW)
+    task = make("crypto")
+    for field in ("episode_id", "previous_task_id"):
+        missing = {k: v for k, v in task.items() if k != field}
+        with pytest.raises(V2Error) as exc:
+            v2.validate_task(missing)
+        assert code(exc) == "SCHEMA_INVALID"
+
+
+def test_task_id_is_one_per_episode_and_request_content(domain):
+    first = make(domain, episode_id=f"{domain}:episode-1")
+    later = make(domain, episode_id=f"{domain}:episode-2")
+    assert first["task_id"] != later["task_id"]
+    assert first["payload"]["client_ref"] != later["payload"]["client_ref"]
+    # the domain sees the same request: same request_id and same content hash (client_ref excluded),
+    # so its idempotency key answers DUPLICATE with the same authoritative result, never a 2nd effect
+    assert first["payload_sha256"] == later["payload_sha256"]
+    assert first["request_id"] == later["request_id"]
+    assert v2.request_content_hash(first["payload"]) == v2.request_content_hash(later["payload"])
+    # the same episode and request always give the same task and the same bytes to the domain
+    again = make(domain, episode_id=f"{domain}:episode-1", created_at="2026-09-25T00:00:00Z")
+    assert again["task_id"] == first["task_id"]
+    assert v2.request_bytes(again) == v2.request_bytes(first)
+
+
+def test_changing_the_episode_of_a_task_is_detected(domain):
+    task = make(domain)
+    with pytest.raises(V2Error) as exc:
+        v2.validate_task(dict(task, episode_id=f"{domain}:episode-2"))
+    assert code(exc) == "TASK_ID_MISMATCH"
+
+
+def test_previous_task_id_chains_the_domain_episodes(domain):
+    first = make(domain, episode_id=f"{domain}:episode-1")
+    assert first["previous_task_id"] is None
+    request = copy.deepcopy(REQUESTS[domain])
+    request["request_id"] = f"{domain}:REQ-0002"
+    second = v2.build_task(
+        domain,
+        request,
+        episode_id=f"{domain}:episode-2",
+        previous_task_id=first["task_id"],
+        based_on=[f"{domain}:RESULT-" + "a" * 32],
+        proposal_id="cain:PROP-0002",
+        created_at=NOW,
+    )
+    assert second["previous_task_id"] == first["task_id"]
+    assert v2.loads_task(v2.dumps_task(second)) == second
+    for other in REQUESTS:
+        if other != domain:
+            with pytest.raises(V2Error) as exc:
+                v2.validate_task(dict(second, previous_task_id=f"{other}:TASK-" + "0" * 32))
+            assert code(exc) == "DOMAIN_MISMATCH"
+    for bad in (f"{domain}:REQ-0001", f"{domain}:TASK-XYZ", "TASK-" + "0" * 32, 5, ""):
+        with pytest.raises(V2Error) as exc:
+            v2.validate_task(dict(second, previous_task_id=bad))
+        assert code(exc) == "ID_NOT_QUALIFIED"
+    with pytest.raises(V2Error) as exc:
+        v2.validate_task(dict(second, previous_task_id=second["task_id"]))
+    assert code(exc) == "CORRELATION_MISMATCH"
+
+
+def test_episode_helpers(domain):
+    assert v2.episode_id_for(domain, 1) == f"{domain}:episode-1"
+    assert v2.episode_number(f"{domain}:episode-42") == 42
+    assert v2.episode_number(v2.episode_id_for(domain, 10**12 - 1)) == 10**12 - 1
+    for bad in (0, -1, 10**12, True, "1", 1.0):
+        with pytest.raises(V2Error) as exc:
+            v2.episode_id_for(domain, bad)
+        assert code(exc) == "EPISODE_INVALID"
+    with pytest.raises(V2Error) as exc:
+        v2.episode_id_for("lol", 1)
+    assert code(exc) == "DOMAIN_UNKNOWN"
+    with pytest.raises(V2Error):
+        v2.episode_number(f"{domain}:episode-0")
+
+
+def test_three_orchestrations_same_episode_number_and_local_ids_never_collide():
+    tasks = {}
+    for domain in REQUESTS:
+        request = copy.deepcopy(REQUESTS[domain])
+        request["hypothesis_id"] = f"{domain}:H9"
+        tasks[domain] = v2.build_task(
+            domain, request, episode_id=f"{domain}:episode-7", proposal_id="cain:P", created_at=NOW
+        )
+    assert len({t["episode_id"] for t in tasks.values()}) == 3
+    assert len({t["task_id"] for t in tasks.values()}) == 3
+    for domain, task in tasks.items():
+        for other, other_task in tasks.items():
+            if other != domain:
+                with pytest.raises(V2Error) as exc:
+                    v2.validate_task(dict(task, previous_task_id=other_task["task_id"]))
+                assert code(exc) == "DOMAIN_MISMATCH"

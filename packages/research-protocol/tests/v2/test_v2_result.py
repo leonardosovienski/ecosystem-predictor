@@ -18,7 +18,13 @@ def task_for(domain: str, request_id: str = "") -> dict:
     request = copy.deepcopy(REQUESTS[domain])
     if request_id:
         request["request_id"] = request_id
-    return v2.build_task(domain, request, proposal_id="cain:PROP-0001", created_at="2026-09-24T10:00:00Z")
+    return v2.build_task(
+        domain,
+        request,
+        episode_id=f"{domain}:episode-1",
+        proposal_id="cain:PROP-0001",
+        created_at="2026-09-24T10:00:00Z",
+    )
 
 
 def wrap(task: dict, out: dict) -> dict:
@@ -234,3 +240,88 @@ def test_duplicate_outcome_is_equivalent_to_the_first_result(domain):
     dup = wrap(task, outcome(domain, task, "DUPLICATE"))
     assert dup["result"] == first["result"]
     assert v2.domain_payload(dup) == v2.domain_payload(first)
+
+
+# --------------------------------------------------------------------------- episodes and client_ref (rc2)
+def test_result_echoes_the_task_episode(domain):
+    task = task_for(domain)
+    result = wrap(task, outcome(domain, task))
+    assert result["episode_id"] == task["episode_id"] == f"{domain}:episode-1"
+    changed = dict(result, episode_id=f"{domain}:episode-2")
+    v2.validate_result(changed)  # well formed on its own ...
+    with pytest.raises(V2Error) as exc:  # ... but not the result of this task's episode
+        v2.validate_result(changed, task=task)
+    assert code(exc) == "CORRELATION_MISMATCH"
+    for bad, expected in (
+        (f"{domain}:episode-0", "EPISODE_INVALID"),
+        ("episode-1", "ID_NOT_QUALIFIED"),
+        (next(f"{d}:episode-1" for d in REQUESTS if d != domain), "DOMAIN_MISMATCH"),
+    ):
+        with pytest.raises(V2Error) as exc:
+            v2.validate_result(dict(result, episode_id=bad))
+        assert code(exc) == expected
+    missing = {k: v for k, v in result.items() if k != "episode_id"}
+    with pytest.raises(V2Error) as exc:
+        v2.validate_result(missing)
+    assert code(exc) == "SCHEMA_INVALID"
+
+
+def test_state_busy_during_admission_is_representable_without_client_ref():
+    # stocks-predictor research_runner.submit_request: sqlite3.OperationalError during admission
+    # returns STATE_BUSY_RETRYABLE with request_id None and no client_ref (exit 3).
+    task = task_for("stocks")
+    out = outcome("stocks", task, "STATE_BUSY_RETRYABLE")
+    del out["client_ref"]
+    out["request_id"] = None
+    result = wrap(task, out)
+    assert result["client_ref"] is None and result["result"] is None
+    assert v2.OUTCOME_CLASSES[result["outcome"]["status"]] == "RETRYABLE"
+    assert v2.loads_result(v2.dumps_result(result, task=task), task=task) == result
+    # with the echo it must still be this task's client_ref
+    out = outcome("stocks", task, "STATE_BUSY_RETRYABLE")
+    out["client_ref"] = v2.client_ref_for("stocks:TASK-" + "0" * 32)
+    with pytest.raises(V2Error) as exc:
+        wrap(task, out)
+    assert code(exc) == "CLIENT_REF_MISMATCH"
+
+
+@pytest.mark.parametrize(
+    "status",
+    [
+        "RESULT",
+        "DUPLICATE",
+        "CONFLICT",
+        "NOT_READY",
+        "OPS_FAILED_RETRYABLE",
+        "TEMPORAL_INTEGRITY_VIOLATION",
+        "RECONCILIATION_REQUIRED",
+    ],
+)
+def test_client_ref_echo_is_required_once_the_request_was_read(domain, status):
+    task = task_for(domain)
+    out = outcome(domain, task, status)
+    del out["client_ref"]
+    with pytest.raises(V2Error) as exc:
+        wrap(task, out)
+    assert code(exc) == "CLIENT_REF_MISMATCH"
+
+
+def test_state_busy_stays_a_stocks_only_status_even_without_client_ref():
+    for domain in ("crypto", "brasileirao"):
+        task = task_for(domain)
+        out = outcome(domain, task, "STATE_BUSY_RETRYABLE")
+        del out["client_ref"]
+        with pytest.raises(V2Error) as exc:
+            wrap(task, out)
+        assert code(exc) == "OUTCOME_INVALID"
+
+
+def test_result_of_the_same_episode_number_in_another_domain_never_satisfies_the_task():
+    tasks = {d: task_for(d) for d in REQUESTS}  # all in episode-1
+    results = {d: wrap(t, outcome(d, t)) for d, t in tasks.items()}
+    for source, result in results.items():
+        for target, task in tasks.items():
+            if source != target:
+                forged = dict(result, domain=target)
+                with pytest.raises(V2Error):
+                    v2.validate_result(forged, task=task)

@@ -11,7 +11,7 @@
       ],
       "contract": {
         "path": "qualification/brasileirao/DOMAIN_RESEARCH_CONTRACT.json",
-        "sha256": "e6f98ca28e50555f57c65adb030cc90ea9141249daebe44a333ca69970b1d824"
+        "sha256": "1c75fc4507df8d48f1278e3c9475c627e8fce7cf25483395fe760e480cc752ec"
       },
       "economic_states": [
         "WATCH",
@@ -860,7 +860,7 @@
   },
   "schema": "research-protocol-v2-domains/1",
   "source": {
-    "commit": "cb28674f21f416724ea33cf2f5db7e6f70962b0e",
+    "commit": "ec02315a75e614e6d631dd4d852699340a91794c",
     "repository": "leonardosovienski/predictor-qualification"
   }
 }
