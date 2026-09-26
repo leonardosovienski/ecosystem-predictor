@@ -54,7 +54,9 @@ e cada task e cada resultado pertencem a **um** domínio:
   - elo: `previous_task_id` = `task_id` da task do episódio anterior **do mesmo domínio** que emitiu task, ou `null`
     na primeira task do domínio. Episódios que não emitem task (decisão `BLOCK`, `ABSTAIN`, `DUPLICATE`,
     `COOLDOWN` ou `REQUIRE_HUMAN`) ficam só no log do CAIN, com o receipt; por isso o elo aponta para a última task,
-    não para `n − 1`;
+    não para `n − 1`. O elo não é redundante com a ordem: como um número de episódio sem task é legítimo, só pela
+    ordem uma task perdida no log ficaria igual a um episódio sem task; com o elo, a task seguinte aponta para uma
+    task que falta e a lacuna aparece;
   - evidência: `based_on` lista os IDs **do mesmo domínio** que a decisão usou (por exemplo, o `result_id` do
     episódio anterior);
   - linha de pesquisa: `research_id` (do pedido do contrato) agrupa episódios da mesma pesquisa dentro do domínio.
