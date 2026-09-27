@@ -10,10 +10,10 @@ inventory = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(inventory)
 
 
-def test_current_architecture_has_seven_repositories_and_four_ecosystem_packages():
+def test_current_architecture_has_seven_repositories_and_five_ecosystem_packages():
     record = json.loads((ROOT / "registries/architecture_registry.json").read_text())
     assert {item["repository"] for item in record["projects"]} == inventory.REPOSITORIES
-    assert sum(len(item["packages"]) for item in record["projects"]) == 11
+    assert sum(len(item["packages"]) for item in record["projects"]) == 12
     assert not record["shared_database"]
     assert not record["capital_permission"]
 

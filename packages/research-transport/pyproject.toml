@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "predictor-research-transport"
+version = "0.1.0rc2"
+description = "Local file spool and per-domain consumer for the V2 research envelope (Stage B); no scheduling, no capital"
+requires-python = ">=3.11"
+dependencies = ["predictor-research-protocol==2.0.0rc2"]
+
+[project.scripts]
+predictor-research-consumer = "research_transport.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.uv.sources]
+predictor-research-protocol = { url = "https://github.com/leonardosovienski/ecosystem-predictor/releases/download/predictor-research-protocol-v2.0.0rc2/predictor_research_protocol-2.0.0rc2-py3-none-any.whl" }
+
+[dependency-groups]
+dev = ["pytest>=8.4,<10"]

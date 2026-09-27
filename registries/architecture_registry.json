@@ -136,7 +136,8 @@
         ".",
         "packages/research-snapshot",
         "packages/research-bundle",
-        "packages/research-protocol"
+        "packages/research-protocol",
+        "packages/research-transport"
       ],
       "registry_required_by_domains": false,
       "representation": {
@@ -147,7 +148,8 @@
         "src/ecosystem/registry/__init__.py",
         "packages/research-snapshot/pyproject.toml",
         "packages/research-bundle/pyproject.toml",
-        "packages/research-protocol/pyproject.toml"
+        "packages/research-protocol/pyproject.toml",
+        "packages/research-transport/pyproject.toml"
         ],
         "capabilities": [
           "optional registry",

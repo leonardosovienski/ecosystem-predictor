@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         python: ['3.11', '3.12', '3.13', '3.14']
-        package: [research-snapshot, research-bundle, research-protocol]
+        package: [research-snapshot, research-bundle, research-protocol, research-transport]
     defaults:
       run:
         working-directory: packages/${{ matrix.package }}
