@@ -1,0 +1,54 @@
+"""`predictor-research-consumer`: deliver the spooled V2 tasks of one domain to its adapter, once.
+
+    predictor-research-consumer --domain crypto --spool DIR --ledger FILE
+                                --state DIR --policy FILE --objects DIR
+
+``--state/--policy/--objects`` are the domain operator's arguments of the adapter_api (``Circuit(state,
+policy, objects)`` in the three contracts); they are passed to the adapter unchanged and never come from a
+task. One JSON line per task file on stdout. Exit code: 0; 2 if a task file was rejected; 5 if a task is
+held for a human (the consumer stops trusting it: byte identity, adapter bytes, or an invalid domain
+outcome); 1 for a configuration error.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+from research_transport.adapters import AdapterUnavailable, load
+from research_transport.consumer import Consumer
+from research_transport.spool import Spool
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        prog="predictor-research-consumer", description=(__doc__ or "").splitlines()[0]
+    )
+    parser.add_argument("--domain", required=True)
+    parser.add_argument("--spool", type=Path, required=True)
+    parser.add_argument("--ledger", type=Path, required=True)
+    parser.add_argument("--state", type=Path, required=True)
+    parser.add_argument("--policy", type=Path, required=True)
+    parser.add_argument("--objects", type=Path, required=True)
+    args = parser.parse_args(argv)
+    try:
+        adapter = load(args.domain)
+    except AdapterUnavailable as exc:
+        print(json.dumps({"error": exc.code, "detail": str(exc)}), file=sys.stderr)
+        return 1
+    config = {"state": str(args.state), "policy": str(args.policy), "objects": str(args.objects)}
+    consumer = Consumer(args.domain, Spool(args.spool), args.ledger, adapter, config)
+    code = 0
+    for line in consumer.run_once():
+        print(json.dumps(line, sort_keys=True, ensure_ascii=False))
+        if line["action"] == "rejected":
+            code = max(code, 2)
+        elif line["action"] == "held":
+            code = max(code, 5)
+    return code
+
+
+if __name__ == "__main__":
+    sys.exit(main())
