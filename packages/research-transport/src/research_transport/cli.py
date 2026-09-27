@@ -5,15 +5,17 @@
 
 ``--state/--policy/--objects`` are the domain operator's arguments of the adapter_api (``Circuit(state,
 policy, objects)`` in the three contracts); they are passed to the adapter unchanged and never come from a
-task. One JSON line per task file on stdout. Exit code: 0; 2 if a task file was rejected; 5 if a task is
-held for a human (the consumer stops trusting it: byte identity, adapter bytes, or an invalid domain
-outcome); 1 for a configuration error.
+task. One JSON line per task file on stdout, and nothing else: while the domain works, file descriptor 1 is
+redirected to stderr, so logs a domain writes to stdout (in-process handlers or child processes) never mix
+with the report. Exit code: 0; 2 if a task file was rejected; 5 if a task is held for a human (the consumer
+stops trusting it: byte identity, adapter bytes, or an invalid domain outcome); 1 for a configuration error.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -33,6 +35,25 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--policy", type=Path, required=True)
     parser.add_argument("--objects", type=Path, required=True)
     args = parser.parse_args(argv)
+    sys.stdout.flush()
+    saved_stdout = sys.stdout
+    report_fd = os.dup(1)
+    os.dup2(2, 1)  # file descriptor 1: handlers bound earlier and child processes
+    sys.stdout = sys.stderr  # Python level: print and handlers created while the domain works
+    try:
+        return _run(args, report_fd)
+    finally:
+        sys.stdout.flush()
+        sys.stdout = saved_stdout
+        os.dup2(report_fd, 1)
+        os.close(report_fd)
+
+
+def _run(args, report_fd: int) -> int:
+    def report(value: dict) -> None:
+        line = json.dumps(value, sort_keys=True, ensure_ascii=False) + "\n"
+        os.write(report_fd, line.encode("utf-8"))
+
     try:
         adapter = load(args.domain)
     except AdapterUnavailable as exc:
@@ -42,7 +63,7 @@ def main(argv: list[str] | None = None) -> int:
     consumer = Consumer(args.domain, Spool(args.spool), args.ledger, adapter, config)
     code = 0
     for line in consumer.run_once():
-        print(json.dumps(line, sort_keys=True, ensure_ascii=False))
+        report(line)
         if line["action"] == "rejected":
             code = max(code, 2)
         elif line["action"] == "held":

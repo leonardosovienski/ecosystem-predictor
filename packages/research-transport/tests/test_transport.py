@@ -294,3 +294,44 @@ def test_cli_refuses_a_domain_without_adapter(tmp_path, capsys):
         ]
     )
     assert code == 1 and "ADAPTER_UNAVAILABLE" in capsys.readouterr().err
+
+
+def test_cli_stdout_carries_only_the_report_lines(tmp_path, capfd, monkeypatch):
+    import logging
+
+    class Noisy(FakeCryptoDomain):
+        def submit_task(self, task, config):
+            print("domain print to stdout")
+            handler = logging.StreamHandler(sys.stdout)
+            logging.getLogger("noisy-domain").addHandler(handler)
+            logging.getLogger("noisy-domain").warning('{"event": "job_finished"}')
+            logging.getLogger("noisy-domain").removeHandler(handler)
+            os.system("echo child process stdout")
+            return super().submit_task(task, config)
+
+    monkeypatch.setattr(cli, "load", lambda domain: Noisy())
+    Spool(tmp_path / "spool").put_task("crypto", v2.dumps_task(task_for()))
+    spool, ledger = str(tmp_path / "spool"), str(tmp_path / "l.sqlite")
+    code = cli.main(
+        [
+            "--domain",
+            "crypto",
+            "--spool",
+            spool,
+            "--ledger",
+            ledger,
+            "--state",
+            str(tmp_path),
+            "--policy",
+            str(tmp_path),
+            "--objects",
+            str(tmp_path),
+        ]
+    )
+    out, err = capfd.readouterr()
+    assert code == 0
+    lines = out.splitlines()
+    assert len(lines) == 1 and json.loads(lines[0])["status"] == "RESULT"
+    assert "domain print to stdout" in err and "job_finished" in err and "child process stdout" in err
+    print("after main, stdout works again")
+    assert capfd.readouterr().out.strip() == "after main, stdout works again"
