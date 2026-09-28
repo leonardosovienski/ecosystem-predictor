@@ -8,7 +8,9 @@ policy, objects)`` in the three contracts); they are passed to the adapter uncha
 task. One JSON line per task file on stdout, and nothing else: while the domain works, file descriptor 1 is
 redirected to stderr, so logs a domain writes to stdout (in-process handlers or child processes) never mix
 with the report. Exit code: 0; 2 if a task file was rejected; 5 if a task is held for a human (the consumer
-stops trusting it: byte identity, adapter bytes, or an invalid domain outcome); 1 for a configuration error.
+stops trusting it: byte identity, adapter bytes, or an invalid domain outcome); 6 if another consumer of the
+domain is running (one line ``{"action": "busy", "code": "CONSUMER_BUSY"}``; nothing read, sent or
+published); 1 for a configuration error.
 """
 
 from __future__ import annotations
@@ -20,7 +22,7 @@ import sys
 from pathlib import Path
 
 from research_transport.adapters import AdapterUnavailable, load
-from research_transport.consumer import Consumer
+from research_transport.consumer import Consumer, ConsumerBusy
 from research_transport.spool import Spool
 
 
@@ -61,8 +63,13 @@ def _run(args, report_fd: int) -> int:
         return 1
     config = {"state": str(args.state), "policy": str(args.policy), "objects": str(args.objects)}
     consumer = Consumer(args.domain, Spool(args.spool), args.ledger, adapter, config)
+    try:
+        lines = consumer.run_once()
+    except ConsumerBusy as exc:
+        report({"action": "busy", "code": exc.code, "domain": args.domain})
+        return 6
     code = 0
-    for line in consumer.run_once():
+    for line in lines:
         report(line)
         if line["action"] == "rejected":
             code = max(code, 2)

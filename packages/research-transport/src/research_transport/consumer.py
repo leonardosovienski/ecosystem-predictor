@@ -15,10 +15,20 @@ For each task file of its domain, in episode order, the consumer:
 
 The consumer never chooses a handler, a budget, a priority or capital, and never interprets the domain's
 states.
+
+One consumer per domain at a time: ``run_once`` holds an exclusive, non-blocking lock of the domain's
+spool directory (``<spool>/<domain>/.consumer.lock``; ``flock`` on POSIX, ``msvcrt.locking`` on Windows)
+for the whole pass. A second consumer of the same domain raises ``ConsumerBusy`` before reading the ledger
+or calling the adapter, so it publishes nothing and changes nothing. Before, two consumers on the same task
+both reached the domain: the loser published a false ``OPS_FAILED_RETRYABLE`` (the Ops lock it lost) or a
+false ``RECONCILIATION_REQUIRED`` (the domain materializes references before the Ops lock), and on Windows
+it could die on a read-only file (Stage B dispute tests, 2026-09-28: IC-F016, IC-F017, IS-F009). The lock
+is released when the pass ends or the process dies.
 """
 
 from __future__ import annotations
 
+import os
 import sqlite3
 from contextlib import contextmanager
 from datetime import UTC, datetime
@@ -31,6 +41,51 @@ from research_transport import faults
 from research_transport.spool import Spool, SpoolConflict, sha256, task_file_name
 
 STATES = ("IN_PROGRESS", "TERMINAL_RESULT", "TERMINAL_REFUSAL", "RETRYABLE", "REQUIRES_HUMAN")
+LOCK_NAME = ".consumer.lock"
+
+
+class ConsumerBusy(RuntimeError):
+    """Another consumer holds this domain's spool: nothing was read from the ledger or sent to the domain."""
+
+    code = "CONSUMER_BUSY"
+
+
+if os.name == "nt":
+    import msvcrt
+
+    def _try_lock(handle) -> None:
+        handle.seek(0)
+        msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+
+    def _unlock(handle) -> None:
+        handle.seek(0)
+        msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+else:
+    import fcntl
+
+    def _try_lock(handle) -> None:
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+
+    def _unlock(handle) -> None:
+        fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+@contextmanager
+def domain_lock(spool: Spool, domain: str):
+    """Exclusive, non-blocking lock of one domain's spool directory (``ConsumerBusy`` if another holds it)."""
+    directory = spool.domain_dir(domain)
+    handle = open(directory / LOCK_NAME, "a+b")  # noqa: SIM115 - held for the whole pass, closed below
+    try:
+        try:
+            _try_lock(handle)
+        except OSError as exc:
+            raise ConsumerBusy(f"another consumer holds the {domain} spool") from exc
+        try:
+            yield
+        finally:
+            _unlock(handle)
+    finally:
+        handle.close()
 
 
 def utc_now() -> str:
@@ -98,6 +153,10 @@ class Consumer:
         return task, raw, None
 
     def run_once(self) -> list[dict]:
+        with domain_lock(self.spool, self.domain):
+            return self._run_once()
+
+    def _run_once(self) -> list[dict]:
         loaded = []
         report = []
         for path in self.spool.task_files(self.domain):
@@ -210,4 +269,4 @@ class Consumer:
         return base | {"action": "held", "class": "REQUIRES_HUMAN", "code": code, "reason": reason[:300]}
 
 
-__all__ = ["Consumer", "SpoolConflict", "STATES"]
+__all__ = ["Consumer", "ConsumerBusy", "SpoolConflict", "STATES", "domain_lock"]

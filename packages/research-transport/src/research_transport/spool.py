@@ -97,6 +97,10 @@ class Spool:
         status = self._publish(self._dir(domain, "tasks"), name, bytes(raw))
         return {"status": status, "file": f"{domain}/tasks/{name}", "sha256": sha256(raw)}
 
+    def domain_dir(self, domain: str) -> Path:
+        """The domain's own spool directory (the domain is checked; its tasks directory exists)."""
+        return self._dir(domain, "tasks").parent
+
     def task_files(self, domain: str) -> list[Path]:
         return self._files(self._dir(domain, "tasks"), re.compile(r".+\.json\Z"))
 
