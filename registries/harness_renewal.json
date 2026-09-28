@@ -1,0 +1,13 @@
+{
+  "schema_version": "harness-renewal/1",
+  "repo": "cripto-predictor",
+  "source": {
+    "github": "leonardosovienski/cripto-predictor",
+    "commit": "ee3d3d17de0b76cf731808243ffa838a0f5ee8cc",
+    "why": "cripto-predictor v1.2.0rc3: final_commit da integration-crypto QUALIFIED (predictor-qualification #62); o mesmo commit certificado à mão em 2026-09-27 (docs/engineering_controls/20260927)"
+  },
+  "core_code_sha": "7bb212cfa06333886e11e849b209c5aab801c04b",
+  "python": "3.13",
+  "renew_when_valid_for_less_than_hours": 72,
+  "note": "Lido por scripts/renew_crypto_harness.py e pelo workflow crypto-harness-renewal. Mudar o commit certificado é decisão do dono, por PR."
+}
