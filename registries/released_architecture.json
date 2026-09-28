@@ -129,18 +129,18 @@
     },
     {
       "repository": "predictor-ops",
-      "tag": "v4.2.1",
-      "source_commit": "ddd91444282569ae8282e7c96e0ec372ef4e5144",
-      "release_url": "https://github.com/leonardosovienski/predictor-ops/releases/tag/v4.2.1",
-      "ci_run_id": 34733345409,
-      "ci_url": "https://github.com/leonardosovienski/predictor-ops/actions/runs/34733345409",
+      "tag": "v4.2.2rc1",
+      "source_commit": "9831b0d5e727972b1d85ff48be14ffa58677898b",
+      "release_url": "https://github.com/leonardosovienski/predictor-ops/releases/tag/v4.2.2rc1",
+      "ci_run_id": 35905678198,
+      "ci_url": "https://github.com/leonardosovienski/predictor-ops/actions/runs/35905678198",
       "wheels": [
         {
           "name": "predictor-ops",
-          "version": "4.2.1",
-          "filename": "predictor_ops-4.2.1-py3-none-any.whl",
-          "url": "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.1/predictor_ops-4.2.1-py3-none-any.whl",
-          "sha256": "da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e"
+          "version": "4.2.2rc1",
+          "filename": "predictor_ops-4.2.2rc1-py3-none-any.whl",
+          "url": "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.2rc1/predictor_ops-4.2.2rc1-py3-none-any.whl",
+          "sha256": "0be70bfbb2437dfb080baceb9af41043a09d03b15a358903b8bd7007f5f169b3"
         }
       ]
     }

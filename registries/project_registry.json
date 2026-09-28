@@ -15,15 +15,15 @@
       "evidence_state": "VERIFIED_FROM_MAIN_RELEASE_CHANGELOG_AND_CI",
       "integration_state": "CURRENT",
       "ci_state": "PASS",
-      "remote_main_sha": "9bf43efe92459a0b484cac00f51170b2c70d420f",
+      "remote_main_sha": "5a0841509f091ea0aa95bde0d3d65e2a1a9e984d",
       "open_blockers": [],
       "next_allowed_action": "maintenance or a shared primitive with a second real consumer",
       "forbidden_actions": [
         "domain policy",
         "unconsumed abstraction"
       ],
-      "source_of_truth": "Core main 9bf43efe92459a0b484cac00f51170b2c70d420f; published wheel 3.2.1 from tag source 7bb212c; CI 34740848667/34740848668; CORE_INTEGRATION_20260913.md; historical scientific fields not recertified",
-      "software_verified_at": "2026-09-13"
+      "source_of_truth": "Core main 5a0841509f091ea0aa95bde0d3d65e2a1a9e984d (desde a tag 7bb212c só tools/ e docs, conferido em 2026-09-28; wheel 3.2.1 sha256 10ef42f3… é a pinada pelos três domínios e pelas três attestations da Etapa B); published wheel 3.2.1 from tag source 7bb212c; CI 34740848667/34740848668; CORE_INTEGRATION_20260913.md; historical scientific fields not recertified",
+      "software_verified_at": "2026-09-28"
     },
     {
       "project_id": "predictor-ops",
@@ -34,19 +34,19 @@
       "predictive_state": "NOT_APPLICABLE",
       "operational_state": "READY",
       "commercial_state": "NOT_A_PRODUCT",
-      "current_version": "4.2.1",
+      "current_version": "4.2.2rc1",
       "evidence_state": "VERIFIED_FROM_MAIN_CHANGELOG_AND_CI",
       "integration_state": "CURRENT",
       "ci_state": "PASS",
-      "remote_main_sha": "d1aa309a6f899b237ec725e03b4ab7e3f82913c5",
+      "remote_main_sha": "40c703ab31b83478833b53ea75aab69469197eec",
       "open_blockers": [],
       "next_allowed_action": "minimal operational maintenance",
       "forbidden_actions": [
         "scientific gate decisions",
         "restore intentionally removed monitor"
       ],
-      "source_of_truth": "predictor-ops v4.2.1 release, source ddd91444282569ae8282e7c96e0ec372ef4e5144, CI 34733345409 and post-publication verification 34733366187; engineering only; Ops 4.2.1 installed and verified locally in Crypto and Brasileirao on 2026-09-13; schedules and capital not activated; see OPS_INTEGRATION_20260913.md",
-      "software_verified_at": "2026-09-13"
+      "source_of_truth": "predictor-ops v4.2.2rc1 pre-release (SHARED-005, correção da corrida do lock no Windows), source 9831b0d5e727972b1d85ff48be14ffa58677898b, Release 35905678109 and CI 35905678198; main 40c703a has the same code (the release was cut from the PR branch before the merge); wheel sha256 0be70bfb… pinned by cripto-predictor, stocks-predictor and brasileirao-predictor and by the three Etapa B attestations (cain 0.4.13rc12); engineering only; schedules and capital not activated; history: v4.2.1 in OPS_INTEGRATION_20260913.md; see ETAPA_B_INTEGRATED_STACK_20260928.md",
+      "software_verified_at": "2026-09-28"
     },
     {
       "project_id": "brasileirao-predictor",
