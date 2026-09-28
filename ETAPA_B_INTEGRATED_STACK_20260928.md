@@ -149,15 +149,14 @@ A checagem `scripts/check_ecosystem_drift.py`, antes e depois:
 
 Depois do registro acima, a sessão STOCKS publicou a cain `v0.4.13rc13` (`960fb25`, wheel `a1d94fd5…`) e o
 transporte `predictor-research-transport-v0.1.0rc6` (`bac1f7b`, wheel `6c7e83c4…`, a trava exclusiva por
-domínio que corrige IC-F016, IC-F017 e IS-F009). As integrações do cripto e do stocks refizeram as fases
-pela C14 e reemitiram as attestations; a do Brasileirão ainda é a da rc12/rc5 (o dado real é privado e
-as fases rodam só no PC 2, D-19). Estado no `main` do predictor-qualification em `d188810`:
+domínio que corrige IC-F016, IC-F017 e IS-F009). As três integrações refizeram as fases pela C14 e reemitiram as
+attestations (a do Brasileirão no PC 2, D-19, por último). Estado no `main` do predictor-qualification em `1805c20`:
 
 | Missão | cain | transporte | Resultado | sha256 da attestation |
 |---|---|---|---|---|
 | integration-crypto | 0.4.13rc13 `960fb25` | 0.1.0rc6 `bac1f7b` | QUALIFIED, 30/30 | `69fa0393a24ca727da7dc0131aa5b25935810d64e72095febddd65541aff88e7` |
 | integration-stocks | 0.4.13rc13 `960fb25` | 0.1.0rc6 `bac1f7b` | QUALIFIED, 30/30 | `60b75594a229b0bffb9078302e791fc1cf7b7a6f332a2b7f8c36e18fb521846c` |
-| integration-brasileirao | 0.4.13rc12 `302a5c8` | 0.1.0rc5 `b11494a` | QUALIFIED, 30/30 (C14 da rc13/rc6 pendente no PC 2) | `8aef11046708d53504da06c3796af1d5f14b024524c64290e7792527b517e29e` |
+| integration-brasileirao | 0.4.13rc13 `960fb25` | 0.1.0rc6 `bac1f7b` | QUALIFIED, 30/30 (reemissão `4a14f6c`, PC 2, predictor-qualification#89) | `99dd94bdac947860293325e21053dbb6caa941dacb035facd2e57a523e8534d8` |
 
 Core (3.2.1, `10ef42f3…`), Ops (4.2.2rc1, `0be70bfb…`), protocolo (2.0.0rc2) e os três domínios não mudaram.
 O `brasileirao.json` empacotado na rc13 é byte a byte o da rc12 (só `stocks.json`, `llm.py`, `claims/` e
