@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "predictor-research-transport"
-version = "0.1.0rc4"
+version = "0.1.0rc5"
 description = "Local file spool and per-domain consumer for the V2 research envelope (Stage B); no scheduling, no capital"
 requires-python = ">=3.11"
 dependencies = ["predictor-research-protocol==2.0.0rc2"]
