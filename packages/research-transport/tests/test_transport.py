@@ -276,6 +276,18 @@ def test_only_allowlisted_adapters_load():
     }
 
 
+def test_stocks_adapter_is_registered_by_module_name_only():
+    assert set(adapters.ADAPTERS) == {"crypto", "stocks"}
+    assert dict(adapters.ADAPTERS["stocks"]) == {
+        "distribution": "stocks-predictor",
+        "module": "stocks_predictor.adapters.research_v2",
+    }
+    with pytest.raises(adapters.AdapterUnavailable, match="no adapter registered"):
+        adapters.load("brasileirao")
+    with pytest.raises(adapters.AdapterUnavailable, match="not importable"):
+        adapters.load("stocks")  # the domain is not installed in this package's own test environment
+
+
 def test_cli_refuses_a_domain_without_adapter(tmp_path, capsys):
     code = cli.main(
         [
