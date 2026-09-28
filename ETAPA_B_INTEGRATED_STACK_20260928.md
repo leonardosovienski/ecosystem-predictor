@@ -65,7 +65,7 @@ Os três domínios reais ficaram instalados ao mesmo tempo, cada um no seu venv 
 
 O item 13 falhou no stocks: 2 de 20 repetições com `RECONCILIATION_REQUIRED` falso. Nas 18 outras, e nos outros dois domínios, o perdedor publicou `OPS_FAILED_RETRYABLE`. Não houve queda de processo, e em todas as repetições dos três domínios houve 1 experimento e 1 RESULT. É o mesmo achado IS-F009 descrito abaixo.
 
-A evidência fica em `qualification/integration-brasileirao/RAW_LOGS/runtime/run-20260928T153733Z-eco/ecosystem-joint/` (PR da integration-brasileirao no predictor-qualification):
+A evidência fica em `qualification/integration-brasileirao/RAW_LOGS/runtime/run-20260928T153733Z-eco/ecosystem-joint/` (predictor-qualification#83, commit `2688394`; relatório `ECOSYSTEM_JOINT_REPORT.md`), com os sha256 conferidos no commit:
 
 | Arquivo | sha256 |
 |---|---|
