@@ -104,3 +104,24 @@ A correção de fundo é tomar a trava antes da materialização. É código de 
 A checagem `scripts/check_ecosystem_drift.py`, antes e depois:
 - **antes:** `ECOSYSTEM_DRIFT_DETECTED` ("predictor-ops: registry diz 4.2.1, main diz 4.2.2rc1");
 - **depois:** `ECOSYSTEM_NO_DRIFT (OFFLINE+ONLINE)`. Só restam os avisos de SHA de `main` dos domínios, que andam a cada merge.
+
+## Atualização de 2026-09-28 (tarde): cain 0.4.13rc13 e transporte 0.1.0rc6
+
+Depois do registro acima, a sessão STOCKS publicou a cain `v0.4.13rc13` (`960fb25`, wheel `a1d94fd5…`) e o
+transporte `predictor-research-transport-v0.1.0rc6` (`bac1f7b`, wheel `6c7e83c4…`, a trava exclusiva por
+domínio que corrige IC-F016, IC-F017 e IS-F009). As integrações do cripto e do stocks refizeram as fases
+pela C14 e reemitiram as attestations; a do Brasileirão ainda é a da rc12/rc5 (o dado real é privado e
+as fases rodam só no PC 2, D-19). Estado no `main` do predictor-qualification em `d188810`:
+
+| Missão | cain | transporte | Resultado | sha256 da attestation |
+|---|---|---|---|---|
+| integration-crypto | 0.4.13rc13 `960fb25` | 0.1.0rc6 `bac1f7b` | QUALIFIED, 30/30 | `69fa0393a24ca727da7dc0131aa5b25935810d64e72095febddd65541aff88e7` |
+| integration-stocks | 0.4.13rc13 `960fb25` | 0.1.0rc6 `bac1f7b` | QUALIFIED, 30/30 | `60b75594a229b0bffb9078302e791fc1cf7b7a6f332a2b7f8c36e18fb521846c` |
+| integration-brasileirao | 0.4.13rc12 `302a5c8` | 0.1.0rc5 `b11494a` | QUALIFIED, 30/30 (C14 da rc13/rc6 pendente no PC 2) | `8aef11046708d53504da06c3796af1d5f14b024524c64290e7792527b517e29e` |
+
+Core (3.2.1, `10ef42f3…`), Ops (4.2.2rc1, `0be70bfb…`), protocolo (2.0.0rc2) e os três domínios não mudaram.
+O `brasileirao.json` empacotado na rc13 é byte a byte o da rc12 (só `stocks.json`, `llm.py`, `claims/` e
+`findings/` mudaram entre as duas). A auditoria adversarial da cain rc13 e deste transporte está em
+`qualification/shared/CAIN_EXTREME_20260928/` do predictor-qualification; as correções que ela motivou
+(cain: envelope ilegível e `as_of` impossível; transporte 0.1.0rc7: arquivo de task ilegível) entram por PR e,
+se o dono as adotar numa release, disparam a C14 nas três integrações.

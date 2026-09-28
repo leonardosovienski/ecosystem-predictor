@@ -45,7 +45,7 @@
         "scientific gate decisions",
         "restore intentionally removed monitor"
       ],
-      "source_of_truth": "predictor-ops v4.2.2rc1 pre-release (SHARED-005, correção da corrida do lock no Windows), source 9831b0d5e727972b1d85ff48be14ffa58677898b, Release 35905678109 and CI 35905678198; main 40c703a has the same code (the release was cut from the PR branch before the merge); wheel sha256 0be70bfb… pinned by cripto-predictor, stocks-predictor and brasileirao-predictor and by the three Etapa B attestations (cain 0.4.13rc12); engineering only; schedules and capital not activated; history: v4.2.1 in OPS_INTEGRATION_20260913.md; see ETAPA_B_INTEGRATED_STACK_20260928.md",
+      "source_of_truth": "predictor-ops v4.2.2rc1 pre-release (SHARED-005, correção da corrida do lock no Windows), source 9831b0d5e727972b1d85ff48be14ffa58677898b, Release 35905678109 and CI 35905678198; main 40c703a has the same code (the release was cut from the PR branch before the merge); wheel sha256 0be70bfb… pinned by cripto-predictor, stocks-predictor and brasileirao-predictor and by the three Etapa B attestations (cain 0.4.13rc12; cripto and stocks re-attested on cain 0.4.13rc13 + transport 0.1.0rc6 on 2026-09-28, brasileirao pending on PC 2); engineering only; schedules and capital not activated; history: v4.2.1 in OPS_INTEGRATION_20260913.md; see ETAPA_B_INTEGRATED_STACK_20260928.md",
       "software_verified_at": "2026-09-28"
     },
     {
