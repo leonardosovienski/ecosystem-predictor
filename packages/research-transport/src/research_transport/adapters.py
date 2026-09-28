@@ -24,6 +24,9 @@ ADAPTERS = MappingProxyType(
         "stocks": MappingProxyType(
             {"distribution": "stocks-predictor", "module": "stocks_predictor.adapters.research_v2"}
         ),
+        "brasileirao": MappingProxyType(
+            {"distribution": "brasileirao-predictor", "module": "brasileirao_predictor.adapters.research_v2"}
+        ),
     }
 )
 REQUIRED = ("identity", "submit_task", "reread")
