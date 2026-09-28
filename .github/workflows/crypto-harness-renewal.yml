@@ -1,0 +1,126 @@
+name: Crypto harness renewal
+
+# Os atestados de harness do cripto valem 7 dias; vencidos e ainda ALIGNED, o CI fica vermelho (IC-F004 da
+# integration-crypto, 2026-09-27). Todo dia, antes do CI agendado (06:17 UTC), este job decide se é preciso renovar
+# (scripts/renew_crypto_harness.py decide), roda o harness oficial pipeline-power/2 do cripto no commit fixado em
+# registries/harness_renewal.json, registra os atestados e abre um PR. Quem decide o merge é o dono.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 3 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: crypto-harness-renewal
+  cancel-in-progress: false
+
+jobs:
+  renew:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Renewal already waiting for the owner?
+        id: pending
+        run: |
+          set -euo pipefail
+          # Uma renovação ainda não mergeada (PR aberto, ou branch publicada sem PR) basta: não empilha outra.
+          open=0
+          for sha in $(git ls-remote --heads origin 'automation/crypto-harness-*' | cut -f1); do
+            git merge-base --is-ancestor "$sha" origin/main || open=$((open + 1))
+          done
+          echo "open=$open" >> "$GITHUB_OUTPUT"
+          if [ "$open" != "0" ]; then echo "::notice::renovação anterior ainda não mergeada; nada a fazer hoje"; fi
+      - name: Decide
+        id: decide
+        if: steps.pending.outputs.open == '0'
+        run: python scripts/renew_crypto_harness.py decide
+      - name: Pinned crypto source
+        id: pin
+        if: steps.decide.outputs.renew == 'true'
+        run: |
+          python - >> "$GITHUB_OUTPUT" <<'PY'
+          import json
+          config = json.load(open("registries/harness_renewal.json", encoding="utf-8"))
+          print(f"repository={config['source']['github']}")
+          print(f"commit={config['source']['commit']}")
+          print(f"python={config['python']}")
+          PY
+      - uses: actions/checkout@v4
+        if: steps.decide.outputs.renew == 'true'
+        with:
+          repository: ${{ steps.pin.outputs.repository }}
+          ref: ${{ steps.pin.outputs.commit }}
+          path: cripto-source
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.1"
+      - name: Official crypto harness (pipeline-power/2)
+        if: steps.decide.outputs.renew == 'true'
+        working-directory: cripto-source
+        env:
+          UV_PROJECT_ENVIRONMENT: ${{ runner.temp }}/cripto-venv
+          CRIPTO_SOURCE_ROOT: ${{ github.workspace }}/cripto-source
+          CRIPTO_TRIALS_PATH: ${{ runner.temp }}/harness/trials.json
+          DATA_DIR: ${{ runner.temp }}/cripto-data
+          CACHE_DIR: ${{ runner.temp }}/cripto-cache
+          LOGS_DIR: ${{ runner.temp }}/cripto-logs
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ steps.pin.outputs.commit }}"
+          uv sync --locked --no-dev --python "${{ steps.pin.outputs.python }}"
+          test -z "$(git status --porcelain)"
+          mkdir -p "$(dirname "$CRIPTO_TRIALS_PATH")"
+          "$UV_PROJECT_ENVIRONMENT/bin/python" -m GarimpoInvestimentos.operational.attest_harness --dry-run
+          "$UV_PROJECT_ENVIRONMENT/bin/python" -m GarimpoInvestimentos.operational.attest_harness
+          test -z "$(git status --porcelain)"
+          sha256sum "$(dirname "$CRIPTO_TRIALS_PATH")"/*.json
+      - name: Update the registry
+        id: apply
+        if: steps.decide.outputs.renew == 'true' || steps.decide.outputs.expired == 'true'
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.decide.outputs.renew }}" = "true" ]; then
+            python scripts/renew_crypto_harness.py apply --attestations "${{ runner.temp }}/harness"
+          else
+            python scripts/renew_crypto_harness.py apply
+          fi
+          echo "changed=$(git status --porcelain registries docs | wc -l)" >> "$GITHUB_OUTPUT"
+      - name: Checks before the PR
+        if: steps.apply.outputs.changed != '' && steps.apply.outputs.changed != '0'
+        run: |
+          set -euo pipefail
+          uv sync --locked --all-extras --python 3.13
+          uv run --locked python scripts/check_ecosystem_drift.py --offline-check
+          uv run --no-sync pytest tests -q
+      - name: Pull request
+        if: steps.apply.outputs.changed != '' && steps.apply.outputs.changed != '0'
+        run: |
+          set -euo pipefail
+          branch="automation/crypto-harness-$(date -u +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add registries/harness_registry.json docs/engineering_controls
+          git commit -m "harness do cripto: renovação agendada (crypto-harness-renewal)"
+          git push origin "HEAD:refs/heads/$branch"
+          compare="${{ github.server_url }}/${{ github.repository }}/compare/main...$branch"
+          # Sem "Allow GitHub Actions to create and approve pull requests" (Settings → Actions → General) o
+          # GITHUB_TOKEN não abre PR: a branch fica publicada e o run falha de propósito, para o dono ser avisado.
+          if ! gh pr create --base main --head "$branch" \
+            --title "harness do cripto: renovação agendada $(date -u +%Y-%m-%d)" \
+            --body "Renovação automática (workflow crypto-harness-renewal, run ${{ github.run_id }}): harness oficial pipeline-power/2 do cripto no commit ${{ steps.pin.outputs.commit }} (registries/harness_renewal.json), atestados fora do repositório do cripto, evidência em docs/engineering_controls/, check_offline e pytest verdes antes deste PR. Os ALIGNED anteriores viram SUPERSEDED; os vencidos, EXPIRED. PR aberto pelo GITHUB_TOKEN: o CI não roda sozinho nele; o push do merge roda."; then
+            echo "::error::branch $branch publicada, mas o PR não pôde ser aberto; abra em $compare (ou ligue 'Allow GitHub Actions to create and approve pull requests')"
+            exit 1
+          fi
