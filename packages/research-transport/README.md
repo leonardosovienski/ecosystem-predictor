@@ -23,6 +23,11 @@ predictor-research-consumer → adapter do domínio (adapter_paths, pelo nome do
   sem chamar o domínio e sem publicar nada. O sistema solta a trava quando a passada termina ou o processo morre,
   e o próximo consumidor retoma a task interrompida. Nos testes de disputa da Etapa B (IC-F016, IC-F017,
   IS-F009), o perdedor chegava ao domínio e publicava um `OPS_FAILED_RETRYABLE` ou `RECONCILIATION_REQUIRED` falso.
+- **Arquivo de task ilegível nunca derruba a passada** (0.1.0rc7): um arquivo aninhado demais (RecursionError
+  do decodificador JSON) ou com um valor onde o protocolo espera texto (TypeError do validador congelado) é
+  rejeitado e registrado como `SCHEMA_INVALID`, e a passada segue para as outras tasks. Antes, a passada
+  inteira morria com traceback e nenhuma task do domínio era entregue até o arquivo ser removido
+  (auditoria adversarial de 2026-09-28).
 - **Adapters**: allowlist fixa em `research_transport.adapters.ADAPTERS` (hoje `crypto →
   GarimpoInvestimentos.adapters.research_v2`, `stocks → stocks_predictor.adapters.research_v2` e
   `brasileirao → brasileirao_predictor.adapters.research_v2`). O domínio não ganha console script nem dependência deste pacote

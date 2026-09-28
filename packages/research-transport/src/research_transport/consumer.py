@@ -146,6 +146,16 @@ class Consumer:
             task = v2.loads_task(raw)
         except v2.V2Error as exc:
             return None, raw, self._reject(path, raw, exc.code, str(exc))
+        except (RecursionError, TypeError) as exc:
+            # bytes the frozen protocol cannot even parse as an envelope (absurd nesting, an unhashable value
+            # where it expects text): rejected and recorded like any malformed file, never a crash of the pass
+            return (
+                None,
+                raw,
+                self._reject(
+                    path, raw, "SCHEMA_INVALID", f"SCHEMA_INVALID: unparseable task ({type(exc).__name__})"
+                ),
+            )
         if task["domain"] != self.domain:
             return None, raw, self._reject(path, raw, "DOMAIN_MISMATCH", f"task of domain {task['domain']}")
         if task_file_name(task["task_id"]) != path.name:

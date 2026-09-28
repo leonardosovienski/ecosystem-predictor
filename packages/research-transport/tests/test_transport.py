@@ -232,6 +232,21 @@ def test_invalid_foreign_or_misnamed_task_files_are_rejected_without_calling_the
     assert all(r["action"] == "skipped" for r in env.consumer.run_once())
 
 
+def test_a_task_file_nested_too_deep_is_rejected_and_the_pass_goes_on(env):
+    """Audit of 2026-09-28: 100 000 nested brackets raised a RecursionError out of run_once (the whole pass
+    died, every later task of the domain waited) instead of a rejection of that one file."""
+    tasks_dir = env.spool.root / "crypto" / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / ("TASK-" + "f" * 32 + ".json")).write_bytes(b"[" * 100_000 + b"]" * 100_000)
+    env.spool.put_task("crypto", v2.dumps_task(task_for()))
+    report = {r.get("file", r.get("task_id")): r for r in env.consumer.run_once()}
+    deep = report["TASK-" + "f" * 32 + ".json"]
+    assert deep["action"] == "rejected" and deep["code"] == "SCHEMA_INVALID"
+    assert [r["action"] for r in report.values() if r is not deep] == ["delivered"]
+    assert len(env.spool.rejection_files("crypto")) == 1
+    assert [r["action"] for r in env.consumer.run_once()] == ["skipped", "skipped"]
+
+
 def test_domain_that_did_not_receive_request_bytes_is_held(env):
     env.domain.bytes_tamper = True
     env.spool.put_task("crypto", v2.dumps_task(task_for()))
