@@ -21,6 +21,9 @@ ADAPTERS = MappingProxyType(
         "crypto": MappingProxyType(
             {"distribution": "cripto-predictor", "module": "GarimpoInvestimentos.adapters.research_v2"}
         ),
+        "stocks": MappingProxyType(
+            {"distribution": "stocks-predictor", "module": "stocks_predictor.adapters.research_v2"}
+        ),
     }
 )
 REQUIRED = ("identity", "submit_task", "reread")
