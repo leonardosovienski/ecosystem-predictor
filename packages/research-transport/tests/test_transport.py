@@ -8,12 +8,13 @@ import json
 import os
 import subprocess
 import sys
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
 from research_protocol import v2
 from research_transport import adapters, cli
-from research_transport.consumer import Consumer
+from research_transport.consumer import Consumer, ConsumerBusy, domain_lock
 from research_transport.faults import ENV, EXIT_CODE
 from research_transport.spool import Spool, SpoolConflict
 
@@ -254,6 +255,103 @@ def test_tasks_are_delivered_in_episode_order(env):
     env.spool.put_task("crypto", v2.dumps_task(first))
     env.consumer.run_once()
     assert env.domain.calls == [first["task_id"], second["task_id"]]
+
+
+def test_one_consumer_per_domain_at_a_time(env):
+    # Stage B dispute tests (IC-F016, IC-F017, IS-F009): a second consumer of a domain never reaches it
+    env.spool.put_task("crypto", v2.dumps_task(task_for()))
+    other = Consumer("crypto", env.spool, env.tmp / "other-ledger.sqlite", env.domain, {"state": "s"})
+    with domain_lock(env.spool, "crypto"):
+        with pytest.raises(ConsumerBusy):
+            other.run_once()
+        with pytest.raises(ConsumerBusy):
+            env.consumer.run_once()
+    assert env.domain.calls == [] and not list((env.spool.root / "crypto" / "results").glob("*.json"))
+    with other._db() as db:
+        assert db.execute("SELECT count(*) FROM deliveries").fetchone()[0] == 0
+    # released: the next pass delivers once
+    assert [line["action"] for line in env.consumer.run_once()] == ["delivered"]
+    assert [line["action"] for line in other.run_once()] == ["delivered"]  # its own ledger: the domain dedups
+    assert env.domain.calls == [task_for()["task_id"]] * 2
+
+
+def test_cli_reports_busy_and_publishes_nothing(tmp_path, capfd, monkeypatch):
+    domain = FakeCryptoDomain()
+    monkeypatch.setattr(cli, "load", lambda name: domain)
+    spool = Spool(tmp_path / "spool")
+    spool.put_task("crypto", v2.dumps_task(task_for()))
+    argv = [
+        "--domain",
+        "crypto",
+        "--spool",
+        str(tmp_path / "spool"),
+        "--ledger",
+        str(tmp_path / "l.sqlite"),
+        "--state",
+        str(tmp_path),
+        "--policy",
+        str(tmp_path),
+        "--objects",
+        str(tmp_path),
+    ]
+    with domain_lock(spool, "crypto"):
+        code = cli.main(argv)
+    out, _err = capfd.readouterr()
+    assert code == 6 and [json.loads(line) for line in out.splitlines()] == [
+        {"action": "busy", "code": "CONSUMER_BUSY", "domain": "crypto"}
+    ]
+    assert domain.calls == [] and not list((tmp_path / "spool" / "crypto" / "results").glob("*.json"))
+    assert cli.main(argv) == 0 and domain.calls == [task_for()["task_id"]]
+
+
+def test_two_consumer_processes_on_the_same_task_deliver_once(tmp_path):
+    script = tmp_path / "slow_consumer.py"
+    script.write_text(
+        "import json, sys, time\n"
+        f"sys.path.insert(0, {str(Path(__file__).parent)!r})\n"
+        "from test_transport import FakeCryptoDomain\n"
+        "from research_transport.consumer import Consumer, ConsumerBusy\n"
+        "from research_transport.spool import Spool\n"
+        "class Slow(FakeCryptoDomain):\n"
+        "    def submit_task(self, task, config):\n"
+        "        time.sleep(1.5)\n"
+        "        return super().submit_task(task, config)\n"
+        "consumer = Consumer('crypto', Spool(sys.argv[1]), sys.argv[2], Slow(), {'state': 's'})\n"
+        "try:\n"
+        "    print(json.dumps([line['action'] for line in consumer.run_once()]))\n"
+        "except ConsumerBusy:\n"
+        "    print(json.dumps('busy'))\n",
+        encoding="utf-8",
+    )
+    Spool(tmp_path / "spool").put_task("crypto", v2.dumps_task(task_for()))
+    argv = [sys.executable, str(script), str(tmp_path / "spool"), str(tmp_path / "ledger.sqlite")]
+    procs = [subprocess.Popen(argv, stdout=subprocess.PIPE, text=True) for _ in range(2)]
+    outs = sorted(json.dumps(json.loads(p.communicate(timeout=60)[0])) for p in procs)
+    assert outs == ['"busy"', '["delivered"]']
+    assert len(list((tmp_path / "spool" / "crypto" / "results").glob("*.json"))) == 1
+
+
+def test_the_lock_of_a_consumer_that_died_is_released_and_its_task_resumed(env):
+    # the holder dies mid-delivery (fault point, os._exit 86): the OS releases the lock, the next pass resumes
+    # the interrupted task through the adapter_api (SPEC V2 section 7)
+    env.spool.put_task("crypto", v2.dumps_task(task_for()))
+    code = (
+        "import sys\n"
+        f"sys.path.insert(0, {str(Path(__file__).parent)!r})\n"
+        "from test_transport import FakeCryptoDomain\n"
+        "from research_transport.consumer import Consumer\n"
+        "from research_transport.spool import Spool\n"
+        "Consumer('crypto', Spool(sys.argv[1]), sys.argv[2], FakeCryptoDomain(), {'state': 's'}).run_once()\n"
+    )
+    done = subprocess.run(
+        [sys.executable, "-c", code, str(env.spool.root), str(env.tmp / "ledger.sqlite")],
+        env=os.environ | {ENV: "after_domain_before_result_write"},
+        capture_output=True,
+        text=True,
+    )
+    assert done.returncode == EXIT_CODE
+    lines = env.consumer.run_once()
+    assert [line["action"] for line in lines] == ["delivered"] and lines[0]["attempt"] == 2
 
 
 def test_fault_point_kills_the_process_with_86():
