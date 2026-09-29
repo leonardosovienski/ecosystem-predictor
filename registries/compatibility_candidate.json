@@ -3,23 +3,23 @@
   "consumers": {
     "cripto-predictor": {
       "repository": "https://github.com/leonardosovienski/cripto-predictor",
-      "commit": "59f6cf80d4a95153efa159c8b6e0d7d5e7f540ff",
-      "version": "1.1.0"
+      "commit": "fb4d424337fc73f92bbc733191adf62f02117be5",
+      "version": "1.2.0rc4"
     },
     "stocks-predictor": {
       "repository": "https://github.com/leonardosovienski/stocks-predictor",
-      "commit": "3066321e599ee15dd0ace4167d2791545ce6eb95",
-      "version": "0.2.0"
+      "commit": "6f857b232eaa63f3fccda6a16f92dbfc8983ab3b",
+      "version": "0.3.0rc3"
     },
     "brasileirao-predictor": {
       "repository": "https://github.com/leonardosovienski/brasileirao-predictor",
-      "commit": "0f69ba8a1da744eb4239b680fc0389f9dc631987",
-      "version": "0.2.0"
+      "commit": "d8911baee59981448c161d7a30aad42bc122974a",
+      "version": "0.3.0rc5"
     },
     "cain": {
       "repository": "https://github.com/leonardosovienski/cain",
-      "commit": "203048c752973cd730a18345a739c29413eede12",
-      "version": "0.4.10"
+      "commit": "9b5a198f3edfbd688c4e0da2fa9c11382654a52c",
+      "version": "0.4.13rc15"
     }
   },
   "shared": {
@@ -29,16 +29,17 @@
       "hash": "sha256:10ef42f34ace8bb2df5f83ff7de2ceec79b035a25ea0a690e8942bd60d2fb4e3"
     },
     "predictor-ops": {
-      "version": "4.2.1",
-      "url": "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.1/predictor_ops-4.2.1-py3-none-any.whl",
-      "hash": "sha256:da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e"
+      "version": "4.2.2rc1",
+      "url": "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.2rc1/predictor_ops-4.2.2rc1-py3-none-any.whl",
+      "hash": "sha256:0be70bfbb2437dfb080baceb9af41043a09d03b15a358903b8bd7007f5f169b3"
     }
   },
   "capital_authorized": false,
-  "authority": "Engineering compatibility fixture for this mission; not a scientific attestation",
+  "authority": "Engineering compatibility fixture (combinação corrente do stack em 2026-09-29, pós-validação); not a scientific attestation",
   "research_transport": {
-    "publisher": "1.0.1",
-    "cain_reader": "1.0.1",
-    "contract": "ResearchSnapshotV1"
+    "protocol": "2.0.0rc2",
+    "transport": "0.1.0rc7",
+    "contract": "ResearchTaskV2/ResearchResultV2 (research_protocol.v2)",
+    "note": "Etapa B: CAIN consome predictor-research-transport 0.1.0rc7 + predictor-research-protocol 2.0.0rc2 pelo uv.lock; os domínios não dependem do envelope (D-13)"
   }
 }
