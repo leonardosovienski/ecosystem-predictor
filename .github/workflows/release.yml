@@ -1,0 +1,102 @@
+# Publica uma release do GitHub a partir de uma tag, com a wheel (e sdist) construída de
+# `git archive` com SOURCE_DATE_EPOCH fixo — o mesmo procedimento reprodutível usado nas
+# pré-releases da Etapa B. Uma tag = um pacote:
+#   v<versão>                                   → raiz (ecosystem-predictor)
+#   predictor-research-<pacote>-v<versão>       → packages/research-<pacote>
+# Nunca sobrescreve asset: se a release já existe, o job falha (C5 do núcleo de qualificação).
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+      - "predictor-research-*-v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag já criada (ex.: predictor-research-transport-v0.1.0rc7)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
+      SOURCE_DATE_EPOCH: "1758240000"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.1"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Resolve package directory and expected version from the tag
+        id: meta
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$TAG" =~ ^v([0-9].*)$ ]]; then
+            dir="."; name="ecosystem-predictor"; version="${BASH_REMATCH[1]}"
+          elif [[ "$TAG" =~ ^predictor-research-([a-z]+)-v([0-9].*)$ ]]; then
+            dir="packages/research-${BASH_REMATCH[1]}"; name="predictor-research-${BASH_REMATCH[1]}"; version="${BASH_REMATCH[2]}"
+          else
+            echo "tag inesperada: $TAG" >&2; exit 1
+          fi
+          test -f "$dir/pyproject.toml"
+          actual="$(python -c "import tomllib,sys; p=tomllib.load(open(sys.argv[1],'rb'))['project']; print(p['name'], p['version'])" "$dir/pyproject.toml")"
+          if [[ "$actual" != "$name $version" ]]; then
+            echo "pyproject ($actual) não bate com a tag ($name $version)" >&2; exit 1
+          fi
+          prerelease=false; [[ "$version" =~ (a|b|rc)[0-9]+$ ]] && prerelease=true
+          echo "dir=$dir" >> "$GITHUB_OUTPUT"; echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"; echo "prerelease=$prerelease" >> "$GITHUB_OUTPUT"
+      - name: Release must not exist yet (assets are never overwritten)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "release $TAG já existe; nada é sobrescrito" >&2; exit 1
+          fi
+      - name: Lock and tests of the package
+        working-directory: ${{ steps.meta.outputs.dir }}
+        run: |
+          uv lock --check
+          uv sync --locked
+          uv run --locked --no-sync pytest tests -q
+      - name: Reproducible build from git archive (twice, same bytes)
+        id: build
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir="${{ steps.meta.outputs.dir }}"
+          for n in 1 2; do
+            work="$RUNNER_TEMP/build$n"; mkdir -p "$work"
+            git archive --format=tar "$TAG" | tar -x -C "$work"
+            (cd "$work/$dir" && uv build --out-dir "$RUNNER_TEMP/dist$n")
+          done
+          (cd "$RUNNER_TEMP/dist1" && sha256sum * | tee "$RUNNER_TEMP/SHA256SUMS")
+          (cd "$RUNNER_TEMP/dist2" && sha256sum -c "$RUNNER_TEMP/SHA256SUMS")
+      - name: Create GitHub release with the built distributions
+        working-directory: ${{ runner.temp }}/dist1
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          notes="$GITHUB_WORKSPACE/${{ steps.meta.outputs.dir }}/RELEASE_NOTES/$TAG.md"
+          args=(--repo "$GITHUB_REPOSITORY" --title "${{ steps.meta.outputs.name }} ${{ steps.meta.outputs.version }}" --verify-tag)
+          if [[ -f "$notes" ]]; then args+=(--notes-file "$notes"); else args+=(--generate-notes); fi
+          [[ "${{ steps.meta.outputs.prerelease }}" == "true" ]] && args+=(--prerelease)
+          gh release create "$TAG" "${args[@]}" -- * "$RUNNER_TEMP/SHA256SUMS"
+          cat "$RUNNER_TEMP/SHA256SUMS" >> "$GITHUB_STEP_SUMMARY"
