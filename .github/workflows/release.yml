@@ -92,7 +92,7 @@ jobs:
         working-directory: ${{ steps.meta.outputs.dir }}
         run: |
           uv lock --check
-          uv sync --locked
+          uv sync --locked --all-extras
           uv run --locked --no-sync pytest tests -q
       - name: Reproducible build from git archive (twice, same bytes)
         id: build
