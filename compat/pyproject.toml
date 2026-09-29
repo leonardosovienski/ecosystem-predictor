@@ -1,0 +1,40 @@
+# Lock CONJUNTA do ecossistema (achado E-1 da validação de 2026-09-29): um único ambiente, com hashes, em que
+# o CAIN e os três domínios instalam juntos com as wheels publicadas do stack fixadas por URL + sha256 e uma só
+# resolução de terceiros. Não é um pacote: é o `uv.lock` que descreve o "ecossistema instalado junto"
+# (um consumidor `predictor-research-consumer` servindo os adapters de cripto, brasileirão e stocks).
+# Os domínios continuam sem dependência do envelope (D-13); quem depende do transporte é o CAIN.
+# Verificado no CI (job `joint-install`): `uv sync --locked` + import dos três adapters e do consumidor.
+# Só as dependências base de cada wheel entram (é o que o caminho adapter → runtime de pesquisa usa, como no
+# contract test do cripto); extras como `v3` (ccxt) e `llm` ficam fora — o conflito certifi/idna do E-1 vinha do ccxt.
+# Resolução de 2026-09-29: 42 pacotes; certifi 2026.7.22, idna 3.20, typing-inspection 0.4.4, numpy 2.5.3, pydantic 2.13.5.
+[project]
+name = "ecosystem-compat"
+version = "0"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "cain-research==0.4.13rc15",
+  "cripto-predictor==1.2.0rc4",
+  "brasileirao-predictor==0.3.0rc5",
+  "stocks-predictor==0.3.0rc3",
+  "predictor-core==3.2.1",
+  "predictor-ops==4.2.2rc1",
+  "predictor-research-protocol==2.0.0rc2",
+  "predictor-research-transport==0.1.0rc7",
+  "predictor-research-snapshot==1.0.2rc1",
+  "predictor-research-bundle==1.0.1rc1",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+cain-research = { url = "https://github.com/leonardosovienski/cain/releases/download/v0.4.13rc15/cain_research-0.4.13rc15-py3-none-any.whl" }
+cripto-predictor = { url = "https://github.com/leonardosovienski/cripto-predictor/releases/download/v1.2.0rc4/cripto_predictor-1.2.0rc4-py3-none-any.whl" }
+brasileirao-predictor = { url = "https://github.com/leonardosovienski/brasileirao-predictor/releases/download/v0.3.0rc5/brasileirao_predictor-0.3.0rc5-py3-none-any.whl" }
+stocks-predictor = { url = "https://github.com/leonardosovienski/stocks-predictor/releases/download/v0.3.0rc3/stocks_predictor-0.3.0rc3-py3-none-any.whl" }
+predictor-core = { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.1/predictor_core-3.2.1-py3-none-any.whl" }
+predictor-ops = { url = "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.2rc1/predictor_ops-4.2.2rc1-py3-none-any.whl" }
+predictor-research-protocol = { url = "https://github.com/leonardosovienski/ecosystem-predictor/releases/download/predictor-research-protocol-v2.0.0rc2/predictor_research_protocol-2.0.0rc2-py3-none-any.whl" }
+predictor-research-transport = { url = "https://github.com/leonardosovienski/ecosystem-predictor/releases/download/predictor-research-transport-v0.1.0rc7/predictor_research_transport-0.1.0rc7-py3-none-any.whl" }
+predictor-research-snapshot = { url = "https://github.com/leonardosovienski/ecosystem-predictor/releases/download/predictor-research-snapshot-v1.0.2rc1/predictor_research_snapshot-1.0.2rc1-py3-none-any.whl" }
+predictor-research-bundle = { url = "https://github.com/leonardosovienski/ecosystem-predictor/releases/download/predictor-research-bundle-v1.0.1rc1/predictor_research_bundle-1.0.1rc1-py3-none-any.whl" }

@@ -117,3 +117,26 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+
+  joint-install:
+    # Lock CONJUNTA (compat/uv.lock): CAIN + os três domínios + core/ops/transporte, por URL + sha256, numa só
+    # resolução de terceiros (achado E-1 da validação de 2026-09-29). Prova que o "ecossistema instalado junto"
+    # é reproduzível por lock, sem resolver nada do PyPI na hora.
+    name: Joint lock installs CAIN and the three domains together
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: compat
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.1"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: uv lock --check
+      - run: uv sync --locked
+      - run: uv run --locked --no-sync python -I -c "import cain, research_transport, research_protocol, GarimpoInvestimentos.adapters.research_v2, brasileirao_predictor.adapters.research_v2, stocks_predictor; print('joint import ok')"
+      - run: uv run --locked --no-sync predictor-research-consumer --help
+      - run: uv run --locked --no-sync cain research --help
