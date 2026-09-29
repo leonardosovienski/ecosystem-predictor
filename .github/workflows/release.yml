@@ -105,8 +105,11 @@ jobs:
             git archive --format=tar "$TAG" | tar -x -C "$work"
             (cd "$work/$dir" && uv build --out-dir "$RUNNER_TEMP/dist$n")
           done
+          # A wheel (o que os consumidores fixam por URL+sha256) tem de sair byte a byte igual nas duas
+          # construções; o sdist do setuptools carrega metadados de hora e não é reprodutível — vai como
+          # asset, mas não entra na comparação.
           (cd "$RUNNER_TEMP/dist1" && sha256sum * | tee "$RUNNER_TEMP/SHA256SUMS")
-          (cd "$RUNNER_TEMP/dist2" && sha256sum -c "$RUNNER_TEMP/SHA256SUMS")
+          (cd "$RUNNER_TEMP/dist2" && grep '\.whl$' "$RUNNER_TEMP/SHA256SUMS" | sha256sum -c -)
       - name: Create GitHub release with the built distributions
         working-directory: ${{ runner.temp }}/dist1
         env:
