@@ -24,7 +24,7 @@ autoridade sobre seu funcionamento e seus resultados.
   [research-bundle](packages/research-bundle/README.md): contratos de transporte
   distribuídos separadamente, usados por produtores de evidências e pelo CAIN.
 
-A topologia é polyrepo: sete repositórios, três domínios predictors e dez pacotes
+A topologia é polyrepo: sete repositórios, três domínios predictors e doze pacotes
 independentes, conforme o [inventário arquitetural](registries/architecture_registry.json).
 Não há banco central. O antigo gateway, storage e scheduler do agregador foram
 removidos; seu histórico não é instrução de implantação vigente.

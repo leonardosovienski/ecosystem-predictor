@@ -140,7 +140,7 @@
       "predictive_state": "NOT_APPLICABLE",
       "operational_state": "CANONICAL_REGISTRY",
       "commercial_state": "NOT_A_PRODUCT",
-      "current_version": "0.2.0",
+      "current_version": "0.2.1",
       "evidence_state": "CURRENT",
       "integration_state": "REGISTRY_ONLY",
       "ci_state": "PASS",
