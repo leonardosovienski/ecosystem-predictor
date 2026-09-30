@@ -3,7 +3,7 @@
   "consumers": {
     "cripto-predictor": {
       "repository": "https://github.com/leonardosovienski/cripto-predictor",
-      "commit": "fb4d424337fc73f92bbc733191adf62f02117be5",
+      "commit": "21f8b182286248859e1b2cb8fa2bab0138a58e2a",
       "version": "1.2.0rc4"
     },
     "stocks-predictor": {
@@ -13,12 +13,12 @@
     },
     "brasileirao-predictor": {
       "repository": "https://github.com/leonardosovienski/brasileirao-predictor",
-      "commit": "d8911baee59981448c161d7a30aad42bc122974a",
+      "commit": "1b72928062f36297514431aa7ee4ba270b84ae83",
       "version": "0.3.0rc5"
     },
     "cain": {
       "repository": "https://github.com/leonardosovienski/cain",
-      "commit": "9b5a198f3edfbd688c4e0da2fa9c11382654a52c",
+      "commit": "ae00017ab4a2ce602998e8fbdb8b20be95aad99d",
       "version": "0.4.13rc15"
     }
   },
