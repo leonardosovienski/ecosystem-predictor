@@ -58,8 +58,8 @@ Os gates são de engenharia. Coortes futuras, atestados de poder científico, ob
 A versão operacional atual pertence ao [estado do CAIN](https://github.com/leonardosovienski/cain/blob/main/ESTADO_DO_PROJETO.md).
 Para reconferir apenas a identidade instalada neste PC, use
 `C:/CAIN/.venv/Scripts/python.exe -I -c "from importlib.metadata import version; print(version('cain-research'))"`.
-Essa leitura não revalida uma combinação. Dez pacotes no inventário não significa
-dez releases publicadas.
+Essa leitura não revalida uma combinação. Doze pacotes no inventário não significa
+doze releases publicadas (as coordenadas publicadas estão em `registries/released_architecture.json`).
 
 ## Combinação validada com a main final do Core
 

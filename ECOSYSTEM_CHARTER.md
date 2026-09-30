@@ -11,8 +11,8 @@ O PREDICTORS é composto por **sete repositórios canônicos**, conforme a arqui
 implementada em [architecture_registry.json](registries/architecture_registry.json).
 A revisão de seis repositórios permanece no histórico Git; os snapshots mecânicos
 de seis projetos continuam históricos e não serão regenerados como se cobrissem CAIN.
-Os dez pacotes independentes registrados incluem os contratos Snapshot/Bundle no
-Ecosystem e o exportador no Cripto. Pacotes não são novos domínios predictors.
+Os doze pacotes independentes registrados em sete projetos (`registries/architecture_registry.json`)
+incluem os contratos Snapshot/Bundle, o protocolo e o transporte V2 no Ecosystem e o exportador no Cripto. Pacotes não são novos domínios predictors.
 
 O Ecosystem explica responsabilidades, conexões, combinação validada e fontes;
 cada projeto conserva autoridade sobre seu funcionamento e seus resultados.
