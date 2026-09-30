@@ -1,5 +1,14 @@
 # Estado canônico atual
 
+> **Atualização 2026-09-30.** A combinação corrente do stack, o que foi validado em conjunto e o estado do ciclo de
+> qualificação D-27 estão em [ETAPA_B_INTEGRATED_STACK_20260928.md](ETAPA_B_INTEGRATED_STACK_20260928.md) (seção
+> "Atualização de 2026-09-30"). Wheels publicadas: core 3.2.1, ops 4.2.2rc1, ecosystem 0.2.1, protocolo 2.0.0rc2,
+> transporte 0.1.0rc7, snapshot 1.0.2rc1, bundle 1.0.1rc1, cain 0.4.13rc15, cripto 1.2.0rc4, brasileirão 0.3.0rc5,
+> stocks 0.3.0rc3 (`registries/released_architecture.json`; `registries/compatibility_candidate.json` aponta para os
+> commits das tags). As três distribuições de domínio instaladas juntas com o resto do stack carregam no registry
+> isoladas, com capital `FORBIDDEN` (`scripts/check_real_plugin_integration.py`, `RELEASED_WHEELS=1`, 2026-09-30).
+> O texto abaixo (revisão de 13/09/2026) continua válido para contratos, registry e recibos históricos.
+
 **Revisão:** 13/09/2026. A [reconciliação de fidelidade](docs/maintenance/fidelity-20260913.md)
 corrige representação, expiração e mensagens de erro, com regressões automatizadas.
 A combinação fixada e seus recibos permanecem preservados; fonte corrigida não
