@@ -2,7 +2,7 @@
 
 Este documento registra o stack que as três integrações da Etapa B qualificaram juntas. É só registro: nenhuma wheel muda aqui. As identidades vêm das attestations no `main` do predictor-qualification.
 
-**Pilha atual: cain 0.4.13rc13 + predictor-research-transport 0.1.0rc6.** A pilha anterior, cain 0.4.13rc12 + transporte 0.1.0rc5, está no histórico ao fim deste documento.
+**Pilha qualificada vigente: cain 0.4.13rc13 + predictor-research-transport 0.1.0rc6** (as três attestations `QUALIFIED` abaixo). **Pilha candidata em qualificação (D-27, 2026-09-30): cain 0.4.13rc15 + transporte 0.1.0rc7 + cripto 1.2.0rc4** — ver a seção "Atualização de 2026-09-30" ao fim; nenhuma attestation foi reemitida ainda. A pilha anterior, cain 0.4.13rc12 + transporte 0.1.0rc5, está no histórico.
 
 ## Attestations
 
@@ -164,3 +164,25 @@ O `brasileirao.json` empacotado na rc13 é byte a byte o da rc12 (só `stocks.js
 `qualification/shared/CAIN_EXTREME_20260928/` do predictor-qualification; as correções que ela motivou
 (cain: envelope ilegível e `as_of` impossível; transporte 0.1.0rc7: arquivo de task ilegível) entram por PR e,
 se o dono as adotar numa release, disparam a C14 nas três integrações.
+
+## Atualização de 2026-09-30: ciclo D-27 (cain 0.4.13rc15, transporte 0.1.0rc7, cripto 1.2.0rc4)
+
+As correções de 2026-09-29 (validação técnica dos sete repositórios) foram publicadas como versões novas, para que nenhum número designe dois
+conteúdos: cain `v0.4.13rc15` (`ae00017a`, wheel `ff642b72…`), transporte `predictor-research-transport-v0.1.0rc7` (`b0da4fd8`, `d3dfbff4…`),
+cripto `v1.2.0rc4` (`21f8b182`, `32a4bd6d…`), brasileirão `v0.3.0rc5` (`1b729280`, `be3bc512…`), ecosystem `v0.2.1` (`12531fa8`). Core 3.2.1 e
+Ops 4.2.2rc1 não mudaram. A lock conjunta `compat/` deste repositório instala a pilha inteira (12 pacotes do stack) e o job `joint-install`
+do CI a mantém instalável.
+
+Pela C14 do núcleo, a wheel nova do cain e do transporte refaz as fases das três integrações que os exercitam, e a mudança do cripto fora dos
+`adapter_paths` reabre a Etapa A do crypto (C24.4). Estado ao fim da sessão de 2026-09-30 (`predictor-qualification`, `main`):
+
+| Missão | Alvo | O que rodou (Linux primário, GitHub Actions) | Estado | O que falta (só o dono) |
+|---|---|---|---|---|
+| `crypto` (Etapa A, V1.2) | cripto 1.2.0rc4 | run 36646241688: cleanroom-final, E2E sintético 20/20 e real 10/10, casos A/B/C 20/20, science (bruto −45 / líquido −83 bps, `INCONCLUSIVE`/`NO_EDGE`), soak real 43 resultados / 0 perdidos, conformidade 48/48 | 30/31 `PASS`; `WINDOWS_SMOKE` `NOT_RUN` → **BLOCKED** | Windows local (D-3) com `windows_runtime.sh`; ou decisão nova aceitando `windows-latest` |
+| `integration-crypto` rc15 | cain rc15 + transporte rc7 + cripto rc4 | run 36648103793: cleanroom-final, C24.3 (d) 10/0, e2e 56/0, N+1 21/0, isolamento 22/0, F01–F15, soak 48/0 (6 propostas do LLM); identidade 12/0, final_wheels 17/0, CI verde nos 3 SHAs | **BLOCKED**: Windows do PC 2; pin do conjunto protegido (o alvo do crypto mudou); attestation V1.2 do crypto | Windows do PC 2 com os alvos rc15; decidir o pin; fechar a V1.2 |
+| `integration-brasileirao` rc15 | cain rc15 + transporte rc7 (brasileirão rc4) | só conferências estáticas (release check 7/7, CI, contrato estático, protegidos, segredos) | **BLOCKED**: runtime e Windows são do PC 2 (`owner_linux`, dado privado) | cenários + `windows_smoke.ps1` no PC 2 |
+| `integration-stocks` ciclo 5 | cain rc15 + transporte rc7 (stocks rc3, cripto rc3) | pin novo dos dados públicos (run 36648601522, cutoff 2026-09-30T03:00Z); run 36649880023 (Linux + `windows-latest`) — STOCKS_RESULT_PENDING | STOCKS_STATE_PENDING | STOCKS_TODO_PENDING |
+
+As attestations `QUALIFIED` da tabela do topo continuam vigentes para os `final_commits` delas (C22); o `main` de cada repositório é
+pós-qualificação. As configurações de domínio da cain rc15 (`crypto.json`, `stocks.json`, `brasileirao.json`) são byte a byte as da rc13;
+`policy.py` difere só por uma anotação de tipo. `QUALIFIED` não é edge nem autoriza capital.
