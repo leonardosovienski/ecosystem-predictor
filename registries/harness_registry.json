@@ -1,7 +1,7 @@
 {
   "schema_version": "harness-registry/1.0",
   "current_released_core_version": "3.2.1",
-  "last_verified_at": "2026-09-27",
+  "last_verified_at": "2026-10-02",
   "harnesses": [
     {
       "repo": "brasileirao-predictor",
@@ -174,14 +174,14 @@
       "domain_code_version": "package:3.2.1;git:ee3d3d17de0b76cf731808243ffa838a0f5ee8cc",
       "executed_at": "2026-09-27T23:29:34Z",
       "expires_at": "2026-10-04T23:29:34Z",
-      "status": "ALIGNED",
+      "status": "SUPERSEDED",
       "reissue_required": false,
       "metric": "psr",
       "pipeline_fingerprint": "36985cab78faaab7e84b3bf4e7a2369577c9977b616dbc4d4cd11b12799df4f9",
       "evidence_path": "docs/engineering_controls/20260927/crypto-trials.harness_attestation.json",
       "evidence_sha256": "c57f5005b8771f9e8e193fa609079289762bd128c02102cf5e0527da30b3ff87",
       "scope": "Synthetic judge power controls only; no economic verdict, trading action or capital authorization",
-      "basis": "Genuine clean-tree reissue against Core 3.2.1 (cripto-predictor v1.2.0rc3 source, attestations staged outside the repo; canonical domain attestation files untouched); fixed edge/noise controls passed"
+      "basis": "Superseded by the genuine reissue of 2026-10-02T10:02:53Z (docs/engineering_controls/20261002/crypto-trials.harness_attestation.json); this attestation stays valid until 2026-10-04T23:29:34Z; original evidence unchanged"
     },
     {
       "repo": "cripto-predictor",
@@ -191,14 +191,48 @@
       "domain_code_version": "package:3.2.1;git:ee3d3d17de0b76cf731808243ffa838a0f5ee8cc",
       "executed_at": "2026-09-27T23:29:28Z",
       "expires_at": "2026-10-04T23:29:28Z",
-      "status": "ALIGNED",
+      "status": "SUPERSEDED",
       "reissue_required": false,
       "metric": "spearman_ic",
       "pipeline_fingerprint": "69a096c9d86b9fcdc49cad22d43e76a675554b494a7969fbe222065a014c59db",
       "evidence_path": "docs/engineering_controls/20260927/crypto-trials.phase1_harness_attestation.json",
       "evidence_sha256": "5c8bb71906ca0b74c67746df331156096e1c803bea0e55b8c2f316071da790ad",
       "scope": "Synthetic judge power controls only; no economic verdict, trading action or capital authorization",
-      "basis": "Genuine clean-tree reissue against Core 3.2.1 (cripto-predictor v1.2.0rc3 source, attestations staged outside the repo; canonical domain attestation files untouched); fixed edge/noise controls passed"
+      "basis": "Superseded by the genuine reissue of 2026-10-02T10:02:41Z (docs/engineering_controls/20261002/crypto-trials.phase1_harness_attestation.json); this attestation stays valid until 2026-10-04T23:29:28Z; original evidence unchanged"
+    },
+    {
+      "repo": "cripto-predictor",
+      "harness_version": "pipeline-power/2",
+      "reported_core_version": "3.2.1",
+      "core_code_sha": "7bb212cfa06333886e11e849b209c5aab801c04b",
+      "domain_code_version": "package:3.2.1;git:ee3d3d17de0b76cf731808243ffa838a0f5ee8cc",
+      "executed_at": "2026-10-02T10:02:53Z",
+      "expires_at": "2026-10-09T10:02:53Z",
+      "status": "ALIGNED",
+      "reissue_required": false,
+      "metric": "psr",
+      "pipeline_fingerprint": "36985cab78faaab7e84b3bf4e7a2369577c9977b616dbc4d4cd11b12799df4f9",
+      "evidence_path": "docs/engineering_controls/20261002/crypto-trials.harness_attestation.json",
+      "evidence_sha256": "095afecddf30f11407aeb3111cc900e00c3597f2cf8ff45692c62c0618f3115c",
+      "scope": "Synthetic judge power controls only; no economic verdict, trading action or capital authorization",
+      "basis": "Scheduled genuine clean-tree reissue (crypto-harness-renewal) against Core 3.2.1 on leonardosovienski/cripto-predictor@ee3d3d17de0b; attestations staged outside the domain repository; fixed edge/noise controls passed"
+    },
+    {
+      "repo": "cripto-predictor",
+      "harness_version": "pipeline-power/2",
+      "reported_core_version": "3.2.1",
+      "core_code_sha": "7bb212cfa06333886e11e849b209c5aab801c04b",
+      "domain_code_version": "package:3.2.1;git:ee3d3d17de0b76cf731808243ffa838a0f5ee8cc",
+      "executed_at": "2026-10-02T10:02:41Z",
+      "expires_at": "2026-10-09T10:02:41Z",
+      "status": "ALIGNED",
+      "reissue_required": false,
+      "metric": "spearman_ic",
+      "pipeline_fingerprint": "69a096c9d86b9fcdc49cad22d43e76a675554b494a7969fbe222065a014c59db",
+      "evidence_path": "docs/engineering_controls/20261002/crypto-trials.phase1_harness_attestation.json",
+      "evidence_sha256": "f12da16f2e2a2cb2788d04f8ca51d4d3c280e73c388bf9f5e979a543f9748ce4",
+      "scope": "Synthetic judge power controls only; no economic verdict, trading action or capital authorization",
+      "basis": "Scheduled genuine clean-tree reissue (crypto-harness-renewal) against Core 3.2.1 on leonardosovienski/cripto-predictor@ee3d3d17de0b; attestations staged outside the domain repository; fixed edge/noise controls passed"
     }
   ],
   "overall_alignment": "MIXED_BY_DECISION",
