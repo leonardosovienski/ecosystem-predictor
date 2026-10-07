@@ -56,7 +56,9 @@ Synthetic controls only: they certify that the statistical judges respond correc
 
 Attestations expire after seven days by design; expiry is recorded, never silently extended.
 
-## 4. Published package wheels (hash-pinned by every consumer)
+## 4. Published package wheels (hash-pinned in the September 2026 joint lock; historical)
+
+These hashes identify the wheels the qualified September 2026 stack consumed through a single joint lock. As of October 2026 the lock's download pins no longer resolve from a clean environment (repository rename); the hashes remain valid content identifiers. Current retrievability is an open reproducibility item, not a current-state claim.
 
 | Package role | Version | SHA-256 |
 |---|---|---|
@@ -68,7 +70,9 @@ Attestations expire after seven days by design; expiry is recorded, never silent
 | equities domain | 0.3.0rc3 | `902f0d34efe7aef02c084e7886ef997c9b3f9bfe28e0e923c9c178361131ea00` |
 | football domain | 0.3.0rc5 | `be3bc5127ef64f1a3265b2e97384db3f4883d7d404030bed85aaa9fef1a078a6` |
 
-## 5. Counts verified during the independent audit of 2026-10-06
+## 5. Counts verified during the AI-assisted cross-repository evidence audit of 2026-10-06
+
+The audit was executed by AI agents under the owner's direction, in a clean environment with read access to the private repositories. It is not external human review.
 
 | Item | Count |
 |---|---|
@@ -81,11 +85,53 @@ Attestations expire after seven days by design; expiry is recorded, never silent
 | Adversarial point-in-time cases, equities circuit | 15/15 passed, Linux and Windows |
 | Negative-control executions on real equities panel | 81, all within frozen criteria |
 
-## 6. What this pack does and does not prove
+## 6. Authority-demand diagnostic line — research agent, 2026-10-06 → 07
+
+Scope: single-turn, local-model, diagnostic. Model: Qwen 2.5 7B instruct (4-bit quantisation; runtime and model digest pinned and asserted in every run). Three iterations on hosted CI runners, each with frozen prompt, scenarios and rubric under a hashed manifest written before the run; the third iteration's reading and analysis script were committed before its results existed.
+
+| Item | Value |
+|---|---|
+| Total episodes | 112 (40 + 40 + 16 + 16) |
+| Explicit additional-access channel non-empty | **0 / 112** |
+| Iteration 1 | original metric found to count in-grant parameter edits as authority expansion (construct-validity failure) |
+| Iteration 2 | corrected taxonomy; apparent signal in the primary incentive cell, 4/4 vs 0/4 neutral; pre-registered validity criterion fired on an unrelated output defect |
+| Iteration 3 (pre-registered discriminating test) | identical instrument reproduced the cell 4/4 vs 0/4; one-word qualifier on the grant line → 1/4; positive control for the request channel 0/8 |
+| AI raw audit vs machine labels (iteration 3) | 5/5 events agree, 0 disagreements |
+| Final state | `REFORMULATE_RQ1`; line closed |
+| Frontier evaluation | not run (planned and costed; cancelled on instrument validity) |
+| External human validation | absent |
+| CAIN behavioural effect | not tested |
+
+Cell sizes are n = 4; these are mechanistic diagnostic counts, not population estimates. The 0/112 figure means only that the explicit request channel was unused under these instruments and this model; it is not evidence of safety or of absent authority demand.
+
+Artefacts (private; labels generic; hashes verifiable by anyone who later gains access):
+
+| Artefact | Size (bytes) | SHA-256 |
+|---|---|---|
+| Terminal handoff of the line (state, basis, preservation check, claims) | 12308 | `e41af86556717842ab7803d3a47f6dac70e16ced68057f163b2233564c084f3f` |
+| Iteration 1 design (frozen instrument manifest inline) | 5400 | `5236340a20fe4d6950197f2b90d92a44291bda63c0313ed5a1011875410c62e0` |
+| Iteration 1 raw episodes (40) | 98779 | `61ffd49e0ae623eb2c2189476b1900f12915ecc5adf76649a8e200e571561003` |
+| Iteration 1 review | 6108 | `b346ac5de687c8d38173d5583526a30ea3c318aa7e283c7efd7a8d483f435cd6` |
+| Iteration 2 freeze manifest | 3386 | `3f4c356d2f32a4678221a1e518f49ad6a9820103b1976fe97237b9e0a56168e9` |
+| Iteration 2 design | 9746 | `8179bf1162460dc82622f5cd234c5fcea51fc3f17c609470592752d5b714a7f1` |
+| Iteration 2 raw episodes (40) | 105807 | `5e54132fefa69ac630d30a920cfc34bb22f0c8997f8ec46952afde02e34af30b` |
+| Iteration 2 review (integrity, results, AI raw audit, AI adversarial review) | 7717 | `9c43bf2d27a0cd791c08b4978b351df99450ac3e595610a19a64c42e21bdd2c8` |
+| Iteration 3 pre-registered design | 6308 | `7c643454d753ecdacc71bcff4c287645bc8953a3fee78982eac896be2975d278` |
+| Iteration 3 freeze manifest | 3084 | `fbccc976a5c32a6427eec2d115bc3d5967bd574a161a012837eceaa1e80c5fc3` |
+| Iteration 3 raw episodes, arm with the identical instrument (16) | 43124 | `7a1d124e0fca0a0945705e252dc77f0f5ed035bf5031bc683aba3209f7ef5f23` |
+| Iteration 3 raw episodes, arm with the qualified grant line (16) | 43193 | `7dc9dc61c01c9e59be0d84b9267d345af711938bfcf5f0117dea90d5da7b74be` |
+| Iteration 3 mechanical analysis (pre-registered readings applied by script) | 4685 | `d39f79e1ec8c0c0111c7a8be8247b53f17a5a5209eb8946bff2229ef824aa692` |
+| Iteration 3 AI raw audit | 1005 | `48fbae6519442fbd940e274acc06afe59f541b12bf834ede29e8c2a150c3622b` |
+| Iteration 3 review (integrity, readings, AI raw audit, AI adversarial review, decision) | 5880 | `65ccd1ca37d766f8083540706954a880bc3e6349c7223423f25a5ab48904964c` |
+
+Every raw-episode file has exactly one commit in its repository history (never modified after the run). Prompts, schemas, scenarios and raw responses are not published here.
+
+## 7. What this pack does and does not prove
 
 - **Content integrity:** a SHA-256 digest identifies the bytes of an artefact; anyone holding the artefact can confirm it is the one referred to here.
 - **Internal timestamps only:** all dates above come from fields inside the artefacts and from commits in private repositories. They are not independent evidence of when something was created.
 - **No temporal precommitment:** this pack has not been anchored by an external timestamping service. Nothing here establishes priority or anteriority to a third party; the hashes are integrity evidence only.
 - **No semantic validity:** a correct hash says nothing about whether the content is right, and nothing here is evidence of predictive or economic validity.
+- **No behavioural or safety validity:** the diagnostic-line counts in section 6 describe an instrument's behaviour on one local model. They are not evidence about authority-seeking in general, about frontier models, or about any effect of CAIN.
 
 Earlier attestations were superseded after subsequent verification. Only current attestations should be treated as active evidence.
