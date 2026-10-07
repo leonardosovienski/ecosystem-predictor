@@ -1,0 +1,324 @@
+{
+  "schema": "claim-index/1",
+  "documentation": "Claim gate of the public showcase (programme item R04, 2026-10-07). Every material number in the gated documents must be licensed by a claim below, with scope, source, date and CURRENT/HISTORICAL flag. `python claims/claim_gate.py check --index claims/CLAIM_INDEX.json` runs in CI on every push and pull request; a new number without a claim fails the build. Spelled-out numbers and one-digit counts are not tokenised; phrases of high risk are banned under forbidden_phrases. Sources are the private artefacts named in docs/EVIDENCE_PACK.md and the private cain source of truth (docs/funding/FUNDING_READINESS_SOURCE_OF_TRUTH.md).",
+  "documents": [
+    {
+      "path": "README.md"
+    },
+    {
+      "path": "docs/EVIDENCE_PACK.md"
+    },
+    {
+      "path": "docs/RESEARCH_CARDS.md"
+    },
+    {
+      "path": "docs/NEGATIVE_RESULTS.md"
+    },
+    {
+      "path": "docs/LIMITATIONS.md"
+    },
+    {
+      "path": "docs/NEXT_EXPERIMENTS.md"
+    },
+    {
+      "path": "docs/FUNDING.md"
+    },
+    {
+      "path": "docs/LINEAGE.md"
+    },
+    {
+      "path": "docs/ARCHITECTURE_ILLUSTRATIVE.md"
+    }
+  ],
+  "ignore_patterns": [
+    "^\\d+h$",
+    "^\\d{2}$ (?!)"
+  ],
+  "ignore_table_columns": [
+    "^#$",
+    "size",
+    "sha",
+    "bytes",
+    "issued",
+    "finished",
+    "executed",
+    "date",
+    "core version",
+    "version",
+    "findings"
+  ],
+  "forbidden_phrases": [
+    "about 1,?500",
+    "14 of 14",
+    "prevents authority",
+    "reduces authority[- ]seeking",
+    "CAIN reduces",
+    "proven safe",
+    "independent(ly)? replicat"
+  ],
+  "claims": [
+    {
+      "id": "S01",
+      "text": "Diagnostic elicitation line: 112 episodes in three iterations (40 + 40 + 16 + 16) on qwen2.5:7b-instruct-q4_K_M, single turn, frozen artefacts.",
+      "tokens": [
+        "112",
+        "40",
+        "16"
+      ],
+      "scope": "pilots/elicitation-a V1, V2, V3 (private cain repository); runs 37523764748, 37544997197, 37552078241",
+      "source": "cain pilots/elicitation-a/HANDOFF.md terminal state; Evidence Pack §6",
+      "date": "2026-10-07",
+      "status": "CONFIRMED",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S02",
+      "text": "Explicit additional-access channel non-empty in 0 of 112 episodes. Diagnostic fact about instrument and model; not a safety claim.",
+      "tokens": [
+        "0/112"
+      ],
+      "scope": "same line as S01",
+      "source": "cain pilots/elicitation-a/HANDOFF.md (ADDITIONAL_ACCESS_NONEMPTY = 0 / 112)",
+      "date": "2026-10-07",
+      "status": "CONFIRMED",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S03",
+      "text": "V3 primary cell: Q0 T2 INCENTIVE 4/4 (replicating V2), NEUTRAL 0/4; Q1 (one-word qualifier) 1/4; positive control T6 0/8; AI raw audit agreed with machine labels 5/5.",
+      "tokens": [
+        "4/4",
+        "0/4",
+        "1/4",
+        "0/8",
+        "5/5"
+      ],
+      "scope": "V3, n = 4 per cell, pre-registered readings",
+      "source": "cain pilots/elicitation-a/v3/runs/V3_ANALYSIS.json and REVIEW_V3.md; Evidence Pack §6",
+      "date": "2026-10-07",
+      "status": "CONFIRMED",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S04",
+      "text": "Joint test of the three real domains driven by the agent: 58 passed / 0 failed on the final stack; earlier same-day attempts 47/57, 56/58, 57/58 (57 passed / 1 failed on the previous stack); lock-contention 20/20 per domain after the fix, one domain 2/20 before.",
+      "tokens": [
+        "58/58",
+        "47/57",
+        "56/58",
+        "57/58",
+        "20/20",
+        "2/20",
+        "58",
+        "57"
+      ],
+      "scope": "ecosystem-predictor-cain integrated-stack script, 2026-09-28; cain rc13/transport rc6 then final stack",
+      "source": "Evidence Pack §2 (hashes of summary and logs); ETAPA_B_INTEGRATED_STACK_20260928.md",
+      "date": "2026-09-28",
+      "status": "HISTORICAL",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S05",
+      "text": "Fifteen adversarial point-in-time attacks rejected (15/15), zero leakage, Linux and Windows, in the equities (stocks) qualification circuit.",
+      "tokens": [
+        "15/15"
+      ],
+      "phrases": [
+        "fifteen adversarial"
+      ],
+      "scope": "stocks-predictor stage A qualification, STOCKS_PIT_ADVERSARIAL",
+      "source": "predictor-qualification/qualification/stocks attestation; Evidence Pack §5",
+      "date": "2026-09-25",
+      "status": "HISTORICAL",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S06",
+      "text": "81 negative-control executions on the real equities panel, all within frozen criteria.",
+      "tokens": [
+        "81"
+      ],
+      "scope": "stocks-predictor stage A, STOCKS_NEGATIVE_CONTROLS",
+      "source": "predictor-qualification stocks attestation; Evidence Pack §5",
+      "date": "2026-09-25",
+      "status": "HISTORICAL",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S07",
+      "text": "29 registered football trials: 1 confirmed (forecast quality), 6 refuted, 6 inconclusive, 8 pre-registered awaiting data, 3 superseded, 3 informative, 2 exploratory.",
+      "tokens": [
+        "29"
+      ],
+      "scope": "brasileirao-predictor trial registry at the 2026-10-06 audit head",
+      "source": "Evidence Pack §5 (AI-assisted cross-repository audit 2026-10-06)",
+      "date": "2026-10-06",
+      "status": "HISTORICAL",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S08",
+      "text": "A +44% World Cup backtest ROI explained as variance from two long-odds hits; model loses to the market.",
+      "tokens": [
+        "+44%",
+        "44%"
+      ],
+      "scope": "football line 1 (World Cup origin), closed June 2026",
+      "source": "brasileirao-predictor research archive; LINEAGE 2026-06-27",
+      "date": "2026-06-27",
+      "status": "HISTORICAL",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S09",
+      "text": "Sixteen research lines described at concept level in Research Cards.",
+      "tokens": [],
+      "phrases": [
+        "16 research lines",
+        "Sixteen research lines"
+      ],
+      "scope": "docs/RESEARCH_CARDS.md",
+      "source": "this showcase",
+      "date": "2026-10-07",
+      "status": "CONFIRMED",
+      "current_or_historical": "CURRENT",
+      "public_safe": true
+    },
+    {
+      "id": "S10",
+      "text": "AI-assisted cross-repository audit counts of 2026-10-06: transport-layer tests 310 passed (7 not collected offline), registry invariants 2/2, harness attestation hashes 10/10, qualification manifest entries 13/13, joint-test artefacts 7/7.",
+      "tokens": [
+        "310",
+        "2/2",
+        "10/10",
+        "13/13",
+        "7/7"
+      ],
+      "scope": "ecosystem-predictor-cain head and registries at the 2026-10-06 audit; not external human review",
+      "source": "Evidence Pack §5",
+      "date": "2026-10-06",
+      "status": "HISTORICAL",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S11",
+      "text": "Core 3.0 removed nine primitives; strategic audit of 2026-08-31 counted 17 falsified hypotheses; 42 hypotheses received formal verdicts on 2026-07-26/28; twenty dated decisions on 2026-09-03; from-scratch study of 2026-09-29/30 listed 27 prioritised problems.",
+      "tokens": [
+        "17",
+        "42",
+        "27"
+      ],
+      "scope": "programme chronology (LINEAGE)",
+      "source": "core-predictor CHANGELOG and audits; predictor-qualification estudo-do-zero",
+      "date": "2026-09-30",
+      "status": "HISTORICAL",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S12",
+      "text": "Six qualification attestations (three stage A, three stage B) QUALIFIED at issuance with P0 = P1 = 0; gates 31/31, 31/31, 32/32, 30/30, 30/30, 30/30; three of six no longer re-validate at the current qualification head.",
+      "tokens": [
+        "31/31",
+        "32/32",
+        "30/30"
+      ],
+      "phrases": [
+        "six attestations",
+        "six qualification attestations"
+      ],
+      "scope": "predictor-qualification main at 2026-09-30",
+      "source": "Evidence Pack §1; predictor-qualification README",
+      "date": "2026-09-30",
+      "status": "HISTORICAL",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S13",
+      "text": "Derivatives regime signals evaluated at 24h/48h horizons: gross edge marginally positive, net negative.",
+      "tokens": [],
+      "phrases": [
+        "24h/48h"
+      ],
+      "scope": "crypto line 8, closed 2026-07-02",
+      "source": "cripto-predictor research ledger",
+      "date": "2026-07-02",
+      "status": "HISTORICAL",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S14",
+      "text": "Local model used in the diagnostic line: Qwen 2.5 7B instruct, 4-bit quantisation (digest asserted in every run).",
+      "tokens": [],
+      "phrases": [
+        "7B"
+      ],
+      "scope": "pilots/elicitation-a RUN_META model identity",
+      "source": "cain pilots/elicitation-a runs RUN_META.json",
+      "date": "2026-10-07",
+      "status": "CONFIRMED",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": true
+    },
+    {
+      "id": "S15",
+      "text": "Stack package versions and wheel hashes of the September 2026 joint lock (core 3.2.1, ops 4.2.2rc1, governance 0.2.1, agent 0.4.13rc15, crypto 1.2.0rc4, equities 0.3.0rc3, football 0.3.0rc5). Re-downloaded through the GitHub API on 2026-10-07: hashes unchanged; retrievability restored on the remediation branches via a per-consumer registry, with read access to the private producers.",
+      "tokens": [],
+      "scope": "ecosystem-predictor-cain compat/uv.lock and compat/STACK_WHEELS.json",
+      "source": "Evidence Pack §4; predictor-qualification/qualification/shared/SUPPLY_CHAIN_20261007.md",
+      "date": "2026-10-07",
+      "status": "PARTIAL",
+      "current_or_historical": "CURRENT",
+      "public_safe": true
+    },
+    {
+      "id": "S16",
+      "text": "Claim never to be made publicly: CAIN prevents or reduces authority seeking; the comparative experiment (arms B/C) was never run.",
+      "tokens": [],
+      "scope": "all public text",
+      "source": "cain CAIN_CLAIM_LEDGER C08",
+      "date": "2026-10-06",
+      "status": "PROPOSED",
+      "current_or_historical": "CURRENT",
+      "public_safe": false
+    },
+    {
+      "id": "S17",
+      "text": "Claim never to be made publicly: about 1,500 passing tests (artefacts say 1446/1462/1463 at dated commits).",
+      "tokens": [
+        "1500"
+      ],
+      "scope": "all public text",
+      "source": "cain CAIN_CLAIM_LEDGER C05",
+      "date": "2026-10-06",
+      "status": "PARTIAL",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": false
+    },
+    {
+      "id": "S18",
+      "text": "Claim never to be made publicly without its qualifier: 14 of 14 attack cases contained (lab sandbox, one Windows host, 2026-09-24, outside the qualified runtime).",
+      "tokens": [
+        "14/14"
+      ],
+      "scope": "all public text",
+      "source": "cain CAIN_CLAIM_LEDGER C06",
+      "date": "2026-09-24",
+      "status": "HISTORICAL",
+      "current_or_historical": "HISTORICAL",
+      "public_safe": false
+    }
+  ]
+}

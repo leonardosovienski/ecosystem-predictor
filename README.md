@@ -56,4 +56,4 @@ A small grant can retire the main measurement uncertainty before a larger interv
 
 ---
 
-*Nothing here is a product, a recommendation, or an authorisation of capital. All code remains proprietary and private. Hashes in the Evidence Pack are evidence of content integrity only; they have not been externally timestamped and make no claim of anteriority. Text and tables: [CC BY 4.0](LICENSE). Contact: the owner's public GitHub profile, [leonardosovienski](https://github.com/leonardosovienski).*
+*Claim gate: every material number in this repository is licensed by a registered claim with scope, source and date ([`claims/CLAIM_INDEX.json`](claims/CLAIM_INDEX.json)); a CI check fails on any unregistered number or banned phrase. Nothing here is a product, a recommendation, or an authorisation of capital. All code remains proprietary and private. Hashes in the Evidence Pack are evidence of content integrity only; they have not been externally timestamped and make no claim of anteriority. Text and tables: [CC BY 4.0](LICENSE). Contact: the owner's public GitHub profile, [leonardosovienski](https://github.com/leonardosovienski).*
