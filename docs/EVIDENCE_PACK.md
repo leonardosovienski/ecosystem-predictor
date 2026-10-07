@@ -130,8 +130,8 @@ Every raw-episode file has exactly one commit in its repository history (never m
 
 **Visibility note (2026-10-07).** The private repositories referred to above were made public by the owner on
 2026-10-07 (cain, ecosystem-predictor-cain, cripto-predictor, stocks-predictor, brasileirao-predictor,
-predictor-qualification); at the time of writing the scientific core (core-predictor) and the operations runner
-(predictor-ops) were still private. Earlier sentences saying "private" describe the state when the facts were recorded
+predictor-qualification, and, minutes later, core-predictor and predictor-ops): all nine repositories of the
+programme are public as of 2026-10-07. Earlier sentences saying "private" describe the state when the facts were recorded
 and are kept as written. The hashes anchored on 2026-10-07 by the cain repository's external-timestamp workflow
 (`docs/funding/ANCHORS.json.ots`, OpenTimestamps) cover the artefacts listed in section 6.
 
