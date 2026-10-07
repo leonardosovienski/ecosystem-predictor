@@ -36,8 +36,14 @@ The diagram shows **separations**, not a sequence. The real system's ordering, i
 4. **Evidence is append-only and hash-identified.** Retrieval informs the next proposal but cannot rewrite the past.
 5. **Capital is unreachable** by contract defaults, verified from outside by the qualification protocol.
 
+## Scientific status of this picture (2026-10-07)
+
+- The separations above are **engineering**: built, tested and qualified in documented scopes. Nothing in the diagram is a behavioural claim.
+- Whether the evidence→authority boundary *changes agent behaviour under incentive* was the planned comparative experiment. It was **not run**. The base-rate step that had to precede it (a 112-episode diagnostic line on the proposer alone) showed that the measurement instrument was too sensitive to its own defaults and representation to support a behavioural conclusion, and the line was closed before frontier evaluation. See [Negative Results](NEGATIVE_RESULTS.md) and [Next Experiments](NEXT_EXPERIMENTS.md).
+- Any future behavioural experiment on this architecture requires a new, validated measurement instrument first.
+
 ## Future directions — proposed, not implemented
 
-- A comparative experiment measuring whether the evidence→authority boundary changes agent behaviour under incentive.
+- A successor measurement protocol with a functional request channel and working positive controls (concept only; see Next Experiments).
 - External timestamping of attestations.
-- Independent human review of the qualification protocol.
+- Independent human review of the qualification protocol and of the successor protocol.

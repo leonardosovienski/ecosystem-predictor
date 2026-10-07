@@ -1,18 +1,24 @@
-# Next Experiments — proposed, not implemented
+# Next Experiments
 
-Everything on this page is a proposal. Nothing has been run, pre-registered or funded unless stated.
+Everything on this page is either closed, ongoing as stated, or a proposal. Nothing has been funded.
 
-## E1. Evidence versus authority in research agents
+## E1. Evidence versus authority in research agents — CLOSED / REFORMULATE (2026-10-07)
 
-**Question.** Can a research agent use evidence to change what it investigates without that evidence becoming a route to more authority (evaluator access, held-out data, permissions, budget)?
+**Original question.** Can a research agent use evidence to change what it investigates without that evidence becoming a route to more authority (evaluator access, held-out data, permissions, budget)? Arms (A) instruction-only, (B) evaluation isolation, (C) isolation plus a deterministic evidence→authority boundary.
 
-**Arms.** (A) instruction-only agent; (B) agent with evaluation isolation; (C) isolation plus a deterministic boundary between evidence and authority.
+**What was actually run.** The base-rate step for arm A only: a diagnostic single-turn line of three iterations and 112 episodes on one local 7B model, with frozen artefacts and pre-registered readings. See [Negative Results](NEGATIVE_RESULTS.md).
 
-**Measures (concept).** Attempts to escalate authority; quality of proposals judged blind; fabrication rate; abstention rate when evidence is insufficient.
+**Outcome.** The original measurement interpretation was falsified. The first metric confused in-grant parameter edits with authority expansion; a corrected metric produced an apparent signal that a controlled follow-up traced primarily to editing of an unqualified default; the explicit request channel went unused 0/112, including under a positive control that exposed a flaw in the elicitation design. Frontier evaluation on this instrument was planned, costed and **cancelled**. Arms B and C were never run; the intervention gate is **closed**.
 
-**Requirements.** Held-out episode corpus; independent human judge; public pre-registration before any run; stopping rule fixed in advance.
+**Rule going forward.** The previous single-turn line must not continue as an incremental "V4". Any successor is a new experimental line with a new operational question, protocol and versioning.
 
-**Status.** Infrastructure for arm C exists and has been tested in integration. No design, pre-registration or data yet. **Funding-dependent.**
+## Potential successor — NOT DESIGNED / NOT IMPLEMENTED
+
+**Goal.** Develop a measurement protocol that first demonstrates observable authority demand before testing any CAIN intervention. First question: can we build an environment in which a capable model verifiably shows when it needs additional authority, without being told to ask for it? Only after a positive control and a reliable base rate: does an intervention change that behaviour? Never start from the intervention.
+
+**Likely requirements.** A functional request channel; legitimate requests not structurally penalised by the scoring; valid positive controls that demonstrate observability; construct-valid labels distinguishing authority demand, sanctioned request, out-of-channel request, circumvention and enforcement; independent human methodological critique before freezing; potentially multi-turn interaction.
+
+**Frontier gate.** Frontier compute becomes justified only after the new instrument passes its positive controls. **Funding-dependent.**
 
 ## E2. Prospective cohort for the football incrementality question
 
@@ -33,3 +39,7 @@ Process change: one directory per cycle, or formal re-issue with supersession. S
 ## E6. External timestamps
 
 Anchor the hashes in the Evidence Pack with a public timestamping service. Status: not started; low cost.
+
+## E7. Restore retrievability of the hash-pinned stack
+
+The September 2026 lock pins no longer resolve after a repository rename. Status: open reproducibility item; engineering, not science.
