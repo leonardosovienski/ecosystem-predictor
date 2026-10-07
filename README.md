@@ -2,7 +2,7 @@
 
 **Research showcase and public evidence pack** for a one-person research programme (2026) that built prediction systems in three domains, found that its real problems were problems of *evaluation*, and responded by building evidence discipline: pre-registration, verifiable temporal integrity, protocol-based qualification with hash-identified attestations, and a research agent whose proposals are separated from authority by a deterministic policy. Its latest result is methodological: a 112-episode diagnostic line showed that the programme's original way of measuring *authority demand* in research agents was not valid enough to justify a frontier-model intervention study, and the line was closed before expensive scaling.
 
-> This repository contains **evidence, not implementation**. Code, parameters, prompts, schemas, data and logs remain private. Everything here is either an aggregate result with a traceable source, a dated negative result, a hash you can check, or a limitation we state ourselves.
+> This repository contains **evidence, not implementation**. Code, parameters, prompts, schemas, data and logs lived in private repositories; on 2026-10-07 the owner made the product repositories public again (see the visibility note in the Evidence Pack §7), so the hashes below can now be checked against the sources directly. Everything here is either an aggregate result with a traceable source, a dated negative result, a hash you can check, or a limitation we state ourselves.
 
 ---
 
