@@ -1,0 +1,18 @@
+# CLAIM_GATE (programme item R04, 2026-10-07): every material number in the public documents must be licensed by a
+# registered claim (claims/CLAIM_INDEX.json: scope, source, date, CURRENT/HISTORICAL); high-risk phrases are banned.
+# A new number without a claim, or a banned phrase, fails this check. Python standard library only.
+name: Claim gate
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  claim-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python claims/claim_gate.py check --index claims/CLAIM_INDEX.json --root .
