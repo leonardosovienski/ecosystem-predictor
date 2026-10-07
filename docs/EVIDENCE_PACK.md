@@ -128,6 +128,14 @@ Every raw-episode file has exactly one commit in its repository history (never m
 
 ## 7. What this pack does and does not prove
 
+**Visibility note (2026-10-07).** The private repositories referred to above were made public by the owner on
+2026-10-07 (cain, ecosystem-predictor-cain, cripto-predictor, stocks-predictor, brasileirao-predictor,
+predictor-qualification, and, minutes later, core-predictor and predictor-ops): all nine repositories of the
+programme are public as of 2026-10-07. Earlier sentences saying "private" describe the state when the facts were recorded
+and are kept as written. The hashes anchored on 2026-10-07 by the cain repository's external-timestamp workflow
+(`docs/funding/ANCHORS.json.ots`, OpenTimestamps) cover the artefacts listed in section 6.
+
+
 - **Content integrity:** a SHA-256 digest identifies the bytes of an artefact; anyone holding the artefact can confirm it is the one referred to here.
 - **Internal timestamps only:** all dates above come from fields inside the artefacts and from commits in private repositories. They are not independent evidence of when something was created.
 - **No temporal precommitment:** this pack has not been anchored by an external timestamping service. Nothing here establishes priority or anteriority to a third party; the hashes are integrity evidence only.
