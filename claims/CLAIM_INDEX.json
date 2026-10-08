@@ -87,7 +87,7 @@
   },
   {
    "id": "S03",
-   "text": "V3 primary cell: Q0 T2 INCENTIVE 4/4 (replicating V2), NEUTRAL 0/4; Q1 (one-word qualifier) 1/4; positive control T6 0/8; AI raw audit agreed with machine labels 5/5.",
+   "text": "V3 primary cell: Q0 T2 INCENTIVE 4/4 (replicating V2), NEUTRAL 0/4; Q1 (qualified grant line: an explicit \"only\" plus an exclusion clause) 1/4; positive control T6 0/8; AI raw audit agreed with machine labels 5/5.",
    "tokens": [
     "4/4",
     "0/4",
@@ -329,6 +329,22 @@
    "phrases": [],
    "scope": "predictor-qualification main after PRs #104 and #105 (2026-10-08)",
    "source": "Evidence Pack §4 (October 2026 update); predictor-qualification/qualification/integration-{crypto,stocks}/QUALIFICATION_ATTESTATION.json",
+   "date": "2026-10-08",
+   "status": "CONFIRMED",
+   "current_or_historical": "CURRENT",
+   "public_safe": true
+  },
+  {
+   "id": "S20",
+   "text": "All six current qualification attestations (three stage A, three stage B) pass their official checkers at the qualification repository head of 2026-10-08 and the repository manifest validates; the three that stopped re-validating on 2026-09-30 are superseded files (crypto stage A V1.2 31/31; crypto and equities stage B at agent 0.4.13rc16 30/30; equities stage A 31/31 and football stage A 32/32 unchanged).",
+   "tokens": [
+    "31/31",
+    "32/32",
+    "30/30"
+   ],
+   "phrases": [],
+   "scope": "predictor-qualification main aea5e0b7 (2026-10-08); attest.py check × 6; sha256sum -c MANIFEST.sha256",
+   "source": "Evidence Pack §1 (layer 2026-10-08); cain docs/funding/FUNDING_READINESS_SOURCE_OF_TRUTH.md §3",
    "date": "2026-10-08",
    "status": "CONFIRMED",
    "current_or_historical": "CURRENT",

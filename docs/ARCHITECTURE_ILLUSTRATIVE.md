@@ -1,6 +1,8 @@
 # Illustrative Architecture
 
-> **Conceptual illustration. Does not describe the private implementation.** Roles are generic. No contract, schema, rule, state, order of execution or mechanism shown here corresponds literally to the private code.
+> MODE: CURRENT_LIVING_STATE · dated layers; earlier sentences are kept as written and scoped by date, never rewritten · last material update 2026-10-08.
+
+> **Conceptual illustration. Does not describe the implementation** (public since 2026-10-07 under a proprietary licence). Roles are generic. No contract, schema, rule, state, order of execution or mechanism shown here corresponds literally to the code.
 
 ## Roles and what each role is *not allowed* to do
 

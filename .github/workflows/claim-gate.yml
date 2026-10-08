@@ -15,4 +15,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+      - run: python claims/claim_gate.py selftest
       - run: python claims/claim_gate.py check --index claims/CLAIM_INDEX.json --root .
