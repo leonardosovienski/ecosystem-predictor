@@ -56,7 +56,7 @@ Synthetic controls only: they certify that the statistical judges respond correc
 
 Attestations expire after seven days by design; expiry is recorded, never silently extended.
 
-## 4. Published package wheels (hash-pinned in the September 2026 joint lock; historical)
+## 4. Published package wheels (hash-pinned in the joint lock; September 2026 rows historical, October 2026 update below)
 
 These hashes identify the wheels the qualified September 2026 stack consumed through a single joint lock. As of October 2026 the lock's download pins no longer resolve from a clean environment (repository rename); the hashes remain valid content identifiers. Current retrievability is an open reproducibility item, not a current-state claim.
 
@@ -69,6 +69,19 @@ These hashes identify the wheels the qualified September 2026 stack consumed thr
 | crypto domain | 1.2.0rc4 | `32a4bd6d86719070e1a5d1e418c46034cfbf4ee292da11f17af2f60081fa9bf6` |
 | equities domain | 0.3.0rc3 | `902f0d34efe7aef02c084e7886ef997c9b3f9bfe28e0e923c9c178361131ea00` |
 | football domain | 0.3.0rc5 | `be3bc5127ef64f1a3265b2e97384db3f4883d7d404030bed85aaa9fef1a078a6` |
+
+
+**October 2026 update (7 and 8 October 2026; the September rows above are kept as written).** The producer repositories are public
+again and every consumer now fetches the stack wheels from a hash-pinned registry (repository, release tag, asset, sha256)
+without credentials; the joint lock was re-locked on the registry and its install is verified in CI. The research agent moved to
+0.4.13rc16 (package code identical to rc15; only the lock mechanism changed) and the governance package to 0.2.2. The crypto
+and equities stage-B attestations were re-issued QUALIFIED at rc16 (hosted Linux primary and hosted Windows secondary);
+the football stage-B attestation stays at rc13 until the owner re-runs its private runtime.
+
+| Component | Version (October 2026 lock) | wheel sha256 |
+|---|---|---|
+| governance/contracts | 0.2.2 | `63cb1c16b02a89e5412b7b1b3f83dff040444a29ca895dc364c0452291b8ef3e` |
+| research agent | 0.4.13rc16 | `d8fca502420f66ebb39dc98f965895e17530c42ee413af61798e7a7dcfc9a302` |
 
 ## 5. Counts verified during the AI-assisted cross-repository evidence audit of 2026-10-06
 
