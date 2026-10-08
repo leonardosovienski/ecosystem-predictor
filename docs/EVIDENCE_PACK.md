@@ -1,8 +1,10 @@
 # Evidence Pack
 
-Everything below can be checked mechanically by anyone who later gains access to the private artefacts, and can be anchored externally (timestamping service) without revealing content. Labels are generic on purpose. All timestamps are internal (Git and JSON) unless stated otherwise.
+> MODE: CURRENT_LIVING_STATE · dated layers; earlier sentences are kept as written and scoped by date, never rewritten · last material update 2026-10-08.
 
-## 1. Qualification attestations (current)
+Everything below can be checked mechanically by anyone who later gains access to the private artefacts (public since 2026-10-07, see §7), and can be anchored externally (timestamping service) without revealing content. Labels are generic on purpose. All timestamps are internal (Git and JSON) unless stated otherwise.
+
+## 1. Qualification attestations (as issued in September 2026; the current set is in the 2026-10-08 layer below)
 
 | Artefact | Result | Gates passed | Findings (P0/P1/P2) | Issued (UTC, from the artefact) | Size (bytes) | SHA-256 |
 |---|---|---|---|---|---|---|
@@ -22,6 +24,19 @@ Every attestation records `capital_permission = false` and `training_started = f
 | Football — stage B, previous stack | 2026-09-28T15:25Z | `8aef11046708d53504da06c3796af1d5f14b024524c64290e7792527b517e29e` |
 
 **Known limitation:** as of 2026-09-30, three of the six current attestations (crypto stage A, crypto stage B, equities stage B) validate only against the commit at which they were issued, because artefacts they reference were later rewritten in place. This is recorded as an open P1 finding in the private repository.
+
+**Layer 2026-10-08 (current attestations at the qualification repository head; every one passes the mission's official checker and the repository manifest validates).** Three of the six rows above were superseded by re-issues: the crypto stage A by its V1.2 reopening, and the crypto and equities stage B by cycles at agent 0.4.13rc16. Each re-issue names the hash of the attestation it replaces; twenty-four superseded attestations are preserved. The limitation of 2026-09-30 is resolved for the current set.
+
+| Artefact (current) | Result | Gates passed | Findings (P0/P1/P2) | Issued (UTC, from the artefact) | Size (bytes) | SHA-256 |
+|---|---|---|---|---|---|---|
+| Crypto domain — stage A (V1.2) | QUALIFIED | 31/31 | 0 / 0 / 8 | — | 39482 | `0c8589b128a14679d138807a3e2213dc6592e4e648126a99c7376cdf50232364` |
+| Equities domain — stage A | QUALIFIED | 31/31 | 0 / 0 / 3 | — | 45921 | `e0f2e28ddd0c1887faaba3f409dacc3c49de9854eed38ba286ed3cc501f99c2e` |
+| Football domain — stage A | QUALIFIED | 32/32 | 0 / 0 / 5 | — | 56268 | `a4fa2fee25b65c39888d90cd947fc36ba63076eae536e5b676052470ed7521e4` |
+| Crypto domain — stage B (agent 0.4.13rc16, cycle rc16e) | QUALIFIED | 30/30 | 0 / 0 / 4 | — | 34150 | `263bd04e282ee51f92ea256d517099b6b367cc591809add2043ac846df4723f3` |
+| Equities domain — stage B (agent 0.4.13rc16, cycle 7) | QUALIFIED | 30/30 | 0 / 0 / 0 | — | 39266 | `359c0a49b97ee3abd226bfe67a9e8e5ce188e62b4bc32db0db6fb77d53485c31` |
+| Football domain — stage B (agent 0.4.13rc13) | QUALIFIED | 30/30 | 0 / 0 / 1 | — | 34693 | `99dd94bdac947860293325e21053dbb6caa941dacb035facd2e57a523e8534d8` |
+
+Scope: the agent is qualified at 0.4.13rc16 by the crypto and equities integrations (hosted Linux primary, hosted Windows secondary) and at 0.4.13rc13 by the football integration, whose rc16 cycle holds only static checks until the owner re-runs its private runtime.
 
 ## 2. Joint test of the three real domains driven by the research agent (2026-09-28)
 
@@ -58,7 +73,7 @@ Attestations expire after seven days by design; expiry is recorded, never silent
 
 ## 4. Published package wheels (hash-pinned in the joint lock; September 2026 rows historical, October 2026 update below)
 
-These hashes identify the wheels the qualified September 2026 stack consumed through a single joint lock. As of October 2026 the lock's download pins no longer resolve from a clean environment (repository rename); the hashes remain valid content identifiers. Current retrievability is an open reproducibility item, not a current-state claim.
+These hashes identify the wheels the qualified September 2026 stack consumed through a single joint lock. As of early October 2026 the lock's download pins no longer resolved from a clean environment (repository rename); the hashes remain valid content identifiers. Retrievability was an open reproducibility item until 2026-10-07 (resolved; October update below, re-verified from fresh clones without credentials on 2026-10-08).
 
 | Package role | Version | SHA-256 |
 |---|---|---|
@@ -108,7 +123,7 @@ Scope: single-turn, local-model, diagnostic. Model: Qwen 2.5 7B instruct (4-bit 
 | Explicit additional-access channel non-empty | **0 / 112** |
 | Iteration 1 | original metric found to count in-grant parameter edits as authority expansion (construct-validity failure) |
 | Iteration 2 | corrected taxonomy; apparent signal in the primary incentive cell, 4/4 vs 0/4 neutral; pre-registered validity criterion fired on an unrelated output defect |
-| Iteration 3 (pre-registered discriminating test) | identical instrument reproduced the cell 4/4 vs 0/4; one-word qualifier on the grant line → 1/4; positive control for the request channel 0/8 |
+| Iteration 3 (pre-registered discriminating test) | identical instrument reproduced the cell 4/4 vs 0/4; qualified grant line (an explicit "only" plus an exclusion clause) → 1/4; positive control for the request channel 0/8 |
 | AI raw audit vs machine labels (iteration 3) | 5/5 events agree, 0 disagreements |
 | Final state | `REFORMULATE_RQ1`; line closed |
 | Frontier evaluation | not run (planned and costed; cancelled on instrument validity) |
@@ -117,7 +132,7 @@ Scope: single-turn, local-model, diagnostic. Model: Qwen 2.5 7B instruct (4-bit 
 
 Cell sizes are n = 4; these are mechanistic diagnostic counts, not population estimates. The 0/112 figure means only that the explicit request channel was unused under these instruments and this model; it is not evidence of safety or of absent authority demand.
 
-Artefacts (private; labels generic; hashes verifiable by anyone who later gains access):
+Artefacts (private when recorded, public since 2026-10-07; labels generic; hashes verifiable by anyone who later gains access):
 
 | Artefact | Size (bytes) | SHA-256 |
 |---|---|---|
@@ -150,8 +165,8 @@ and are kept as written. The hashes anchored on 2026-10-07 by the cain repositor
 
 
 - **Content integrity:** a SHA-256 digest identifies the bytes of an artefact; anyone holding the artefact can confirm it is the one referred to here.
-- **Internal timestamps only:** all dates above come from fields inside the artefacts and from commits in private repositories. They are not independent evidence of when something was created.
-- **No temporal precommitment:** this pack has not been anchored by an external timestamping service. Nothing here establishes priority or anteriority to a third party; the hashes are integrity evidence only.
+- **Internal timestamps only:** all dates above come from fields inside the artefacts and from commits in private repositories. They are not independent evidence of when something was created. Layer 2026-10-08: the agent repository's anchored artefacts (section 6 files, designs, manifests, ledgers, wheel registry) have an OpenTimestamps calendar stamp of 2026-10-07, not yet upgraded to a Bitcoin attestation.
+- **No temporal precommitment of this pack:** this pack itself and the attestations have not been anchored by an external timestamping service. Nothing here establishes priority or anteriority to a third party; the hashes are integrity evidence only.
 - **No semantic validity:** a correct hash says nothing about whether the content is right, and nothing here is evidence of predictive or economic validity.
 - **No behavioural or safety validity:** the diagnostic-line counts in section 6 describe an instrument's behaviour on one local model. They are not evidence about authority-seeking in general, about frontier models, or about any effect of CAIN.
 

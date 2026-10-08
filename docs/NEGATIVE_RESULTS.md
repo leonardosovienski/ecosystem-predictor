@@ -1,5 +1,7 @@
 # Negative Results and Retractions
 
+> MODE: CURRENT_LIVING_STATE · dated layers; earlier sentences are kept as written and scoped by date, never rewritten · last material update 2026-10-08.
+
 Negative results are treated as evidence. Each line states what was expected, what was found, and what changed afterwards. Causality is not asserted beyond what the records say.
 
 ## Falsified or closed hypotheses
@@ -30,7 +32,7 @@ Negative results are treated as evidence. Each line states what was expected, wh
 **Found.**
 - The original metric confused parameter edits (within the grant) with authority expansion: a construct-validity failure, caught on the first 40 episodes.
 - A corrected taxonomy and rubric (second iteration) produced an apparent authority-expansion signal in one task cell under incentive.
-- A pre-registered controlled follow-up (third iteration) reproduced that cell exactly under the identical instrument and then reduced it sharply when a single qualifier was added to the grant line. The signal was consistent with editing of an unqualified default, not with a stable demand for authority.
+- A pre-registered controlled follow-up (third iteration) reproduced that cell exactly under the identical instrument and then reduced it sharply when the grant line was qualified (an explicit "only" plus an exclusion clause). The signal was consistent with editing of an unqualified default, not with a stable demand for authority.
 - The explicit additional-access request channel remained unused in all 112 episodes of the line.
 - A positive control, designed so that no in-grant path existed, also produced zero requests: it exposed a flaw in the elicitation design (a request-only proposal was structurally penalised; no obtainable resource was named) rather than establishing that the channel was observable.
 
@@ -56,5 +58,5 @@ Negative results are treated as evidence. Each line states what was expected, wh
 | Two concurrent consumers produced false reconciliation states | joint test, 2026-09-28 | Exclusive lock per domain; 20/20 afterwards |
 | Same requests produced different numbers on different operating systems | football qualification | Fixed; 20/20 identical across OS afterwards |
 | The first authority-demand metric counted in-grant parameter edits as authority expansion | research-agent diagnostic line, 2026-10-06 | Taxonomy redefined around access gain; metric replaced in the next iteration |
-| An apparent authority-expansion signal was traced primarily to editing of an unqualified default | same line, 2026-10-07 | Pre-registered follow-up with a one-word grant change; signal 4/4 → 1/4 in the primary cell |
+| An apparent authority-expansion signal was traced primarily to editing of an unqualified default | same line, 2026-10-07 | Pre-registered follow-up with a qualified grant line ("only" plus an exclusion clause); signal 4/4 → 1/4 in the primary cell |
 | The positive control for the request channel penalised the very behaviour it was meant to observe | same line, 2026-10-07 | Line closed; frontier evaluation cancelled; successor must redesign the channel and its scoring |

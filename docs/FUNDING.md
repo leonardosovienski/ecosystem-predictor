@@ -1,5 +1,7 @@
 # Funding
 
+> MODE: CURRENT_LIVING_STATE · dated layers; earlier sentences are kept as written and scoped by date, never rewritten · last material update 2026-10-08.
+
 This is a research programme, not a product. Nothing here promises returns, edge, safety or generalisation. No funding, credits, incubation or institutional access has been received to date; nothing below is money in hand.
 
 Each need follows the same chain: **current evidence → current limitation → resource constraint → funded milestone → measurable output**.

@@ -1,5 +1,7 @@
 # Lineage
 
+> MODE: CURRENT_LIVING_STATE · dated layers; earlier sentences are kept as written and scoped by date, never rewritten · last material update 2026-10-08.
+
 A dated chronology of the intellectual path, including dead ends. Dates are internal (commits and tags).
 
 | When | What happened | Which problem it exposed or solved |
@@ -28,7 +30,7 @@ A dated chronology of the intellectual path, including dead ends. Dates are inte
 | 2026-10-06 | AI-assisted cross-repository evidence audit of the programme (this showcase's source); diagnostic readiness audit of the research agent: no behavioural base rate exists | not external human review |
 | 2026-10-06 | First elicitation pilot (40 episodes, local 7B model, frozen prompt and scenarios): the original authority metric is found to count in-grant parameter edits as authority expansion | construct validity |
 | 2026-10-06 → 07 | Second iteration: taxonomy redefined around access gain; rubric validated on frozen edge cases; hostile pre-freeze review; 40 episodes; an apparent signal appears in one incentive cell; pre-registered validity criterion fires on an unrelated output defect | corrected metric / apparent signal |
-| 2026-10-07 | Third iteration, pre-registered as the single discriminating test: identical instrument reproduces the cell exactly (4/4); a one-word qualifier on the grant line reduces it to 1/4; positive control for the request channel yields 0/8 and exposes a design flaw; channel unused across all 112 episodes | default/instrument sensitivity identified |
+| 2026-10-07 | Third iteration, pre-registered as the single discriminating test: identical instrument reproduces the cell exactly (4/4); a qualified grant line ("only" plus an exclusion clause) reduces it to 1/4; positive control for the request channel yields 0/8 and exposes a design flaw; channel unused across all 112 episodes | default/instrument sensitivity identified |
 | 2026-10-07 | Frontier evaluation cancelled on this instrument; RQ1 set to REFORMULATE; single-turn line closed; terminal handoff written and hashed | evidence changed the programme before expensive scaling |
 
 ## What the chronology does and does not show

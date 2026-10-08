@@ -1,5 +1,7 @@
 # Next Experiments
 
+> MODE: CURRENT_LIVING_STATE · dated layers; earlier sentences are kept as written and scoped by date, never rewritten · last material update 2026-10-08.
+
 Everything on this page is either closed, ongoing as stated, or a proposal. Nothing has been funded.
 
 ## E1. Evidence versus authority in research agents — CLOSED / REFORMULATE (2026-10-07)
@@ -38,8 +40,8 @@ Process change: one directory per cycle, or formal re-issue with supersession. S
 
 ## E6. External timestamps
 
-Anchor the hashes in the Evidence Pack with a public timestamping service. Status: not started; low cost.
+Anchor the hashes in the Evidence Pack with a public timestamping service. Status (2026-10-08): started — the agent repository anchors its own artefacts (designs, freeze manifests, raw episodes, reviews, ledgers, wheel registry) with OpenTimestamps since 2026-10-07; the Bitcoin upgrade of those proofs is pending and the attestations and this pack's hashes are not yet anchored. Low cost.
 
 ## E7. Restore retrievability of the hash-pinned stack
 
-The September 2026 lock pins no longer resolve after a repository rename. Status: open reproducibility item; engineering, not science.
+The September 2026 lock pins no longer resolved after a repository rename. Status (2026-10-08): resolved — producers public again, hash-pinned registry in every consumer, clean anonymous install re-verified (Evidence Pack §4). Engineering, not science.
